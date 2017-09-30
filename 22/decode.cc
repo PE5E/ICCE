@@ -1,3 +1,4 @@
+#include "header.ih"
 void decode(std::istream &is, std::ostream &os)
 {
     char ch;

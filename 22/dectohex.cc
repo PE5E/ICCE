@@ -1,3 +1,4 @@
+#include "header.ih"
 std::string decToHex(size_t num)
 {
     size_t radix = 16;

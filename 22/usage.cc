@@ -1,4 +1,5 @@
-void usage(string const &programName)
+#include "header.ih"
+void usage(std::string const &programName)
 {
     char const use[]=
     R"(

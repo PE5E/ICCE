@@ -1,3 +1,4 @@
+#include "header.ih"
 void encode(std::istream &is, std::ostream &os)
 {
     char ch;

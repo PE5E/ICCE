@@ -1,4 +1,7 @@
-// header22.ih
+// header.ih
+#include <string>
+#include <iostream>
+
 #ifdef __cplusplus
     extern "C" {
 #endif  

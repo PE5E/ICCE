@@ -1,3 +1,4 @@
+#include "header.ih"
 bool isOther(char ch)                               
 {
     std::string others = "-_.~";                          // chars to skip

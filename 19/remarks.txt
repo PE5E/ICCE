@@ -1,0 +1,22 @@
+General:
+    Prefer .ih over .h
+
+    include iostream, string, etc in header file
+    include header file in each source
+    
+    each method couts that it is method x, maybe nicer
+    to do this from main in a single cout statement (?).
+    
+    
+method6.cc
+    prefer while(true) over while(1)
+    CTR on line 26
+    whitespace before else line 26
+    Break on line 36 does nothing
+
+main.cc 
+     Why is valueToAnalyze passed as a constant? 
+    
+method3.cc 
+    Break on line 36 does nothing
+    

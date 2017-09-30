@@ -1,6 +1,5 @@
 // method4.cc
-#include "myheader.h"
-#include <iostream>
+#include "myheader.ih"
 
 using namespace std;
 

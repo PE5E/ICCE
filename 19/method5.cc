@@ -1,7 +1,5 @@
 // method5.cc
-#include "myheader.h"
-#include <iostream>
-#include <math.h>
+#include "myheader.ih"
 
 using namespace std;
 

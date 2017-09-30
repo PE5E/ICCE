@@ -1,7 +1,5 @@
 // exercise_19.cc
-#include <iostream>
-#include <sstream>
-#include "myheader.h"
+#include "myheader.ih"
 
 using namespace std;
 

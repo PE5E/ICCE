@@ -1,6 +1,5 @@
 // method3.cc
-#include "myheader.h"
-#include <iostream>
+#include "myheader.ih"
 
 using namespace std;
 
@@ -18,7 +17,7 @@ void method3(unsigned long long int const valueToAnalyze, int nrOfTurns)
 
         ttMid = (ttLow + ttHigh) / 2;
 
-        while (1)
+        while (true)
         {
             valueToCompute = valueToAnalyze;
 

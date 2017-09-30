@@ -1,12 +1,12 @@
 General:
     Prefer .ih over .h.
-Ga ik doen
+done
 
     include iostream, string, etc in header file
-Waarom nodig?
+done
 
     include header file in each source
-ga ik doen
+done
     
     each method couts that it is method x, maybe nicer
     to do this from main in a single cout statement (?).
@@ -15,7 +15,7 @@ ombouwen. Kijken of ik daar zin/tijd voor heb en anders na Franks comment.
     
 method6.cc
     prefer while(true) over while(1)
-ga ik doen
+done ook in method3.cc
 
     CTR on line 26
 26 is definition. Can't be done in if statement.

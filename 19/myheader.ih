@@ -1,4 +1,7 @@
-// myheader.h
+// myheader.ih
+#include <iostream>
+#include <sstream>
+#include <math.h>
 
     #ifdef __cplusplus
 	    extern "C" {

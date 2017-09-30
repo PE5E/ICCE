@@ -1,0 +1,70 @@
+- It is appropriate to use an int-type parameter when only whole numbers are used. 
+In the code example this is illustrated. The price of pizzas is calculated based on the number of pizzas ordered.
+
+    int nrPizzas = 7;
+    cout << "Give the pizzadeliverguy: " << nrPizzas * 4.99 << " euros.\n";
+  
+  
+- It is appropriate to use an std::string value parameter when pieces of text need to be stored. 
+In the code example this is illustrated because some text is predefined and later shown.
+
+    std::string welcome = "Hello to all of you!";
+    cout << welcome;
+
+
+- It is appropriate to use a const reference to an int-type parameter... Well it is not really appropriate to define a const reference. Because a reference to a variable is always a const and the compiler won't accept it either.
+
+
+- It is appropriate to use a const reference to a std::string value parameter... Well it is not really appropriate to define a const reference. Because a reference to a variable is always a const and the compiler won't accept it either.
+
+
+- It is appropriate to use a non-const reference to an int-type parameter if we want to make a reference to an int-type parameter. A reference is always constant so no need to declare const or non const.
+A reference to an int-type parameter would make sense if we want to pass the value of the int-type parameter to a function but not copy it. This can be for reasons of e.g. memory or speed, or if we want to access the int-type parameter (which lives somewhere else locally) from within the function.
+
+void ShowNumber(int &number)
+{
+    cout << number << '\n';
+}
+
+int main()
+{
+    int value = 5;
+    ShowNumber(value);
+}
+
+- It is appropriate to use a non-const reference to a std::string value parameter if we want to make a reference to a std::string value parameter. A reference is always constant so no need to declare const or non const.
+A reference to a std::string value parameter would make sense if we want to pass the value of the std::string value parameter to a function but not copy it. This can be for reasons of e.g. memory or speed, or if we want to access the std::string value parameter (which lives somewhere else locally) from within the function.
+
+void ShowText(std::string &text)
+{
+    cout << text << '\n';
+}
+
+int main()
+{
+    std::string string = "Hello world!";
+    ShowText(string);
+}
+
+
+- It is appropriate to use a const rvalue reference to a int type parameter if... no. A const rvalue is nonsense. a rvalue by definition is temporary and will cease to exist after it is used. 
+
+
+- It is appropriate to use a const rvalue reference to a std::string parameter if... no. A const rvalue is nonsense. a rvalue by definition is temporary and will cease to exist after it is used. 
+
+
+- It is appropriate to use a rvalue reference to a int type parameter if we need to use (and probably modify) an int only within a function which value is passed to it when calling the function. It ceases to exist after the function ends.
+
+void myFun(int &&number)
+
+
+- It is appropriate to use a rvalue reference to a std::string parameter if we need to use (and probably modify) a string only within a function which value is passed to it when calling the function. It ceases to exist after the function ends.
+
+void myFun(string &&myString)
+
+
+
+
+
+
+

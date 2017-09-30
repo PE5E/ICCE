@@ -1,0 +1,25 @@
+// myheader.h
+
+    #ifdef __cplusplus
+	    extern "C" {
+    #endif
+
+    void method1(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // MSB right shift bits
+    void method2(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // MSB logarithm
+    void method3(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // MSB bit boundary search
+    void method4(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // LSB right shift bits
+    void method5(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // LSB logarithm
+    void method6(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // LSB bit boundary search
+
+    extern double const ln2;
+
+    #ifdef __cplusplus
+    	}
+    #endif
+

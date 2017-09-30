@@ -4,9 +4,9 @@
 std::string decToHex(size_t num)
 {
     size_t radix = 16;
-    std::string buff = "";
-    while (num != 0)
-    {
+    std::string buff = "";                                  
+    while (num != 0)                                        // process digits
+    {                                                       // in reverse
         size_t remainder = num % radix;
         if (remainder > 9)
             buff.insert(0, 1, 'A' + remainder - 10);        // letter

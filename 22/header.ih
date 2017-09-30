@@ -4,7 +4,8 @@
 #ifdef __cplusplus
     extern "C" {
 #endif  
-
+        
+        // info for users
         void usage(std::string const &programName);
         
         // command line options

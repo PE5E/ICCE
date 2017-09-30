@@ -4,7 +4,7 @@
 void decode(std::istream &is, std::ostream &os)
 {
     char ch;
-    while (is.get(ch)) 
+    while (is.get(ch))                         
     {
         if (ch == '%')
         {
@@ -18,6 +18,7 @@ void decode(std::istream &is, std::ostream &os)
             }
         }
         else
-            os << ch;                                   // skip  
-    }  
+        os << ch;                             // skip  
+    } 
+    return;
 }

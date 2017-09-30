@@ -18,5 +18,5 @@ char const use[]=
     
 void usage(std::string const &programName)
 {
-    std::cout << use << "\n";
+    std::cout << use << '\n';
 }

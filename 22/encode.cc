@@ -9,5 +9,5 @@ void encode(std::istream &is, std::ostream &os)
             os << ch;
         else            
             os << '%' << decToHex((size_t) ch);         // encode
-                                                
+    return;
 }

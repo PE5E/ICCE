@@ -1,4 +1,5 @@
 #include "header.ih"
+
 // test if ch is alphanumerical 
 bool isAlpha(char ch)
 {

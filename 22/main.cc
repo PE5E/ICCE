@@ -1,11 +1,16 @@
 #include "header.ih"
-// cmdline  -e cin, cout as url-encoded
-//          -d cin as url-encoded, write as url-decoded
-// url-encoded  - _ . and ~ 
-//          
-// usage function
-// 
-// option handling: as in 20 OR simply test for -e -d or empty
+
+// Exercise 22: an URL stream decoder / encoder
+//         
+//         Usage: main [-e/-d] < input.txt
+//             (or provide stdin in other way)
+//         Where:
+//             -e        url-encode input
+//             -d        decode url-encoded input
+//         input.txt
+//             contains either
+//                 an url-encoded string (when using -d)
+//                 a url-decoded string (when using -e)
 
 int main(int argc, char* argv[])
 {

@@ -1,0 +1,12 @@
+#include <iostream>
+
+#ifdef __cplusplus
+    extern "C" {
+#endif
+
+    // insert value, keeping digit seperators
+    printBig(ostream &ou, long long value)          
+
+#ifdef __cplusplus
+    }
+#endif

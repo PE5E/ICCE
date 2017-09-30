@@ -1,0 +1,27 @@
+#include <iostream>
+#include <unistd.h>         // isatty, getopt
+
+#ifdef __cplusplus
+    extern "C" {
+#endif
+
+    // processing type
+    enum class Mode    {ERROR,
+                        OK,
+                        CAPITALIZE,
+                        LOWER_CASE,
+                        VERSION,
+                        USAGE};
+        
+    // arguments type
+    struct vars_t {
+        bool help;              // -h --help
+        bool version;           // -v --version
+        bool capitalize;        // -c --uc --capitalize
+        bool lowercase;         // -l --lc --lower-case
+    }
+
+#ifdef __cplusplus
+    }
+#endif
+ 

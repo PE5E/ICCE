@@ -1,0 +1,36 @@
+// header22.ih
+#ifdef __cplusplus
+    extern "C" {
+#endif  
+
+        void usage(std::string const &programName);
+        
+        // command line options
+        enum class EOption {ENCODE,
+                            DECODE, 
+                            NONE};
+                            
+        // which command line option was provided
+        EOption getOpt(std::string opt); 
+        
+        // convert 2-digit hex to decimal
+        size_t hexToDec(std::string str);
+        
+        // convert decimal to 2-digit hex
+        std::string decToHex(size_t num);
+        
+        // test if ch is alphanumerical
+        bool isAlpha(char ch);
+        
+        // test if ch is ~ . - _
+        bool isOther(char ch);
+        
+        // url-encode the stream
+        void encode(std::istream &is, std::ostream &os);  
+        
+        // decode url-encoded stream
+        void decode(std::istream &is, std::ostream &os);
+        
+#ifdef __cplusplus
+    }
+#endif

@@ -1,0 +1,2 @@
+/ocasys/fwn/main/login?return_url=/ocasys/fwn/vak/show?code=INBSEC-08
+https://www.amazon.com/gp/yourstore/home?ie=UTF8&ref_=nav_ya_signin

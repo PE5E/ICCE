@@ -1,0 +1,21 @@
+filename
+lineNr  comment
+
+usage.cc
+16      a url > an url (also in main)
+6-16    no leading spaces
+
+hextodex.cc     name: hextodec?
+7       too many characters on this line to print (81)
+
+main.cc
+10      is het nodig om cin en cout naar de functie mee te sturen?
+13      kan de functie dit zelf niet aanroepen?
+
+decode.cc
+9 11    combineren van if's kan waarschijnlijk met &&?
+17      waarom haakjes om char?
+
+General:
+Misschien toch %0A vertalen naar '\n'
+

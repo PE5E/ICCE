@@ -1,22 +1,39 @@
 General:
-    Prefer .ih over .h
+    Prefer .ih over .h.
+Ga ik doen
 
     include iostream, string, etc in header file
+Waarom nodig?
+
     include header file in each source
+ga ik doen
     
     each method couts that it is method x, maybe nicer
     to do this from main in a single cout statement (?).
-    
+waarschijnlijk nicer. Dan moet ik de functie ook een return geven en mn programma een beetje 
+ombouwen. Kijken of ik daar zin/tijd voor heb en anders na Franks comment.
     
 method6.cc
     prefer while(true) over while(1)
+ga ik doen
+
     CTR on line 26
+26 is definition. Can't be done in if statement.
+
     whitespace before else line 26
+kan niet vinden wat je bedoelt
+
     Break on line 36 does nothing
+net als hieronder beindigd deze de while(true) loop
+
+method3.cc 
+    Break on line 36 does nothing
+
 
 main.cc 
      Why is valueToAnalyze passed as a constant? 
-    
-method3.cc 
-    Break on line 36 does nothing
+2 redenen. Frank geeft aan altijd const te gebruiken als niks gewijzigd wordt. 
+Verder gebruik ik een afgeleide daarvan en daar doe ik wel wat mee. Ik wil die 2
+niet per ongeluk door elkaar halen en zo fouten introduceren. Als ik een fout maak 
+bij een bewerking van de const zal de compiler me dat vertellen.
     

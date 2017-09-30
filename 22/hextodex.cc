@@ -1,4 +1,6 @@
 #include "header.ih"
+// convert 2-digit hex to decimal
+
 size_t hexToDec(std::string str)
 {
     std::string hexDigits = "0123456789ABCDEF";

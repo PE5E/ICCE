@@ -1,6 +1,6 @@
 #include "header.ih"
-
 // decode url-encoded stream
+
 void decode(std::istream &is, std::ostream &os)
 {
     char ch;
@@ -8,7 +8,7 @@ void decode(std::istream &is, std::ostream &os)
     {
         if (ch == '%')
         {
-            if (is.get(ch))
+            if (is.get(ch))                   // not sure abt double if
             {
                 std::string str; 
                 str.push_back(ch);            // why these str methods

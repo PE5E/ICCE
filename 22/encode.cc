@@ -1,6 +1,6 @@
 #include "header.ih"
-
 // url-encode stream
+
 void encode(std::istream &is, std::ostream &os)
 {
     char ch;

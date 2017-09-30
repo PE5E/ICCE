@@ -1,6 +1,6 @@
 #include "header.ih"
-
 // convert decimal to 2-digit hex
+
 std::string decToHex(size_t num)
 {
     size_t radix = 16;

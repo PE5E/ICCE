@@ -1,8 +1,7 @@
 #include "header.ih"
+// instructions for users
 
-void usage(std::string const &programName)
-{
-    char const use[]=
+char const use[]=
     R"(
         Exercise 22: an URL stream decoder / encoder
         
@@ -16,5 +15,8 @@ void usage(std::string const &programName)
                 an url-encoded string (when using -d)
                 a url-decoded string (when using -e)
         )";
+    
+void usage(std::string const &programName)
+{
     std::cout << use << "\n";
 }

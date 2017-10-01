@@ -29,4 +29,4 @@ int main(int argc, char* argv[])
 //         input.txt
 //             contains either
 //                 an url-encoded string (when using -d)
-//                 a url-decoded string (when using -e)
+//                 an url-decoded string (when using -e)

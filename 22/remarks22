@@ -3,19 +3,35 @@ lineNr  comment
 
 usage.cc
 16      a url > an url (also in main)
-6-16    no leading spaces
-
-hextodex.cc     name: hextodec?
+                                                // fixed
+6-16    no leading spaces                           
+                                                // fixed
+hextodex.cc     name: hextodec?                 // fixed
 7       too many characters on this line to print (81)
+                            // Als we op papier inleveren niet ;)
 
 main.cc
 10      is het nodig om cin en cout naar de functie mee te sturen?
+            // Dat is netjes want de functie werkt op een stream. Zou je 'm bijvoorbeeld ergens anders nog kunnen gebruiken. Localisation; waarom zou je de input in main willen lezen als je 'm pas in de functie gebruikt?
 13      kan de functie dit zelf niet aanroepen?
+            // Dat kan maar is minder algemeen (bijv je kunt dan niet een ander soort stream naar die encode/decode functie sturen)
 
 decode.cc
 9 11    combineren van if's kan waarschijnlijk met &&?
+            // In welke volgorde krijg ik de chars dan binnen?
+            // Voelt een beetje als een hack.
+            // Ik ga er morgen over nadenken.
 17      waarom haakjes om char?
+            // decode.cc:17:23: error: expected primary-expression before ‘char’
+                 os << char hexToDec(str);
+            Maar: (char) is C-stijl dus ik heb het vervangen door:
+                os << static_cast<char>(hexToDec(str)); 
+            
 
 General:
 Misschien toch %0A vertalen naar '\n'
+            // na lang twijfelen vind ik van niet :p
+            // het is beter de specificatie in de opdracht te volgen.
+            // Het is logisch dat een "test case" die vervuiling (newlines) bevat
+            // foute resultaten oplevert. De opdracht spreekt ook over voorbeelden (meervoud).
 

@@ -14,7 +14,7 @@ void decode(std::istream &is, std::ostream &os)
                 str.push_back(ch);            // why these str methods
                 if (is.get(ch))
                     str.append(1, ch);
-                os << (char) hexToDec(str);                     
+                os << static_cast<char>(hexToDec(str));                     
             }
         }
         else

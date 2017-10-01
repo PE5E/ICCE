@@ -1,6 +1,9 @@
 MAIN
 http://www.icce.rug.nl/edu/
 
+SELECTED MAN PAGES
+https://www.icce.rug.nl/edu/1/manpages/
+
 LECTURES
 https://www.icce.rug.nl/edu/1/beschrijving.shtml
 

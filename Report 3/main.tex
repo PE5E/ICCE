@@ -1,0 +1,80 @@
+\documentclass{article}[9pt]
+
+%%----PACKS----%%
+% misc
+\usepackage[margin=0.5in]{geometry}
+% math
+\usepackage{amsmath,
+            amsfonts,
+            amssymb}
+% images
+\usepackage{graphicx}
+% code
+\usepackage{listings,
+            minted}
+\usepackage{inconsolata}
+%%-------------%%
+
+%%--SETTINGS---%% 
+% minted
+\usepackage{xcolor}
+\usemintedstyle[C++]{emacs}
+\definecolor{cppbg}{rgb}{255,255,255}
+\newminted[C+++]{C++}{linenos=true, texcl=true, bgcolor=cppbg}
+\newminted[bashing]{zsh}
+
+%%--CUSTOM-----%%
+\newenvironment{question}
+{
+\noindent \bf Problem statement. \rm
+}
+
+
+\newenvironment{solution}
+{
+\noindent \bf Solution. \rm
+}
+
+\begin{document}
+
+\begin{flushright}
+	\textbf{Regular: Yuqin Cui (s3215040) \\  Regular: Jaap van der Leest\\  Attendee: Timon van der Berg (s1925873) \\ }
+\today
+\end{flushright}
+
+\begin{center}
+\textbf{C++ Course \\
+Assignment 3} \\
+\end{center}
+
+\section*{Exercise 10}
+\begin{question}
+Create a program producing a multiplication table.
+\end{question}
+\begin{solution}
+
+\begin{C+++}
+#include <iostream>
+
+// INPUT integer as command line argument
+// OUTPUT multiplication table for given number
+
+int main(int argc, char* argv[])
+{
+    size_t num = std::stoi(argv[1]);
+
+    for (size_t factor = 1; factor != 11; ++factor)
+        
+        std::cout
+                << factor
+                << " * "
+                << num
+                << " = "
+                << factor * num
+                << "\n";
+}
+\end{C+++}
+\end{solution}
+
+\end{document}
+

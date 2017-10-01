@@ -1,27 +1,37 @@
-#include <iostream>
-#include <unistd.h>         // isatty, getopt
+#include <ctype.h>          // toupper, tolower
+#include <unistd.h>         // isatty
+#include <iostream>         // cin, cout
+#include <getopt.h>         // getopt_long
 
-#ifdef __cplusplus
-    extern "C" {
-#endif
+// processing type
+enum class Mode {
+    ERROR,
+    OK,
+    CAPITALIZE,
+    LOWER_CASE,
+    VERSION,
+    USAGE
+};
 
-    // processing type
-    enum class Mode    {ERROR,
-                        OK,
-                        CAPITALIZE,
-                        LOWER_CASE,
-                        VERSION,
-                        USAGE};
-        
-    // arguments type
-    struct vars_t {
-        bool help;              // -h --help
-        bool version;           // -v --version
-        bool capitalize;        // -c --uc --capitalize
-        bool lowercase;         // -l --lc --lower-case
-    }
+// arguments type
+struct vars_t {
+    bool help;              // -h --help
+    bool version;           // -v --version
+    bool capitalize;        // -c --uc --capitalize
+    bool lowercase;         // -l --lc --lower-case
+};
 
-#ifdef __cplusplus
-    }
-#endif
- 
+// info for user
+void usage();
+
+// process input
+void process(vars_t Vars);
+
+// do stuff 
+vars_t arguments(int argc, char* argv[]);
+
+// select mode from arguments
+Mode selectOpt(vars_t Vars);
+
+// cout version num
+void version();

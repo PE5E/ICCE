@@ -1,5 +1,5 @@
-#include "header.ih"
 // instructions for users
+#include "head.ih"
 
 char const use[]=
     R"(
@@ -10,11 +10,11 @@ char const use[]=
             --captitalize (--uc, -u);   captitalize the letters in 'file'
             <... other options, alphabetically ordered>
 
-        <program's base name processes 'file' and writes the results to the standard
-        output stream.
+        <program's base name processes 'file' and writes the results
+        to the standard output stream.
         )";
     
-void usage(std::string const &programName)
+void usage()
 {
     std::cout << use << '\n';
 }

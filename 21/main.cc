@@ -1,4 +1,4 @@
-// main
+// main.cc
 #include "myheader.ih"
 
 using namespace std;

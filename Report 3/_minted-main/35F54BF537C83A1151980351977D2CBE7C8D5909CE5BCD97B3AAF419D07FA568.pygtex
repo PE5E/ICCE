@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}head.ih\PYGZdq{}}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{argv}\PYG{p}{[])}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{isatty}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{))} 
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}no file redirection\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;} 
+        \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+    
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}PROCESSING\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{process}\PYG{p}{(}\PYG{n}{arguments}\PYG{p}{(}\PYG{n}{argc}\PYG{p}{,}\PYG{n}{argv}\PYG{p}{));}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// \PYGZhy{}h and \PYGZhy{}\PYGZhy{}help: provide short usage information and quit, returning 0 to the operating system. The usage info should also be shown if no file redirection was used (see below);}
+\PYG{c+c1}{// \PYGZhy{}v and \PYGZhy{}\PYGZhy{}version: show the program\PYGZsq{}s version and quit, returning 0 to the operating system;}
+\PYG{c+c1}{// \PYGZhy{}c, \PYGZhy{}\PYGZhy{}uc, and \PYGZhy{}\PYGZhy{}captitalize: all letters in the input file should be capitalized;}
+\PYG{c+c1}{// \PYGZhy{}l, \PYGZhy{}\PYGZhy{}lc, and \PYGZhy{}\PYGZhy{}lower\PYGZhy{}case: all letters in the input file should be transformed to lower\PYGZhy{}case characters; }
+\PYG{c+c1}{// program expects a file, redirected to stdin; i.e. just cin}
+\end{Verbatim}

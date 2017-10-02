@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.30)  1 OCT 2017 17:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.30)  2 OCT 2017 14:23
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -451,28 +451,28 @@ runsystem(which pygmentize && touch main.aex)...executed.
 
 runsystem(rm main.aex)...executed.
 
-
-No file main.aux.
+ (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 37.
+
 (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    ... okay on input line 37.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -542,24 +542,10 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count149
-\openout3 = `main.pyg'.
 
-runsystem(pygmentize -S default -f latex -P commandprefix=PYG > _minted-main/de
-fault-pyg-prefix.pygstyle)...executed.
-
-
-(./_minted-main/default-pyg-prefix.pygstyle)
-runsystem(pygmentize -S emacs -f latex -P commandprefix=PYGemacs > _minted-main
-/emacs.pygstyle)...executed.
-
- (./_minted-main/emacs.pygstyle)
-runsystem(pygmentize -l C++ -f latex -P commandprefix=PYG -F tokenmerge -P texc
-omments=True -o _minted-main/538F17CB13AEA13A829EC6BE3C315CAFCFB1946AD307202079
-5F94CBD6922290.pygtex main.pyg)...executed.
-
-
-(./_minted-main/538F17CB13AEA13A829EC6BE3C315CAFCFB1946AD3072020795F94CBD692229
-0.pygtex
+(./_minted-main/default-pyg-prefix.pygstyle) (./_minted-main/default.pygstyle)
+(./_minted-main/35F54BF537C83A1151980351977D2CBE7C8D5909CE5BCD97B3AAF419D07FA56
+8.pygtex
 LaTeX Font Info:    Try loading font information for OT1+zi4 on input line 1.
  (/usr/share/texmf-dist/tex/latex/inconsolata/ot1zi4.fd
 File: ot1zi4.fd 2016/12/29 OT1/zi4 (Inconsolata)
@@ -574,36 +560,59 @@ LaTeX Font Warning: Font shape `OT1/zi4/m/it' undefined
 LaTeX Font Info:    Font shape `OT1/zi4/m/it' will be
 (Font)              scaled to size 10.0pt on input line 2.
 LaTeX Font Info:    Font shape `OT1/zi4/bx/n' in size <10> not available
-(Font)              Font shape `OT1/zi4/b/n' tried instead on input line 7.
+(Font)              Font shape `OT1/zi4/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `OT1/zi4/b/n' will be
-(Font)              scaled to size 10.0pt on input line 7.
-) [1
+(Font)              scaled to size 10.0pt on input line 4.
+LaTeX Font Info:    Try loading font information for TS1+zi4 on input line 8.
+(/usr/share/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
+File: ts1zi4.fd 2016/12/29 TS1/zi4 (Inconsolata)
+)
+LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
+(Font)              scaled to size 10.0pt on input line 8.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.aux)
+
+LaTeX Font Warning: Font shape `TS1/zi4/m/it' undefined
+(Font)              using `TS1/zi4/m/n' instead
+(Font)              for symbol `textquotesingle' on input line 17.
+
+)
+(./_minted-main/201269ED310BA19B9D4DB03128F045882AD51425E048540941C01398E7D0C8C
+E.pygtex) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(./_minted-main/95BC93A0474BDAF77041FDB7176DCBB8E5FAEF1BD020C789898EAF5DC1C414C
+2.pygtex) [2]
+(./_minted-main/BD13292D310CBC5C047C2524D3435DCF1A12BFEC04DABC8367B9672243092DB
+8.pygtex) [3]
+(./_minted-main/3D0C34A5B43361334032C75797BD9438E4158B3F982CC23DAB11F72C6730E80
+2.pygtex)
+(./_minted-main/BA99B5201684B99EE009851C011128A6FFD4151988C195AAC87666079974168
+C.pygtex)
+(./_minted-main/86ECCA1A0C4084194D8B9BACC8E7518B9DF8E9FD9C8C2531C827EFA96048B8A
+C.pygtex) [4] [5] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-runsystem(rm main.pyg)...executed.
-
  ) 
 Here is how much of TeX's memory you used:
- 8139 strings out of 492990
- 129758 string characters out of 6138688
- 244394 words of memory out of 5000000
- 11563 multiletter control sequences out of 15000+600000
- 4962 words of font info for 19 fonts, out of 8000000 for 9000
+ 8183 strings out of 492990
+ 132197 string characters out of 6138688
+ 253442 words of memory out of 5000000
+ 11583 multiletter control sequences out of 15000+600000
+ 5251 words of font info for 20 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,5n,37p,843b,470s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}</usr/share/t
-exmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texmf
--dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb>
-Output written on main.pdf (1 page, 84406 bytes).
+ 37i,5n,37p,843b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/share/tex
+mf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}</usr/share/texmf-dist/fonts/t
+ype1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texmf-dist/fonts/type1
+/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb>
+Output written on main.pdf (5 pages, 103882 bytes).
 PDF statistics:
- 33 PDF objects out of 1000 (max. 8388607)
- 23 compressed objects within 1 object stream
+ 48 PDF objects out of 1000 (max. 8388607)
+ 34 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

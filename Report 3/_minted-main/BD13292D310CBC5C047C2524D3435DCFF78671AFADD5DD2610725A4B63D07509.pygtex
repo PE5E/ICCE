@@ -1,0 +1,43 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}head.ih\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}ctype.h\PYGZgt{}          // toupper, tolower}
+
+\PYG{k+kt}{void} \PYG{n+nf}{process}\PYG{p}{(}\PYG{n}{vars\PYGZus{}t} \PYG{n}{Vars}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Mode} \PYG{n}{option} \PYG{o}{=} \PYG{n}{selectOpt}\PYG{p}{(}\PYG{n}{Vars}\PYG{p}{);}
+    \PYG{k}{switch} \PYG{p}{(}\PYG{n}{option}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{case} \PYG{p}{(}\PYG{n}{Mode}\PYG{o}{::}\PYG{n}{ERROR}\PYG{p}{)}\PYG{o}{:}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}ERROR\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+            \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{case} \PYG{p}{(}\PYG{n}{Mode}\PYG{o}{::}\PYG{n}{USAGE}\PYG{p}{)}\PYG{o}{:}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{usage}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{case} \PYG{p}{(}\PYG{n}{Mode}\PYG{o}{::}\PYG{n}{VERSION}\PYG{p}{)}\PYG{o}{:}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{version}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}   
+        \PYG{k}{case} \PYG{p}{(}\PYG{n}{Mode}\PYG{o}{::}\PYG{n}{OK}\PYG{p}{)}\PYG{o}{:}                                 \PYG{c+c1}{// what is this mode for?}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}OK\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+            \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{case} \PYG{p}{(}\PYG{n}{Mode}\PYG{o}{::}\PYG{n}{CAPITALIZE}\PYG{p}{)}\PYG{o}{:}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}CAPITALIZE\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+            \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{case} \PYG{p}{(}\PYG{n}{Mode}\PYG{o}{::}\PYG{n}{LOWER\PYGZus{}CASE}\PYG{p}{)}\PYG{o}{:}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}LOWER\PYGZus{}CASE\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+            \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}   
+    \PYG{k}{return}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

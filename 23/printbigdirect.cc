@@ -9,10 +9,8 @@ void printBigDirect(std::ostream &ou, long long value)
     for (size_t idx = len + 1; idx != 0; --idx)                             // reverse over digits of val
     {
         if ((len - idx) % 3 == 0 && idx < len)                     // seperator every 3 digits
-        {
-            std::cout << "idx:" << idx << '\n' << "len:" << len << '\n';
             sepval.insert(0, 1,  '\'');
-        }
+        
         sepval.insert(0, 1, val[idx - 1]);                                     // digit
     }
     ou << sepval << '\n';

@@ -2,18 +2,18 @@
 #include "header.ih"
 
 char const use[]=
-    R"(
-        <program's base name> V <version number>
+R"(
+20 V 1>
 
-        Usage: <program's base name> [options] < file
-        Where:
-            --captitalize (--uc, -u);   captitalize the letters in 'file'
-            <... other options, alphabetically ordered>
-
-        <program's base name processes 'file' and writes the results
-        to the standard output stream.
-        )";
+Usage: ./bin number
+Where:
+    number is an integer
     
+<20 processes number and writes it to the output stream after 
+adding seperators every 3 digits, using two different methods:
+direct and indirect.
+)";
+
 void usage()
 {
     std::cout << use << '\n';

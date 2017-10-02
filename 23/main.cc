@@ -1,18 +1,19 @@
 #include "header.ih"
 
-int main()
+int main(int argc, char* argv[])
 {
-        long long number = 1208549018309;
-        printBigDirect(std::cout, number);
-        number = 11208549018309;
-        printBigDirect(std::cout, number);
-        number = 111208549018309;
-        printBigDirect(std::cout, number);
-        
-        long long number2 = 1208549018309;
-        printBig(std::cout, number2);
-        number2 = 11208549018309;
-        printBig(std::cout, number2);
-        number2 = 111208549018309;
-        printBig(std::cout, number2);
+    if (argc != 2)
+    {
+        std::cout << "Error: this program expects a single integer." << '\n';
+        return 1;
+    }
+    
+    long long num = std::stoll(argv[1]);
+    
+    std::cout << "direct method:" << '\n';
+    printBigDirect(std::cout, num);
+    
+    std::cout << "recursive method:" << '\n';
+    printBig(std::cout, num);
+    std::cout << '\n';
 }

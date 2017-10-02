@@ -2,18 +2,19 @@
 #include "head.ih"
 
 char const use[]=
-    R"(
-        <program's base name> V <version number>
+R"(
+20 V 1>
 
-        Usage: <program's base name> [options] < file
-        Where:
-            --captitalize (--uc, -u);   captitalize the letters in 'file'
-            <... other options, alphabetically ordered>
+Usage: ./main [options] < file
+Where:
+    --captitalize   (--uc, -u);     captitalize the letters in 'file'
+    --help          (-h);           display this information
+    --lowercase     (--lc, -l);     convert letters to lowercase in 'file'
+    --version       (-v);           display version information
 
-        <program's base name processes 'file' and writes the results
-        to the standard output stream.
-        )";
-    
+20 processes 'file' and writes the results
+to the standard output stream.
+)";
 void usage()
 {
     std::cout << use << '\n';

@@ -8,7 +8,7 @@ void process(vars_t Vars)
     {
         case (Mode::ERROR):
         {
-            std::cout << "ERROR" << '\n';
+            std::cout << "ERROR" << '\n';                           // is this enough?
             break;
         }
         case (Mode::USAGE):
@@ -21,19 +21,16 @@ void process(vars_t Vars)
             version();
             break;
         }   
-        case (Mode::OK):                                 // what is this mode for?
-        {
-            std::cout << "OK" << '\n';
-            break;
-        }
         case (Mode::CAPITALIZE):
         {
-            std::cout << "CAPITALIZE" << '\n';
+            char ch;
+            while (std::cin.get(ch)) std::cout << static_cast<char>(toupper(ch));
             break;
         }
         case (Mode::LOWER_CASE):
         {
-            std::cout << "LOWER_CASE" << '\n';
+            char ch;
+            while (std::cin.get(ch)) std::cout << static_cast<char>(tolower(ch));
             break;
         }
     }   

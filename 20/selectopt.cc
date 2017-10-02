@@ -1,29 +1,23 @@
 #include "head.ih"
+extern int succesState;
 
 Mode selectOpt(vars_t Vars)
-{   
+{
     if (Vars.help)
-    {
         return Mode::USAGE;
-        std::cout << "SET MODE HELP" << '\n';
-    }
-    if (Vars.version) 
-    {
+    if (Vars.version)
         return Mode::VERSION;
-        std::cout << "SET MODE VERSION" << '\n';
-    }
-    if (Vars.capitalize and Vars.lowercase)
+    if (Vars.capitalize and Vars.lowercase)         // can't do both
     {
         return Mode::ERROR;
-        std::cout << "SET MODE ERROR" << '\n';
+        succesState = 1;
     }
     if (Vars.capitalize)
-    {
         return Mode::CAPITALIZE;
-    }
     if (Vars.lowercase)
-    {
         return Mode::LOWER_CASE;
-    }
+    std::cout << "Invalid argument provided.";
+        succesState = 1;
     return Mode::ERROR;
+    
 }

@@ -6,19 +6,18 @@ void decode(std::istream &is, std::ostream &os)
     char ch;
     while (is.get(ch))                         
     {
-        if (ch == '%')
+        if (ch == '%' && is.get(ch))
         {
-            if (is.get(ch))                   // not sure abt double if
-            {
-                std::string str; 
-                str.push_back(ch);            // why these str methods
-                if (is.get(ch))
-                    str.append(1, ch);
-                os << static_cast<char>(hexToDec(str));                     
-            }
+            std::string str; 
+            str.push_back(ch);            // why these str methods
+            if (is.get(ch))
+                str.append(1, ch);
+            os << static_cast<char>(hexToDec(str));                     
         }
         else
         os << ch;                             // skip  
     } 
     return;
 }
+
+Jaap: Line 9 combined the 2 IF statement into 1

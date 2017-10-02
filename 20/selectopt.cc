@@ -14,6 +14,7 @@ Mode selectOpt(vars_t Vars)
     }
     if (Vars.capitalize and Vars.lowercase)
     {
+        return Mode::ERROR;
         std::cout << "SET MODE ERROR" << '\n';
     }
     if (Vars.capitalize)

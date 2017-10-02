@@ -1,4 +1,5 @@
 #include "head.ih"
+#include <ctype.h>          // toupper, tolower
 
 void process(vars_t Vars)
 {

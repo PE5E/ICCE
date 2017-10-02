@@ -63,6 +63,25 @@ void myFun(int &&number)
 void myFun(string &&myString)
 
 
+- It is appropriate to return an int-type value if a function returns a whole number.
+
+int multiply(int first, int second)
+{
+    return (first * second);
+}
+
+
+- It is appropriate to return a std::string value if a function returns a piece of text.
+
+std::string helloWorld(void)
+{
+    std::string hello = "Hello World!\n";
+    return(hello);
+}
+
+
+- It is not appropriate to return something like a reference or rvalue reference (const or non-const)
+Because the values being returned are not accessible anymore when the function ends. 
 
 
 

@@ -1,4 +1,3 @@
-#include <ctype.h>          // toupper, tolower
 #include <unistd.h>         // isatty
 #include <iostream>         // cin, cout
 #include <getopt.h>         // getopt_long

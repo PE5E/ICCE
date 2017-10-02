@@ -1,12 +1,11 @@
 #include <iostream>
+#include <string>   // string, to_string
 
-#ifdef __cplusplus
-    extern "C" {
-#endif
+// insert value, keeping digit seperators
+void printBig(std::ostream &os, long long value);  
 
-    // insert value, keeping digit seperators
-    printBig(ostream &ou, long long value)          
+// direct method for inserting seps
+void printBigDirect(std::ostream &ou, long long value);
 
-#ifdef __cplusplus
-    }
-#endif
+    
+

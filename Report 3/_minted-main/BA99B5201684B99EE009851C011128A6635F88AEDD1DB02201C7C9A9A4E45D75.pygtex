@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// instructions for users}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}head.ih\PYGZdq{}}
+
+\PYG{k+kt}{char} \PYG{k}{const} \PYG{n}{use}\PYG{p}{[]}\PYG{o}{=}
+    \PYG{l+s+sa}{R}\PYG{l+s}{\PYGZdq{}}\PYG{l+s+dl}{(}
+\PYG{l+s}{        \PYGZlt{}program\PYGZsq{}s base name\PYGZgt{} V \PYGZlt{}version number\PYGZgt{}}
+
+\PYG{l+s}{        Usage: \PYGZlt{}program\PYGZsq{}s base name\PYGZgt{} [options] \PYGZlt{} file}
+\PYG{l+s}{        Where:}
+\PYG{l+s}{            \PYGZhy{}\PYGZhy{}captitalize (\PYGZhy{}\PYGZhy{}uc, \PYGZhy{}u);   captitalize the letters in \PYGZsq{}file\PYGZsq{}}
+\PYG{l+s}{            \PYGZlt{}... other options, alphabetically ordered\PYGZgt{}}
+
+\PYG{l+s}{        \PYGZlt{}program\PYGZsq{}s base name processes \PYGZsq{}file\PYGZsq{} and writes the results}
+\PYG{l+s}{        to the standard output stream.}
+\PYG{l+s}{        }\PYG{l+s+dl}{)}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    
+\PYG{k+kt}{void} \PYG{n+nf}{usage}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{use} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

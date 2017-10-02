@@ -18,9 +18,8 @@
 %%--SETTINGS---%% 
 % minted
 \usepackage{xcolor}
-\usemintedstyle[C++]{emacs}
-\definecolor{cppbg}{rgb}{255,255,255}
-\newminted[C+++]{C++}{linenos=true, texcl=true, bgcolor=cppbg}
+\definecolor{cppbg}{rgb}{150,240,240}
+\newminted[cpp]{C++}{linenos=true, texcl=true, bgcolor=cppbg, tabsize=4, frame=single, newfloat=true}
 \newminted[bashing]{zsh}
 
 %%--CUSTOM-----%%
@@ -46,35 +45,39 @@
 \textbf{C++ Course \\
 Assignment 3} \\
 \end{center}
+\section*{Exercise 18}
 
-\section*{Exercise 10}
+\section*{Exercise 19}
+
+\section*{Exercise 20}
 \begin{question}
-Create a program producing a multiplication table.
+Bla
 \end{question}
 \begin{solution}
+main.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/main.cc}
+head.ih:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/head.ih}
+arguments.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/arguments.cc}
+process.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/process.cc}
+selectopt.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/selectopt.cc}
+usage.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/usage.cc}
+version.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/version.cc}
 
-\begin{C+++}
-#include <iostream>
-
-// INPUT integer as command line argument
-// OUTPUT multiplication table for given number
-
-int main(int argc, char* argv[])
-{
-    size_t num = std::stoi(argv[1]);
-
-    for (size_t factor = 1; factor != 11; ++factor)
-        
-        std::cout
-                << factor
-                << " * "
-                << num
-                << " = "
-                << factor * num
-                << "\n";
-}
-\end{C+++}
 \end{solution}
+
+\section*{Exercise 21}
+\begin{question}
+\end{question}
+
+\section*{Exercise 22}
+
+\section*{Exercise 23}
 
 \end{document}
 

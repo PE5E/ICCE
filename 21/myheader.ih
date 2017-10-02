@@ -1,0 +1,11 @@
+// myheader.ih
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// calculate the next block
+void square(string input, string leftFactor, string rest);
+
+// a partial calculation of a block
+int partial(string firstBlock, string leftFactor, string& rest);

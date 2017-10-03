@@ -4,7 +4,7 @@
 std::string decToHex(size_t num)
 {
     size_t radix = 16;
-    std::string buff = "";                                  
+    std::string buff;                                  
     while (num != 0)                                        // process digits
     {                                                       // in reverse
         size_t remainder = num % radix;

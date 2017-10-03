@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven03.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l4"></a>
+<h1>Chapter 4: Set four: classes. Deadline: October 12</h1>
+            <br><br>
+<p>
+A very simple script allowing you to start the construction of a class can be
+downloaded from <a href="https://www.icce.rug.nl/edu/1/makeclass">here</a>. It should be given execute-permissions
+(<code>chmod +x makeclass</code>) and it should be put in one of the directories of
+your <code>PATH</code>, e.g., <code>/usr/local/bin</code>. 
+</p><p>
+It requires <strong>Perl</strong>. If your implementation installs <strong>Perl</strong> in <code>/bin</code>
+then change <code>makeclass's</code> top-line into <code>#!/bin/perl</code>.
+</p><p>
+Run <code>makeclass</code> with the name of the class as its argument and it'll create
+a directory of that name (only lower case characters, no underscores) in which
+the class files are written. It's an interactive script, and for now you only
+need to answer <code>y</code> to the first question (asking you whether it should
+create a default constructor). Doing so for <code>makeclass Demo</code> will get you
+the following contents in a newly created directory <code>demo</code>:
+        </p><pre>
+    demo.h      - the header file
+    demo.ih     - the internal header file
+    demo1.cc    - an (empty) implementation of the default constructor
+    frame       - a frame file that can be copied to the next file in which
+                  you want to implement a member function 
+                  (e.g., `cp frame membername.cc')
+        
+</pre>
+
+    If you're using <code>icmake</code> then consider specifying the option <code>-c</code> to
+automatically add the class-name to the file <code>CLASSES</code>.
+<p>
+Note:
+Whenever you define classes, make sure the members are defined as <code>const</code>
+members if they do not modify the class's data members. Also, put some effort
+in defining the appropriate parameter and return types. See the <code>functions</code>
+slides and HAT for details.
+</p><p>
+Do <strong>not</strong> combine the answers to multiple exercises. Some exercises ask you
+to design a class, and to submit just the header file. The next exercise may
+ask you to implement the class. Don't combine those exercises when submitting
+them, as a serious error in one results in both being rated as 0. Also, a
+small error in both parts will then add up to a large(r) error count, again
+causing both to be rated 0.
+</p><p>
+When you're asked to <em>define</em> a class, then you should provide all the
+class's source files: header, internal header and source files. When
+submitting your answers to those kinds of exercise order your sources as
+follows:
+    </p><ul>
+    <li> The header file comes first
+    </li><li> Next the internal header file
+    </li><li> Then the sources of your class, lower-case alphabetically ordered by
+        member-name. 
+    </li></ul>
+<p>
+</p><hr>
+        <strong>Exercise 26.</strong>
+        <br>
+        Purpose of this exercise: familiarize yourself with some key concepts of
+classes. 
+<p>
+Describe in your own words what `encapsulation' and `data hiding' means, and
+why these concepts are important when designing classes.
+</p><p>
+Provide a <em>small</em> example of a self-defined class illustrating your
+explanation.
+</p><p>
+The example only requires you to submit a class interface, not a class
+implementation. Why is the implementation irrelevant?
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 27.</strong>
+        <br>
+        Purpose of this exercise: learn to design a class encapsulating an existing
+system function.
+<p>
+Classes are often designed as wrappers around existing system functions. The
+advantage of that is, in addition to proper data hiding, that the use of those
+system functions is often simplified by the class interface.
+</p><p>
+In this case design and implement a class <code>User</code>, using the information
+retrieved from the <strong>getpwent</strong>(3) function, to make available the information
+that's stored about the current user in the <code>/etc/passwd</code> file.
+</p><p>
+The class should offer the following constructor and members:
+</p><p>
+</p><ul>
+    <li> <code>User()</code>: 
+       The default constructor determines the current user's data.
+<p>
+</p></li><li> <code>size_t groupid() const</code>:
+      Returns the user's group-id.
+<p>
+</p></li><li> <code>std::string homedir() const</code>:
+       Returns the user's home directory (including a trailing /).
+<p>
+</p></li><li> <code>bool inGroup(size_t gid) const</code>:
+       Returns <code>true</code> if the current user is a member of group <code>gid</code>,
+        otherwise <code>false</code> is returned.
+<p>
+</p></li><li> <code>std::string name() const</code>:
+       Returns the user's user-name.
+<p>
+</p></li><li> <code>std::string realname() const</code>:
+       Returns the user's real name, as listed in the /etc/passwd's gecos
+        field.
+<p>
+</p></li><li> <code>std::string shell() const</code>:
+       Returns the user's shell.
+<p>
+</p></li><li> <code>size_t userid() const</code>:
+       Returns the user's user-id.
+<p>
+</p></li><li> <code>bool valid() const</code>:
+       Returns <code>true</code> if the constructor could successfully do its work. If
+        not, it returns <code>false</code>, in which case the return values of the
+        other member functions are all invalid.
+    </li></ul>
+<p>
+Sumbit your implementation of the class <code>User</code> as well as a <code>main</code> program
+in which all members but the member <code>inGroup</code> are used.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 28.</strong>
+        <br>
+        Purpose of this exercise: learn to design programs using object-based
+programming. 
+<p>
+Preamble: this is the first of a series of exercises in which objects are used
+when designing and implementing a program simulating a basic CPU. 
+</p><p>
+There are many good practices to learn and apply when desiging such programs,
+and many of them are not trivial. One of the important skills to master is
+getting the responsibilities right. Objects really help you to get that aspect
+right. 
+</p><p>
+In the current series of exercises we provide many hints and plain suggestions
+allowing you to produce a properly designed program. Follow these hints; not
+as zombies, but pick up the underlying principles so you can use them in
+future exercises. Do your best and good luck!
+</p><p>
+<strong>The CPU</strong>
+</p><p>
+As you probably know, inside the computer the Central Processing Unit (CPU)
+does most of the hard work. That's hardware. Some languages (Java being a
+well-known example) design their own `software-CPU' by defining an
+instruction set which is then processed by software (the software-CPU) rather
+than the computer's CPU itself. 
+</p><p>
+Here we'll design a very basic software-CPU ourselves. The core elements of a
+CPU are shown in figure <a href="https://www.icce.rug.nl/edu/1/opgaven04.html#ASMFIG">1</a>
+</p><p>
+</p><p><a name="ASMFIG"></a></p><figure>
+<img src="C_C++%20Exercises_set4_files/asm.jpg">
+<figcaption>Figure 1: Outline of a CPU</figcaption>
+</figure><p></p>
+
+<p>
+CPU's have <em>registers</em>, which are very fast memory elements living inside
+the CPU. Outside of the CPU but accessible to the CPU the computer's working
+memory (Random Access Memory, RAM) is found. 
+</p><p>
+The CPU reads instructions from programs and subsequently processes
+them. These instructions are normally stored in memory, but they may also be
+available on file. Since memory or the contents of files may be corrupted,
+basic checks on the correctness of the encountered instructions must be
+performed. 
+</p><p>
+Good design indicates that these checks should not be performed by the CPU
+itself, whose main task is to <em>execute</em>, rather than <em>check</em>
+instructions. Therefore, a component of the CPU is a <em>Tokenizer</em>, which is
+responsible for reading and parsing instructions, and passing them on to the
+CPU after parsing.
+</p><p>
+Our CPU has a very basic, but already somewhat familiar, assembler-like
+instruction set. The instruction set consists of:
+</p><p>
+</p><ul>
+    <li> <code>ERR</code>, returned by the Tokenizer after encountering an invalid
+        instruction;
+    </li><li> <code>MOV</code>, two operands: the value of the right-hand side (rhs) operand is
+        assigned to the left-hand side (lhs) operand;
+    </li><li> <code>ADD</code>, two operands: the value of the rhs operand is added to the
+        lhs operand;
+    </li><li> <code>SUB</code>, two operands: the value of the rhs operand is subtracted from the
+        lhs operand;
+    </li><li> <code>MUL</code>, two operands: the lhs operand is multiplied by the value of the
+        rhs operand;
+    </li><li> <code>DIV</code>, two operands: the lhs operand is divided by the value of the
+        rhs operand, storing the remainder in the CPU's last register. The CPU
+        must check for divisions by 0;
+    </li><li> <code>NEG</code>, one operand: its value is negated;
+    </li><li> <code>DSP</code>, one operand: its value (and subsequent newline character) is
+        inserted into <code>cout</code>;
+    </li><li> <code>STOP</code>, no operands: the program ends.
+    </li></ul>    
+<p>
+It's a very basic CPU. It does not use floating point values but merely
+integral values.
+</p><p>
+There are four types of operands:
+    </p><ul>
+    <li> <code>SYNTAX</code>: returned by the Tokenizer if it encountered a syntax error in 
+    </li><li> <code>VALUE</code>: mere values (like 12, -45) are <code>VALUE</code> type operands;
+    </li><li> <code>REGISTER</code>: single lower-case letters indicate registers. In our CPU
+        the number of registers equals <code>NREGISTERS</code>, initialized to 5;
+    </li><li> <code>MEMORY</code>: the character <code>@</code> followed by a non-negative number is an
+        address in memory. In our CPU the memory size is defined as <code>SIZE</code>,
+        initialized to 20;
+    </li></ul>
+<p>
+Instructions cannot have two <code>MEMORY</code> operands; modifiable operands (like
+<code>MOV's</code> lhs operand) cannot be <code>VALUE</code> type operands.
+</p><p>
+Except for <code>NREGISTERS</code>, which is only used inside the CPU, all other
+symbolic names are used in at least two classes (like CPU and Tokenizer). In
+these cases a design principle called <em>promotion</em> is often used: the common
+elements are defined in a separate header or class, which is then used by all
+using classes. This results in a clean design, avoiding circular class
+dependencies and not requiring complex class-passing strategies.
+</p><p>
+Based on the above description of our CPU develop <code>enums/enums.h</code> defining
+the enums <code>RAM, Opcode,</code> and <code>OperandType</code>. The <code>enum RAM</code> only defines
+a single symbol <code>(SIZE)</code>, and <code>SIZE's</code> value (by default 20) is used as a
+value, and not just as a symbolic name. So, defining an array having
+<code>RAM::SIZE</code> elements makes sense. The symbols of the other enums are merely
+used as symbols, and so their actual values are irrelevant: their actual
+values therefore should never directly be used.
+</p><p>
+In addition, design, implement and submit the class <code>Memory</code>. It merely
+needs two members: <code>load</code> and <code>store</code>. The values initially stored in
+memory is undefined. The member <code>store</code> expects an address number and value
+to store, ignoring the request if the address is out of range. The member
+<code>load</code> expects an address number and returns the value stored at the
+indicated address, returning 0 if the address is out of range.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 29.</strong>
+        <br>
+        Purpose of this exercise: learn to design and partially implement a core
+component of an object oriented program.
+<p>
+In this exercise we concentrate on the CPU. Before working on this exercise be
+sure to read and understand the previous exercise's description. 
+</p><p>
+The CPU's main characteristics are:
+    </p><ul>
+    <li> Its registers are implemented as an array of <code>NREGISTERS
+        int</code>-values;
+    </li><li> Another component of the CPU is the <code>Tokenizer</code>, which is defined
+        in a later exercise; its necessary features are described in this
+        exercise; 
+    </li><li> The CPU must be able to access memory, defined outside of
+        the CPU: the CPU is informed about this memory via its constructor.
+    </li><li> To represent the characteristics of operands the CPU defines the
+        <code>struct Operand</code>: POD, containing a <code>OperandType type</code> and an
+        <code>int value</code>.
+    </li></ul>
+<p>
+In addition to its constructor, it only needs one public member:
+<code>start</code>. This member continuously requests opcodes from the Tokenizer (using
+its member <code>opcode()</code>), and calls a dedicated member for each opcode (except
+when receiving the <code>OpCode::STOP</code> opcode, in which case <code>start</code> ends. The
+dedicated members are named after the opcodes they implement, but use
+lower-case letters. They do not have to be implemented for this
+exercise. Having processed an opcode, the Tokenizer's <code>reset</code> member is
+called to prepare the Tokenizer for tokenizing the next instruction 
+</p><p>
+When opcode <code>OpCode::ERR</code> is received the member <code>error()</code> is called:
+<code>error</code> inserts the message <code>syntax error</code> into <code>cout</code>, and returns
+<code>false</code>.
+</p><p>
+Design the class <code>CPU</code> according to the above description: submit the
+class's header file, and the implementations of its constructor, and members
+<code>start</code> and <code>error</code>. 
+</p><p>
+Also define <code>main</code>: it defines <code>Memmory</code> and <code>CPU</code> objects and
+starts the CPU.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 30.</strong>
+        <br>
+        Purpose of this exercise: learn to design and implement a component of an
+existing class.
+<p>
+The CPU (see the previous exercises) concentrates on processing
+instructions. The instructions themselves are retrieved from wherever they
+are, and the CPU itself won't bother itself with that problem. Instead, it
+uses a a support-object for that. The support object is a <em>tokenizer</em>: an
+objects that communicates with the outside world, and prepares MRUs (Morsels,
+ready to use) for the CPU.
+</p><p>
+The `outside world' is <code>cin</code>: the standard input stream. Each instruction is
+provided on a single line, and each element is separated from the next by
+space characters. The first element of each line is the assembler instruction:
+lower case versions of the names of the various Opcode symbols.
+</p><p>
+Thus, the Tokenizer has a member <code>opcode()</code> converting the first element to
+an <code>Opcode</code>, which is then returned.
+</p><p>
+Once an opcode has been recognized the CPU may request more, like an
+operand. Operands come in flavors: VALUE, REGISTER, .... The member
+<code>OperandType token()</code> can be called to retrieve the next operand type, and
+once called its matching member <code>int value()</code> returns the operand type's
+value.
+</p><p>
+It is important to realize that Tokenizer's should be as dumb as possible, but
+not dumber. If an instruction like <code>mov @1000 z</code> is entered, then the
+Tokenizer should dutifully return <code>Opcode::MOV, OperandType::MEMORY (value
+1000), OperandType::REGISTER (value 25)</code>. This way the Tokenizer will continue
+to work if the memory size or the number of registers change. It's <em>not</em> the
+responsibility of the Tokenizer to check limits; it's the responsibility of
+the Tokenizer to syntactically tokenize, and that's what it should do.
+</p><p>
+Once an instruction has been read (or when something is not right according to
+the CPU) the rest of the line should be skipped, so the Tokenizer can start
+all over again from the beginning of the next line. Here again we encounter a
+situation where we clearly delineate responsibilites: the CPU may decide that
+something is incorrect, but it has no knowledge of the medium with which it
+communicates. Instead, the Tokenizer has that knowledge, and so the CPU may
+request the <code>Tokenizer</code> to proceed at the next line. For that the
+Tokenizer's member <code>reset()</code> can be used. 
+</p><p>
+First <code>reset</code> must make sure that reading from <code>cin</code> is still
+possible. For that we slightly peek ahead: <code>cin's</code> member <code>clear()</code> will
+reactivate <code>cin</code>, if for whatever reason it was blocked. Next, it should
+read any remaining contents of the current line.
+</p><p>
+This is all that's required to design and implement the Tokenizer. Submit the
+Tokenizer's header and the implementations of its members.
+</p><p>
+Hint: using a <code>struct</code> storing an <code>Opcode</code> and a mnmemonic might come in
+handy when determining what opcode (if any) should be returned.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 31.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: complete the implementation of the CPU.
+<p>
+So far we've designed our CPU up to the point where the assembler-like
+instructions like <code>mov</code> and <code>add</code> are actually processed. In this exercise
+we complete the CPU, and thus we complete our (albeit limited) software-CPU.
+</p><p>
+Consider the <code>add</code> instruction. It can be used as a model of opcodes
+implementing binary operators. Once we understand how the <code>add</code> instruction
+works the unary operators (<code>neg, dsp</code>) can easily be implemented, and the
+implementations of the <code>mov</code> and <code>div</code> instructions turn out to be simple
+variations of the <code>add</code>-model. 
+</p><p>
+How would you explain to somebody what the <code>add</code>-instruction must do? You
+would probably come up with something like this:
+    </p><ul>
+    <li> Retrieve two operands from the tokenizer;
+    </li><li> If we don't succeed, then we're done processing the <code>add</code>
+        instruction;
+    </li><li> Store the sum of the values of the operands at the lhs-operand's 
+        location;
+    </li></ul>
+The <code>add</code> member should be implemented exactly along these lines. 
+<p>
+Of the above exaplanation the first two steps clearly belong together:
+retrieving two operands (say, by a member <code>twoOperands</code>) may fail, in which
+case <code>twoOperands</code> returns a <code>bool</code>, and if <code>false</code>, <code>add</code> returns. 
+</p><p>
+The third step requires three elements: information about the lhs operand, its
+value and the rhs operand's value. A member <code>store</code> can be defined receiving
+the <code>Operand</code> and a value, storing the value at the appropriate
+location. This completes the third step.
+</p><p>
+The member <code>twoOperands</code> receives as its arguments an <code>Operand</code> (becoming
+the lhs operand) and two values (becoming, respectively, the lhs-operand's and
+rhs-operand's values). What should <code>twoOperands</code> do?
+    </p><ul>
+    <li> First it should retrieve two operands, returning <code>false</code> if that
+        fails. 
+    </li><li> Next the values of the two operands must be determined, a process
+        called `dereferencing'. 
+    </li><li> Finally, the member returns <code>true</code>.
+    </li></ul>
+<p>
+The member <code>dereference</code> simply receives an <code>Operand</code> and returns the
+value represented by the operand (e.g., it returns the register's value if the
+operand's type is <code>OperandType::REGISTER</code>).
+</p><p>
+The first step is handled by a memebr <code>operands</code>, receiving two <code>Operand</code>
+objects. It retrieves the operand's values, returning <code>true</code> if this
+succeeds, otherwise <code>false</code>. The two operands differ in that the lhs operand
+must be an <em>lvalue</em>: an operand that can be assigned a value, so it must
+either be a register or a memory location. A member <code>lvalue</code> verifies this
+by first retrieving a value (calling <code>rvalue</code>), and then tests whether the
+retrieved value is an lvalue. 
+</p><p>
+The <code>rvalue</code> member calls the Tokenizer to retrieve the next operand. This
+is the location where the validity of memory or register names can be
+confirmed. If not, then <code>rvalue</code> returns <code>error()</code>, otherwise <code>true</code>. 
+</p><p>
+Finally, the member <code>operands</code>, having retrieved two <code>Operands</code>, performs
+yet another test: since both operands cannot be memory locations, <code>error</code> is
+returned if they are both memory locations.
+</p><p>
+The above analysis should allow you to implement all the CPU's
+opcode-implementing member functions.
+</p><p>
+Submit the final CPU's header file and all opcode-implementing members (and
+their support members).
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 32.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to etend the facilities of an existing
+function and to encapsulate it in a class.
+<p>
+In the previous set of exercises a recursive function for computing square
+roots was presented. In this exercise extend its functionality by letting it
+operate on <code>double</code> values as well. The class should have two overloaded
+<code>sqrt</code> members. One member expects a <code>size_t</code> and the other member expects
+a <code>double</code> value; an optional specification of the number of decimals to use
+(by default: 0, meaning that the function itself determines the number of
+decimals to use); and a <code>double tolerance</code>, by default initialized to
+<code>1e-8</code>.
+</p><p>
+The actual square root computation is performed by a member <code>psSqrt</code>,
+expecting a <code>lhs</code> and <code>rhs</code>, as described in the psSqrt exercise of the
+functions lecture. If you haven't completed that exercise, then
+you may assume for this exercise that you <em>did</em> complete it. In that case
+implement the <code>sqrt(size_t)</code> member as a member returning root 0.
+</p><p>
+The class has one public default constructor, for which the default
+implementation can be used. A private constructor comes in handy, expecting a
+<code>size_t root, size_t factor,</code> and <code>size_t remainder</code>.
+</p><p>
+To quickly find the integral number whose square most closely matches (but not
+exceeds) a given value use a <code>size_t s_squares[]</code> lookup array,
+defined as a static class member. 
+</p><p>
+Hints:
+    </p><ul>
+    <li> The functions-exercise uses root, factor and remainder variables,
+that are best stored in a struct. With classes these variables can simply be
+defined as class data members.
+<p>
+</p></li><li> The function expecting a <code>double value</code> either receives the number
+of decimals to use or determines the number of decimals from the received
+value: the number of decimals is then found by computing the number of times
+the value is multiplied by 10 until the faction is smaller than the provided
+number of decimals.
+<p>
+</p></li><li> If the number of decimals is odd, increment it. Then multiply the
+value by <code>pow(10, nDecimals)</code>, and compute the square root on the computed
+integral representation of the double value. Divide the thus computed sqrt by
+<code>pow(10, nDecimals / 2)</code>, and return the quotient as <code>double value's</code>
+square root.
+    </li></ul>
+<p>
+Submit the implementation of the class <code>PsSqrt</code>, as well as a small program
+showing how it can be used to compute the square root of <code>double</code> values.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 33.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn the benefit of precompiled headers
+<p>
+Precompiled headers are useful once a header is included by several source
+files. In practice our <code>.ih</code> files are perfect candidates for
+precompilation, since a class often has several source files which all read
+the same internal header file.
+</p><p>
+In this exercise we keep things simple: create a class <code>Precomp</code> which has 
+<code>size_t d_value</code> and a <code>std::string d_text</code> data members and member
+functions <code>value</code> and <code>text</code> to retrieve the values of the data members
+and two overloaded <code>set</code> members to assign new values to <code>d_value</code> or
+<code>d_text</code>. The class has a default constructor and a constructor expecting a
+<code>size_t</code> and a <code>std::string</code> to initialize its data members with.
+</p><p>
+Implement all members (and constructors) of the class in separate source
+files.
+</p><p>
+Then, implement two scripts: <code>precomp</code> first creates the precompiled header,
+and then compiles each of the source files 5 times. The script <code>plain</code>
+doesn't do the precompilation, but simply performs the compilations 5 times.
+</p><p>
+Here is how you could write <code>plain</code>:
+        </p><pre>
+    #!/bin/bash
+
+    for file in *.cc
+    do
+        for rept in 1 2 3 4 5 
+        do
+            g++ --std=c++14 -Wall -c $file
+        done
+    done
+        
+</pre>
+
+The script <code>precomp</code> does the same, but before the source files are compiled
+the internal header file is precompiled.
+<p>
+Use <strong>time</strong>(1) to determine how much time it takes to do the plain
+compilation or the compilation using precompiled headers. E.g., do
+        </p><pre>
+    time plain
+        
+</pre>
+
+    to determine the execution time of the plain compilation.
+<p>
+Submit the class's implementation and report the obtained times. Add your
+personal comment about your findings.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven03.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

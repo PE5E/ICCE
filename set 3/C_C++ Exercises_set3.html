@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven02.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven04.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l3"></a>
+<h1>Chapter 3: Set three: Functions. Deadline: October 5</h1>
+            <br><br>
+<p>
+For those who are or are not yet familiar with pointers: The following
+exercises don't require you to use pointers, except maybe for passing already
+constructed or available NTBSs (e.g., elements of <code>char *argv[]</code> or
+as produced by, e.g., <code>string::c_str()</code> to functions expecting NTBSs. Such
+functions define parameters like <code>char *param</code> or <code>char const *param</code>.
+</p><p>
+Notes regarding <em>all</em> future exercises:
+    </p><ul>
+    <li> The request to `define a function' should be interpreted as a request
+to submit the function's source text as well as the sources of all its support
+functions that you defined. 
+<p>
+This is a recursive requirement. E.g., if those support functions in turn
+call functions you defined, the sources of those functions should also be
+submitted, unless the exercise states otherwise.
+</p><p>
+</p></li><li> Adopt the <em>one function, one source file</em> rule, using the names of
+your functions as file names. Use lower case names for the filenames. If you
+use overloaded functions, number the source files: <code>function1.cc,
+function2.cc, ...</code>, and maybe add a small eoln-comment to the header file
+informing the reader which function is found in which numbered file (in
+practice it's sufficient to simply add <code>// 1</code> (etc.)).
+<p>
+</p></li><li> Once a variable is defined it must be initialized. This is a well
+known `best practice', also known by the slogan <em>Resource Acquisition Is
+Initialization</em> (RAII). Explicit initialization may be omitted <em>if</em> the
+<em>next</em> statement assigns a value  to the variable, as in constructions like
+this:
+        <pre>
+    string command;
+    cin &gt;&gt; command;
+        
+</pre>
+
+<p>
+</p></li><li> Avoid defining global variables, unless specifically called for in
+the exercise. In <strong>C++</strong> programs very few global variables are used or
+required (a well known exception is <code>char **environ</code>). Start frowning when
+you encounter <strong>C++</strong> sources defining global variables.
+    </li></ul>
+<p>
+The following items are suggestions. It's appreciated if you adopt them 
+in your sources:
+    </p><ul>
+    <li> Avoid <strong>C</strong>-type comment inside function bodies. This rule of thumb
+you will learn to appreciate once you need to `comment out' sections of your
+function for debugging purposes, as it prevents `nested comments' from
+occurring.
+<p>
+</p></li><li> A good <strong>strategy for implementing a program</strong> is to start with the
+<code>main</code> function. Keep this function (and other functions) small. In <code>main</code>,
+auxiliary functions are called (shortly we'll define objects of self-defined
+classes, reducing the need for auxiliary functions in <code>main</code>) to solve
+parts of the program you're designing.
+<p>
+Next, define these auxiliary functions. Initially you can leave their
+bodies empty. During this process, also start constructing your program's
+header file. Each function that's declared in the header file should be given
+a short end-of-line comment describing its purpose unless the purpose is
+intuitively clear from the function's name (that's seldom true though. A
+possible exception is the function <code>usage</code>). 
+</p><p>
+<em>Each</em> parameter that's declared in a function declaration
+<em>must</em> be given a short name briefly describing its purpose (as a rule of
+thumb: define the function, then copy/paste the function head into the header
+file, and terminate the head with a semicolon).
+</p><p>
+Your program should now be compilable, linkable and executable (although
+it won't do anything useful yet).
+</p><p>
+Repeat this process for the empty functions. Start implementing the
+easiest one. Often this is the <code>usage</code> function. 
+</p><p>
+Eventually, after cycling through this process until you've implemented
+all your functions, you'll have your running program. The <strong>C</strong> book explains
+this practice in detail (e.g., section 5.3).
+    </p></li></ul>
+<p>
+Some notes about submitting exercises:
+    </p><ul>
+    <li> When submitting your answer, first briefly summarize the question
+your answer is about. There's no need to fully repeat the question.
+<p>
+</p></li><li> When submitting code, first submit the header file, followed by the
+implementation of your <code>main</code> function (if required), followed by the
+alphabetically ordered (by function name) implementations of your functions.
+<p>
+</p></li><li> If the exercise asks you to implement functions in several
+subdirectories repeat the procedure described in the previous point for each
+(alphabetically ordered) subdirectory, after having submitted the sources of
+the top-level directory.
+    </li></ul>
+<p>
+</p><hr>
+        <strong>Exercise 18.</strong>
+        <br>
+        Purpose of this exercise: learn to distinguish various return and parameter
+types.
+<p>
+With each question submit a <em>small!</em> example illustrating a characteristic
+situation where the question's topic is encountered. Also <em>briefly (!!)</em>
+describe why your example is an appropriate illustration of the posed
+question. Remember to repeat the questions in your submitted answers.
+</p><p>
+The answer to each sub question should start with this phrase (cf. the first
+question, below):
+    </p><blockquote>
+    It is appropriate to use an int-type parameter when ... (your description
+here). In the code example this is illustrated because ... (your explanation
+here) 
+    <pre>
+            --- your code example here ---
+    
+</pre>
+
+    </blockquote>
+<p>
+In the questions <code>int</code> and <code>std::string</code> are used to illustrate,
+respectively, plain value types, and class-type objects. Don't focus too much
+on these specific types. Any built-in or <code>enum</code>-type instead of <code>int</code>
+could have been used, and any class or struct type instead of <code>std::string</code>
+could have been used.
+</p><p>
+Caveat: for some questions there is no characteristic situation. In that case,
+or in those cases, indicate why not and what preferred alternative is
+available. 
+</p><p>
+In what situation is it appropriate to:
+</p><ul>
+    <li> define an int-type parameter?
+    </li><li> define a std::string value parameter?
+    </li><li> define a const reference to an int-type parameter?
+    </li><li> define a const reference to a std::string value parameter?
+    </li><li> define a non-const reference to an int-type parameter?
+    </li><li> define a non-const reference to a std::string value parameter?
+    </li><li> define a const rvalue-reference to an int-type  parameter?
+    </li><li> define a const rvalue-reference to a std::string parameter?
+    </li><li> define an rvalue-reference to an int-type  parameter?
+    </li><li> define an rvalue-reference to a std::string parameter?
+    </li><li> return an int-type value?
+    </li><li> return a std::string value?
+    </li><li> return a const reference to an int?
+    </li><li> return a const reference to a std::string?
+    </li><li> return a non-const reference to an int?
+    </li><li> return a non-const reference to a std::string?
+    </li><li> return a const rvalue-reference to an int?
+    </li><li> return a const rvalue-reference to a std::string?
+    </li><li> return an rvalue-reference to an int?
+    </li><li> return an rvalue-reference to a std::string?
+    </li></ul>
+<p>
+
+)
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 19.</strong>
+        <br>
+        Purpose of this exercise: familiarize yourself with shifts.
+<p>
+In this exercise we determine the least significant bit (LSB) and most
+significant bit (MSB) offsets of integral values. 
+</p><p>
+Determining the LSB offsets is optional.
+</p><p>
+These operations are encountered, e.g., when working with integral numbers of
+unlimited size, in which sometimes series of bits must be replaced by another
+series. The problem then is to determine what the LSB and MSB offsets of the
+new values are because those values must be erased in the original value.
+</p><p>
+There are at least three ways for finding the MSB offset (the offset being
+that number - 1) of a value:
+    </p><ul>
+    <li> Shift right all bits until the value decays to 0, return the
+        number of shifts minus 1 (e.g., if the value equals 1, 1 shift is
+        required, so the MSB is at offset 0); 
+    </li><li> Compute <code>log(value) / log(2)</code> and truncate the result (note:
+            <code>log(2)</code> does not change, define and initialize <code>double ln2</code>
+            as a global variable at its appropriate location). The obtained
+            value is the offset of the MSB;
+    </li><li> Use a binary search on the bit boundaries, providing you with the
+        request bit <em>offset</em> in about <code>2 log nbits</code> steps. 
+        This works like this:
+        <pre>
+    * define two variables tt(low) and tt(high) initialized, respectively,
+        to 0 and the number of bits in the variable's type (be careful: NMN!)
+    * compute mid = (low + high) / 2.
+    * if all of tt(value's) bits are before tt(mid) then reduce the inspection
+        range by setting tt(high = mid). 
+    * otherwise, if tt(low) equals tt(mid) return tt(mid) as the MSB offset;
+        else assign tt(mid) to low.
+        
+</pre>
+
+    </li></ul>
+<p>
+Your program should be started with at least two command-line arguments.
+    </p><ul>
+    <li> The first argument is the (positive integral) value to analyze;
+    </li><li> The second argument is the method to use (1, 2, or 3), and if you
+        also implement the LSB computations: 4, 5, or 6 for the analogous LSB
+        computations;
+    </li><li> If a third argument is provided it defines the number of times the
+        method is used (by default: once). Use this argument to obtain
+        interpretable execution times for each of the methods.
+    </li></ul> 
+<p>
+Note that the LSB and MSB of provided values, and not the LSB and MSB of types
+are requested. E.g., for a value like 20 the LSB is at offset 2, the MSB is at
+offset 4.
+</p><p>
+For each method the program should output a line like:
+    </p><pre>
+    MSbit of 130 is at bit offset 7
+    
+</pre>
+
+    (and a comparable line when the LSB is computed).
+<p>
+In addition to your sources provide some indication of which method for
+computing the MSB is the most efficient (the first method may be very
+efficient for very small numbers, as they quickly decay to zero).
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 20.</strong>
+        <br>
+        Purpose of this exercise: learn to handle options in your programs
+<p>
+Many programs have options. Options allow users to configure programs to
+taste. For example, a program like <strong>tail</strong>(1) shows the last 10 lines of a
+file given as its argument, but if you want to see the last 15 lines you
+provide the <code>-n 15</code> option. E.g., <code>last -n15 main.cc</code>. Programs often have
+several options, broadly distinguishable in long and short options. Long
+options start with two hyphens, followed by one or more hyphen-separated
+words; short options start with a single hyphen. E.g., <code>tail</code> has long
+options like <code>--max-unchanged-stats</code> and <code>--help</code>, and short options like
+<code>-q</code> and <code>-v</code>.
+</p><p>
+<em>Handling options</em>
+</p><p>
+Handling options is complex. Fortunately, there are predefined functions
+helping us to handle options. That's what this exercise is about.
+</p><p>
+The function <strong>getopt</strong>(3) and <strong>getopt_long</strong>(3) (same man-page) allow you to
+process long and short options. We'll return to option handling later in this
+course, but in this exercise your program already offers options. It should
+handle these options:
+    </p><ul>
+    <li> <code>-h</code> and <code>--help</code>: provide short usage information and quit,
+        returning 0 to the operating system. The usage info should also be
+        shown if no file redirection was used (see below);
+    </li><li> <code>-v</code> and <code>--version</code>: show the program's version and quit,
+        returning 0 to the operating system;
+    </li><li> <code>-c, --uc,</code> and <code>--captitalize</code>: all letters in the input file should
+        be capitalized;
+    </li><li> <code>-l, --lc,</code> and <code>--lower-case</code>: all letters in the input file should
+        be transformed to lower-case characters;
+    </li></ul>
+<p>
+<em>This assignment</em>
+</p><p>
+The program you develop in this exercise expects a file, redirected to the
+standard input stream. To determine whether redirection has been used, use the
+function <strong>isatty</strong>(3). This latter function needs a <em>file descriptor</em>
+specifying which file was redirected. Since we're redirecting the standard
+input stream, the matching file descriptor must be specified. This file
+descriptor is defined in the the <code>unistd.h</code> header file, and is called
+<code>STDIN_FILENO</code>.
+</p><p>
+If no file redirection was used your program reports <em>no file redirection</em>
+and returns 1 to the operating system. It also returns 1 if both <code>-c</code> and
+<code>-l</code> (or their long-option equivalents) were specified. The <code>-h</code> option
+overrules any other specification; the same holds true for <code>-v</code>, except that
+<code>-v</code> can be overruled by <code>-h</code>. When another option is specified report
+<em>invalid option</em> and return 1 as well.
+</p><p>
+Your program's usage info should look something like this (sections between
+pointed brackets (inclusive) should contain the indicated information. The
+program's base name is the name of the program without any preceding directory
+specifications):
+    </p><pre>
+&lt;program's base name&gt; V &lt;version number&gt;
+
+Usage: &lt;program's base name&gt; [options] &lt; file
+Where:
+    --captitalize (--uc, -u);   captitalize the letters in 'file'
+    &lt;... other options, alphabetically ordered&gt;
+
+&lt;program's base name processes 'file' and writes the results to the standard
+output stream. 
+    
+</pre>
+
+<p>
+<em>Considerations</em>
+</p><p>
+When designing your program keep these considerations in mind:
+    </p><ul>
+    <li> There are two clearly distinct elements: handling the options, and
+processing the information according to the options. This suggests that two
+function calls are required in <code>main</code>, where the output of a a function like
+<code>arguments</code> can be a struct (e.g., <code>struct Vars</code>) holding all necessary
+variables. The <code>struct Vars</code> returned by <code>arguments</code> is then passed to a
+function <code>process</code> doing the actual processing. Any other function requiring
+access to the data in the <code>struct Vars</code> simply declares a <code>Vars &amp;</code> or
+<code>Vars const &amp;</code>, whichever is required.
+<p>
+</p></li><li> When specifying long options, use the following construction:
+        <pre>
+struct option longOpts[] =
+{
+    &lt;long option specifications&gt;
+}
+        
+</pre>
+
+    where <code>&lt;long option specifications&gt;</code> is a series of comma-separated long
+option definitions that look like this:
+        <pre>
+
+{ "long option name", 0, 0, 'optchar'},
+        
+</pre>
+
+    Here, the hyphen prefixes should be omitted. E.g., to associate the
+<code>--captitalize</code> long option with the <code>-c</code> short option use:
+        <pre>
+{ "capitalize", 0, 0, 'c'},
+        
+</pre>
+
+    The last option definition should be:
+        <pre>
+{ 0, }
+        
+</pre>
+
+<p>
+</p></li><li> Specify <code>longOpts</code> as <code>getopt_long's</code> third  argument, and 0 as
+its final argument.
+<p>
+</p></li><li> Define the type of processing in a <code>enum Mode</code>. Mode values could
+be <code>ERROR, OK, CAPITALIZE, LOWER_CASE, VERSION, USAGE</code>.
+    </li><li> Make sure you define separate functions for separate tasks. Try to
+give every function one core responsibility, reflected by its name
+    </li></ul>
+<p>
+Hint: see also <strong>toupper</strong>(3).
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 21.</strong>
+        <br>
+        Purpose of this exercise: learn to implement a recursive function.
+<p>
+Do you know how to compute a square root? One way of course consists of
+calling the <strong>sqrt</strong>(3) function, declared in <code>cmath</code>. 
+</p><p>
+But there's another algorithm, sometimes taught at primary schools in
+Groningen. It computes integral values whose square is as close as possible
+to (but does not exceed) a provided value. E.g., for 121 and 130 it produces
+11.
+</p><p>
+The algorithm is best implemented using recursion; no head- or tail-recursion.
+Here's an annotated example showing its workings:
+    </p><pre>
+    Find: sqrt(29506624)
+
+    Notation: in numbers like 123d `d' represents the least significant
+        digit;
+
+    1: Split 29506624 up in blocks of 2 digits, starting from the rightmost
+        block (so, 12345 would be 1 23 45):
+
+            29 50 66 24 
+
+    2: Find the leftmost digit of the sqrt as d in 
+
+            0d * d &lt;= 29:       d == 5,     leftmost digit of sqrt: 5
+
+        The value 0d in the above expression is called `the left factor'.
+
+    3: Compute the rest of 29 - 0d * d = 4, and prefix 4 to the next block,
+        which thus becomes 450.
+
+    4: Compute the next left factor as 0d + d, which becomes 10
+
+
+    Steps 2 through 4 are now repeated, using updated values and the 
+    subsequent blocks: 
+
+
+    5: Find the next digit of the sqrt as d in 
+
+            10d * d &lt;= 450:       d == 4,     next digit of sqrt: 4
+
+    6: Compute the rest of 450 - 104 * 4  = 34, prefix to the next block,
+        which thus becomes 3466
+
+    7: Compute the next left factor as 10d + d, which becomes 108
+
+
+
+    8: Find the next digit of the sqrt as d in 
+
+            108d * d &lt;= 3466:       d == 3,     next digit of sqrt: 3
+
+    9: Compute the rest of 3466 - 1083 * 3  = 217, prefix to the next block,
+        which thus becomes 21724
+
+   10: Compute the next left factor as 1083 + 3, which becomes 1086
+
+
+   11: Find the next digit of the sqrt as d in 
+
+            1086d * d &lt;= 21724:     d == 2,     next digit of sqrt: 2
+
+   12: Compute the rest of 21724 - 10862 * 2  = 0. There is no next block, and
+        we're done.
+    
+</pre>
+
+<p>
+In this case the rest happens to be 0 so 5432 is the exact sqrt of
+29506624. If 29506630 would have been used, then 5432 becomes the integral
+value whose square most closely approaches but does not exceed 29506630.
+</p><p>
+Write a program expecting a value as its 1st command line argument and, using
+the above algorithm, recursively implemented, computes its square root,
+inserting it into <code>cout</code>.
+</p><p>
+It may be assumed that the value on the command line is a non-negative
+integral value.
+</p><p>
+To compute the square root a recursive function <code>psSqrt</code> can be defined. If
+<code>value</code> is the value whose square root is requested, then provide <code>psSqrt</code>
+with a parameter <code>lhs</code>, initialized to <code>value / 100</code> and <code>rhs</code>
+initialized to <code>value % 100</code>. It could return a <code>struct</code> containing field
+<code>root</code> containing value's square root; <code>factor</code>, which is the factor to
+use, as described in steps 4, 7, and 10 above; and <code>remainder</code> which is the
+remainder as described in steps 3, 6 and 9.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 22.</strong>
+        <br>
+        Purpose of this exercise: learn to perform basic text conversions
+<p>
+In html text that is displayed is commonly <em>urlencoded</em>: the set of alpha-numeric
+characters <code>- _ .</code> and <code>~</code> are accepted as-is.
+</p><p>
+Depending on the context (cf. <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>),
+other characters are converted to hexadecimal values, using two hex digits
+with uppercase letters A through F, and preceded by a percent sign. This is
+called <em>url-encoding</em>.
+</p><p>
+In this exercise the context can be ignored: all characters not belonging to
+the abovementioned set are url-encoded.
+</p><p>
+Examples of such encodings are
+    </p><pre>
+%2Focasys%2Ffwn%2Fmain%2Flogin%3Freturn_url%3D%2Focasys%2Ffwn%2Fvak%2Fshow%3Fcode%3DINBSEC-08
+https%3A%2F%2Fwww.amazon.com%2Fgp%2Fyourstore%2Fhome%3Fie%3DUTF8%26ref_%3Dnav_ya_signin
+    
+</pre>
+
+<p>
+Write a program that, when started with the option <code>-e</code> reads lines from the
+standard input stream and writes these lines as url-encoded lines to the
+standard output stream. Conversely, when started with the option <code>-d</code> the
+lines on the standard input stream are read as url-encoded lines, which are
+then written as url-decoded lines to the standard output stream.
+</p><p>
+When no option is provided, short usage information should be provided (see
+the `options' exercise for a model of such usage information). 
+</p><p>
+Although this program expects options, in this exercise you don't have to
+handle these options as described in the `options' exercise. If you prefer,
+then simply test for <code>-e, -d</code> or no option at all.
+</p><p>
+In addition to the sources of your program submit the decoded url-encoded
+lines shown above.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 23.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: find ways to show separators when inserting big
+numbers.
+<p>
+When writing big integral values <strong>C++</strong> allows us to use quotes as digit
+separators. So, to improve readability, we can write in our programs <code>x =
+1'000'000</code>. Maybe unfortunately: when inserting <code>x</code> into <code>cout</code> the
+separators are lost, and we merely see <code>1000000</code>.
+</p><p>
+Wouldn't it be nice if we could retain the separators? That's the topic of
+this exercise: design a recursive function <code>printBig(ostream &amp;out, long long
+value)</code>. 
+</p><p>
+As its first argument <code>std::cout</code> or <code>std::cerr</code> can be passed to this
+function. Wrt its second argument note that <code>value</code> can be negative, and
+that you not just can negate any negative value: due to the two's complement
+representation of negative values a type's most negative value equals its
+negated most positive value - 1 (see also <a href="https://www.icce.rug.nl/edu/1/negativenumbers.html">negativenumbers.html</a>).
+</p><p>
+The received value must be inserted into the <code>out</code> stream, including its
+digit separators, if applicable. So <code>123</code> and <code>-123</code> are displayed as-is,
+but <code>1234</code> and <code>-1234</code> are displayed as <code>1'234</code> and <code>-1'234</code>,
+respectively.
+</p><p>
+However, different from using the <code>printBig</code> recursive function, there
+exists another, very simple, solution. Provide a second implementation that
+does not use recursion.
+</p><p>
+Submitting both solutions earns you two points. 
+</p><p>
+Caveat: computing modulo values of negative numbers returns a negative result
+(e.g., -123 % 10 returns -3)
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 24.</strong>
+        <br>
+        (optional)<br>    Purpose of this exercise: learn to create and use a static library.
+<p>
+Show how a library <code>librvalue.a</code> may be constructed containing all
+functions constructed in the previous exercise (except for main). Also submit
+the command you used to compile and link your program against
+<code>librvalue.a</code>.
+</p><p>
+(If you didn't do the previous exercise, design a program of your own in which
+at least five self-defined functions are used, and construct a library
+containing the functions of that program. In that case also submit the sources
+of your own program.)
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 25.</strong>
+        <br>
+        (optional)<br>    Purpose of this exercise: learn to profile.
+<p>
+In the slides an example is given of a profiling session. Construct the
+program presented there, define it using the one-function-one-source rule, and
+submit the source files as well as the profiling results you obtained.
+</p><p>
+In the example the <code>-O2</code> optimization flag was used. What does it do?
+What do <code>-O1</code> and <code>-O3</code> do? What are the differences in the profiling
+results if these optimization flags are used (or if no optimization was used
+at all?). Also look at the implications of the results for the way the
+functions were defined, in particular what you can learn from it when defining
+your own function parameters.
+</p><p>
+Here is the profiling source mentioned in the slides, shown as one single
+source file. Correctly splitting the source in separate source files, which
+can then be compiled and linked to a running prorgram is part of the exercise.
+        </p><pre>#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+void fun(string s)
+{
+    size_t sum = 0;
+    for (size_t idx = 0; idx &lt; s.length(); ++idx)
+        sum += s[idx];
+}
+
+void fun2(string const &amp;s)
+{
+    size_t sum = 0;
+    for (size_t idx = 0; idx &lt; s.length(); ++idx)
+        sum += s[idx];
+}
+
+void callValue(string const &amp;prog)
+{
+    for (size_t idx = 0; idx &lt; 10000000; ++idx)
+        fun(prog);
+}
+
+void callRef(string const &amp;prog)
+{
+    for (size_t idx = 0; idx &lt; 10000000; ++idx)
+        fun2(prog);
+}
+
+int main(int argc, char *argv[])
+{
+    callValue(argv[0]);
+    callRef(argv[0]);
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven02.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven04.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

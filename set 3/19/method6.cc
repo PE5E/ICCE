@@ -10,9 +10,9 @@ void method6(unsigned long long int const valueToAnalyze, int nrOfTurns)
     while (nrOfTurns != 0)
     {
         unsigned long long int valueToCompute = valueToAnalyze;
-        size_t ttLow = sizeof (valueToCompute) * 8; // nr of bytes * 8 bits
-        size_t ttHigh = 0;
-            // ttLow and ttHigh values are swapped for LSB calc
+        size_t ttLow = sizeof (valueToCompute) * 8;                 // nr of bytes * 8 bits
+        size_t ttHigh = 0;  
+                                                                    // ttLow and ttHigh values are swapped for LSB calc
 
         size_t ttMid;
         ttMid = (ttLow + ttHigh) / 2;
@@ -21,7 +21,7 @@ void method6(unsigned long long int const valueToAnalyze, int nrOfTurns)
         {
             valueToCompute = valueToAnalyze;
 
-                // compute if last bit is before ttMid
+                                                                    // compute if last bit is before ttMid
             size_t shiftedValue = valueToCompute <<= ttMid;  
             if (shiftedValue == 0)
             {

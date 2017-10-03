@@ -14,11 +14,11 @@ void method1(unsigned long long int const valueToAnalyze, int nrOfTurns)
         counter = 0;
         while (valueToCompute != 0)
         {
-            valueToCompute >>= 1;    // right shift bits
+            valueToCompute >>= 1;       // right shift bits
             ++counter;
         }
 
-        counter -= 1;            // calc offset not the nr of bits
+        counter -= 1;                   // calc offset not the nr of bits
         --nrOfTurns;
     }
 

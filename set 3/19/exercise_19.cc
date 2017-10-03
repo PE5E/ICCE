@@ -7,7 +7,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     istringstream iSS(argv[1]);
-        // need istringstream here. stoi can't handle long long ints
+                                            // need istringstream here. stoi can't handle long long ints
 
     unsigned long long int valueToAnalyze;
     iSS >> valueToAnalyze;
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     size_t method = stoi(argv[2]);
     size_t nrOfTurns = 1;
 
-    if (argc > 3)                    // if provided set nr of turns to calculate
+    if (argc > 3)                           // if provided set nr of turns to calculate
         nrOfTurns = stoi(argv[3]);
 
     if (method == 1)

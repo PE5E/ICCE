@@ -12,7 +12,7 @@ void method3(unsigned long long int const valueToAnalyze, int nrOfTurns)
     {
         unsigned long long int valueToCompute = valueToAnalyze;
         size_t ttLow = 0;
-        size_t ttHigh = sizeof (valueToCompute) * 8; // nr of bytes * 8 bits
+        size_t ttHigh = sizeof (valueToCompute) * 8;            // nr of bytes * 8 bits
         size_t ttMid;
 
         ttMid = (ttLow + ttHigh) / 2;
@@ -21,7 +21,7 @@ void method3(unsigned long long int const valueToAnalyze, int nrOfTurns)
         {
             valueToCompute = valueToAnalyze;
 
-                // compute if all bits are before ttMid
+                                                                // compute if all bits are before ttMid
             size_t shiftedValue = valueToCompute >>= ttMid;  
             if (shiftedValue == 0)
             {

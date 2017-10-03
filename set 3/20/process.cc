@@ -1,5 +1,6 @@
 #include "head.ih"
-#include <ctype.h>          // toupper, tolower
+#include <cctype>                               // toupper, tolower
+extern int succesState;
 
 void process(vars_t Vars)
 {
@@ -8,7 +9,8 @@ void process(vars_t Vars)
     {
         case (Mode::ERROR):
         {
-            std::cout << "ERROR" << '\n';                           // is this enough?
+            succesState = 1;
+            std::cout << "ERROR" << '\n';
             break;
         }
         case (Mode::USAGE):

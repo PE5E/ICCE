@@ -3,7 +3,7 @@
 
 char const use[]=
 R"(
-20 V 1>
+20 V 1
 
 Usage: ./main [options] < file
 Where:

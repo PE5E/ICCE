@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.30)  3 OCT 2017 10:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.6.13)  3 OCT 2017 12:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
-LaTeX2e <2017-04-15>
-Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
+LaTeX2e <2017/01/01> patch level 3
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texmf-dist/tex/latex/base/size10.clo
@@ -122,10 +122,10 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
 (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/10/09 v1.0u Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
@@ -136,29 +136,37 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
 (/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2017/06/24 v1.0g Graphics/color driver for pdftex
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count102
 ))
 \Gin@req@height=\dimen120
 \Gin@req@width=\dimen121
 )
 (/usr/share/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count102
+\lst@mode=\count103
 \lst@gtempboxa=\box28
 \lst@token=\toks21
-\lst@length=\count103
+\lst@length=\count104
 \lst@currlwidth=\dimen122
-\lst@column=\count104
-\lst@pos=\count105
+\lst@column=\count105
+\lst@pos=\count106
 \lst@lostspace=\dimen123
 \lst@width=\dimen124
-\lst@newlines=\count106
-\lst@lineno=\count107
+\lst@newlines=\count107
+\lst@lineno=\count108
 \lst@maxwidth=\dimen125
 
 (/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count108
-\lst@skipnumbers=\count109
+\c@lstnumber=\count109
+\lst@skipnumbers=\count110
 \lst@framebox=\box29
 )
 (/usr/share/texmf-dist/tex/latex/listings/listings.cfg
@@ -167,20 +175,14 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/share/texmf-dist/tex/latex/minted/minted.sty
-Package: minted 2017/07/19 v2.5 Yet another Pygments shim for LaTeX
+Package: minted 2016/10/31 v2.4.1 Yet another Pygments shim for LaTeX
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 
-(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)
 (/usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 
-(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
 (/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 
@@ -194,7 +196,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
 (/usr/share/texmf-dist/tex/latex/fvextra/fvextra.sty
-Package: fvextra 2017/07/08 v1.3.1 fvextra - extensions and patches for fancyvr
+Package: fvextra 2016/09/02 v1.2.1 fvextra - extensions and patches for fancyvr
 b
 
 (/usr/share/texmf-dist/tex/latex/base/ifthen.sty
@@ -202,18 +204,18 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count110
+\etb@tempcnta=\count111
 )
 (/usr/share/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
 <2008/02/07> (tvz)
-\FV@CodeLineNo=\count111
+\FV@CodeLineNo=\count112
 \FV@InFile=\read1
 \FV@TabBox=\box30
-\c@FancyVerbLine=\count112
-\FV@StepNumber=\count113
+\c@FancyVerbLine=\count113
+\FV@StepNumber=\count114
 \FV@OutFile=\write3
 ) (/usr/share/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
@@ -221,55 +223,56 @@ tim
 )
 (/usr/share/texmf-dist/tex/latex/lineno/lineno.sty
 Package: lineno 2005/11/02 line numbers on paragraphs v4.41
-\linenopenalty=\count114
+\linenopenalty=\count115
 \output=\toks22
-\linenoprevgraf=\count115
+\linenoprevgraf=\count116
 \linenumbersep=\dimen126
 \linenumberwidth=\dimen127
-\c@linenumber=\count116
-\c@pagewiselinenumber=\count117
-\c@LN@truepage=\count118
-\c@internallinenumber=\count119
-\c@internallinenumbers=\count120
+\c@linenumber=\count117
+\c@pagewiselinenumber=\count118
+\c@LN@truepage=\count119
+\c@internallinenumber=\count120
+\c@internallinenumbers=\count121
 \quotelinenumbersep=\dimen128
 \bframerule=\dimen129
 \bframesep=\dimen130
 \bframebox=\box31
 LaTeX Info: Redefining \\ on input line 3056.
 )
-\c@FV@TrueTabGroupLevel=\count121
-\c@FV@TrueTabCounter=\count122
+\c@FV@TrueTabGroupLevel=\count122
+\c@FV@TrueTabCounter=\count123
 \FV@TabBox@Group=\box32
 \FV@TmpLength=\skip46
-\c@FV@HighlightLinesStart=\count123
-\c@FV@HighlightLinesStop=\count124
-\FV@LoopCount=\count125
-\FV@NCharsBox=\box33
+\c@FV@HighlightLinesStart=\count124
+\c@FV@HighlightLinesStop=\count125
 \FV@BreakIndent=\dimen131
-\FV@BreakIndentNChars=\count126
 \FV@BreakSymbolSepLeft=\dimen132
-\FV@BreakSymbolSepLeftNChars=\count127
 \FV@BreakSymbolSepRight=\dimen133
-\FV@BreakSymbolSepRightNChars=\count128
 \FV@BreakSymbolIndentLeft=\dimen134
-\FV@BreakSymbolIndentLeftNChars=\count129
 \FV@BreakSymbolIndentRight=\dimen135
-\FV@BreakSymbolIndentRightNChars=\count130
-\c@FancyVerbLineBreakLast=\count131
-\FV@LineBox=\box34
-\FV@LineIndentBox=\box35
+\c@FancyVerbLineBreakLast=\count126
+\FV@LineBox=\box33
+\FV@LineIndentBox=\box34
+)
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count127
+\float@exts=\toks23
+\float@box=\box35
+\@float@everytoks=\toks24
+\@floatcapt=\box36
 )
 (/usr/share/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count132
-\calc@Bcount=\count133
+\calc@Acount=\count128
+\calc@Bcount=\count129
 \calc@Adimen=\dimen136
 \calc@Bdimen=\dimen137
 \calc@Askip=\skip47
 \calc@Bskip=\skip48
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count134
+\calc@Ccount=\count130
 \calc@Cskip=\skip49
 )
 (/usr/share/texmf-dist/tex/latex/tools/shellesc.sty
@@ -299,8 +302,8 @@ runsystem(rm -- "main.w18")...executed.
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write4
-\integerpart=\count135
-\decimalpart=\count136
+\integerpart=\count131
+\decimalpart=\count132
 )
 Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
@@ -312,21 +315,13 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen140
 \FrameSep=\dimen141
 )
-(/usr/share/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count137
-\float@exts=\toks23
-\float@box=\box36
-\@float@everytoks=\toks24
-\@floatcapt=\box37
-)
 \minted@appexistsfile=\read2
-\minted@bgbox=\box38
+\minted@bgbox=\box37
 \minted@code=\write5
-\c@minted@FancyVerbLineTemp=\count138
-\c@minted@pygmentizecounter=\count139
+\c@minted@FancyVerbLineTemp=\count133
+\c@minted@pygmentizecounter=\count134
 \@float@every@listing=\toks25
-\c@listing=\count140
+\c@listing=\count135
 )
 runsystem(mkdir -p _minted-main)...executed.
 
@@ -336,7 +331,7 @@ Package: inconsolata 2017/01/04 v1.112
 
 `inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
 (/usr/share/texmf-dist/tex/latex/base/textcomp.sty
-Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
+Package: textcomp 2017/02/22 v2.0g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
 (textcomp)               4 = 5 + \texteuro
@@ -425,10 +420,10 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 \XKV@toks=\toks26
 \XKV@tempa@toks=\toks27
 )
-\XKV@depth=\count141
+\XKV@depth=\count136
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-\zifour@ocount=\count142
+\zifour@ocount=\count137
 )
 (/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -510,16 +505,16 @@ LaTeX Font Info:    ... okay on input line 37.
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count143
+\scratchcounter=\count138
 \scratchdimen=\dimen142
-\scratchbox=\box39
-\nofMPsegments=\count144
-\nofMParguments=\count145
+\scratchbox=\box38
+\nofMPsegments=\count139
+\nofMParguments=\count140
 \everyMPshowfont=\toks28
-\MPscratchCnt=\count146
+\MPscratchCnt=\count141
 \MPscratchDim=\dimen143
-\MPnumerator=\count147
-\makeMPintoPDFobject=\count148
+\MPnumerator=\count142
+\makeMPintoPDFobject=\count143
 \everyMPtoPDFconversion=\toks29
 ) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -533,7 +528,7 @@ Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 
@@ -541,7 +536,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count149
+\c@lstlisting=\count144
 \openout3 = `main.pyg'.
 
 
@@ -614,7 +609,7 @@ LaTeX Font Warning: Font shape `OT1/zi4/m/it' undefined
 LaTeX Font Info:    Font shape `OT1/zi4/m/it' will be
 (Font)              scaled to size 10.0pt on input line 3.
 )
-(./_minted-main/BEF0F7E074C789B83E134F999316BDB5299C5E0338A8390A4060467C3C32734
+(./_minted-main/A6F6A6E090100D0B0558A327308945DB299C5E0338A8390A4060467C3C32734
 5.pygtex
 
 LaTeX Font Warning: Font shape `TS1/zi4/m/it' undefined
@@ -622,36 +617,36 @@ LaTeX Font Warning: Font shape `TS1/zi4/m/it' undefined
 (Font)              for symbol `textquotesingle' on input line 11.
 
 ) [3]
-(./_minted-main/3E3C76DF6AF06A11479AE79D9138768D88049AEE8C96922E16FCCFB48530AFC
+(./_minted-main/01F59C1DDF01086454CBA9D994DC8CDE88049AEE8C96922E16FCCFB48530AFC
 F.pygtex)
 (./_minted-main/DBE54E9E17EEFCF4913B50E194FCCF904C53FCA290CEB451D21616BFE646DF5
 7.pygtex) [4]
-(./_minted-main/20AD06F014CAAD962330B360EB52FC1CAAC508EE92A1155D76E45B56604A8C9
-F.pygtex)
-Overfull \vbox (0.44218pt too high) detected at line 156
- []
-
-[5]
+(./_minted-main/18E8FC09DA3A294E38CD46486CD9CA35AAC508EE92A1155D76E45B56604A8C9
+F.pygtex) [5]
 (./_minted-main/4F1E46B150A48975865B2AFF018B95B943CDB12E5797413D1104F34F3876640
 1.pygtex)
 (./_minted-main/73B43E6D434BE3B561F8C1E815B355F17CFE67FF6B4E03898D946D506B7F783
 A.pygtex) [6]
-(./_minted-main/78052A3F8DB339B5B059CCF1C451AF02721954A7E40E9B5384BB8AF7B9A6C8F
-7.pygtex) [7]
+(./_minted-main/92AD4422B444AE3726056232230ED0DF721954A7E40E9B5384BB8AF7B9A6C8F
+7.pygtex)
+Overfull \vbox (0.38219pt too high) detected at line 159
+ []
+
+[7]
 (./_minted-main/EF3D1BBF957FE101448FF37D2BFC27D32AD51425E048540941C01398E7D0C8C
-E.pygtex) [8]
+E.pygtex)
 (./_minted-main/02ABB2EB91C4F639838CAC989B9BEC497C8D5909CE5BCD97B3AAF419D07FA56
-8.pygtex)
+8.pygtex) [8]
 (./_minted-main/C13A77369F3FA96AA23B941AB5255CF3E5FAEF1BD020C789898EAF5DC1C414C
 2.pygtex) [9]
-(./_minted-main/FC647749776D9AA6149C0F448FFF597A1A12BFEC04DABC8367B9672243092DB
+(./_minted-main/E1A0133933869DF4EA0E02211D40EABE1A12BFEC04DABC8367B9672243092DB
 8.pygtex)
-(./_minted-main/D6CD5E7FCA046870F0D1BA71D6A0EC09E4158B3F982CC23DAB11F72C6730E80
+(./_minted-main/2D3E1AD7D814923833D5CEF181B20C15E4158B3F982CC23DAB11F72C6730E80
 2.pygtex
 LaTeX Font Info:    Font shape `TS1/zi4/m/it' will be
-(Font)              scaled to size 10.0pt on input line 11.
+(Font)              scaled to size 10.0pt on input line 10.
 ) [10]
-(./_minted-main/FBDFC26A1A02611E0FE451761914FD33FFD4151988C195AAC87666079974168
+(./_minted-main/AD5F5CFCF52AF9C41887589845BC385AFFD4151988C195AAC87666079974168
 C.pygtex)
 (./_minted-main/86ECCA1A0C4084194D8B9BACC8E7518B9DF8E9FD9C8C2531C827EFA96048B8A
 C.pygtex)
@@ -669,35 +664,31 @@ B.pygtex) [12]
 0.pygtex) [13]
 (./_minted-main/341A8CD1B01C9E0039CD82B1C06A09FFEF963E9525B15CA212E92624AF7E7A0
 A.pygtex)
-Overfull \vbox (0.58218pt too high) detected at line 210
- []
-
-[14]
-(./_minted-main/F57C9D182B9ED2FB9A7351D14E40DCE7A306A38C8ABDAC80875096E9BAB2F3C
-3.pygtex)
+(./_minted-main/C12DC98AC4622A0089C52E5080390AB1A306A38C8ABDAC80875096E9BAB2F3C
+3.pygtex) [14]
 (./_minted-main/791EAE25A182BADA57DFF3D61C8875D341320FC37662B23C040CF983AA008CA
 A.pygtex)
 (./_minted-main/2FC74BA08D248729463689DC5DC0E08ACA50FB3B0DABAE279963750C587EBED
-C.pygtex) [15]
+C.pygtex)
 (./_minted-main/FA27B0F9F05F5C8C9EF490D9C8FDD10235DFC248E9832696AF4CE861A9A34A1
-B.pygtex)
+B.pygtex) [15]
 (./_minted-main/C99E4FF1BB12EEBA77C1E1A2F8B2D7D20C4334CBDE5F5A228B16EACAE521323
 5.pygtex)
 (./_minted-main/23E1BD6B92AFD36708BE2441F7D44B1DD850B8E8397D1A729D7EF5CA5C2F7D0
 6.pygtex)
 (./_minted-main/813F02A5A944295540301D17EFD9D15918DCE7203B7DAABC45C1E3E352B775E
-C.pygtex) [16]
+C.pygtex)
 (./_minted-main/992FE8CD8DB516DE8FAD8214CE33C394ADC4E3F81C01084122844B0AA1F0B9A
-8.pygtex)
+8.pygtex) [16]
 (./_minted-main/E1813E2B3BE4F1FE4854DE2DB0EE7744970CCE6E1B94A87711B8727A9B5FF54
 C.pygtex)
 (./_minted-main/8C56DB8788EE1DB8295245AA7CB8274F4CF79C486B002D66042AF107ACC45BD
-7.pygtex) [17]
+7.pygtex)
 (./_minted-main/219AF33E9B6D1DFCD951EB5D6D6EFDBC4D63B03E5F2C01361538235D84EBB8D
-5.pygtex)
-(./_minted-main/AD9431B2548CB34B7A7A290DBA87B80B4745BF0BBBF1D3683E9476F01A617F0
+5.pygtex) [17]
+(./_minted-main/3DB33FB74EC98E905F08060A8BCFC2544745BF0BBBF1D3683E9476F01A617F0
 E.pygtex)
-(./_minted-main/19A00461DAE313AC6A7C01564A6EF3BA354ED474B9303DC1487BB28457BF8D0
+(./_minted-main/C7546502CEDB6BC40F8CDD6A023F11C2354ED474B9303DC1487BB28457BF8D0
 D.pygtex) [18] [19] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -706,13 +697,13 @@ runsystem(rm main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 8345 strings out of 492990
- 144346 string characters out of 6138688
- 259879 words of memory out of 5000000
- 11634 multiletter control sequences out of 15000+600000
- 5251 words of font info for 20 fonts, out of 8000000 for 9000
+ 8326 strings out of 493013
+ 142505 string characters out of 6139317
+ 257940 words of memory out of 5000000
+ 11600 multiletter control sequences out of 15000+600000
+ 5419 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,5n,37p,843b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,6n,37p,842b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/share/tex
 mf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}</usr/share/texmf-dist/fonts/t
 ype1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texmf-dist/fonts/type1
@@ -720,7 +711,7 @@ ype1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texmf-dist/fonts/type1
 lic/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb>
-Output written on main.pdf (19 pages, 133787 bytes).
+Output written on main.pdf (19 pages, 130228 bytes).
 PDF statistics:
  94 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream

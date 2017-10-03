@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.30)  2 OCT 2017 14:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.30)  3 OCT 2017 10:54
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -542,66 +542,177 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count149
+\openout3 = `main.pyg'.
+
 
 (./_minted-main/default-pyg-prefix.pygstyle) (./_minted-main/default.pygstyle)
-(./_minted-main/35F54BF537C83A1151980351977D2CBE7C8D5909CE5BCD97B3AAF419D07FA56
-8.pygtex
+(./_minted-main/ED5618433488BD36D2E212C1DBA5A4FECFB1946AD3072020795F94CBD692229
+0.pygtex
 LaTeX Font Info:    Try loading font information for OT1+zi4 on input line 1.
  (/usr/share/texmf-dist/tex/latex/inconsolata/ot1zi4.fd
 File: ot1zi4.fd 2016/12/29 OT1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `OT1/zi4/m/n' will be
 (Font)              scaled to size 10.0pt on input line 1.
+LaTeX Font Info:    Font shape `OT1/zi4/bx/n' in size <10> not available
+(Font)              Font shape `OT1/zi4/b/n' tried instead on input line 2.
+LaTeX Font Info:    Font shape `OT1/zi4/b/n' will be
+(Font)              scaled to size 10.0pt on input line 2.
+)
+\openout3 = `main.pyg'.
 
+
+(./_minted-main/A1C56CF25F5E4CD5E0C7A7CE5C9443D8CFB1946AD3072020795F94CBD692229
+0.pygtex)
+\openout3 = `main.pyg'.
+
+
+(./_minted-main/0DE13C9E0BBEBA9CD66D4A49CF747CDECFB1946AD3072020795F94CBD692229
+0.pygtex
+LaTeX Font Info:    Try loading font information for TS1+zi4 on input line 4.
+ (/usr/share/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
+File: ts1zi4.fd 2016/12/29 TS1/zi4 (Inconsolata)
+)
+LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
+(Font)              scaled to size 10.0pt on input line 4.
+)
+\openout3 = `main.pyg'.
+
+
+(./_minted-main/0B2B2A1016F3A79F36C8A260E8A26FB1CFB1946AD3072020795F94CBD692229
+0.pygtex) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+\openout3 = `main.pyg'.
+
+
+(./_minted-main/80A3D81D2C6999B0DF154416D3D378C3CFB1946AD3072020795F94CBD692229
+0.pygtex)
+\openout3 = `main.pyg'.
+
+
+(./_minted-main/D5AA0A60C39F2F8E7DEA8B05006279E8CFB1946AD3072020795F94CBD692229
+0.pygtex)
+\openout3 = `main.pyg'.
+
+
+(./_minted-main/6183D45E210D53BF6309D378FE7BBF99CFB1946AD3072020795F94CBD692229
+0.pygtex)
+\openout3 = `main.pyg'.
+
+
+(./_minted-main/2F0BFD1577992E8ACABDFC4F7951E133CFB1946AD3072020795F94CBD692229
+0.pygtex)
+(./_minted-main/EB62BBEC99DBCD9E33AA1EFD2CFD1C0357A444BCC646A0500E76A0B8846E730
+6.pygtex) [2]
+(./_minted-main/8DD876A647DF3174923472AC2BF04E2BDE9A8A4874AE1F730233D7AE7784285
+4.pygtex
 
 LaTeX Font Warning: Font shape `OT1/zi4/m/it' undefined
 (Font)              using `OT1/zi4/m/n' instead on input line 2.
 
 LaTeX Font Info:    Font shape `OT1/zi4/m/it' will be
-(Font)              scaled to size 10.0pt on input line 2.
-LaTeX Font Info:    Font shape `OT1/zi4/bx/n' in size <10> not available
-(Font)              Font shape `OT1/zi4/b/n' tried instead on input line 4.
-LaTeX Font Info:    Font shape `OT1/zi4/b/n' will be
-(Font)              scaled to size 10.0pt on input line 4.
-LaTeX Font Info:    Try loading font information for TS1+zi4 on input line 8.
-(/usr/share/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
-File: ts1zi4.fd 2016/12/29 TS1/zi4 (Inconsolata)
+(Font)              scaled to size 10.0pt on input line 3.
 )
-LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 8.
-
+(./_minted-main/BEF0F7E074C789B83E134F999316BDB5299C5E0338A8390A4060467C3C32734
+5.pygtex
 
 LaTeX Font Warning: Font shape `TS1/zi4/m/it' undefined
 (Font)              using `TS1/zi4/m/n' instead
-(Font)              for symbol `textquotesingle' on input line 17.
+(Font)              for symbol `textquotesingle' on input line 11.
 
-)
-(./_minted-main/201269ED310BA19B9D4DB03128F045882AD51425E048540941C01398E7D0C8C
-E.pygtex) [1
+) [3]
+(./_minted-main/3E3C76DF6AF06A11479AE79D9138768D88049AEE8C96922E16FCCFB48530AFC
+F.pygtex)
+(./_minted-main/DBE54E9E17EEFCF4913B50E194FCCF904C53FCA290CEB451D21616BFE646DF5
+7.pygtex) [4]
+(./_minted-main/20AD06F014CAAD962330B360EB52FC1CAAC508EE92A1155D76E45B56604A8C9
+F.pygtex)
+Overfull \vbox (0.44218pt too high) detected at line 156
+ []
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-(./_minted-main/95BC93A0474BDAF77041FDB7176DCBB8E5FAEF1BD020C789898EAF5DC1C414C
-2.pygtex) [2]
-(./_minted-main/BD13292D310CBC5C047C2524D3435DCF1A12BFEC04DABC8367B9672243092DB
-8.pygtex) [3]
-(./_minted-main/3D0C34A5B43361334032C75797BD9438E4158B3F982CC23DAB11F72C6730E80
-2.pygtex)
-(./_minted-main/BA99B5201684B99EE009851C011128A6FFD4151988C195AAC87666079974168
+[5]
+(./_minted-main/4F1E46B150A48975865B2AFF018B95B943CDB12E5797413D1104F34F3876640
+1.pygtex)
+(./_minted-main/73B43E6D434BE3B561F8C1E815B355F17CFE67FF6B4E03898D946D506B7F783
+A.pygtex) [6]
+(./_minted-main/78052A3F8DB339B5B059CCF1C451AF02721954A7E40E9B5384BB8AF7B9A6C8F
+7.pygtex) [7]
+(./_minted-main/EF3D1BBF957FE101448FF37D2BFC27D32AD51425E048540941C01398E7D0C8C
+E.pygtex) [8]
+(./_minted-main/02ABB2EB91C4F639838CAC989B9BEC497C8D5909CE5BCD97B3AAF419D07FA56
+8.pygtex)
+(./_minted-main/C13A77369F3FA96AA23B941AB5255CF3E5FAEF1BD020C789898EAF5DC1C414C
+2.pygtex) [9]
+(./_minted-main/FC647749776D9AA6149C0F448FFF597A1A12BFEC04DABC8367B9672243092DB
+8.pygtex)
+(./_minted-main/D6CD5E7FCA046870F0D1BA71D6A0EC09E4158B3F982CC23DAB11F72C6730E80
+2.pygtex
+LaTeX Font Info:    Font shape `TS1/zi4/m/it' will be
+(Font)              scaled to size 10.0pt on input line 11.
+) [10]
+(./_minted-main/FBDFC26A1A02611E0FE451761914FD33FFD4151988C195AAC87666079974168
 C.pygtex)
 (./_minted-main/86ECCA1A0C4084194D8B9BACC8E7518B9DF8E9FD9C8C2531C827EFA96048B8A
-C.pygtex) [4] [5] (./main.aux)
+C.pygtex)
+(./_minted-main/310E6B1D9D63170B7D6C4DB9439EA2007DC9A4D6C31DCBF8D031CB57CECA0F0
+1.pygtex) [11]
+(./_minted-main/CA2CF24EC336BB06C0B180248A1A86755BD8A6316E981E6F205AE17052776CB
+C.pygtex)
+(./_minted-main/056F0A87A359F963FB123E6C87C95AEC34DB20B2A89F2F4D13E8E11E5BD545A
+6.pygtex)
+(./_minted-main/8378A4D399B990A44EA1E6E62D8C62E9B6F26F27EC282D017ABDA4243D1045E
+B.pygtex) [12]
+(./_minted-main/008B85B9B25E516FF38B682F03272C3F51272F1B8BE408EDF938A34ECCCAB63
+2.pygtex)
+(./_minted-main/67B7CD3133603681E5A5EF62AFE74875DE09A347CAE732EA5137A283006C857
+0.pygtex) [13]
+(./_minted-main/341A8CD1B01C9E0039CD82B1C06A09FFEF963E9525B15CA212E92624AF7E7A0
+A.pygtex)
+Overfull \vbox (0.58218pt too high) detected at line 210
+ []
+
+[14]
+(./_minted-main/F57C9D182B9ED2FB9A7351D14E40DCE7A306A38C8ABDAC80875096E9BAB2F3C
+3.pygtex)
+(./_minted-main/791EAE25A182BADA57DFF3D61C8875D341320FC37662B23C040CF983AA008CA
+A.pygtex)
+(./_minted-main/2FC74BA08D248729463689DC5DC0E08ACA50FB3B0DABAE279963750C587EBED
+C.pygtex) [15]
+(./_minted-main/FA27B0F9F05F5C8C9EF490D9C8FDD10235DFC248E9832696AF4CE861A9A34A1
+B.pygtex)
+(./_minted-main/C99E4FF1BB12EEBA77C1E1A2F8B2D7D20C4334CBDE5F5A228B16EACAE521323
+5.pygtex)
+(./_minted-main/23E1BD6B92AFD36708BE2441F7D44B1DD850B8E8397D1A729D7EF5CA5C2F7D0
+6.pygtex)
+(./_minted-main/813F02A5A944295540301D17EFD9D15918DCE7203B7DAABC45C1E3E352B775E
+C.pygtex) [16]
+(./_minted-main/992FE8CD8DB516DE8FAD8214CE33C394ADC4E3F81C01084122844B0AA1F0B9A
+8.pygtex)
+(./_minted-main/E1813E2B3BE4F1FE4854DE2DB0EE7744970CCE6E1B94A87711B8727A9B5FF54
+C.pygtex)
+(./_minted-main/8C56DB8788EE1DB8295245AA7CB8274F4CF79C486B002D66042AF107ACC45BD
+7.pygtex) [17]
+(./_minted-main/219AF33E9B6D1DFCD951EB5D6D6EFDBC4D63B03E5F2C01361538235D84EBB8D
+5.pygtex)
+(./_minted-main/AD9431B2548CB34B7A7A290DBA87B80B4745BF0BBBF1D3683E9476F01A617F0
+E.pygtex)
+(./_minted-main/19A00461DAE313AC6A7C01564A6EF3BA354ED474B9303DC1487BB28457BF8D0
+D.pygtex) [18] [19] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+runsystem(rm main.pyg)...executed.
+
  ) 
 Here is how much of TeX's memory you used:
- 8183 strings out of 492990
- 132197 string characters out of 6138688
- 253442 words of memory out of 5000000
- 11583 multiletter control sequences out of 15000+600000
+ 8345 strings out of 492990
+ 144346 string characters out of 6138688
+ 259879 words of memory out of 5000000
+ 11634 multiletter control sequences out of 15000+600000
  5251 words of font info for 20 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,5n,37p,843b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,5n,37p,843b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/share/tex
 mf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}</usr/share/texmf-dist/fonts/t
 ype1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texmf-dist/fonts/type1
@@ -609,10 +720,10 @@ ype1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texmf-dist/fonts/type1
 lic/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb>
-Output written on main.pdf (5 pages, 103882 bytes).
+Output written on main.pdf (19 pages, 133787 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
+ 94 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,51 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}head.ih\PYGZdq{}}
+
+\PYG{c+c1}{// long options and short options}
+\PYG{k}{struct} \PYG{n}{option} \PYG{n}{longOpts}\PYG{p}{[]} \PYG{o}{=} 
+\PYG{p}{\PYGZob{}}
+    \PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZdq{}capitalize\PYGZdq{}}\PYG{p}{,}  \PYG{l+m+mi}{0}\PYG{p}{,}    \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{\PYGZcb{},}
+    \PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZdq{}uc\PYGZdq{}}\PYG{p}{,}          \PYG{l+m+mi}{0}\PYG{p}{,}    \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{\PYGZcb{},}
+    \PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZdq{}lowercase\PYGZdq{}}\PYG{p}{,}   \PYG{l+m+mi}{0}\PYG{p}{,}    \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}l\PYGZsq{}}\PYG{p}{\PYGZcb{},}
+    \PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZdq{}lc\PYGZdq{}}\PYG{p}{,}          \PYG{l+m+mi}{0}\PYG{p}{,}    \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}l\PYGZsq{}}\PYG{p}{\PYGZcb{},}
+    \PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZdq{}version\PYGZdq{}}\PYG{p}{,}     \PYG{l+m+mi}{0}\PYG{p}{,}    \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}v\PYGZsq{}}\PYG{p}{\PYGZcb{},}
+    \PYG{p}{\PYGZob{}}\PYG{l+s}{\PYGZdq{}help\PYGZdq{}}\PYG{p}{,}        \PYG{l+m+mi}{0}\PYG{p}{,}    \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}h\PYGZsq{}}\PYG{p}{\PYGZcb{},}
+    \PYG{p}{\PYGZob{}} \PYG{l+m+mi}{0} \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{n}{vars\PYGZus{}t} \PYG{n+nf}{arguments}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{argv}\PYG{p}{[])}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{vars\PYGZus{}t} \PYG{n}{Vars} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n+nb}{false}\PYG{p}{,} \PYG{n+nb}{false}\PYG{p}{,} \PYG{n+nb}{false}\PYG{p}{,} \PYG{n+nb}{false}\PYG{p}{\PYGZcb{};}
+    \PYG{k+kt}{int} \PYG{n}{opt}\PYG{p}{;}
+    \PYG{k}{while} \PYG{p}{((}\PYG{n}{opt} \PYG{o}{=} \PYG{n}{getopt\PYGZus{}long}\PYG{p}{(}\PYG{n}{argc}\PYG{p}{,} \PYG{n}{argv}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}hvcl\PYGZdq{}}\PYG{p}{,} \PYG{n}{longOpts}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{opt}\PYG{p}{))} \PYG{o}{!=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{k}{switch} \PYG{p}{(}\PYG{n}{opt}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{case} \PYG{l+s+sc}{\PYGZsq{}h\PYGZsq{}}\PYG{o}{:}                   \PYG{c+c1}{// help}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{Vars}\PYG{p}{.}\PYG{n}{help} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+                \PYG{k}{break}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{k}{case} \PYG{l+s+sc}{\PYGZsq{}v\PYGZsq{}}\PYG{o}{:}                   \PYG{c+c1}{// version}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{Vars}\PYG{p}{.}\PYG{n}{version} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+                \PYG{k}{break}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{k}{case} \PYG{l+s+sc}{\PYGZsq{}c\PYGZsq{}}\PYG{o}{:}                   \PYG{c+c1}{// capitalize}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{Vars}\PYG{p}{.}\PYG{n}{capitalize} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+                \PYG{k}{break}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{k}{case} \PYG{l+s+sc}{\PYGZsq{}l\PYGZsq{}}\PYG{o}{:}                   \PYG{c+c1}{// lower\PYGZhy{}case}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{Vars}\PYG{p}{.}\PYG{n}{lowercase} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+                \PYG{k}{break}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{k}{default}\PYG{o}{:}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{Vars}\PYG{p}{.}\PYG{n}{help} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+                \PYG{k}{break}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n}{Vars}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

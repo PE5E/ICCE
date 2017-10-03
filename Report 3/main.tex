@@ -1,4 +1,4 @@
-\documentclass{article}[9pt]
+\documentclass{article}[10pt]
 
 %%----PACKS----%%
 % misc
@@ -18,8 +18,8 @@
 %%--SETTINGS---%% 
 % minted
 \usepackage{xcolor}
-\definecolor{cppbg}{rgb}{150,240,240}
-\newminted[cpp]{C++}{linenos=true, texcl=true, bgcolor=cppbg, tabsize=4, frame=single, newfloat=true}
+\definecolor{cppbg}{rgb}{10,240,240}
+\newminted[cpp]{C++}{linenos=true, texcl=true, bgcolor=cppbg, tabsize=4 , frame=lines}
 \newminted[bashing]{zsh}
 
 %%--CUSTOM-----%%
@@ -47,27 +47,138 @@ Assignment 3} \\
 \end{center}
 \section*{Exercise 18}
 
-\section*{Exercise 19}
+\begin{solution}
 
+
+- It is appropriate to use an int-type parameter when only whole numbers are used. 
+In the code example this is illustrated. The price of pizzas is calculated based on the number of pizzas ordered.
+\begin{cpp}
+    int nrPizzas = 7;
+    cout << "Give the pizzadeliverguy: " << nrPizzas * 4.99 << " euros.\n";
+\end{cpp}  
+  
+- It is appropriate to use an std::string value parameter when pieces of text need to be stored. 
+In the code example this is illustrated because some text is predefined and later shown.
+\begin{cpp}
+    std::string welcome = "Hello to all of you!";
+    cout << welcome;
+\end{cpp}
+
+- It is appropriate to use a const reference to an int-type parameter... Well it is not really appropriate to define a const reference. Because a reference to a variable is always a const and the compiler won't accept it either.
+
+- It is appropriate to use a const reference to a std::string value parameter... Well it is not really appropriate to define a const reference. Because a reference to a variable is always a const and the compiler won't accept it either.
+
+
+- It is appropriate to use a non-const reference to an int-type parameter if we want to make a reference to an int-type parameter. A reference is always constant so no need to declare const or non const.
+A reference to an int-type parameter would make sense if we want to pass the value of the int-type parameter to a function but not copy it. This can be for reasons of e.g. memory or speed, or if we want to access the int-type parameter (which lives somewhere else locally) from within the function.
+
+\begin{cpp}
+void ShowNumber(int &number)
+{
+    cout << number << '\n';
+}
+
+int main()
+{
+    int value = 5;
+    ShowNumber(value);
+}
+\end{cpp}
+
+- It is appropriate to use a non-const reference to a std::string value parameter if we want to make a reference to a std::string value parameter. A reference is always constant so no need to declare const or non const.
+A reference to a std::string value parameter would make sense if we want to pass the value of the std::string value parameter to a function but not copy it. This can be for reasons of e.g. memory or speed, or if we want to access the std::string value parameter (which lives somewhere else locally) from within the function.
+
+\begin{cpp}
+void ShowText(std::string &text)
+{
+    cout << text << '\n';
+}
+
+int main()
+{
+    std::string string = "Hello world!";
+    ShowText(string);
+}
+\end{cpp}
+
+- It is appropriate to use a const rvalue reference to a int type parameter if... no. A const rvalue is nonsense. a rvalue by definition is temporary and will cease to exist after it is used. 
+
+
+- It is appropriate to use a const rvalue reference to a std::string parameter if... no. A const rvalue is nonsense. a rvalue by definition is temporary and will cease to exist after it is used. 
+
+
+- It is appropriate to use a rvalue reference to a int type parameter if we need to use (and probably modify) an int only within a function which value is passed to it when calling the function. It ceases to exist after the function ends.
+\begin{cpp}
+void myFun(int &&number)
+\end{cpp}
+
+- It is appropriate to use a rvalue reference to a std::string parameter if we need to use (and probably modify) a string only within a function which value is passed to it when calling the function. It ceases to exist after the function ends.
+
+\begin{cpp}
+void myFun(string &&myString)
+\end{cpp}
+
+- It is appropriate to return an int-type value if a function returns a whole number.
+\begin{cpp}
+int multiply(int first, int second)
+{
+    return (first * second);
+}
+\end{cpp}
+
+- It is appropriate to return a std::string value if a function returns a piece of text.
+
+\begin{cpp}
+std::string helloWorld(void)
+{
+    std::string hello = "Hello World!\n";
+    return(hello);
+}
+\end{cpp}
+
+- It is not appropriate to return something like a reference or rvalue reference (const or non-const)
+Because the values being returned are not accessible anymore when the function ends. 
+
+\end{solution}
+
+\section*{Exercise 19}
+makefile:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{make}{../19/makefile}
+myheader.ih:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/myheader.ih}
+exercise\_19.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/exercise_19.cc}
+method1.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/method1.cc}
+method2.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/method2.cc}
+method3.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/method3.cc}
+method4.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/method4.cc}
+method5.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/method5.cc}
+method6.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../19/method6.cc}
 \section*{Exercise 20}
 \begin{question}
 Bla
 \end{question}
 \begin{solution}
-main.cc:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/main.cc}
 head.ih:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/head.ih}
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/head.ih}
+main.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/main.cc}
 arguments.cc:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/arguments.cc}
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/arguments.cc}
 process.cc:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/process.cc}
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/process.cc}
 selectopt.cc:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/selectopt.cc}
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/selectopt.cc}
 usage.cc:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/usage.cc}
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/usage.cc}
 version.cc:
-\inputminted[linenos=true, bgcolor=cppbg, tabsize=4, frame=single]{cpp}{../20/version.cc}
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../20/version.cc}
 
 \end{solution}
 
@@ -75,13 +186,63 @@ version.cc:
 \begin{question}
 \end{question}
 
+\begin{solution}
+myheader.ih:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../21/myheader.ih}
+main.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../21/main.cc}
+partial.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../21/partial.cc}
+square.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../21/square.cc}
+\end{solution}
+
 \section*{Exercise 22}
 \begin{question}
 \end{question}
 
 \begin{solution}
+test.sh (a small shell script to test the program)
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{bash}{../22/test.sh}
+header.ih:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/header.ih}
+main.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/main.cc}
+decode.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/decode.cc}
+dectohex.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/dectohex.cc}
+encode.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/encode.cc}
+getopt.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/getopt.cc}
+hextodec.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/hextodec.cc}
+isalpha.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/isalpha.cc}
+isother.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/isother.cc}
+usage.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../22/usage.cc}
 \end{solution}
+
 \section*{Exercise 23}
 
+\begin{question}
+\end{question}
+
+\begin{solution}
+header.ih:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../23/header.ih}
+main.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../23/main.cc}
+printbig.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../23/printbig.cc}
+printbigdirect.cc
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../23/printbigdirect.cc}
+usage.cc:
+\inputminted[linenos=true, bgcolor=cppbg, tabsize=4 , frame=lines]{cpp}{../23/usage.cc}
+
+\end{solution}
 \end{document}
 

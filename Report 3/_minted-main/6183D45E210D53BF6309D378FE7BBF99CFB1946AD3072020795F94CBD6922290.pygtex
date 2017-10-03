@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k+kt}{int} \PYG{n+nf}{multiply}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{first}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{second}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{p}{(}\PYG{n}{first} \PYG{o}{*} \PYG{n}{second}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

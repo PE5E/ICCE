@@ -1,0 +1,54 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// method6.cc}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}myheader.ih\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+
+\PYG{k+kt}{void} \PYG{n+nf}{method6}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{counter} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{nrOfTurns} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{n}{valueToCompute} \PYG{o}{=} \PYG{n}{valueToAnalyze}\PYG{p}{;}
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{ttLow} \PYG{o}{=} \PYG{k}{sizeof} \PYG{p}{(}\PYG{n}{valueToCompute}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{8}\PYG{p}{;} \PYG{c+c1}{// nr of bytes * 8 bits}
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{ttHigh} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+            \PYG{c+c1}{// ttLow and ttHigh values are swapped for LSB calc}
+
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{ttMid}\PYG{p}{;}
+        \PYG{n}{ttMid} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ttLow} \PYG{o}{+} \PYG{n}{ttHigh}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{;}
+
+        \PYG{k}{while} \PYG{p}{(}\PYG{n+nb}{true}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{valueToCompute} \PYG{o}{=} \PYG{n}{valueToAnalyze}\PYG{p}{;}
+
+                \PYG{c+c1}{// compute if last bit is before ttMid}
+            \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{shiftedValue} \PYG{o}{=} \PYG{n}{valueToCompute} \PYG{o}{\PYGZlt{}\PYGZlt{}=} \PYG{n}{ttMid}\PYG{p}{;}  
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{shiftedValue} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{ttLow} \PYG{o}{=} \PYG{n}{ttMid}\PYG{p}{;}
+                \PYG{n}{ttMid} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ttLow} \PYG{o}{+} \PYG{n}{ttHigh}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+
+            \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{ttHigh} \PYG{o}{==} \PYG{n}{ttMid}\PYG{p}{)}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{counter} \PYG{o}{=} \PYG{k}{sizeof} \PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{8} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{ttMid} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{);}
+                \PYG{k}{break}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{k}{else}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{ttHigh} \PYG{o}{=} \PYG{n}{ttMid}\PYG{p}{;}
+                \PYG{n}{ttMid} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ttLow} \PYG{o}{+} \PYG{n}{ttHigh}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{n}{nrOfTurns}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Method 6 binary search.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}LSbit of \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{valueToAnalyze} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} is at bit offset \PYGZdq{}}
+        \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{counter} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+    \PYG{k}{return}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

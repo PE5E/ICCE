@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+\PYG{c+c1}{// test if ch is alphanumerical }
+
+\PYG{k+kt}{bool} \PYG{n+nf}{isAlpha}\PYG{p}{(}\PYG{k+kt}{char} \PYG{n}{ch}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{ch} \PYG{o}{\PYGZgt{}=} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{ch} \PYG{o}{\PYGZlt{}=} \PYG{l+s+sc}{\PYGZsq{}9\PYGZsq{}}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{ch} \PYG{o}{\PYGZgt{}=} \PYG{l+s+sc}{\PYGZsq{}A\PYGZsq{}} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{ch} \PYG{o}{\PYGZlt{}=} \PYG{l+s+sc}{\PYGZsq{}Z\PYGZsq{}}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{ch} \PYG{o}{\PYGZgt{}=} \PYG{l+s+sc}{\PYGZsq{}a\PYGZsq{}} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{ch} \PYG{o}{\PYGZlt{}=} \PYG{l+s+sc}{\PYGZsq{}z\PYGZsq{}}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
+    \PYG{k}{return} \PYG{n+nb}{false}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

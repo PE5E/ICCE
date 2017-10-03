@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+\PYG{c+c1}{// test if ch is part of exlude set}
+
+\PYG{k+kt}{bool} \PYG{n+nf}{isOther}\PYG{p}{(}\PYG{k+kt}{char} \PYG{n}{ch}\PYG{p}{)}                               
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{others} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}\PYGZhy{}\PYGZus{}.\PYGZti{}\PYGZdq{}}\PYG{p}{;}                      \PYG{c+c1}{// to skip}
+    \PYG{k}{return} \PYG{n}{others}\PYG{p}{.}\PYG{n}{find}\PYG{p}{(}\PYG{n}{ch}\PYG{p}{)} \PYG{o}{!=} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{::}\PYG{n}{npos}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

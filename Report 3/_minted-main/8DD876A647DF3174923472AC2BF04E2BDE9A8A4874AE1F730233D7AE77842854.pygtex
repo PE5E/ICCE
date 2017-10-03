@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// myheader.ih}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}sstream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}math.h\PYGZgt{}}
+
+    \PYG{c+cp}{\PYGZsh{}ifdef \PYGZus{}\PYGZus{}cplusplus}
+	    \PYG{k}{extern} \PYG{l+s}{\PYGZdq{}C\PYGZdq{}} \PYG{p}{\PYGZob{}}
+    \PYG{c+cp}{\PYGZsh{}endif}
+
+    \PYG{k+kt}{void} \PYG{n}{method1}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{);}
+        \PYG{c+c1}{// MSB right shift bits}
+    \PYG{k+kt}{void} \PYG{n+nf}{method2}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{);}
+        \PYG{c+c1}{// MSB logarithm}
+    \PYG{k+kt}{void} \PYG{n+nf}{method3}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{);}
+        \PYG{c+c1}{// MSB bit boundary search}
+    \PYG{k+kt}{void} \PYG{n+nf}{method4}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{);}
+        \PYG{c+c1}{// LSB right shift bits}
+    \PYG{k+kt}{void} \PYG{n+nf}{method5}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{);}
+        \PYG{c+c1}{// LSB logarithm}
+    \PYG{k+kt}{void} \PYG{n+nf}{method6}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{);}
+        \PYG{c+c1}{// LSB bit boundary search}
+
+    \PYG{k}{extern} \PYG{k+kt}{double} \PYG{k}{const} \PYG{n}{ln2}\PYG{p}{;}
+
+    \PYG{c+cp}{\PYGZsh{}ifdef \PYGZus{}\PYGZus{}cplusplus}
+    	\PYG{p}{\PYGZcb{}}
+    \PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+\PYG{c+c1}{// determine which option was provided}
+
+\PYG{n}{EOption} \PYG{n+nf}{getOpt}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{opt}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{opt} \PYG{o}{==} \PYG{l+s}{\PYGZdq{}\PYGZhy{}e\PYGZdq{}}\PYG{p}{)} \PYG{k}{return} \PYG{n}{EOption}\PYG{o}{::}\PYG{n}{ENCODE}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{opt} \PYG{o}{==} \PYG{l+s}{\PYGZdq{}\PYGZhy{}d\PYGZdq{}}\PYG{p}{)} \PYG{k}{return} \PYG{n}{EOption}\PYG{o}{::}\PYG{n}{DECODE}\PYG{p}{;}
+    
+    \PYG{k}{return} \PYG{n}{EOption}\PYG{o}{::}\PYG{n}{NONE}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

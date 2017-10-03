@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+\PYG{c+c1}{// instructions for users}
+
+\PYG{k+kt}{char} \PYG{k}{const} \PYG{n}{use}\PYG{p}{[]}\PYG{o}{=}
+\PYG{l+s+sa}{R}\PYG{l+s}{\PYGZdq{}}\PYG{l+s+dl}{(}
+\PYG{l+s}{Exercise 22: an URL stream decoder / encoder}
+
+\PYG{l+s}{Usage: main [\PYGZhy{}e/\PYGZhy{}d] \PYGZlt{} input.txt}
+\PYG{l+s}{    (or provide stdin in other way)}
+\PYG{l+s}{Where:}
+\PYG{l+s}{    \PYGZhy{}e        url\PYGZhy{}encode input}
+\PYG{l+s}{    \PYGZhy{}d        decode url\PYGZhy{}encoded input}
+\PYG{l+s}{input.txt}
+\PYG{l+s}{    contains either}
+\PYG{l+s}{        an url\PYGZhy{}encoded string (when using \PYGZhy{}d)}
+\PYG{l+s}{        an url\PYGZhy{}decoded string (when using \PYGZhy{}e)}
+\PYG{l+s+dl}{)}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    
+\PYG{k+kt}{void} \PYG{n+nf}{usage}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{programName}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{use} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

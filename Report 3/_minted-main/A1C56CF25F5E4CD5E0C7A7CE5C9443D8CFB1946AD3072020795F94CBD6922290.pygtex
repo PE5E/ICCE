@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{welcome} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}Hello to all of you!\PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{welcome}\PYG{p}{;}
+\end{Verbatim}

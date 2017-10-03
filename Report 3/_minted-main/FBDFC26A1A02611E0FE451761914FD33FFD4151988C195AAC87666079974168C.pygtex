@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// instructions for users}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}head.ih\PYGZdq{}}
+
+\PYG{k+kt}{char} \PYG{k}{const} \PYG{n}{use}\PYG{p}{[]}\PYG{o}{=}
+\PYG{l+s+sa}{R}\PYG{l+s}{\PYGZdq{}}\PYG{l+s+dl}{(}
+\PYG{l+s}{20 V 1\PYGZgt{}}
+
+\PYG{l+s}{Usage: ./main [options] \PYGZlt{} file}
+\PYG{l+s}{Where:}
+\PYG{l+s}{    \PYGZhy{}\PYGZhy{}captitalize   (\PYGZhy{}\PYGZhy{}uc, \PYGZhy{}u);     captitalize the letters in \PYGZsq{}file\PYGZsq{}}
+\PYG{l+s}{    \PYGZhy{}\PYGZhy{}help          (\PYGZhy{}h);           display this information}
+\PYG{l+s}{    \PYGZhy{}\PYGZhy{}lowercase     (\PYGZhy{}\PYGZhy{}lc, \PYGZhy{}l);     convert letters to lowercase in \PYGZsq{}file\PYGZsq{}}
+\PYG{l+s}{    \PYGZhy{}\PYGZhy{}version       (\PYGZhy{}v);           display version information}
+
+\PYG{l+s}{20 processes \PYGZsq{}file\PYGZsq{} and writes the results}
+\PYG{l+s}{to the standard output stream.}
+\PYG{l+s+dl}{)}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+\PYG{k+kt}{void} \PYG{n+nf}{usage}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{use} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

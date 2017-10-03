@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{exercise\PYGZus{}19 }\PYG{o}{:} \PYG{n}{exercise\PYGZus{}}19.\PYG{n}{o} \PYG{n}{method}1.\PYG{n}{o} \PYG{n}{method}2.\PYG{n}{o} \PYG{n}{method}3.\PYG{n}{o} \PYG{n}{method}4.\PYG{n}{o} \PYGZbs{}
+			\PYG{n}{method}5.\PYG{n}{o} \PYG{n}{method}6.\PYG{n}{o}
+				g++ \PYGZhy{}std\PYG{o}{=}c++17 exercise\PYGZus{}19.o method1.o method2.o method3.o \PYG{l+s+se}{\PYGZbs{}}
+				method4.o method5.o method6.o \PYGZhy{}o exercise\PYGZus{}19
+
+\PYG{n+nf}{exercise\PYGZus{}19.o }\PYG{o}{:} \PYG{n}{exercise\PYGZus{}}19.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c exercise\PYGZus{}19.cc
+\PYG{n+nf}{method1.o }\PYG{o}{:} \PYG{n}{method}1.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c method1.cc
+\PYG{n+nf}{method2.o }\PYG{o}{:} \PYG{n}{method}2.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c method2.cc
+\PYG{n+nf}{method3.o }\PYG{o}{:} \PYG{n}{method}3.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c method3.cc
+\PYG{n+nf}{method4.o }\PYG{o}{:} \PYG{n}{method}4.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c method4.cc
+\PYG{n+nf}{method5.o }\PYG{o}{:} \PYG{n}{method}5.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c method5.cc
+\PYG{n+nf}{method6.o }\PYG{o}{:} \PYG{n}{method}6.\PYG{n}{cc} \PYG{n}{myheader}.\PYG{n}{ih}
+	g++ \PYGZhy{}std\PYG{o}{=}c++17 \PYGZhy{}Wall \PYGZhy{}Werror \PYGZhy{}c method6.cc
+\PYG{n+nf}{clean }\PYG{o}{:}
+		rm exercise\PYGZus{}19 exercise\PYGZus{}19.o method1.o method2.o method3.o method4.o \PYG{l+s+se}{\PYGZbs{}}
+			method5.o method6.o
+\end{Verbatim}

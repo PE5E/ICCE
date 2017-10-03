@@ -1,0 +1,37 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}unistd.h\PYGZgt{}         // isatty}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}         // cin, cout}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}getopt.h\PYGZgt{}         // getopt\PYGZus{}long}
+
+\PYG{c+c1}{// processing type}
+\PYG{k}{enum} \PYG{k}{class} \PYG{n+nc}{Mode} \PYG{p}{\PYGZob{}}
+    \PYG{n}{ERROR}\PYG{p}{,}
+    \PYG{n}{CAPITALIZE}\PYG{p}{,}
+    \PYG{n}{LOWER\PYGZus{}CASE}\PYG{p}{,}
+    \PYG{n}{VERSION}\PYG{p}{,}
+    \PYG{n}{USAGE}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{c+c1}{// arguments type}
+\PYG{k}{struct} \PYG{n}{vars\PYGZus{}t} \PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{bool} \PYG{n}{help}\PYG{p}{;}              \PYG{c+c1}{// \PYGZhy{}h \PYGZhy{}\PYGZhy{}help}
+    \PYG{k+kt}{bool} \PYG{n}{version}\PYG{p}{;}           \PYG{c+c1}{// \PYGZhy{}v \PYGZhy{}\PYGZhy{}version}
+    \PYG{k+kt}{bool} \PYG{n}{capitalize}\PYG{p}{;}        \PYG{c+c1}{// \PYGZhy{}c \PYGZhy{}\PYGZhy{}uc \PYGZhy{}\PYGZhy{}capitalize}
+    \PYG{k+kt}{bool} \PYG{n}{lowercase}\PYG{p}{;}         \PYG{c+c1}{// \PYGZhy{}l \PYGZhy{}\PYGZhy{}lc \PYGZhy{}\PYGZhy{}lower\PYGZhy{}case}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{c+c1}{// info for user}
+\PYG{k+kt}{void} \PYG{n+nf}{usage}\PYG{p}{();}
+
+\PYG{c+c1}{// process input}
+\PYG{k+kt}{void} \PYG{n+nf}{process}\PYG{p}{(}\PYG{n}{vars\PYGZus{}t} \PYG{n}{Vars}\PYG{p}{);}
+
+\PYG{c+c1}{// do stuff }
+\PYG{n}{vars\PYGZus{}t} \PYG{n+nf}{arguments}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{argv}\PYG{p}{[]);}
+
+\PYG{c+c1}{// select mode from arguments}
+\PYG{n}{Mode} \PYG{n+nf}{selectOpt}\PYG{p}{(}\PYG{n}{vars\PYGZus{}t} \PYG{n}{Vars}\PYG{p}{);}
+
+\PYG{c+c1}{// cout version num}
+\PYG{k+kt}{void} \PYG{n+nf}{version}\PYG{p}{();}
+\end{Verbatim}

@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{argv}\PYG{p}{[])}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{argc} \PYG{o}{!=} \PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Error: this program expects a single integer.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+        \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+    
+    \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{n}{num} \PYG{o}{=} \PYG{n}{std}\PYG{o}{::}\PYG{n}{stoll}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]);}
+    
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}direct method:\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{printBigDirect}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{p}{,} \PYG{n}{num}\PYG{p}{);}
+    
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}recursive method:\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{printBig}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{p}{,} \PYG{n}{num}\PYG{p}{);}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

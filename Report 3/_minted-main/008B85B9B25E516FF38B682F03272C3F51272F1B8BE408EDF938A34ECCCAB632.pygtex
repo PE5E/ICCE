@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+./main \PYGZhy{}d \PYGZlt{} input.txt \PYGZgt{}\PYGZgt{} output.txt
+./main \PYGZhy{}e \PYGZlt{} output.txt \PYGZgt{}\PYGZgt{} \PYG{k}{return}.txt
+
+\PYG{n+nb}{echo} \PYG{l+s+s2}{\PYGZdq{}INPUT==============\PYGZdq{}}
+cat input.txt
+\PYG{n+nb}{echo} \PYG{l+s+s2}{\PYGZdq{}OUTPUT=============\PYGZdq{}}
+cat output.txt
+\PYG{n+nb}{echo} \PYG{l+s+s2}{\PYGZdq{}INPUT?=============\PYGZdq{}}
+cat \PYG{k}{return}.txt
+
+rm output.txt \PYG{k}{return}.txt
+\end{Verbatim}

@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// method1.cc}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}myheader.ih\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+
+\PYG{k+kt}{void} \PYG{n+nf}{method1}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{counter} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{nrOfTurns} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{n}{valueToCompute} \PYG{o}{=} \PYG{n}{valueToAnalyze}\PYG{p}{;}
+        \PYG{n}{counter} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+        \PYG{k}{while} \PYG{p}{(}\PYG{n}{valueToCompute} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{valueToCompute} \PYG{o}{\PYGZgt{}\PYGZgt{}=} \PYG{l+m+mi}{1}\PYG{p}{;}    \PYG{c+c1}{// right shift bits}
+            \PYG{o}{++}\PYG{n}{counter}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{n}{counter} \PYG{o}{\PYGZhy{}=} \PYG{l+m+mi}{1}\PYG{p}{;}            \PYG{c+c1}{// calc offset not the nr of bits}
+        \PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{n}{nrOfTurns}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Method 1 right shift bits.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}MSbit of \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{valueToAnalyze} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} is at bit offset \PYGZdq{}}
+        \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{counter} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+    \PYG{k}{return}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

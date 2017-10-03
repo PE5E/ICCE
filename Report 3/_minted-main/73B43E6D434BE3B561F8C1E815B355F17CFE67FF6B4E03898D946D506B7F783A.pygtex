@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// method5.cc}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}myheader.ih\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+
+\PYG{k+kt}{void} \PYG{n+nf}{method5}\PYG{p}{(}\PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{k}{const} \PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{nrOfTurns}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{nrOfTurns} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{c+c1}{// doing nothing as many times as you ask}
+        \PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{n}{nrOfTurns}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Method 5 logarithm.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}I don\PYGZsq{}t think it is possible to calculate the LSbit with \PYGZdq{}} 
+        \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}logarithm }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+    \PYG{k}{return}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

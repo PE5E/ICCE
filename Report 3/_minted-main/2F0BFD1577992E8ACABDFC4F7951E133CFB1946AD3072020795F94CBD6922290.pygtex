@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{helloWorld}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{hello} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}Hello World!}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{hello}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

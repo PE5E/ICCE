@@ -1,0 +1,46 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// exercise\PYGZus{}19.cc}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}myheader.ih\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{argv}\PYG{p}{[])}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{istringstream} \PYG{n}{iSS}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]);}
+                                            \PYG{c+c1}{// need istringstream here. stoi can\PYGZsq{}t handle long long ints}
+
+    \PYG{k+kt}{unsigned} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{k+kt}{int} \PYG{n}{valueToAnalyze}\PYG{p}{;}
+    \PYG{n}{iSS} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{valueToAnalyze}\PYG{p}{;}
+
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{method} \PYG{o}{=} \PYG{n}{stoi}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]);}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{nrOfTurns} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{argc} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{3}\PYG{p}{)}                           \PYG{c+c1}{// if provided set nr of turns to calculate}
+        \PYG{n}{nrOfTurns} \PYG{o}{=} \PYG{n}{stoi}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{]);}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{method} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{n}{method1}\PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{n}{nrOfTurns}\PYG{p}{);}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{method} \PYG{o}{==} \PYG{l+m+mi}{2}\PYG{p}{)}
+        \PYG{n}{method2}\PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{n}{nrOfTurns}\PYG{p}{);}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{method} \PYG{o}{==} \PYG{l+m+mi}{3}\PYG{p}{)}
+        \PYG{n}{method3}\PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{n}{nrOfTurns}\PYG{p}{);}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{method} \PYG{o}{==} \PYG{l+m+mi}{4}\PYG{p}{)}
+        \PYG{n}{method4}\PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{n}{nrOfTurns}\PYG{p}{);}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{method} \PYG{o}{==} \PYG{l+m+mi}{5}\PYG{p}{)}
+        \PYG{n}{method5}\PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{n}{nrOfTurns}\PYG{p}{);}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{method} \PYG{o}{==} \PYG{l+m+mi}{6}\PYG{p}{)}
+        \PYG{n}{method6}\PYG{p}{(}\PYG{n}{valueToAnalyze}\PYG{p}{,} \PYG{n}{nrOfTurns}\PYG{p}{);}
+    \PYG{k}{else}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Please provide the second argument as a number 1 \PYGZhy{} 6.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+cm}{/*}
+\PYG{c+cm}{The fastest method for finding the MSB depends on the input. }
+\PYG{c+cm}{Method 1 is quick for small nrs. But big nrs can request up to 64 calculations.}
+\PYG{c+cm}{Method 3 is relative fast when calculating big nrs. This method takes a maximum}
+\PYG{c+cm}{of 6 calculations.}
+\PYG{c+cm}{Method 2 seems to have a constant calc speed which is never the fastest.}
+\PYG{c+cm}{*/}    
+\end{Verbatim}

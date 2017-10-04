@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// instructions for users}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+
+\PYG{k+kt}{char} \PYG{k}{const} \PYG{n}{use}\PYG{p}{[]}\PYG{o}{=}
+\PYG{l+s+sa}{R}\PYG{l+s}{\PYGZdq{}}\PYG{l+s+dl}{(}
+\PYG{l+s}{23 V 1}
+
+\PYG{l+s}{Usage: ./bin number}
+\PYG{l+s}{Where:}
+\PYG{l+s}{    number is an integer}
+\PYG{l+s}{    }
+\PYG{l+s}{\PYGZlt{}20 processes number and writes it to the output stream after }
+\PYG{l+s}{adding seperators every 3 digits, using two different methods:}
+\PYG{l+s}{direct and indirect.}
+\PYG{l+s+dl}{)}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+\PYG{k+kt}{void} \PYG{n+nf}{usage}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{use} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

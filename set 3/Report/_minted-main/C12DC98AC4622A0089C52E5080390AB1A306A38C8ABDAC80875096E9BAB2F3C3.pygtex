@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
+\PYG{c+c1}{// decode url\PYGZhy{}encoded stream}
+
+\PYG{k+kt}{void} \PYG{n+nf}{decode}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{is}\PYG{p}{,} \PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{n}{os}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{char} \PYG{n}{ch}\PYG{p}{;}
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{is}\PYG{p}{.}\PYG{n}{get}\PYG{p}{(}\PYG{n}{ch}\PYG{p}{))}                         
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{ch} \PYG{o}{==} \PYG{l+s+sc}{\PYGZsq{}\PYGZpc{}\PYGZsq{}} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{is}\PYG{p}{.}\PYG{n}{get}\PYG{p}{(}\PYG{n}{ch}\PYG{p}{))}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{str}\PYG{p}{;} 
+            \PYG{n}{str}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{ch}\PYG{p}{);}               \PYG{c+c1}{// 2nd digit}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{is}\PYG{p}{.}\PYG{n}{get}\PYG{p}{(}\PYG{n}{ch}\PYG{p}{))}
+                \PYG{n}{str}\PYG{p}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{ch}\PYG{p}{);}
+            \PYG{n}{os} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{k}{static\PYGZus{}cast}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{char}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{hexToDec}\PYG{p}{(}\PYG{n}{str}\PYG{p}{));}                     
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{else}
+        \PYG{n}{os} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{ch}\PYG{p}{;}                             \PYG{c+c1}{// skip  }
+    \PYG{p}{\PYGZcb{}} 
+    \PYG{k}{return}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

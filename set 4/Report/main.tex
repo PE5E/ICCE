@@ -1,0 +1,57 @@
+\documentclass{article}[10pt]
+
+%%----PACKS----%%
+% misc
+\usepackage[margin=1in]{geometry}
+% math
+\usepackage{amsmath,
+            amsfonts,
+            amssymb}
+% images
+\usepackage{graphicx}
+% code
+\usepackage{listings,
+            minted}
+\usepackage{inconsolata}
+%%-------------%%
+
+%%--SETTINGS---%% 
+% minted
+\usepackage{xcolor}
+\definecolor{cppbg}{rgb}{10,240,240}
+\newminted[cpp]{C++}{linenos=true, texcl=true, bgcolor=cppbg, tabsize=4 , frame=lines}
+\newminted[bashing]{zsh}
+
+%%--CUSTOM-----%%
+\newenvironment{question}
+{
+\noindent \bf Problem statement. \rm
+}
+
+\newenvironment{solution}
+{
+\noindent \bf Solution. \rm
+}
+
+\begin{document}
+
+% authors
+\begin{flushright}
+	\textbf{Regular: Jaap van der Leest\\  Attendee: Timon van der Berg \\ }
+\today
+\end{flushright}
+
+% title
+\begin{center}
+\textbf{C++ Course \\
+Assignment 4} \\
+\end{center}
+
+%%--BEGIN ACTUAL CONTENT--%%
+\section*{Exercise 26}
+\section*{Exercise 27}
+\section*{Exercise 28}
+\section*{Exercise 29}
+\section*{Exercise 30} 
+\end{document}
+

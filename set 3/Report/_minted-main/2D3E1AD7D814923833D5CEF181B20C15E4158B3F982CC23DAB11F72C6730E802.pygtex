@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}head.ih\PYGZdq{}}
+
+\PYG{n}{Mode} \PYG{n+nf}{selectOpt}\PYG{p}{(}\PYG{n}{vars\PYGZus{}t} \PYG{n}{Vars}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{Vars}\PYG{p}{.}\PYG{n}{help}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{Mode}\PYG{o}{::}\PYG{n}{USAGE}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{Vars}\PYG{p}{.}\PYG{n}{version}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{Mode}\PYG{o}{::}\PYG{n}{VERSION}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{Vars}\PYG{p}{.}\PYG{n}{capitalize} \PYG{n}{and} \PYG{n}{Vars}\PYG{p}{.}\PYG{n}{lowercase}\PYG{p}{)}         \PYG{c+c1}{// can\PYGZsq{}t do both}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{Mode}\PYG{o}{::}\PYG{n}{ERROR}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{Vars}\PYG{p}{.}\PYG{n}{capitalize}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{Mode}\PYG{o}{::}\PYG{n}{CAPITALIZE}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{Vars}\PYG{p}{.}\PYG{n}{lowercase}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{Mode}\PYG{o}{::}\PYG{n}{LOWER\PYGZus{}CASE}\PYG{p}{;}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Invalid argument provided.\PYGZdq{}}\PYG{p}{;}
+    \PYG{k}{return} \PYG{n}{Mode}\PYG{o}{::}\PYG{n}{ERROR}\PYG{p}{;}
+    
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

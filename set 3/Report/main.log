@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.6.13)  3 OCT 2017 12:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.6.13)  4 OCT 2017 11:26
 entering extended mode
- \write18 enabled.
+ restricted \write18 enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
@@ -277,7 +277,7 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 (/usr/share/texmf-dist/tex/latex/tools/shellesc.sty
 Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
-Package shellesc Info: Unrestricted shell escape enabled on input line 67.
+Package shellesc Info: Restricted shell escape enabled on input line 69.
 )
 (/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
 Package: ifplatform 2010/10/22 v0.4 Testing for the operating system
@@ -293,13 +293,11 @@ Package pdftexcmds Info: \pdfdraftmode found.
 (/usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
 Package: catchfile 2016/05/16 v1.7 Catch the contents of a file (HO)
 )
-runsystem(uname -s > "main.w18")...executed.
 
- (./main.w18)
-runsystem(rm -- "main.w18")...executed.
+Package ifplatform Warning: 
+    shell escape is disabled, so I can only detect \ifwindows.
 
-)
-(/usr/share/texmf-dist/tex/generic/xstring/xstring.sty
+) (/usr/share/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write4
 \integerpart=\count131
@@ -323,14 +321,26 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \@float@every@listing=\toks25
 \c@listing=\count135
 )
-runsystem(mkdir -p _minted-main)...executed.
+runsystem(mkdir -p _minted-main)...disabled (restricted).
 
+
+
+! Package minted Error: You must invoke LaTeX with the -shell-escape flag.
+
+See the minted package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 \usepackage
+                {inconsolata}
+? q
+OK, entering \batchmode...
 
 (/usr/share/texmf-dist/tex/latex/inconsolata/inconsolata.sty
 Package: inconsolata 2017/01/04 v1.112
 
-`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
-(/usr/share/texmf-dist/tex/latex/base/textcomp.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe) (/us
+r/share/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2017/02/22 v2.0g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -344,8 +354,7 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
 Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
-
-(/usr/share/texmf-dist/tex/latex/base/ts1enc.def
+ (/usr/share/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
 LaTeX Info: Redefining \oldstylenums on input line 334.
@@ -411,12 +420,10 @@ Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
 Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
-)
-(/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+) (/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
-
-(/usr/share/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/share/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+ (/usr/share/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/share/texmf-dist/
+tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks26
 \XKV@tempa@toks=\toks27
 )
@@ -424,11 +431,9 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \zifour@ocount=\count137
-)
-(/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+) (/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-
-(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+ (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -442,9 +447,20 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-runsystem(which pygmentize && touch main.aex)...executed.
+runsystem(which pygmentize && touch main.aex)...disabled (restricted).
 
-runsystem(rm main.aex)...executed.
+
+! Package minted Error: You must have `pygmentize' installed to use this packag
+e.
+
+See the minted package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37 \begin{document}
+                     
+Refer to the installation instructions in the minted documentation for more inf
+ormation.
 
  (./main.aux)
 \openout1 = `main.aux'.
@@ -463,12 +479,10 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
 LaTeX Font Info:    ... okay on input line 37.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 37.
-
-(/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
+ (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 37.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -503,6 +517,7 @@ LaTeX Font Info:    ... okay on input line 37.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count138
@@ -516,10 +531,10 @@ LaTeX Font Info:    ... okay on input line 37.
 \MPnumerator=\count142
 \makeMPintoPDFobject=\count143
 \everyMPtoPDFconversion=\toks29
-) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+)
+(/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
+ (/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 
 (/usr/share/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
@@ -539,8 +554,8 @@ e
 \c@lstlisting=\count144
 \openout3 = `main.pyg'.
 
+ (./_minted-main/default-pyg-prefix.pygstyle) (./_minted-main/default.pygstyle)
 
-(./_minted-main/default-pyg-prefix.pygstyle) (./_minted-main/default.pygstyle)
 (./_minted-main/ED5618433488BD36D2E212C1DBA5A4FECFB1946AD3072020795F94CBD692229
 0.pygtex
 LaTeX Font Info:    Try loading font information for OT1+zi4 on input line 1.
@@ -632,7 +647,7 @@ A.pygtex) [6]
 Overfull \vbox (0.38219pt too high) detected at line 159
  []
 
-[7]
+ [7]
 (./_minted-main/EF3D1BBF957FE101448FF37D2BFC27D32AD51425E048540941C01398E7D0C8C
 E.pygtex)
 (./_minted-main/02ABB2EB91C4F639838CAC989B9BEC497C8D5909CE5BCD97B3AAF419D07FA56
@@ -693,13 +708,13 @@ D.pygtex) [18] [19] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-runsystem(rm main.pyg)...executed.
+runsystem(rm main.pyg)...disabled (restricted).
 
  ) 
 Here is how much of TeX's memory you used:
- 8326 strings out of 493013
- 142505 string characters out of 6139317
- 257940 words of memory out of 5000000
+ 8323 strings out of 493013
+ 142483 string characters out of 6139317
+ 257947 words of memory out of 5000000
  11600 multiletter control sequences out of 15000+600000
  5419 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191

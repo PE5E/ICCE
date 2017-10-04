@@ -1,0 +1,5 @@
+std::string helloWorld(void)
+{
+    std::string hello = "Hello World!\n";
+    return(hello);
+}

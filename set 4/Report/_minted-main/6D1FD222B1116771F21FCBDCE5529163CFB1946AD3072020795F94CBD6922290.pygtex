@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k}{class} \PYG{n+nc}{vector}\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{d\PYGZus{}xval}\PYG{p}{;}
+    \PYG{k+kt}{int} \PYG{n}{d\PYGZus{}yval}\PYG{p}{;}
+    \PYG{k}{public}\PYG{o}{:}
+        \PYG{k+kt}{void} \PYG{n}{setXval}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{val}\PYG{p}{);}                 \PYG{c+c1}{// sets d_xval}
+        \PYG{k+kt}{void} \PYG{n+nf}{setYval}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{val}\PYG{p}{);}                 \PYG{c+c1}{// sets d_yval}
+
+        \PYG{k+kt}{int} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{xval}\PYG{p}{()}  \PYG{k}{const}\PYG{p}{;}              \PYG{c+c1}{// reads d_xval}
+        \PYG{k+kt}{int} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{yval}\PYG{p}{()}  \PYG{k}{const}\PYG{p}{;}              \PYG{c+c1}{// reads d_yval}
+
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{length}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{xval}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{yval}\PYG{p}{);}     \PYG{c+c1}{// compute length of vector (a,b)}
+\PYG{p}{\PYGZcb{};}
+\end{Verbatim}

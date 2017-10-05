@@ -49,6 +49,41 @@ Assignment 4} \\
 
 %%--BEGIN ACTUAL CONTENT--%%
 \section*{Exercise 26}
+
+    \begin{question}                    % introduces question: in boldface
+    Describe in your own words what `encapsulation' 
+    and `data hiding' means, and why these concepts 
+    are important when designing classes.
+    Provide a small example of a self-defined class 
+    illustrating your explanation. 
+    \end{question}
+
+\begin{solution}                    % introduces solution: in boldface
+Incapsulation means that the data in a class (or struct) is not directly available outside the class. 
+Instead, member functions provide the only way to acces the data of the class; they \textit{encapsulate} the data.
+In this sense the data is hidden from parts of the program outside the class. This means that you can interact with the class without
+thinking about how the data is implemented. You only have to worry about the interface provided by the public class functions.
+The implementation of the data (and even of the member functions) can therefore be changed completely without
+breaking programs that use the class. This increases the maintainability and modularity of code. Consider the following example.
+
+    \begin{minted}[linenos=true]{cpp}
+    class vector{
+        int d_xval;
+        int d_yval;
+        public:
+            void setXval(int val);                 // sets d_xval
+            void setYval(int val);                 // sets d_yval
+
+            int const &xval()  const;              // reads d_xval
+            int const &yval()  const;              // reads d_yval
+
+            size_t length(int xval, int yval);     // compute length of vector (a,b)
+    };
+    \end{minted}
+
+Here the data \verb|int d_xval| and \verb|int d_yval| is hidden and it is encapsulated by the member functions \verb|setXval|, \verb|setYval| and \verb|xval|, \verb|yval| which allow reading and writing of the data. Finally, a member function \verb|length| is declared.
+reading and writing of the value. A user who calls \verb|lenth()| need not worry about how the data is saved or how length is computed. In fact, the programmer may change this implementation at any time, for example to make the code faster. If the interface stays the same, the user should not notice. The data variables are also not available to the user, other than by calling the functions that read them.
+\end{solution}
 \section*{Exercise 27}
 \section*{Exercise 28}
 \section*{Exercise 29}

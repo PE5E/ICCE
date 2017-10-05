@@ -1,0 +1,15 @@
+#include <string>
+
+class User{
+    Public:
+        User();                             // constructor
+        
+    size_t groupid() const;
+    std::string homedir() const:
+    bool inGroup(size_t grid) const;
+    std::string name();
+    std::string realname() const;
+    std::string shell() const;
+    size_t userid() const;
+    bool valid() const;
+}

@@ -1,12 +1,15 @@
+#ifndef INCLUDED_USER_H_
+#define INCLUDED_USER_H_
+
 #include <string>
 #include <iostream>             // cout
     
-class User{
+class User
+{
     public:
         User();                             // constructor
 
      bool d_valid;                  // constructor succes
-     // bool valid();                  // read d_valid
      // groupid()            const;
      // homedir()       const:
      // inGroup(size_t grid)   const;
@@ -14,7 +17,7 @@ class User{
      // std::string realname()      const;
      // std::string shell()         const;
      // size_t userid()             const;
-     bool valid()                   const;
+	bool valid()                    const;           // read d_valid
 };
 
 User::User()
@@ -23,7 +26,8 @@ User::User()
     d_valid = true;
 }
 
-bool const &User::valid() const
+bool User::valid() const                                // what is constant here?
 {
     return d_valid;
 }
+#endif

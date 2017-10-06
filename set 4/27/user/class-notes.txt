@@ -1,0 +1,23 @@
+* in cpp, structs are used mostly as data agr
+* member functions are declared in class def
+* member funcs are defined elsewhere
+* member funcs are manipulators & accessors
+* manipulators start with set
+* get prefix for accessors is deprecated
+
+Constructor
+* name equal to class name
+* returns nothing
+* default constructor exists
+* constructor is called when object defined (instance)
+* static objects constructed at program start (called before main)
+* constructors ensure that class data has sensible (well-defined)
+values after object construction
+* to prevent backdoors, return objects as const references
+(not just the ref const, but ref to const)
+
+Ambiguity
+    Data d1();
+    Data d2(argc);
+
+ 

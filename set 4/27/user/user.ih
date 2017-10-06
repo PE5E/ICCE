@@ -1,0 +1,7 @@
+#include "user.h"                   // class User
+#include <pwd.h>                    // getpwent
+#include <sys/types.h>              // getpwent
+#include <iostream>                 // cin, cout
+
+using std::cout;    using std::cin; 
+using std::string;

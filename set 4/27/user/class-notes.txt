@@ -20,4 +20,25 @@ Ambiguity
     Data d1();
     Data d2(argc);
 
- 
+
+from the HAT, use this order:
+	d_data 
+	public:
+	private:
+inline member functions only for trivial one-statement functions that won't change
+initialization of data members happens before the body using the colon : keyword
+	d_name(name),
+	d_adress(adress),
+these member initializers should be used as often as possible
+	 
+
+action list:
+	add all data types
+	write empty initializer
+	write return functions
+	implement getpwent reading from struct
+
+question:
+	where do I call pwent?
+	where do I retrieve the info?
+	

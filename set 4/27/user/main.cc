@@ -3,5 +3,6 @@
 int main()
 {
     User firstUser;
+    // test all member functions
     cout << firstUser.valid() << '\n';
 }

@@ -1,14 +1,14 @@
 // myheader.ih
 #include <iostream>
+#include <string>
+#include "item.h"
 
 
     #ifdef __cplusplus
 	    extern "C" {
     #endif
 
-//     void method1(unsigned long long int const valueToAnalyze, int nrOfTurns);
-        // MSB right shift bits
-
+        void inputToItem(void);
 
 
     #ifdef __cplusplus

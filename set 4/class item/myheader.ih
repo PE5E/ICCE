@@ -1,0 +1,17 @@
+// myheader.ih
+#include <iostream>
+
+
+    #ifdef __cplusplus
+	    extern "C" {
+    #endif
+
+//     void method1(unsigned long long int const valueToAnalyze, int nrOfTurns);
+        // MSB right shift bits
+
+
+
+    #ifdef __cplusplus
+    	}
+    #endif
+

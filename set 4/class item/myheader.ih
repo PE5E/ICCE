@@ -1,0 +1,17 @@
+// myheader.ih
+#include <iostream>
+#include <string>
+#include "item.h"
+
+
+    #ifdef __cplusplus
+	    extern "C" {
+    #endif
+
+        void inputToItem(void);
+
+
+    #ifdef __cplusplus
+    	}
+    #endif
+

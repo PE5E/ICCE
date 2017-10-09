@@ -11,6 +11,7 @@ int main()
 
     cout << "Enter an item \n";
     cin >> inputStr;
+
     article.setItem(inputStr);
     article.printItem();
 //     article.itemNr = "Hallo";   // test private status

@@ -17,8 +17,10 @@ Tokenizer class
 
 
 Questions
-    where does reading take place
+    where does reading take place : in the tokenizer
     how much reading at once (CPU keeps calling opcodes)
-        one read.
+        one line;
     what is set? depends on instruction
-    
+        oppcode
+        value
+   

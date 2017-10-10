@@ -1,6 +1,6 @@
 #ifndef INCLUDED_TOKENIZER_
 #define INCLUDED_TOKENIZER_
-
+#include "../commonheader.ih"
 
 class Tokenizer
 {

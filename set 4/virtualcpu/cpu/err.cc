@@ -1,6 +1,6 @@
 #include "cpu.ih"
 
-Cpu::err()
+bool Cpu::err()
 // 
 
 {

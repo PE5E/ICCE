@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
 #include "enums/enums.h"
+#include "cpu/cpu.h"
 
 using std::cout;	using std::cin;		using std::string;

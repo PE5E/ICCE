@@ -1,6 +1,7 @@
 #ifndef INCLUDED_CPU_
 #define INCLUDED_CPU_
 
+#include "cpu.ih"
 
 class Cpu
 {

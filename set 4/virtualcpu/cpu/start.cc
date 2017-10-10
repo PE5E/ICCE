@@ -1,14 +1,15 @@
 #include "cpu.ih"
 
-Cpu::start()
+void Cpu::start()
 {
     Tokenizer tokans;
     
     while (true)
     {
-        Opcode returnValue = tokans.opcode()  // request opcode from tokenizer
+        Opcode returnValue = tokans.opcode();  // request opcode from tokenizer
 
         switch (returnValue)
+        {
             case Opcode::ERR: err();
             case Opcode::MOV: mov();
             case Opcode::ADD: add();
@@ -18,6 +19,7 @@ Cpu::start()
             case Opcode::NEG: neg();
             case Opcode::DSP: dsp();
             case Opcode::STOP: return;
+        }
 
         tokans.reset();
     }

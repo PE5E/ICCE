@@ -7,7 +7,8 @@
 
 class Memory
 {
-    int d_mem [RAM::SIZE];                 // array of 20 ints
+    int d_mem [std::RAM::SIZE];                 // array of 20 ints
+// failed to compile: std::RAM has not been declared
 
     public:
         Memory();

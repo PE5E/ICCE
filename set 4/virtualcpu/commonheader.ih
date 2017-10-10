@@ -2,5 +2,6 @@
 #include <string>
 #include "enums/enums.h"
 #include "cpu/cpu.h"
+#include "memory/memory.h"
 
 using std::cout;	using std::cin;		using std::string;

@@ -1,7 +1,7 @@
 #include "cpu.ih"
 
-Cpu::Cpu(memory const &memory1)
+Cpu::Cpu(Memory const &memory1)
 //:
 {
-
+    d_memory = memory1;
 }

@@ -1,5 +1,5 @@
 #include "cpu.h"
-#include "../commonheader.ih"
+#include "../enums.h"
 #include <iostream>
 
 using namespace std;

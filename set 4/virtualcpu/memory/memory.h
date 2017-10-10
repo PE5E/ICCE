@@ -1,14 +1,13 @@
 #ifndef INCLUDED_MEMORY_
 #define INCLUDED_MEMORY_
 
-// #include "../commonheader.ih"              // Includes enums
-// this should be in memory.ih. corrected it for you ;)
+#include "../enums.h"              // Includes enums
+
 
 
 class Memory
 {
-    int d_mem [std::RAM::SIZE];                 // array of 20 ints
-// failed to compile: std::RAM has not been declared
+    int d_mem [RAM::SIZE];                 // array of 20 ints
 
     public:
         Memory();

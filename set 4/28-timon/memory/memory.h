@@ -1,6 +1,7 @@
 #ifndef INCLUDED_MEMORY_
 #define INCLUDED_MEMORY_
 
+#include "../commonheader.ih"              // Includes enums
 
 class Memory
 {
@@ -8,8 +9,8 @@ class Memory
 
     public:
         Memory();
-        load(size_t adress);               // expects adress type
-        store(int value, size_t adres);      // idem
+        int load(size_t adress)                      const;
+        void store(int value, size_t adres);          
 
     private:
 };

@@ -1,8 +1,9 @@
-#include "../commonheader.ih
+#ifndef INCLUDED_ENUMS_
+#define INCLUDED_ENUMS_
 
-enum class size_t RAM{
-	SIZE = 20;
-}
+enum RAM : size_t {
+	SIZE = 20
+};
 
 enum class Opcode{
 	ERR,
@@ -14,12 +15,13 @@ enum class Opcode{
 	NEG,
 	DSP,
 	STOP
-}
+};
 
 enum class OperandType {
 	SYNTAX,
 	VALUE,
 	REGISTER,
 	MEMORY
-}
+};
 
+#endif

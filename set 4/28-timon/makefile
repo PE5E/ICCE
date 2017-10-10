@@ -11,5 +11,5 @@ memory1.o :	memory/memory1.cc memory/memory.ih
 	g++ -Werror -Wall --std=c++17 memory/memory1.cc -I memory -c
 
 store.o : memory/store.cc memory/memory.ih
-	g++ -Werror -Wall -std=c++17 memory/store.cc -I memory -c
+	g++ -Werror -Wall --std=c++17 memory/store.cc -I memory -c
    

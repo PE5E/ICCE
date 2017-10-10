@@ -1,0 +1,24 @@
+outside world: cin
+instruction on single line (lowercase versions of the Opcode)
+
+
+Tokenizer class
+    opcode (converts first element to oppcode, returns it)
+    Then : request more info (operands
+    OperandType token() retrieves next operand type
+    int value;          returns operands type value
+    reset()
+        check if reading from cin still possible
+        clear()
+        read rest of line
+        
+
+    If an instruction like mov @1000 z is entered, then the Tokenizer should dutifully return Opcode::MOV, OperandType::MEMORY (value 1000), OperandType::REGISTER (value 25). 
+
+
+Questions
+    where does reading take place
+    how much reading at once (CPU keeps calling opcodes)
+        one read.
+    what is set? depends on instruction
+    

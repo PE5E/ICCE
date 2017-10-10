@@ -1,11 +1,8 @@
 #include "user.ih"                          // pwent, using cin, cout, string
 
-// the default constructor determines
-// the current users data
-                                            // default constructor
 User::User()
-    :					                    // member initializer
-        d_valid(true)			            // successfull construction
+    :
+        d_valid(false)
 {   
     d_userId = geteuid();                   // identify current user
     passwd *pw = getpwuid(d_userId);        // passwd file for current user
@@ -16,10 +13,8 @@ User::User()
     d_realName = string(pw->pw_name);
     d_shell = string(pw->pw_shell);
   
-    // cout << d_name << '\n';
-    // cout << d_groupId << '\n';
-    // cout << d_homeDir << '\n';
-    // cout << d_realName << '\n';
-    // cout << d_shell << '\n';
-    // cout << d_userId << '\n';
+    d_valid = true;
 }
+
+// the default constructor determines
+// the current users data

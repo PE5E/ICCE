@@ -1,7 +1,7 @@
 #ifndef INCLUDED_MEMORY_
 #define INCLUDED_MEMORY_
 
-#include "../commonheader.ih"              // Includes enums
+#include "../../commonheader.ih"              // Includes enums
 
 class Memory
 {

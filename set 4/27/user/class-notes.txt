@@ -33,12 +33,5 @@ these member initializers should be used as often as possible
 	 
 
 action list:
-	add all data types
-	write empty initializer
-	write return functions
-	implement getpwent reading from struct
-
-question:
-	where do I call pwent?
-	where do I retrieve the info?
-	
+	fix valid function to what is asked
+	write inGroup function that does something

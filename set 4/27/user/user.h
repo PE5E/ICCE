@@ -14,8 +14,8 @@ class User
 
     public:	        	                		
         User();	    			                // default constructor
-        bool valid()                const;      // read
-        bool inGroup(size_t gid)    const;
+        bool valid()                const;      
+        bool inGroup(size_t gid)    const;      // test if d_groupId equals gid
         size_t userId()             const;
         size_t groupId()            const;
         string homeDir()            const;
@@ -24,20 +24,13 @@ class User
         string shell()              const;
     private:                				    
 };
-
                                                 // inline member functions
-bool   User::valid()    const { return d_valid; }
-size_t User::groupId()  const { return d_groupId; }
-string User::homeDir()  const { return d_homeDir; }
-string User::name()     const { return d_name; }
-string User::realName() const { return d_realName; }
-string User::shell()    const { return d_shell; }
-size_t User::userId()   const { return d_userId; }
+inline bool   User::valid()    const { return d_valid; }
+inline size_t User::groupId()  const { return d_groupId; }
+inline string User::homeDir()  const { return d_homeDir; }
+inline string User::name()     const { return d_name; }
+inline string User::realName() const { return d_realName; }
+inline string User::shell()    const { return d_shell; }
+inline size_t User::userId()   const { return d_userId; }
 
-bool   inGroup(size_t gid)                      // sep
-{
-    cout << gid << '\n';
-    return true;
-}
-        
 #endif

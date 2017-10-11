@@ -6,7 +6,7 @@
 
 class Memory
 {
-    int d_mem [RAM::SIZE];                 // array of 20 ints
+    int d_mem[RAM::SIZE];                 // array of 20 ints
 
     public:
         Memory();

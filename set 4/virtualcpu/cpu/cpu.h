@@ -1,8 +1,8 @@
 #ifndef INCLUDED_CPU_
 #define INCLUDED_CPU_
 
-#include "cpu.ih"
 #include "../enums/enums.h"
+#include "../memory/memory.h"
 
 class Cpu
 {

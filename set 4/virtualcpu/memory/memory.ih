@@ -1,4 +1,4 @@
 #include "memory.h"
-#include "../enums.h"              // Includes enums
+#include "../enums/enums.h"              // Includes enums
 using namespace std;
 

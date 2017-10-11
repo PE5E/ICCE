@@ -1,5 +1,4 @@
 #include "cpu.h"
-#include "../enums/enums.h"
 #include <iostream>
 
 using namespace std;

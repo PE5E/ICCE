@@ -1,6 +1,6 @@
 #include "tokenizer.ih"
 
-Opcode Tokenizer::opcode()
+Opcode Tokenizer::opcode() const
 {
     string word << cin; 
     if (word == "mov") return Opcode::MOV;
@@ -11,4 +11,5 @@ Opcode Tokenizer::opcode()
     if (word == "neg") return Opcode::NEG;
     if (word == "dsp") return OPcode::DSP;
     if (word == "stop") return Opcode::STOP;
+    return Opcode::ERR;
 } 

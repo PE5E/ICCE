@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CPU_
-#define INCLUDED_CPU_
+#ifndef INCLUDED_CPU_H
+#define INCLUDED_CPU_H
 
 #include "../enums/enums.h"
 #include "../memory/memory.h"

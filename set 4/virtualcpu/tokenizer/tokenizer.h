@@ -5,11 +5,12 @@
 
 class Tokenizer
 {
+    int d_value = 0;
     public:
         void reset();                
-        Opcode opcode();              
-        OperandType token();    
-        int value;             
+        Opcode opcode()         const;              
+        OperandType token()     const;    
+        int value()             const;             
     private:
 };
         

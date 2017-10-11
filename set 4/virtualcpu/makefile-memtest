@@ -1,0 +1,15 @@
+memtest : memtestmain.o load.o store.o memory1.o
+	g++ -Werror -Wall --std=c++17 -s memtestmain.o load.o store.o memory1.o -o memtest
+
+memtestmain.o : memtestmain.cc memory/memory.h 
+	g++ -Werror -Wall --std=c++17 memtestmain.cc -c
+    
+load.o : memory/load.cc memory/memory.ih 
+	g++ -Werror -Wall --std=c++17 memory/load.cc -c
+   
+store.o : memory/store.cc memory/memory.ih
+	g++ -Werror -Wall --std=c++17 memory/store.cc -c
+
+memory1.o : memory/memory1.cc memory/memory.ih
+	g++ -Werror -Wall --std=c++17 memory/memory1.cc -c
+   

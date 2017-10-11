@@ -1,16 +1,15 @@
 #ifndef INCLUDED_TOKENIZER_
 #define INCLUDED_TOKENIZER_
-#include "../commonheader.ih"
+
+#include "../enums/enums.h"
 
 class Tokenizer
 {
-    d_is = cin;
-
     public:
-        reset()             // nyi
-        opcode()            // nyi
-        operandType token() // nyi
-        int value;          // 
+        void reset();                
+        Opcode opcode();              
+        OperandType token();    
+        int value;             
     private:
 };
         

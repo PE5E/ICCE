@@ -1,9 +1,7 @@
 #ifndef INCLUDED_MEMORY_
 #define INCLUDED_MEMORY_
 
-#include "../enums.h"              // Includes enums
-
-
+#include "../enums.h"              
 
 class Memory
 {

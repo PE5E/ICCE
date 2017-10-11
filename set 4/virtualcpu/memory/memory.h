@@ -11,7 +11,7 @@ class Memory
     public:
         Memory();
         int load(size_t adress)                      const;
-        void store(int value, size_t adres);          
+        void store(int value, size_t adress);          
 
     private:
 };

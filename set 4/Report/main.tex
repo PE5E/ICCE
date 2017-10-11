@@ -56,18 +56,17 @@ Assignment 4} \\
     are important when designing classes.
     Provide a small example of a self-defined class 
     illustrating your explanation. 
+    Why is the implementation of a class irrelevant to submit?
     \end{question}
 
 \begin{solution}                    % introduces solution: in boldface
-Incapsulation means that the data in a class (or struct) is not directly available outside the class. 
-Instead, member functions provide the only way to acces the data of the class; they \textit{encapsulate} the data.
-In this sense the data is hidden from parts of the program outside the class. This means that you can interact with the class without
-thinking about how the data is implemented. You only have to worry about the interface provided by the public class functions.
-The implementation of the data (and even of the member functions) can therefore be changed completely without
-breaking programs that use the class. This increases the maintainability and modularity of code. Consider the following example.
+Encapsulation means that the data in a class is not directly available outside the class. 
+Instead, member functions provide a way to access the data of the class; the class \textit{encapsulates} the data. The data can only be used through the interface, the header file of the class and the functions defined within the header.
+In this sense the data is hidden from the outside of the class. "Data hiding" means that no data from within the class can be seen by other code. Not accessed nor altered.
 
+An example of a class interface
     \begin{minted}[linenos=true]{cpp}
-    class vector{
+    class Vector{
         int d_xval;
         int d_yval;
         public:

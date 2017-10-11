@@ -1,0 +1,29 @@
+g++ -Wall -Werror --std=c++17 -c main_cpu.cc -o main.o
+g++    -c -o cpu/cpu1.o cpu/cpu1.cc
+In file included from cpu/cpu.h:4:0,
+                 from cpu/cpu.ih:1,
+                 from cpu/cpu1.cc:1:
+cpu/../enums/enums.h:8:12: warning: scoped enums only available with -std=c++11 or -std=gnu++11
+ enum RAM : size_t {
+            ^
+cpu/../enums/enums.h:12:1: warning: scoped enums only available with -std=c++11 or -std=gnu++11
+ enum class Opcode{
+ ^
+cpu/../enums/enums.h:24:1: warning: scoped enums only available with -std=c++11 or -std=gnu++11
+ enum class OperandType {
+ ^
+In file included from cpu/cpu.h:5:0,
+                 from cpu/cpu.ih:1,
+                 from cpu/cpu1.cc:1:
+cpu/../memory/memory.h:9:15: error: ‘RAM’ is not a class or namespace
+     int d_mem[RAM::SIZE];                 // array of 20 ints
+               ^
+In file included from cpu/cpu.ih:1:0,
+                 from cpu/cpu1.cc:1:
+cpu/cpu.h:9:41: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11
+     int d_NREGISTERS[5] = {0, 0, 0, 0, 0};
+                                         ^
+cpu/cpu.h:9:41: warning: extended initializer lists only available with -std=c++11 or -std=gnu++11
+<builtin>: recipe for target 'cpu/cpu1.o' failed
+make: *** [cpu/cpu1.o] Error 1
+

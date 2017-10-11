@@ -1,5 +1,6 @@
 #include "cpu.ih"
 
+
 Cpu::Cpu(Memory const &memory1)
 //:
 {

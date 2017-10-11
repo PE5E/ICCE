@@ -3,7 +3,7 @@
 
 #include <cstddef>          // size_t
 
-enum RAM : size_t {
+enum RAM : size_t {         // scoped enum won't work here
 	SIZE = 20
 };
 

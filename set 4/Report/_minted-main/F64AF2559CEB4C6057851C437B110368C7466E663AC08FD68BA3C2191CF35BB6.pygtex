@@ -1,12 +1,14 @@
-#include "cpu/cpu.h"
-#include "memory/memory.h"
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}cpu/cpu.h\PYGZdq{}
+\PYGZsh{}include \PYGZdq{}memory/memory.h\PYGZdq{}
 
 using namespace std;
 
 int main()
-{ 
+\PYGZob{} 
     Memory mem;         // defines memory
     Cpu cpuNr1(mem);    // defines a cpu object
     
     cpuNr1.start();     // starts the software cpu
-}
+\PYGZcb{}
+\end{Verbatim}

@@ -4,7 +4,7 @@
 
 \PYGZsh{}include \PYGZlt{}cstddef\PYGZgt{}          // size\PYGZus{}t
 
-enum RAM : size\PYGZus{}t \PYGZob{}
+enum RAM : size\PYGZus{}t \PYGZob{}         // scoped enum won\PYGZsq{}t work here
 	SIZE = 20
 \PYGZcb{};
 

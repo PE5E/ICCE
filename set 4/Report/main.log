@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.10.9)  11 OCT 2017 22:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.10.9)  11 OCT 2017 22:59
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -546,11 +546,6 @@ e
 
 
 (./_minted-main/default-pyg-prefix.pygstyle) (./_minted-main/default.pygstyle)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/E19C5DEAD2AC9E04691A7F0ACD662B24AA15CF4BA75075E8168D3671BF7EB064.pygt
-ex main.pyg)...executed.
-
-
 (./_minted-main/E19C5DEAD2AC9E04691A7F0ACD662B24AA15CF4BA75075E8168D3671BF7EB06
 4.pygtex
 LaTeX Font Info:    Try loading font information for OT1+zi4 on input line 1.
@@ -573,13 +568,13 @@ LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 (./_minted-main/B613F0F07E2837B1D7B34B7E1D5FE6064873D3F72F1844F87D4C4C3B942C72E
 0.pygtex)
-(./_minted-main/2AF912BA4FFAF363BA52D0244A37A1C0066734C546362D9550DFC960985C55F
+(./_minted-main/42FC50779307531F6115F29FA422F420066734C546362D9550DFC960985C55F
 0.pygtex [2])
 (./_minted-main/E68D736A080DFF2BC45A176899B81129F91FEC89E59735A3007157C913B6895
 7.pygtex)
 (./_minted-main/6DC969F83DBFC11A4D6B27EF756D722D5EB97E671F5B504AA9CE335E8D07E0C
 7.pygtex)
-(./_minted-main/7CE80EB01895F7B91553C8CDE4B30764185C8A39540123EEBB08FB79520DC0E
+(./_minted-main/BD81E8E13A61F2A1BAF4012A006CB3CF185C8A39540123EEBB08FB79520DC0E
 3.pygtex [3])
 (./_minted-main/AF378B66D4F24E52E5F2E06C9A83ADAD9F5E644781249B724A562432E54EDB7
 C.pygtex)
@@ -591,18 +586,10 @@ C.pygtex)
 B.pygtex)
 (./_minted-main/43EFCD510C2D5D281B4E2156BB8AADF4EC32DBD3363D88DD8D82F4D1E3AECF7
 E.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/7D7D3757C0A30C2690CB46947EF50BCD3966F6A14A432FA1DFAFF552E0C17B8F.pygt
-ex ../virtualcpu/cpu/cpu.ih)...executed.
-
-
+(./_minted-main/F64AF2559CEB4C6057851C437B110368C7466E663AC08FD68BA3C2191CF35BB
+6.pygtex)
 (./_minted-main/7D7D3757C0A30C2690CB46947EF50BCD3966F6A14A432FA1DFAFF552E0C17B8
 F.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/53660DD9B209369C2CDCEC058050390F328A95909F5746FB821942F546434FAD.pygt
-ex ../virtualcpu/cpu/cpu.h)...executed.
-
-
 (./_minted-main/53660DD9B209369C2CDCEC058050390F328A95909F5746FB821942F546434FA
 D.pygtex [5])
 (./_minted-main/045724780C5A3A2F3947A8515346179E651A0A4C448B38242599826AFE40E28
@@ -613,42 +600,24 @@ D.pygtex [5])
 8.pygtex [6])
 (./_minted-main/6525C14B34EE1E81483E3C68EEB2126EE46708D193C83FFF874065A1D521931
 1.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/65228323108820775447AB7927718B63637F471CC169AE0A4D01E47FC568C52F.pygt
-ex ../virtualcpu/tokenizer/tokenizer.ih)...executed.
-
-
 (./_minted-main/65228323108820775447AB7927718B63637F471CC169AE0A4D01E47FC568C52
-F.pygtex)
+F.pygtex [7])
 (./_minted-main/8D50224533CADAFB53F9F0AE5231094BDA23CFB30E6583521DE04F01ADBB257
-8.pygtex [7])
+8.pygtex)
 (./_minted-main/3737B5630B369223739F5B63966B3B64FAFA0735FB59AFD5ADE90F84288C9A6
 6.pygtex)
 (./_minted-main/7756D9B549061105ADA6403D4705480396FA2EDFAB40F7846FA67A56370A00F
 2.pygtex [8])
 (./_minted-main/3711D64126E72F2BBCF3E6F0FAE54C35D5A627C15C82FB8875FAC162F307337
-8.pygtex)
-runsystem(rm _minted-main/A735C3C3435CC9BA994E9F7FCFA9532FAA15CF4BA75075E8168D3
-671BF7EB064.pygtex)...executed.
-
-runsystem(rm _minted-main/C17F0EFF423C05DBD1F8BE39B85311D13966F6A14A432FA1DFAFF
-552E0C17B8F.pygtex)...executed.
-
-runsystem(rm _minted-main/DEDE9E599C5310BDC9748C1982D1F9BB328A95909F5746FB82194
-2F546434FAD.pygtex)...executed.
-
-runsystem(rm _minted-main/7F418D37F1B55B6AC55CDB6625CA6CC1637F471CC169AE0A4D01E
-47FC568C52F.pygtex)...executed.
-
- [9] (./main.aux)
+8.pygtex) [9] (./main.aux)
 runsystem(rm main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
  8241 strings out of 492990
- 137402 string characters out of 6138688
- 249147 words of memory out of 5000000
- 11589 multiletter control sequences out of 15000+600000
+ 137465 string characters out of 6138688
+ 249220 words of memory out of 5000000
+ 11590 multiletter control sequences out of 15000+600000
  5390 words of font info for 20 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,5n,37p,843b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -659,7 +628,7 @@ ype1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texmf-dist/fonts/type1
 ts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pf
 b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (9 pages, 100816 bytes).
+Output written on main.pdf (9 pages, 101367 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream

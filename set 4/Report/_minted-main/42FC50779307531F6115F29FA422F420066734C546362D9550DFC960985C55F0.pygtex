@@ -3,8 +3,6 @@
 \PYGZsh{}define INCLUDED\PYGZus{}USER\PYGZus{}
 
 \PYGZsh{}include \PYGZlt{}string\PYGZgt{}
-\PYGZsh{}include \PYGZdq{}user.ih\PYGZdq{}                              
-
 using std::string;
 
 class User

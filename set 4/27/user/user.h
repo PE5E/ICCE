@@ -2,8 +2,6 @@
 #define INCLUDED_USER_
 
 #include <string>
-#include "user.ih"                              
-
 using std::string;
 
 class User

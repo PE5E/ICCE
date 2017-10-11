@@ -7,9 +7,9 @@ class Tokenizer
 {
     int d_value = 0;
     public:
-        void reset();                
+        void reset()            const;                
         Opcode opcode()         const;              
-        OperandType token()     const;    
+        OperandType token();    
         int value()             const;             
     private:
 };

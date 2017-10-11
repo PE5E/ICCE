@@ -1,14 +1,30 @@
 #include "tokenizer.ih"
 
-OperandType Tokenizer::token() const
+OperandType Tokenizer::token()
 {
-    // after detecting operand type, write value to d_value
-    // which can be read by int value;
-    // use stoi for conversion
-    string word << cin;
-    if (word[0] == '@') return OperandType::MEMORY;
-        d_value = stoi(word.substr(1,
-    if (isLetter(word)) return OperandType::REGISTER;
-    if (is
-    
+    string word;
+    cin >> word;
+
+    if (word[0] == '@') 
+    {
+        d_value = stoi(word.erase(0,1));                   
+        cout << d_value << '\n';
+        cout << "Memory" << '\n';
+        return OperandType::MEMORY;
+    }
+    if (word[0] <= 'z' && word[0] >= 'a' && word.size() == 1)  
+    {
+        d_value = word[0] - '0'; 
+        cout << d_value << '\n';
+        cout << "Register" << '\n';
+        return OperandType::REGISTER;
+    }
+    if (word.find_first_not_of("0123456789") == string::npos) 
+    {
+        d_value = stoi(word);
+        cout << d_value << '\n';
+        cout << "Value" << '\n';
+        return OperandType::VALUE;
+    }
+    return OperandType::SYNTAX;
 }

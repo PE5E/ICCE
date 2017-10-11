@@ -70,8 +70,8 @@ An example of a class interface
         int d_xval;
         int d_yval;
         public:
-            void setXval(int val);                 // sets d_xval
-            void setYval(int val);                 // sets d_yval
+            void setXval(int xval);                 // sets d_xval
+            void setYval(int yval);                 // sets d_yval
 
             int const &xval()  const;              // reads d_xval
             int const &yval()  const;              // reads d_yval
@@ -80,8 +80,12 @@ An example of a class interface
     };
     \end{minted}
 
-Here the data \verb|int d_xval| and \verb|int d_yval| is hidden and it is encapsulated by the member functions \verb|setXval|, \verb|setYval| and \verb|xval|, \verb|yval| which allow reading and writing of the data. Finally, a member function \verb|length| is declared.
-reading and writing of the value. A user who calls \verb|lenth()| need not worry about how the data is saved or how length is computed. In fact, the programmer may change this implementation at any time, for example to make the code faster. If the interface stays the same, the user should not notice. The data variables are also not available to the user, other than by calling the functions that read them.
+Here the data \verb|int d_xval| and \verb|int d_yval| is not accessable from the outside of the class. The member functions \verb|setXval| and \verb|setYval| will assign values to \verb|d_xval|
+and \verb|d_yval|. The member functions \verb|xval| and \verb|yval| can read the values of \verb|d_xval| and \verb|d_yval|. 
+Finally, a member function \verb|length| is declared, capable of reading and writing of the value. A user who calls \verb|lenth()| need not worry about how the data is saved or how length is computed. In fact, the programmer may change this implementation at any time, for example to make the code faster. If the interface stays the same, the user should not notice. The data variables are also not available to the user, other than by calling the functions that read them.
+So everything regarding \verb|d_xval|and \verb|d_yval| will happen inside the class. 
+
+The implementation of a class is irrelevant because only what is described in the public part of the header is available to implement in other code. So the header defines what data and functions of a class can be used by others.
 \end{solution}
 
 \section*{Exercise 27}

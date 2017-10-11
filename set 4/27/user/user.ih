@@ -1,8 +1,7 @@
-#include "user.h"                   // class User
 #include <iostream>                 // cin, cout
-#include <pwd.h>                    // getpwent
-#include <sys/types.h>              // getpwent
-#include <unistd.h>
+#include <pwd.h>                    // getpwuid
+#include <sys/types.h>              // getuid
+#include <unistd.h>                 // getuid
+#include "user.h"                   
 
-using std::cout;    using std::cin; 
-using std::string;
+using std::cout;    using std::cin;     using std::string;

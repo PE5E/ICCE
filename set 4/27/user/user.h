@@ -1,6 +1,10 @@
 #ifndef INCLUDED_USER_
 #define INCLUDED_USER_
-#include "user.ih"                              // internal header; using cout, cin, string
+
+#include <string>
+#include "user.ih"                              
+
+using std::string;
 
 class User
 {           			                	
@@ -13,9 +17,9 @@ class User
     size_t  d_userId;
 
     public:	        	                		
-        User();	    			                // default constructor
+        User();	    			               
         bool valid()                const;      
-        bool inGroup(size_t gid)    const;      // test if d_groupId equals gid
+        bool inGroup(size_t gid)    const;    
         size_t userId()             const;
         size_t groupId()            const;
         string homeDir()            const;
@@ -24,7 +28,7 @@ class User
         string shell()              const;
     private:                				    
 };
-                                                // inline member functions
+
 inline bool   User::valid()    const { return d_valid; }
 inline size_t User::groupId()  const { return d_groupId; }
 inline string User::homeDir()  const { return d_homeDir; }

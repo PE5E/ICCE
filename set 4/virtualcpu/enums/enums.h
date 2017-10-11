@@ -1,9 +1,7 @@
 #ifndef INCLUDED_ENUMS_H
 #define INCLUDED_ENUMS_H
 
-#include <cstddef>
-
-#include <iosfwd>
+#include <cstddef>          // size_t
 
 enum RAM : size_t {
 	SIZE = 20

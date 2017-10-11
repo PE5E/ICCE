@@ -2,7 +2,7 @@
 #define INCLUDED_MEMORY_H
 
 #include <cstddef>
-#include "../enums/enums.h"              // Includes enums
+#include "../enums/enums.h"              
 
 class Memory
 {
@@ -10,9 +10,8 @@ class Memory
 
     public:
         Memory();
-        int load(size_t adress)                      const;
         void store(int value, size_t adress);          
-
+        int load(size_t adress) const;
     private:
 };
         

@@ -4,6 +4,7 @@ OperandType Tokenizer::token()
 {
     string word;
     cin >> word;
+
     if (word.empty()) return OperandType::SYNTAX;
 
     if (word[0] == '@') 
@@ -21,5 +22,6 @@ OperandType Tokenizer::token()
         d_value = stoi(word);
         return OperandType::VALUE;
     }
+
     return OperandType::SYNTAX;
 }

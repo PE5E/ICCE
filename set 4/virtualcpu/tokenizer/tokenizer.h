@@ -6,10 +6,11 @@
 class Tokenizer
 {
     int d_value = 0;
+
     public:
+        OperandType token();    
         void reset()            const;                
         Opcode opcode()         const;              
-        OperandType token();    
         int value()             const;             
     private:
 };

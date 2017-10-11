@@ -1,0 +1,12 @@
+/tmp/ccsrHvlF.o: In function `main':
+memtestmain.cc:(.text+0x0): multiple definition of `main'
+/tmp/ccriCgtv.o:main.cc:(.text+0x0): first defined here
+/tmp/ccriCgtv.o: In function `main':
+main.cc:(.text+0x25): undefined reference to `Memory::Memory()'
+main.cc:(.text+0x3b): undefined reference to `Cpu::Cpu(Memory const&)'
+main.cc:(.text+0x47): undefined reference to `Cpu::start()'
+/tmp/ccsrHvlF.o: In function `main':
+memtestmain.cc:(.text+0x1f): undefined reference to `Memory::Memory()'
+memtestmain.cc:(.text+0x35): undefined reference to `Memory::store(int, unsigned long)'
+memtestmain.cc:(.text+0x46): undefined reference to `Memory::load(unsigned long) const'
+collect2: error: ld returned 1 exit status

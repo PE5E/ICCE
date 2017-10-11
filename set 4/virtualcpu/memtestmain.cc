@@ -1,8 +1,9 @@
 #include "memory/memory.h"
+#include <iostream>
 
 int main()
 {
     Memory Mem1;
     Mem1.store(100,1);
-    cout << Mem1.load(1) << '\n';
+    std::cout << Mem1.load(1) << '\n';
 }

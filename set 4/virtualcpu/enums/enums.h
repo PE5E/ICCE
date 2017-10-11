@@ -1,5 +1,7 @@
-#ifndef INCLUDED_ENUMS_
-#define INCLUDED_ENUMS_
+#ifndef INCLUDED_ENUMS_H
+#define INCLUDED_ENUMS_H
+
+#include <cstddef>
 
 enum RAM : size_t {
 	SIZE = 20

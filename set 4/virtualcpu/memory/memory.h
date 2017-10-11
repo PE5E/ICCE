@@ -3,8 +3,6 @@
 
 #include "../enums/enums.h"              // Includes enums
 
-
-
 class Memory
 {
     int d_mem [RAM::SIZE];                 // array of 20 ints

@@ -2,7 +2,7 @@
 #define INCLUDED_CPU_
 
 #include "cpu.ih"
-#include "../enums.h"
+#include "../enums/enums.h"
 
 class Cpu
 {

@@ -1,0 +1,42 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}ifndef INCLUDED\PYGZus{}USER\PYGZus{}
+\PYGZsh{}define INCLUDED\PYGZus{}USER\PYGZus{}
+
+\PYGZsh{}include \PYGZlt{}string\PYGZgt{}
+\PYGZsh{}include \PYGZdq{}user.ih\PYGZdq{}                              
+
+using std::string;
+
+class User
+\PYGZob{}           			                	
+    bool    d\PYGZus{}valid;    	                    // construction succes
+    size\PYGZus{}t  d\PYGZus{}groupId;
+    string  d\PYGZus{}homeDir;
+    string  d\PYGZus{}name;
+    string  d\PYGZus{}realName;
+    string  d\PYGZus{}shell;
+    size\PYGZus{}t  d\PYGZus{}userId;
+
+    public:	        	                		
+        User();	    			               
+        bool valid()                const;      
+        bool inGroup(size\PYGZus{}t gid)    const;    
+        size\PYGZus{}t userId()             const;
+        size\PYGZus{}t groupId()            const;
+        string homeDir()            const;
+        string name()               const;
+        string realName()           const;
+        string shell()              const;
+    private:                				    
+\PYGZcb{};
+
+inline bool   User::valid()    const \PYGZob{} return d\PYGZus{}valid; \PYGZcb{}
+inline size\PYGZus{}t User::groupId()  const \PYGZob{} return d\PYGZus{}groupId; \PYGZcb{}
+inline string User::homeDir()  const \PYGZob{} return d\PYGZus{}homeDir; \PYGZcb{}
+inline string User::name()     const \PYGZob{} return d\PYGZus{}name; \PYGZcb{}
+inline string User::realName() const \PYGZob{} return d\PYGZus{}realName; \PYGZcb{}
+inline string User::shell()    const \PYGZob{} return d\PYGZus{}shell; \PYGZcb{}
+inline size\PYGZus{}t User::userId()   const \PYGZob{} return d\PYGZus{}userId; \PYGZcb{}
+
+\PYGZsh{}endif
+\end{Verbatim}

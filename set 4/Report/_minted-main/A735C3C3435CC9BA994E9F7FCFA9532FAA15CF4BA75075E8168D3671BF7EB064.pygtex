@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    class Vector\PYGZob{}
+        int d\PYGZus{}xval;
+        int d\PYGZus{}yval;
+        public:
+            void setXval(int val);                 // sets d\PYGZus{}xval
+            void setYval(int val);                 // sets d\PYGZus{}yval
+
+            int const \PYGZam{}xval()  const;              // reads d\PYGZus{}xval
+            int const \PYGZam{}yval()  const;              // reads d\PYGZus{}yval
+
+            size\PYGZus{}t length(int xval, int yval);     // compute length of vector (a,b)
+    \PYGZcb{};
+\end{Verbatim}

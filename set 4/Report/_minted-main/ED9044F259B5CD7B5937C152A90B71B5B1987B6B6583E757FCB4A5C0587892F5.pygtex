@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}memory.ih\PYGZdq{}
+
+int Memory::load(size\PYGZus{}t adress) const
+\PYGZob{}
+    return (adress \PYGZlt{} RAM::SIZE ? d\PYGZus{}mem[adress] : 0);
+\PYGZcb{}
+
+    
+\end{Verbatim}

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}tokenizer.ih\PYGZdq{}
+
+void Tokenizer::reset() const
+\PYGZob{}
+    cin.clear();
+    cin.ignore(numeric\PYGZus{}limits\PYGZlt{}streamsize\PYGZgt{}::max(), \PYGZsq{}\PYGZbs{}n\PYGZsq{});
+\PYGZcb{}
+\end{Verbatim}

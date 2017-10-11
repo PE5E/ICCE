@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}ifndef INCLUDED\PYGZus{}MEMORY\PYGZus{}H
+\PYGZsh{}define INCLUDED\PYGZus{}MEMORY\PYGZus{}H
+
+\PYGZsh{}include \PYGZlt{}cstddef\PYGZgt{}
+\PYGZsh{}include \PYGZdq{}../enums/enums.h\PYGZdq{}              
+
+class Memory
+\PYGZob{}
+    int d\PYGZus{}mem[RAM::SIZE];                 // array of 20 ints
+
+    public:
+        Memory();
+        void store(int value, size\PYGZus{}t adress);          
+        int load(size\PYGZus{}t adress) const;
+    private:
+\PYGZcb{};
+        
+\PYGZsh{}endif
+\end{Verbatim}

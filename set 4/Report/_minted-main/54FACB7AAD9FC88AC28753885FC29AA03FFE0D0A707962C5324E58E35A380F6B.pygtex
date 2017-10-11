@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}user.ih\PYGZdq{}          					
+
+int main()
+\PYGZob{}
+    User currentUser;
+    								// test all member functions except inGroup
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}valid: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.valid() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}user id: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.userId() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}group id: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.groupId() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}homedir: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.homeDir() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}username: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.name() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}real name: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.realName() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}shell: \PYGZdq{} \PYGZlt{}\PYGZlt{} currentUser.shell() \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+\PYGZcb{}
+\end{Verbatim}

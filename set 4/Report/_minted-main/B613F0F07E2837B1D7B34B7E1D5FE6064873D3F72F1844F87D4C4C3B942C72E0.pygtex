@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{}                 // cin, cout
+\PYGZsh{}include \PYGZlt{}pwd.h\PYGZgt{}                    // getpwuid
+\PYGZsh{}include \PYGZlt{}sys/types.h\PYGZgt{}              // getuid
+\PYGZsh{}include \PYGZlt{}unistd.h\PYGZgt{}                 // getuid
+\PYGZsh{}include \PYGZdq{}user.h\PYGZdq{}                   
+
+using std::cout;    using std::cin;     using std::string;
+\end{Verbatim}

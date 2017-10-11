@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}cpu.ih\PYGZdq{}
+
+bool Cpu::err()
+\PYGZob{}
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}syntax error /n\PYGZdq{};
+    return false;
+\PYGZcb{}
+\end{Verbatim}

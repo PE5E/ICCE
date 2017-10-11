@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}tokenizer.ih\PYGZdq{}
+
+Opcode Tokenizer::opcode() const
+\PYGZob{}
+    string word;
+    cin \PYGZgt{}\PYGZgt{} word;
+    if (word.empty()) return Opcode::ERR;
+    if (word == \PYGZdq{}mov\PYGZdq{}) return Opcode::MOV;
+    if (word == \PYGZdq{}add\PYGZdq{}) return Opcode::ADD;
+    if (word == \PYGZdq{}sub\PYGZdq{}) return Opcode::SUB;
+    if (word == \PYGZdq{}mul\PYGZdq{}) return Opcode::MUL;
+    if (word == \PYGZdq{}div\PYGZdq{}) return Opcode::DIV;
+    if (word == \PYGZdq{}neg\PYGZdq{}) return Opcode::NEG;
+    if (word == \PYGZdq{}dsp\PYGZdq{}) return Opcode::DSP;
+    if (word == \PYGZdq{}stop\PYGZdq{}) return Opcode::STOP;
+    return Opcode::ERR;
+\PYGZcb{} 
+\end{Verbatim}

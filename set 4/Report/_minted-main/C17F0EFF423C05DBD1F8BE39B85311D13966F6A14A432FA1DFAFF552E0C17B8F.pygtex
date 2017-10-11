@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}cpu.h\PYGZdq{}
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{}
+
+using namespace std;
+\end{Verbatim}

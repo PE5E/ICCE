@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}ifndef INCLUDED\PYGZus{}TOKENIZER\PYGZus{}
+\PYGZsh{}define INCLUDED\PYGZus{}TOKENIZER\PYGZus{}
+
+\PYGZsh{}include \PYGZdq{}../enums/enums.h\PYGZdq{}
+
+class Tokenizer
+\PYGZob{}
+    int d\PYGZus{}value = 0;
+
+    public:
+        OperandType token();    
+        void reset()            const;                
+        Opcode opcode()         const;              
+        int value()             const;             
+    private:
+\PYGZcb{};
+        
+\PYGZsh{}endif
+\end{Verbatim}

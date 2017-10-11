@@ -1,0 +1,31 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}ifndef INCLUDED\PYGZus{}ENUMS\PYGZus{}H
+\PYGZsh{}define INCLUDED\PYGZus{}ENUMS\PYGZus{}H
+
+\PYGZsh{}include \PYGZlt{}cstddef\PYGZgt{}          // size\PYGZus{}t
+
+enum RAM : size\PYGZus{}t \PYGZob{}
+	SIZE = 20
+\PYGZcb{};
+
+enum class Opcode\PYGZob{}
+	ERR,
+	MOV,
+	ADD,
+	SUB,
+	MUL,
+	DIV,
+	NEG,
+	DSP,
+	STOP
+\PYGZcb{};
+
+enum class OperandType \PYGZob{}
+	SYNTAX,
+	VALUE,
+	REGISTER,
+	MEMORY
+\PYGZcb{};
+
+\PYGZsh{}endif
+\end{Verbatim}

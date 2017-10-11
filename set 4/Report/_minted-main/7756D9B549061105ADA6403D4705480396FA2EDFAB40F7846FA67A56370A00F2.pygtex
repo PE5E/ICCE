@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}tokenizer.ih\PYGZdq{}
+
+OperandType Tokenizer::token()
+\PYGZob{}
+    string word;
+    cin \PYGZgt{}\PYGZgt{} word;
+
+    if (word.empty()) return OperandType::SYNTAX;
+
+    if (word[0] == \PYGZsq{}@\PYGZsq{}) 
+    \PYGZob{}
+        d\PYGZus{}value = stoi(word.erase(0,1));                   
+        return OperandType::MEMORY;
+    \PYGZcb{}
+    if (word[0] \PYGZlt{}= \PYGZsq{}z\PYGZsq{} \PYGZam{}\PYGZam{} word[0] \PYGZgt{}= \PYGZsq{}a\PYGZsq{} \PYGZam{}\PYGZam{} word.size() == 1)  
+    \PYGZob{}
+        d\PYGZus{}value = word[0] \PYGZhy{} \PYGZsq{}0\PYGZsq{}; 
+        return OperandType::REGISTER;
+    \PYGZcb{}
+    if (word.find\PYGZus{}first\PYGZus{}not\PYGZus{}of(\PYGZdq{}0123456789\PYGZdq{}) == string::npos)
+    \PYGZob{}
+        d\PYGZus{}value = stoi(word);
+        return OperandType::VALUE;
+    \PYGZcb{}
+
+    return OperandType::SYNTAX;
+\PYGZcb{}
+\end{Verbatim}

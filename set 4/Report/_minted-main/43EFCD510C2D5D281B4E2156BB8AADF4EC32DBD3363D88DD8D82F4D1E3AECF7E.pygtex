@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}memory.ih\PYGZdq{}
+
+void Memory::store(int value, size\PYGZus{}t adress)
+\PYGZob{}
+    if (adress \PYGZlt{}= RAM::SIZE)
+        d\PYGZus{}mem[adress] = value;
+\PYGZcb{}
+\end{Verbatim}

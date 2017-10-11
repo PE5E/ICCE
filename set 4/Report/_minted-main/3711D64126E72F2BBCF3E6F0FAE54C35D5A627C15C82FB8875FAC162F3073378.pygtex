@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}tokenizer.ih\PYGZdq{}
+
+int Tokenizer::value() const
+\PYGZob{}
+    return d\PYGZus{}value;
+\PYGZcb{}
+\end{Verbatim}

@@ -65,7 +65,7 @@ Instead, member functions provide a way to access the data of the class; the cla
 In this sense the data is hidden from the outside of the class. "Data hiding" means that no data from within the class can be seen by other code. Not accessed nor altered.
 
 An example of a class interface
-    \begin{minted}[linenos=true]{cpp}
+    \begin{minted}[linenos=true]{text}
     class Vector{
         int d_xval;
         int d_yval;
@@ -83,9 +83,62 @@ An example of a class interface
 Here the data \verb|int d_xval| and \verb|int d_yval| is hidden and it is encapsulated by the member functions \verb|setXval|, \verb|setYval| and \verb|xval|, \verb|yval| which allow reading and writing of the data. Finally, a member function \verb|length| is declared.
 reading and writing of the value. A user who calls \verb|lenth()| need not worry about how the data is saved or how length is computed. In fact, the programmer may change this implementation at any time, for example to make the code faster. If the interface stays the same, the user should not notice. The data variables are also not available to the user, other than by calling the functions that read them.
 \end{solution}
+
 \section*{Exercise 27}
+main.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../27/user/main.cc}
+user.ih:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../27/user/user.ih}
+user.h::
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../27/user/user.h}
+ingroup.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../27/user/ingroup.cc}
+user1.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../27/user/user1.cc}
+
 \section*{Exercise 28}
+enums/enums.h:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/enums/enums.h}
+
+memory/memory.ih:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/memory/memory.ih}
+
+memory/memory.h:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/memory/memory.h}
+
+memory/load.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/memory/load.cc}
+
+memory/memory1.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/memory/memory1.cc}
+
+memory/store.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/memory/store.cc}
+
 \section*{Exercise 29}
+cpu/cpu.ih:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/cpu/cpu.ih}
+cpu/cpu.h:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/cpu/cpu.h}
+cpu/cpu1.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/cpu/cpu1.cc}
+cpu/err.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/cpu/err.cc}
+cpu/start.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/cpu/start.cc}
 \section*{Exercise 30} 
+tokenizer/tokenizer.h:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/tokenizer/tokenizer.h}
+tokenizer/tokenizer.ih:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/tokenizer/tokenizer.ih}
+tokenizer/opcode.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/tokenizer/opcode.cc}
+tokenizer/reset.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/tokenizer/reset.cc}
+tokenizer/token.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/tokenizer/token.cc}
+tokenizer/value.cc:
+\inputminted[linenos=true, tabsize=4, frame=lines]{text}{../virtualcpu/tokenizer/value.cc}
+
 \end{document}
 

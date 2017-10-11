@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}user.ih\PYGZdq{}
+
+User::User()
+    :
+        d\PYGZus{}valid(false)
+\PYGZob{}   
+    d\PYGZus{}userId = geteuid();                   // current user
+    passwd *pw = getpwuid(d\PYGZus{}userId);        // passwd file 
+
+    d\PYGZus{}name = string(pw\PYGZhy{}\PYGZgt{}pw\PYGZus{}name);           
+    d\PYGZus{}groupId  = pw\PYGZhy{}\PYGZgt{}pw\PYGZus{}gid;                
+    d\PYGZus{}homeDir = string(pw\PYGZhy{}\PYGZgt{}pw\PYGZus{}dir);
+    d\PYGZus{}realName = string(pw\PYGZhy{}\PYGZgt{}pw\PYGZus{}name);
+    d\PYGZus{}shell = string(pw\PYGZhy{}\PYGZgt{}pw\PYGZus{}shell);
+  
+    d\PYGZus{}valid = true;                         // succes
+\PYGZcb{}
+\end{Verbatim}

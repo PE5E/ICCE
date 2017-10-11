@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}cpu.ih\PYGZdq{}
+
+
+Cpu::Cpu(Memory const \PYGZam{}memory1)
+//:
+\PYGZob{}
+    d\PYGZus{}memory = memory1;
+\PYGZcb{}
+\end{Verbatim}

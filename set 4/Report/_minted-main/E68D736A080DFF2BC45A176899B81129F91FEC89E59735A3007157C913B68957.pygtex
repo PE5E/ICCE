@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}user.ih\PYGZdq{}
+
+bool User::inGroup(size\PYGZus{}t gid) const
+\PYGZob{}
+    return gid == d\PYGZus{}groupId;
+\PYGZcb{}
+    
+\end{Verbatim}

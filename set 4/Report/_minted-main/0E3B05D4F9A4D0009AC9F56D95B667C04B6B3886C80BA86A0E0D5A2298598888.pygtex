@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}cpu.ih\PYGZdq{}
+
+void Cpu::start()
+\PYGZob{}
+    Tokenizer tokans;
+    
+    while (true)
+    \PYGZob{}
+        Opcode returnValue = tokans.opcode();  // request opcode from tokenizer
+
+        switch (returnValue)
+        \PYGZob{}
+            case Opcode::ERR: err();
+            case Opcode::MOV: mov();
+            case Opcode::ADD: add();
+            case Opcode::SUB: sub();
+            case Opcode::MUL: mul();
+            case Opcode::DIV: div();
+            case Opcode::NEG: neg();
+            case Opcode::DSP: dsp();
+            case Opcode::STOP: return;
+        \PYGZcb{}
+
+        tokans.reset();
+    \PYGZcb{}
+
+\PYGZcb{}
+\end{Verbatim}

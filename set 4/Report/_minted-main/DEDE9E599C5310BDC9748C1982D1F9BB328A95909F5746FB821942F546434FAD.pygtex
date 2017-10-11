@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}ifndef INCLUDED\PYGZus{}CPU\PYGZus{}H
+\PYGZsh{}define INCLUDED\PYGZus{}CPU\PYGZus{}H
+
+\PYGZsh{}include \PYGZdq{}../enums/enums.h\PYGZdq{}
+\PYGZsh{}include \PYGZdq{}../memory/memory.h\PYGZdq{}
+
+class Cpu
+\PYGZob{}
+    int d\PYGZus{}NREGISTERS[5] = \PYGZob{}0, 0, 0, 0, 0\PYGZcb{};
+    Memory d\PYGZus{}memory;
+
+    public:
+        Cpu(Memory const \PYGZam{}memory1);
+        void start();
+
+        struct Operand
+        \PYGZob{}
+            OperandType typeOfOperand;
+            int returnValue;
+        \PYGZcb{};
+
+    private:
+        bool err();
+        void mov();
+        void add();
+        void sub();
+        void mul();
+        void div();
+        void neg();
+        void dsp();
+
+\PYGZcb{};
+        
+\PYGZsh{}endif
+\end{Verbatim}

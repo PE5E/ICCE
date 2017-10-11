@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}memory.ih\PYGZdq{}
+
+Memory::Memory()
+\PYGZob{}
+\PYGZcb{}
+\end{Verbatim}

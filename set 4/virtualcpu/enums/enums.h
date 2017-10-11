@@ -3,6 +3,8 @@
 
 #include <cstddef>
 
+#include <iosfwd>
+
 enum RAM : size_t {
 	SIZE = 20
 };

@@ -6,12 +6,12 @@
 
 class Memory
 {
-    int d_mem [RAM::SIZE];                 // array of 20 ints
+    int d_mem[RAM::SIZE];                 // array of 20 ints
 
     public:
         Memory();
         int load(size_t adress)                      const;
-        void store(int value, size_t adres);          
+        void store(int value, size_t adress);          
 
     private:
 };

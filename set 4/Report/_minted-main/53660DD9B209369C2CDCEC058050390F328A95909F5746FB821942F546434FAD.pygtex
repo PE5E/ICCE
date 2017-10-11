@@ -4,6 +4,7 @@
 
 \PYGZsh{}include \PYGZdq{}../enums/enums.h\PYGZdq{}
 \PYGZsh{}include \PYGZdq{}../memory/memory.h\PYGZdq{}
+\PYGZsh{}include \PYGZdq{}../tokenizer/tokenizer.h\PYGZdq{}
 
 class Cpu
 \PYGZob{}

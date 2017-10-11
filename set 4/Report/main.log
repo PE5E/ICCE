@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.10.9)  11 OCT 2017 22:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.10.9)  11 OCT 2017 22:36
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -547,11 +547,11 @@ e
 
 (./_minted-main/default-pyg-prefix.pygstyle) (./_minted-main/default.pygstyle)
 runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/A735C3C3435CC9BA994E9F7FCFA9532FAA15CF4BA75075E8168D3671BF7EB064.pygt
+nted-main/E19C5DEAD2AC9E04691A7F0ACD662B24AA15CF4BA75075E8168D3671BF7EB064.pygt
 ex main.pyg)...executed.
 
 
-(./_minted-main/A735C3C3435CC9BA994E9F7FCFA9532FAA15CF4BA75075E8168D3671BF7EB06
+(./_minted-main/E19C5DEAD2AC9E04691A7F0ACD662B24AA15CF4BA75075E8168D3671BF7EB06
 4.pygtex
 LaTeX Font Info:    Try loading font information for OT1+zi4 on input line 1.
  (/usr/share/texmf-dist/tex/latex/inconsolata/ot1zi4.fd
@@ -560,11 +560,6 @@ File: ot1zi4.fd 2016/12/29 OT1/zi4 (Inconsolata)
 LaTeX Font Info:    Font shape `OT1/zi4/m/n' will be
 (Font)              scaled to size 10.0pt on input line 1.
 )
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/54FACB7AAD9FC88AC28753885FC29AA03FFE0D0A707962C5324E58E35A380F6B.pygt
-ex ../27/user/main.cc)...executed.
-
-
 (./_minted-main/54FACB7AAD9FC88AC28753885FC29AA03FFE0D0A707962C5324E58E35A380F6
 B.pygtex
 LaTeX Font Info:    Try loading font information for TS1+zi4 on input line 8.
@@ -576,229 +571,82 @@ LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/B613F0F07E2837B1D7B34B7E1D5FE6064873D3F72F1844F87D4C4C3B942C72E0.pygt
-ex ../27/user/user.ih)...executed.
-
-
 (./_minted-main/B613F0F07E2837B1D7B34B7E1D5FE6064873D3F72F1844F87D4C4C3B942C72E
 0.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/2AF912BA4FFAF363BA52D0244A37A1C0066734C546362D9550DFC960985C55F0.pygt
-ex ../27/user/user.h)...executed.
-
-
 (./_minted-main/2AF912BA4FFAF363BA52D0244A37A1C0066734C546362D9550DFC960985C55F
 0.pygtex [2])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/E68D736A080DFF2BC45A176899B81129F91FEC89E59735A3007157C913B68957.pygt
-ex ../27/user/ingroup.cc)...executed.
-
-
 (./_minted-main/E68D736A080DFF2BC45A176899B81129F91FEC89E59735A3007157C913B6895
 7.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/6DC969F83DBFC11A4D6B27EF756D722D5EB97E671F5B504AA9CE335E8D07E0C7.pygt
-ex ../27/user/user1.cc)...executed.
-
-
 (./_minted-main/6DC969F83DBFC11A4D6B27EF756D722D5EB97E671F5B504AA9CE335E8D07E0C
 7.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/7CE80EB01895F7B91553C8CDE4B30764185C8A39540123EEBB08FB79520DC0E3.pygt
-ex ../virtualcpu/enums/enums.h)...executed.
-
-
 (./_minted-main/7CE80EB01895F7B91553C8CDE4B30764185C8A39540123EEBB08FB79520DC0E
 3.pygtex [3])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/AF378B66D4F24E52E5F2E06C9A83ADAD9F5E644781249B724A562432E54EDB7C.pygt
-ex ../virtualcpu/memory/memory.ih)...executed.
-
-
 (./_minted-main/AF378B66D4F24E52E5F2E06C9A83ADAD9F5E644781249B724A562432E54EDB7
 C.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/A462B159A4C756B8AF9C5041AE4A96BAF5F5C8EC68CEBFEF0A4692777FC5A018.pygt
-ex ../virtualcpu/memory/memory.h)...executed.
-
-
 (./_minted-main/A462B159A4C756B8AF9C5041AE4A96BAF5F5C8EC68CEBFEF0A4692777FC5A01
 8.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/ED9044F259B5CD7B5937C152A90B71B5B1987B6B6583E757FCB4A5C0587892F5.pygt
-ex ../virtualcpu/memory/load.cc)...executed.
-
-
 (./_minted-main/ED9044F259B5CD7B5937C152A90B71B5B1987B6B6583E757FCB4A5C0587892F
-5.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/69D8426E778B20402B0462D620D16866D9FBC7ED4CC0284856DED03B62F2860B.pygt
-ex ../virtualcpu/memory/memory1.cc)...executed.
-
-
+5.pygtex [4])
 (./_minted-main/69D8426E778B20402B0462D620D16866D9FBC7ED4CC0284856DED03B62F2860
-B.pygtex [4])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/43EFCD510C2D5D281B4E2156BB8AADF4EC32DBD3363D88DD8D82F4D1E3AECF7E.pygt
-ex ../virtualcpu/memory/store.cc)...executed.
-
-
+B.pygtex)
 (./_minted-main/43EFCD510C2D5D281B4E2156BB8AADF4EC32DBD3363D88DD8D82F4D1E3AECF7
 E.pygtex)
 runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/C17F0EFF423C05DBD1F8BE39B85311D13966F6A14A432FA1DFAFF552E0C17B8F.pygt
+nted-main/7D7D3757C0A30C2690CB46947EF50BCD3966F6A14A432FA1DFAFF552E0C17B8F.pygt
 ex ../virtualcpu/cpu/cpu.ih)...executed.
 
 
-(./_minted-main/C17F0EFF423C05DBD1F8BE39B85311D13966F6A14A432FA1DFAFF552E0C17B8
+(./_minted-main/7D7D3757C0A30C2690CB46947EF50BCD3966F6A14A432FA1DFAFF552E0C17B8
 F.pygtex)
 runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/DEDE9E599C5310BDC9748C1982D1F9BB328A95909F5746FB821942F546434FAD.pygt
+nted-main/53660DD9B209369C2CDCEC058050390F328A95909F5746FB821942F546434FAD.pygt
 ex ../virtualcpu/cpu/cpu.h)...executed.
 
 
-(./_minted-main/DEDE9E599C5310BDC9748C1982D1F9BB328A95909F5746FB821942F546434FA
+(./_minted-main/53660DD9B209369C2CDCEC058050390F328A95909F5746FB821942F546434FA
 D.pygtex [5])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/045724780C5A3A2F3947A8515346179E651A0A4C448B38242599826AFE40E286.pygt
-ex ../virtualcpu/cpu/cpu1.cc)...executed.
-
-
 (./_minted-main/045724780C5A3A2F3947A8515346179E651A0A4C448B38242599826AFE40E28
 6.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/0460FA26D176B2AE93908B120AFA1D279DC99203B5D16DA0D4895EDFDF95AA20.pygt
-ex ../virtualcpu/cpu/err.cc)...executed.
-
-
 (./_minted-main/0460FA26D176B2AE93908B120AFA1D279DC99203B5D16DA0D4895EDFDF95AA2
 0.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/0E3B05D4F9A4D0009AC9F56D95B667C04B6B3886C80BA86A0E0D5A2298598888.pygt
-ex ../virtualcpu/cpu/start.cc)...executed.
-
-
 (./_minted-main/0E3B05D4F9A4D0009AC9F56D95B667C04B6B3886C80BA86A0E0D5A229859888
 8.pygtex [6])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/6525C14B34EE1E81483E3C68EEB2126EE46708D193C83FFF874065A1D5219311.pygt
-ex ../virtualcpu/tokenizer/tokenizer.h)...executed.
-
-
 (./_minted-main/6525C14B34EE1E81483E3C68EEB2126EE46708D193C83FFF874065A1D521931
 1.pygtex)
 runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/7F418D37F1B55B6AC55CDB6625CA6CC1637F471CC169AE0A4D01E47FC568C52F.pygt
+nted-main/65228323108820775447AB7927718B63637F471CC169AE0A4D01E47FC568C52F.pygt
 ex ../virtualcpu/tokenizer/tokenizer.ih)...executed.
 
 
-(./_minted-main/7F418D37F1B55B6AC55CDB6625CA6CC1637F471CC169AE0A4D01E47FC568C52
+(./_minted-main/65228323108820775447AB7927718B63637F471CC169AE0A4D01E47FC568C52
 F.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/8D50224533CADAFB53F9F0AE5231094BDA23CFB30E6583521DE04F01ADBB2578.pygt
-ex ../virtualcpu/tokenizer/opcode.cc)...executed.
-
-
 (./_minted-main/8D50224533CADAFB53F9F0AE5231094BDA23CFB30E6583521DE04F01ADBB257
 8.pygtex [7])
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/3737B5630B369223739F5B63966B3B64FAFA0735FB59AFD5ADE90F84288C9A66.pygt
-ex ../virtualcpu/tokenizer/reset.cc)...executed.
-
-
 (./_minted-main/3737B5630B369223739F5B63966B3B64FAFA0735FB59AFD5ADE90F84288C9A6
 6.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/7756D9B549061105ADA6403D4705480396FA2EDFAB40F7846FA67A56370A00F2.pygt
-ex ../virtualcpu/tokenizer/token.cc)...executed.
-
-
 (./_minted-main/7756D9B549061105ADA6403D4705480396FA2EDFAB40F7846FA67A56370A00F
-2.pygtex)
-runsystem(pygmentize -l text -f latex -P commandprefix=PYG -F tokenmerge -o _mi
-nted-main/3711D64126E72F2BBCF3E6F0FAE54C35D5A627C15C82FB8875FAC162F3073378.pygt
-ex ../virtualcpu/tokenizer/value.cc)...executed.
-
-
+2.pygtex [8])
 (./_minted-main/3711D64126E72F2BBCF3E6F0FAE54C35D5A627C15C82FB8875FAC162F307337
-8.pygtex [8])
-runsystem(rm _minted-main/A735C3C3435CC9BA994E9F7FCFA9532F504A7AF0CD3BAA7542030
-FC560DFCC45.pygtex)...executed.
+8.pygtex)
+runsystem(rm _minted-main/A735C3C3435CC9BA994E9F7FCFA9532FAA15CF4BA75075E8168D3
+671BF7EB064.pygtex)...executed.
 
-runsystem(rm _minted-main/54FACB7AAD9FC88AC28753885FC29AA078E478138F18768A0415E
-390EC1C29F2.pygtex)...executed.
+runsystem(rm _minted-main/C17F0EFF423C05DBD1F8BE39B85311D13966F6A14A432FA1DFAFF
+552E0C17B8F.pygtex)...executed.
 
-runsystem(rm _minted-main/B613F0F07E2837B1D7B34B7E1D5FE606F84E599ABC2FF7C655B8D
-0CE0D2DBC65.pygtex)...executed.
+runsystem(rm _minted-main/DEDE9E599C5310BDC9748C1982D1F9BB328A95909F5746FB82194
+2F546434FAD.pygtex)...executed.
 
-runsystem(rm _minted-main/2AF912BA4FFAF363BA52D0244A37A1C0675D2011BDF4D0B6D9784
-EE68801FD83.pygtex)...executed.
-
-runsystem(rm _minted-main/E68D736A080DFF2BC45A176899B81129D0DC0B23AB71B0B397416
-D322599981A.pygtex)...executed.
-
-runsystem(rm _minted-main/6DC969F83DBFC11A4D6B27EF756D722D00ADA7D13FC76A06CAE56
-5556200F995.pygtex)...executed.
-
-runsystem(rm _minted-main/7CE80EB01895F7B91553C8CDE4B30764F37368677960A3D086B74
-08507A7D053.pygtex)...executed.
-
-runsystem(rm _minted-main/AF378B66D4F24E52E5F2E06C9A83ADAD5B96A5A7B29EAEDDB6CA1
-DE4F3B6697C.pygtex)...executed.
-
-runsystem(rm _minted-main/A462B159A4C756B8AF9C5041AE4A96BABB17DB5135884159F6C00
-17B546BF497.pygtex)...executed.
-
-runsystem(rm _minted-main/ED9044F259B5CD7B5937C152A90B71B51C65E08E26B74AB147B10
-764ED61381A.pygtex)...executed.
-
-runsystem(rm _minted-main/69D8426E778B20402B0462D620D1686614C1634938FABE5B78FCE
-C98CB6BDB9B.pygtex)...executed.
-
-runsystem(rm _minted-main/43EFCD510C2D5D281B4E2156BB8AADF4D8D22A183484A0AA9BC76
-9B2FC070F44.pygtex)...executed.
-
-runsystem(rm _minted-main/C17F0EFF423C05DBD1F8BE39B85311D170E7BB85E471A9E2A09B9
-385CB787B0E.pygtex)...executed.
-
-runsystem(rm _minted-main/DEDE9E599C5310BDC9748C1982D1F9BB8D4FE1011A79AC5AD2061
-53EFA37AF96.pygtex)...executed.
-
-runsystem(rm _minted-main/045724780C5A3A2F3947A8515346179E143FD81813E3CA4F2B14F
-F77FC3DC3E8.pygtex)...executed.
-
-runsystem(rm _minted-main/0460FA26D176B2AE93908B120AFA1D2757BCDCC9AB6D78B45CDF4
-3F09011A658.pygtex)...executed.
-
-runsystem(rm _minted-main/0E3B05D4F9A4D0009AC9F56D95B667C000FF03DC516604A854D41
-A0461C82F2C.pygtex)...executed.
-
-runsystem(rm _minted-main/6525C14B34EE1E81483E3C68EEB2126EF41D52D8E073B4F4F843A
-3AE3F4F1EF5.pygtex)...executed.
-
-runsystem(rm _minted-main/7F418D37F1B55B6AC55CDB6625CA6CC1EF75024A9D353A5A73C1A
-4DDB2A41502.pygtex)...executed.
-
-runsystem(rm _minted-main/8D50224533CADAFB53F9F0AE5231094BF6DB60346E99A6FBE3859
-F51265322FB.pygtex)...executed.
-
-runsystem(rm _minted-main/3737B5630B369223739F5B63966B3B64E9CA5B0894F7FBA42C8A9
-CF850935551.pygtex)...executed.
-
-runsystem(rm _minted-main/7756D9B549061105ADA6403D470548033AAFCB034B73A8BD9F76D
-56DBD2D03E3.pygtex)...executed.
-
-runsystem(rm _minted-main/3711D64126E72F2BBCF3E6F0FAE54C35B152B41C4F69BE44760B4
-7D32FA0A287.pygtex)...executed.
+runsystem(rm _minted-main/7F418D37F1B55B6AC55CDB6625CA6CC1637F471CC169AE0A4D01E
+47FC568C52F.pygtex)...executed.
 
  [9] (./main.aux)
 runsystem(rm main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 8260 strings out of 492990
- 138618 string characters out of 6138688
+ 8241 strings out of 492990
+ 137402 string characters out of 6138688
  249147 words of memory out of 5000000
  11589 multiletter control sequences out of 15000+600000
  5390 words of font info for 20 fonts, out of 8000000 for 9000
@@ -811,7 +659,7 @@ ype1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texmf-dist/fonts/type1
 ts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pf
 b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (9 pages, 100300 bytes).
+Output written on main.pdf (9 pages, 100816 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream

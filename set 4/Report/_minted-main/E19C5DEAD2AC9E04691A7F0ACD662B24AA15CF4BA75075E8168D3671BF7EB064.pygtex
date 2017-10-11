@@ -3,8 +3,8 @@
         int d\PYGZus{}xval;
         int d\PYGZus{}yval;
         public:
-            void setXval(int val);                 // sets d\PYGZus{}xval
-            void setYval(int val);                 // sets d\PYGZus{}yval
+            void setXval(int xval);                 // sets d\PYGZus{}xval
+            void setYval(int yval);                 // sets d\PYGZus{}yval
 
             int const \PYGZam{}xval()  const;              // reads d\PYGZus{}xval
             int const \PYGZam{}yval()  const;              // reads d\PYGZus{}yval

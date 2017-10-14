@@ -1,5 +1,5 @@
 1. Differences pointers and arrays
-    While the adresses to which a pointer points can be changed, an array will,
+    While the addresses to which a pointer points can be changed, an array will,
     after creation, always be represented by the same block of adresses in memory. 
     This memory is reserved for the array. 
     A pointer does not reserve the memory to which it points. 
@@ -14,5 +14,13 @@
     implicitely dereferenced. 
     References can be bound to anonymous values, whereas pointers can not. 
 
-3. 
+3. I don't understand the syntax in this question.
+    
+4. Pointer Arithmetic   
+    Incrementing a pointer increases its adress by a value equal
+    to the size of the pointer type. This increment ++ptr can be also be written
+    ptr = ptr + 1. In the same way we can write ptr = ptr + 3 to move three of 
+    <typesize of ptr> to the right. Substraction is defined analogously. 
+
+5. Iterating using pointers
     

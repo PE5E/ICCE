@@ -14,13 +14,22 @@
     implicitely dereferenced. 
     References can be bound to anonymous values, whereas pointers can not. 
 
-3. I don't understand the syntax in this question.
+3. I don't understand the syntax in this question. What is the tt?
     
 4. Pointer Arithmetic   
     Incrementing a pointer increases its adress by a value equal
     to the size of the pointer type. This increment ++ptr can be also be written
     ptr = ptr + 1. In the same way we can write ptr = ptr + 3 to move three of 
     <typesize of ptr> to the right. Substraction is defined analogously. 
+    Thus pointer arithmetic is just arithmetic on the adress to which the
+    pointer points. We can also 
+        - compare pointers to pointers
+        - compare pointers to 0 or nullptr (pointer that does not point
+          anywhere)
+        - substract pointer from pointers (tells you how much is in between)
 
 5. Iterating using pointers
+   I don't understand this - I was under the impression that a[3] = *(a+3), i.e.
+    index expressions are just shorthand for the same thing. Maybe the
+    Annotations will hold a clue.
     

@@ -1,0 +1,37 @@
+-----------------------------------------------------------------
+  definition:         rewrite:        pointers:    semantics:
+-----------------------------------------------------------------
+  int x[8];           x[4]            *(x + 4)    x + 4 points to the 
+                                                  location of the 4th
+                                                  int beyond x. That
+                                                  element is reached
+                                                  using the dereference
+                                                  operator (*)
+
+  int x[8];           x[3] = x[2];          *(x + 3)  = *(x + 2)        x can be considered a pointer to 
+                                                                        the first element of the array x. We reach the
+                                                                        third and second element by pointer arithmetic.
+
+  char *argv[8];      cout << argv[2];      cout << *(argv+2)           argv is an array of 8 pointers to ints. The cout 
+                                                                        statement produces the third pointer, i.e. it's 
+                                                                        adress value. argv can be considered a pointer to
+                                                                        the first pointer in the array. If we increase it by 2
+                                                                        we obtain a pointer to the third pointer in the 
+                                                                        array. Dereferencing gives us the pointer in that 
+                                                                        position.
+
+  int x[8];           &x[10] - &x[3];       (x + 10) - (x + 3)          x is an array of 8 ints. The & operator here tries
+                                                                        to return the adress of the 10th and 3rd elements.
+                                                                        The 10th element does not exist. For a pointer this
+                                                                        is 'not a problem', since it will just read the memory
+                                                                        that is there without caring if this is actually part
+                                                                        of the array or in fact contains an int.
+
+  char *argv[8];      argv[0]++;            (*argv)++                    
+
+  char *argv[8];      argv++[0];            *argv++
+
+  char *argv[8];      ++argv[0];            ++*argv   
+
+  char **argv;        ++argv[0][2];         ++*((*argv)+2)
+-----------------------------------------------------------------

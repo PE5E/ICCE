@@ -1,0 +1,24 @@
+Pointers vs Arrays
+    Arrays always have the same adressses
+    Pointers can change
+    Therefore: can assign array to pointer; but not pointer to array
+    "name of array is const pointer to first element"
+[] is dereferencing operator, just like *
+    they dereference what they follow
+    a[5] = 0; is the same as *(a+5) = 0; 
+        both deref the 5th element of the array
+        both are valid for array and pointer a!
+
+Pointer arithmatic
+    only add & sub
+    pointer arithm respects the type to which one points
+    so ++ptr will be increase the adress of the pointer by the size in bytes of the type it points to!
+
+
+
+
+
+
+
+General notes
+    postfix operators have higher precendence than prefix operators.

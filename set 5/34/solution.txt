@@ -1,0 +1,18 @@
+1. Differences pointers and arrays
+    While the adresses to which a pointer points can be changed, an array will,
+    after creation, always be represented by the same block of adresses in memory. 
+    This memory is reserved for the array. 
+    A pointer does not reserve the memory to which it points. 
+
+
+2. Differences between pointers and references
+    References have to be initialized during decleration and are constant
+    thereafter, whereas pointers can be declared without initialization and may be
+    changed to point somewhere else after initialization. Pointers can point
+    nowhere, references always point somewhere.
+    Pointers have to be dereferenced explicitely, whereas references are
+    implicitely dereferenced. 
+    References can be bound to anonymous values, whereas pointers can not. 
+
+3. 
+    

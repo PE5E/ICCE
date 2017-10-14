@@ -29,3 +29,7 @@
 
 # vim swap
 *.swp
+
+# latex files
+main.log
+*.aux

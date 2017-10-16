@@ -33,3 +33,5 @@
 # latex files
 main.log
 *.aux
+
+set 5/exercise_34\.txt

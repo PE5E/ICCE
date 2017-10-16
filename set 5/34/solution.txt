@@ -15,6 +15,19 @@
     References can be bound to anonymous values, whereas pointers can not. 
 
 3. I don't understand the syntax in this question. What is the tt?
+    I suppose tt is a function.
+
+    answer:
+    a. int array[20][30] 
+    element [3][2] is reached by looking at row 3 and column 2 of an array.
+    It is arranged like this:
+    (int_array.jpg)
+
+    b. int *pointer[20]
+    element [3][2] is reached by taking the pointer to the first element of row 3,
+    so pointer[3], then adding 2 to the pointer.
+    this is arranged like this:
+    int_pointer.jpg 
     
 4. Pointer Arithmetic   
     Incrementing a pointer increases its adress by a value equal
@@ -28,8 +41,15 @@
           anywhere)
         - substract pointer from pointers (tells you how much is in between)
 
-5. Iterating using pointers
-   I don't understand this - I was under the impression that a[3] = *(a+3), i.e.
-    index expressions are just shorthand for the same thing. Maybe the
-    Annotations will hold a clue.
+5. explain why accessing an element in an array using only a pointer variable is 
+   to be preferred over using an index expression.
+    the use of pointers is more flexible. 
+    e.g. If we want to access a multidimensional array of unknown size this would be
+    fairly problematic in a function if we want to give the function the array
+    as parameter. Because at the definition of the function we need to know (at least
+    part of the) array dimensions. 
+    Using pointers we can point to just the start of the array. Giving the function 
+    the actual dimensions at runtime it can calculate the appropriate positions of 
+    the different values.
+    
     

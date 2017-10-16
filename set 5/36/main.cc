@@ -6,7 +6,6 @@ int main(int argc, char *argv[], char* envp[])
 {
     Strings str(argc, argv);
     Strings str2(std::cin);
-    cout << "----";
     Strings str3(envp);
 }
 

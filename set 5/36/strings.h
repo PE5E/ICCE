@@ -1,20 +1,22 @@
 #ifndef DEFINE_STRINGS_H
 #define DEFINE_STRINGS_H
 
-#include <istream>                                                  // std::istream
+#include <istream>                                   // std::istream
 
 class Strings
 {
-    size_t d_size = 0;                                                  // number of strings
-    char *d_str = 0;                                                    // pointer to array of strings
+    size_t d_size = 0;                               // number of strings
+    std::string *d_str = 0;                          // pointer to array of strings
+
     public:
-        Strings();
-        Strings(int const argc, char const *argv[] const);         // C string is char array
-        Strings(const char *env[] const);                  
-        Strings(std::istream &in const);
+        Strings();                                   // should this return nullptr:?
+        Strings(int const argc, char *argv[]); // C string is char array
+        Strings(const char *env[]);
+        Strings(std::istream &in);
+
     private:
-        void add();
-}
+        void add(std::string str);
+};
 
 #endif
 

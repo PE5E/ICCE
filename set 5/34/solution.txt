@@ -39,7 +39,7 @@
         - compare pointers to pointers
         - compare pointers to 0 or nullptr (pointer that does not point
           anywhere)
-        - substract pointer from pointers (tells you how much is in between)
+        - substract pointer from pointers (tells you how much memory is in between)
 
 5. explain why accessing an element in an array using only a pointer variable is 
    to be preferred over using an index expression.

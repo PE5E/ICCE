@@ -14,11 +14,20 @@ Pointer arithmatic
     pointer arithm respects the type to which one points
     so ++ptr will be increase the adress of the pointer by the size in bytes of the type it points to!
 
-
-
-
-
-
-
 General notes
     postfix operators have higher precendence than prefix operators.
+
+Usefull links
+    http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
+
+Notes on 36
+    Need to write default constructor
+    Need to rewrite 
+        ..
+        ..
+
+Notes on 37
+    What is the difference between the two "at" functions?
+    What type should the object Filter be?
+        How to implement the function display()?
+    Backdoor: I guess a private member funtion called by both 'at' functions 

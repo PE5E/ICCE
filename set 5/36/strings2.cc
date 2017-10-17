@@ -2,11 +2,8 @@
 
 Strings::Strings(std::istream &is)
 {
-   std::string str;
-   if (std::getline(is, str))
-   {
-//        cout << "Calling add from istream constructor" << '\n';
-//        cout << str << '\n';
-        add(str);
-    }
+    std::string str;
+    while (std::getline(is, str))
+        if (!is.eof())
+            add(str);
 }

@@ -29,5 +29,17 @@ Notes on 36
 Notes on 37
     What is the difference between the two "at" functions?
     What type should the object Filter be?
+        I think a class!
         How to implement the function display()?
     Backdoor: I guess a private member funtion called by both 'at' functions 
+
+
+std::string const str.at(5);
+std::string str.at(5)
+
+it is stopping at endline
+    Filter takes cin
+    Its constructor passes this to String
+
+filtering should happen in display
+

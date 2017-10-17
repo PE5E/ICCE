@@ -11,7 +11,7 @@ class Strings
     std::string *d_str = 0;                                  // pointer to array of strings
 
     public:
-        Strings();                                           // should this return nullptr:?
+        Strings();                                           // should this return nullptr:? Jaap thinks it should create a new empty strings object. Which it does right?
         Strings(int const argc, char *argv[]);
         Strings(char *env[]);
         Strings(std::istream &in);
@@ -24,7 +24,10 @@ class Strings
 
         Rel release();                                       // return data and size; clean up
 
-        void add(std::string str);
+        void add(std::string str);                           // add string to object data
+
+                                                             // switch contents of 2 strings objects
+        void stringsSwap(Strings& objectA, Strings& objectB); 
 
     private:
         std::string& priv_at(size_t index);                  // backdoor

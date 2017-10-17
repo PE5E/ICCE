@@ -1,14 +1,23 @@
-#include "filter.ih"            // 'Filter' class
-#include <iostream>             // std::cout
+#include "filter.ih"                                                           // 'Filter' class, 'Struct', <istream>, <string>
+#include <iostream>                                                            // std::cout
 
-void Filter::display() const
-{   
-    std::string whitespace = " \t\f\v\n\r";
-    std::string *begin = d_String.data();
-    std::string *end = d_String.data() + d_String.size();
+void Filter::display()
+{
+    std::string whitespace = " \t\n\f\n\r";                                    // could use is_white
 
-    for (std::string *current = begin; current != end; ++current)       // String.data() points to a contiguous array
+    Rel released = d_String.release();                                         // this apporach destroys the String object
+    std::string *out = released.data;
+    size_t siz = released.size;
+
+    while (out->find_first_not_of(whitespace) == std::string::npos)            // forward loop
     {
-       std::cout << *current << '\n';
-    }  
+        ++out;
+        --siz;
+    }
+
+    while((out + siz - 1)->find_first_not_of(whitespace) == std::string::npos) // backward loop
+        --siz;
+
+    for (std::string *ptr = out; ptr != out + siz; ++ptr)
+        std::cout << *ptr << '\n';
 }

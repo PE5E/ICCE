@@ -1,5 +1,5 @@
-#ifndef __ENUMS_H
-#define __ENUMS_H
+#ifndef __STRUCTS_H
+#define __STRUCTS_H
 
 #include <string>               // <string>, size_t
 

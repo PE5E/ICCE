@@ -1,7 +1,3 @@
 #include <istream>              // std::istream 
 #include <string>               // string
 #include "strings.h"            // 'Strings' class
-
-// debugging 
-#include <iostream>
-using std::cout;

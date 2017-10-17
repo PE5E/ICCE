@@ -7,7 +7,7 @@ class Filter
     public:
         Filter();
         Filter(std::istream &is);
-        void display()  const;
+        void display();
     private: 
         void removeWhitespace();
 };

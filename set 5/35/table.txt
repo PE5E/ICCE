@@ -10,10 +10,10 @@
 
   int x[8];           x[3] = x[2];          *(x + 3)  = *(x + 2)        x can be considered a pointer to 
                                                                         the first element of the array x. We reach the
-                                                                        third and second element by pointer arithmetic.
+                                                                        fourth and third element by pointer arithmetic.
 
   char *argv[8];      cout << argv[2];      cout << *(argv+2)           argv is an array of 8 pointers to ints. The cout 
-                                                                        statement produces the third pointer, i.e. it's 
+                                                                        statement first produces the pointer, i.e. it's 
                                                                         adress value. argv can be considered a pointer to
                                                                         the first pointer in the array. If we increase it by 2
                                                                         we obtain a pointer to the third pointer in the 
@@ -21,23 +21,32 @@
                                                                         position.
 
   int x[8];           &x[10] - &x[3];       (x + 10) - (x + 3)          x is an array of 8 ints. The & operator here tries
-                                                                        to return the adress of the 10th and 3rd elements.
-                                                                        The 10th element does not exist. For a pointer this
+                                                                        to return the adress of the 11th and 4th elements.
+                                                                        The 11th element does not exist. For a pointer this
                                                                         is 'not a problem', since it will just read the memory
                                                                         that is there without caring if this is actually part
                                                                         of the array or in fact contains an int.
+                                                                        What actually happens is the subtraction of 1 address from
+                                                                        another. Therefore what is stored at the addresses is 
+                                                                        irrelevant in this example. Subtracting the 2 addresses
+                                                                        will always result in 7. 
 
-  char *argv[8];      argv[0]++;            (*argv)++                   argv is an array of pointers to chars. argv[0] is a pointer to
-                                                                        to a char. Incrementing argv[0] means argv now points to the
-                                                                        memory following that char.
+  char *argv[8];      argv[0]++;            (*argv)++                   argv is an array of pointers to the first chars of null terminated byte strings. 
+                                                                        argv[0] is a pointer to the first char of the first null terminated byte string.
+                                                                        Incrementing argv[0] means that argv[0] now points to the second char of the first
+                                                                        null terminated byte string. This might be dangerous because you now have lost
+                                                                        a reference to the beginning of the string. So memory leaks can easily occur.
+
                                                                         *argv gives the first first element of argv, i.e. the first 
                                                                         pointer in the array. Incrementing means it now points to
-                                                                        to the memory following that char.
+                                                                        to the memory following that char, which also is the second char of the 
+                                                                        null terminated byte string.
 
-  char *argv[8];      argv++[0];            *argv++                     This is just dereffering a pointer to the second element in the array.
+  char *argv[8];      argv++[0];            *argv++                     argv[0] is processed in a stmnt. after that argv (so does argv[0]) points to what was argv[1].
 
-  char *argv[8];      ++argv[0];            ++*argv                     Since postfix operators have precedence over prefix operators, this increments the
-                                                                        first element of the array (which is itself a pointer).
+  char *argv[8];      ++argv[0];            ++*argv                     first argv[0] (so does argv) points to the second char in the first ntbs of the array. Then the stmnt is processed.
 
-  char **argv;        ++argv[0][2];         ++*(*arrgv + 2)             argv is a pointer to a pointer to a char.  
+  char **argv;        ++argv[0][2];         ++*(*argv + 2)              argv is a pointer to a pointer to a char. In this case it points to the first argument (program name)
+                                                                        from that it points to the 3rd char. The value of this char will be increased by 1. So an A becomes a B.
+                                                                        Thereafter the stmnt is processed.
 ------------------------------------------------------------------------------------------------------------------------------

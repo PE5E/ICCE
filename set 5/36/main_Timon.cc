@@ -1,5 +1,9 @@
-#include <iostream>        // cin
-#include "filter/filter.h" // 'Filter' class
+#include <iostream>
+#include <string>
+#include "strings.h"                     // 'Filter' class
+
+
+using namespace std;
 
 int main() // int argc, char *argv[], char* envp[])
 {

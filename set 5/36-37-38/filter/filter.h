@@ -1,5 +1,5 @@
 #include <istream>              // std::istream
-#include "strings.h"
+#include "../strings/strings.h"
 
 class Filter
 {

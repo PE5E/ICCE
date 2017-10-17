@@ -1,5 +1,5 @@
-#include <iostream>                     // cin
-#include "filter.h"                     // 'Filter' class
+#include <iostream>        // cin
+#include "filter/filter.h" // 'Filter' class
 
 int main() // int argc, char *argv[], char* envp[])
 {

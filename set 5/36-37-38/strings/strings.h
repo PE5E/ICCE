@@ -1,7 +1,7 @@
 #ifndef DEFINE_STRINGS_H
 #define DEFINE_STRINGS_H
 
-#include "struct.h"                                          // 'Rel' output struct
+#include "../struct.h"                                          // 'Rel' output struct
 #include <string>                                            // std::string, size_t
 #include <istream>                                           // std::istream
 

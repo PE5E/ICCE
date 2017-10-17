@@ -1,4 +1,4 @@
 #include "filter.h"         // 'Filter' class
-#include "struct.h"         // output struct Rel
+#include "../struct.h"         // output struct Rel
 #include <istream>          // std::istream
 #include <string>           // std::string

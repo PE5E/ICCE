@@ -21,17 +21,17 @@ class Strings
         std::string *data()           const ;
 
         std::string const &at(size_t index) const;             // non-modifiable string
-        std::string &at(size_t index);                         // modifiable string
+        std::string const &at(size_t index);                         // modifiable string
 
         Rel release();                                         // return data and size; clean up
 
         void add(std::string str);                             // add string to object data
 
                                                                // switch contents of 2 strings objects
-        void stringsSwap(Strings& objectA, Strings& objectB);
+        void stringsSwap(Strings& objectB);
 
     private:
-        std::string &priv_at(size_t index);                    // backdoor
+        std::string const &priv_at(size_t index) const;                    // backdoor
 
 };
 

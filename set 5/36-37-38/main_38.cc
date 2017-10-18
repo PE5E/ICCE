@@ -22,7 +22,7 @@ int main() // int argc, char *argv[], char* envp[])
     cout << *strB.data(); 
  
  
-    strA.stringsSwap(strA, strB);   // call function to swap data. 
+    strA.stringsSwap(strB);   // call function to swap data. 
                                     // since these are the pointer weeks, no data 
                                     // is swapped really. Only the addresses in the  
                                     // pointers pointing to the data. 

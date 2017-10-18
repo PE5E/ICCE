@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}
+
+Strings::Strings()          // default constructor returns null pointer
+\PYGZob{}
+\PYGZcb{}
+\end{Verbatim}

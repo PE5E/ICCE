@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZlt{}istream\PYGZgt{}              // std::istream 
+\PYGZsh{}include \PYGZlt{}string\PYGZgt{}               // string
+\PYGZsh{}include \PYGZdq{}strings.h\PYGZdq{}            // \PYGZsq{}Strings\PYGZsq{} class
+\end{Verbatim}

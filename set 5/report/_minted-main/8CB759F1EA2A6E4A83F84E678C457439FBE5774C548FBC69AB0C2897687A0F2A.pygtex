@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}                   // \PYGZsq{}Strings\PYGZsq{} class, \PYGZlt{}string\PYGZgt{}, \PYGZlt{}istream\PYGZgt{}
+                                        // \PYGZsq{}Rel\PYGZsq{} struct (via \PYGZsq{}Strings\PYGZsq{})
+Rel Strings::release()             
+\PYGZob{}
+    Rel out;                      
+    out.data = d\PYGZus{}str;
+    out.size = d\PYGZus{}size;
+
+    d\PYGZus{}str = 0;                          // clear instance 
+    d\PYGZus{}size = 0;
+
+    return out;                       
+\PYGZcb{}
+
+// release data to user, clear class instance
+\end{Verbatim}

@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}                   // \PYGZsq{}Strings\PYGZsq{}, string, istream
+
+Strings::Strings(std::istream \PYGZam{}is)
+\PYGZob{}
+    std::string str;
+    while (std::getline(is, str) \PYGZam{}\PYGZam{} !is.eof())
+        add(str);
+\PYGZcb{}
+\end{Verbatim}

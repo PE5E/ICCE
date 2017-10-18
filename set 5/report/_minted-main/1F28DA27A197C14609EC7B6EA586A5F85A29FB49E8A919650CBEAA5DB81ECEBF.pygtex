@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}                                    // \PYGZsq{}Strings\PYGZsq{} class
+
+void Strings::add(std::string str)                       // ntbs will be converted (?)
+\PYGZob{}
+    std::string *tmp = new std::string[++d\PYGZus{}size];        // array 1 string bigger
+    for (size\PYGZus{}t index = 0; index != d\PYGZus{}size \PYGZhy{} 1; ++index) // copy
+        *(tmp + index) = *(d\PYGZus{}str + index);
+    tmp[d\PYGZus{}size \PYGZhy{} 1] = str;                               // add new string
+    delete[] d\PYGZus{}str;                                      // delete old array
+    d\PYGZus{}str = tmp;                                         // point to new array
+\PYGZcb{}
+
+// \PYGZhy{}copy the currently stored strings to a new storage area
+// \PYGZhy{}add the next string to the new storage area
+// \PYGZhy{}destroy the information pointed at by d\PYGZus{}str
+// \PYGZhy{}update d\PYGZus{}str and d\PYGZus{}size so that they refer to the new storage area.
+\end{Verbatim}

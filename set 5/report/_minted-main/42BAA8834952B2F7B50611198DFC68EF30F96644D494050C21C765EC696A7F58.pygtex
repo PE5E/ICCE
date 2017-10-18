@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}
+
+std::string const \PYGZam{}Strings::at(size\PYGZus{}t index) const          // non\PYGZhy{}modifiable at
+\PYGZob{}
+    std::string const \PYGZam{}ref = priv\PYGZus{}at(index);
+    return ref;
+\PYGZcb{}
+\end{Verbatim}

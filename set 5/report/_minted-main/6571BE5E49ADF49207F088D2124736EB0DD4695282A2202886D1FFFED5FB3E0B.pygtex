@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings/strings.h\PYGZdq{}
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{}
+
+int main(int argc, char *argv[], char *envp[])
+\PYGZob{}
+    Strings argstr(argc, argv);
+    Strings envstr(envp);
+    Strings streamstr(std::cin);
+\PYGZcb{}
+\end{Verbatim}

@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}
+
+Strings::Strings(char *env[])
+\PYGZob{}
+    for (int index = 0; index != sizeof(*env); index ++)
+    \PYGZob{}
+        add(*(env + index));
+    \PYGZcb{}
+\PYGZcb{}
+\end{Verbatim}

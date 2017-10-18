@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}
+
+std::string \PYGZam{}Strings::priv\PYGZus{}at(size\PYGZus{}t index) const
+\PYGZob{}
+    std::string \PYGZam{}ref = (index \PYGZgt{} d\PYGZus{}size) ? d\PYGZus{}emptystring : d\PYGZus{}str[index];                
+    return ref; 
+\PYGZcb{}
+   
+\end{Verbatim}

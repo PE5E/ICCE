@@ -1,17 +1,17 @@
 #ifndef DEFINE_STRINGS_H
 #define DEFINE_STRINGS_H
 
-#include "../struct.h"                                          // 'Rel' output struct
-#include <string>                                            // std::string, size_t
-#include <istream>                                           // std::istream
+#include "../struct.h"                                        // 'Rel' output struct
+#include <string>                                             // std::string, size_t
+#include <istream>                                            // std::istream
 
 class Strings
 {
-    size_t d_size = 0;                                       // number of strings
-    std::string *d_str = 0;                                  // pointer to array of strings
+    size_t d_size = 0;                                        // number of strings
+    std::string *d_str = 0;                                   // pointer to array of strings
 
     public:
-        Strings();                                           // should this return nullptr:? Jaap thinks it should create a new empty strings object. Which it does right?
+        Strings();                                            // should this return nullptr:? Jaap thinks it should create a new empty strings object. Which it does right?
         Strings(int const argc, char *argv[]);
         Strings(char *env[]);
         Strings(std::istream &in);
@@ -19,18 +19,18 @@ class Strings
         size_t size()                 const ;
         std::string *data()           const ;
 
-        std::string const& at(size_t index) const ;          // non-modifiable string
-        std::string& at(size_t index);                       // modifiable string
+        std::string const& at(size_t index) const ;           // non-modifiable string
+        std::string& at(size_t index);                        // modifiable string
 
-        Rel release();                                       // return data and size; clean up
+        Rel release();                                        // return data and size; clean up
 
-        void add(std::string str);                           // add string to object data
+        void add(std::string str);                            // add string to object data
 
-                                                             // switch contents of 2 strings objects
-        void stringsSwap(Strings& objectA, Strings& objectB); 
+                                                              // switch contents of 2 strings objects
+        void stringsSwap(Strings& objectA, Strings& objectB);
 
     private:
-        std::string& priv_at(size_t index);                  // backdoor
+        std::string& priv_at(size_t index);                   // backdoor
 
 };
 

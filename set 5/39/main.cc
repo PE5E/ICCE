@@ -1,37 +1,24 @@
-#include <iostream>
-#include <string>
+#include "exercise_39.ih"
 
 using namespace std;
 
-void inv_identity()
-
 int main() 
 {
-    int square[10][10];     // for the sake of the exercise the array is 
-                            // not initialized what normally should be done.
-    int *row[10];
-    for (size_t index = 0; index != 10; ++index)
-            row[index] = square[index];
+    int square[10][10];        // for the sake of the exercise the array is 
+                               // not initialized what normally should be done.
+    int (*row)[10] = square;   // pointer to the rows of square
 
-    inv_identity(row); 
+    inv_identity(row);         // fill the matrix
+
+
+    for (size_t r=0; r != 10 ; ++r)         // display the matrix
+    {
+        cout << "Rij " << r << ": ";
+        for (size_t c=0; c != 10 ; ++c)
+            cout << square[r][c];
+        cout << '\n';
+    } 
+
 }
 
 
-
-/*
-code uit pointers1.odp blad 32
-
-process(double *data[], size_t order)
-{
-	for (size_t row = 0; row != order; ++row)
-	{
-		for (size_t col = 0; col != order; ++col)
-			data[row][col] = 0;
-
-		data[row][row] = 1;
-	}
-}
-
-zie ook blad 34 voor opbouw pointer array
-
-*/

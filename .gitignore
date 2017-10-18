@@ -35,3 +35,31 @@ main.log
 *.aux
 
 set 5/exercise_34\.txt
+
+set 5/36-37-38/\.d/filter/display\.d
+
+set 5/36-37-38/\.d/filter/filter1\.d
+
+set 5/36-37-38/\.d/filter/filter2\.d
+
+set 5/36-37-38/\.d/main\.d
+
+set 5/36-37-38/\.d/strings/add\.d
+
+set 5/36-37-38/\.d/strings/release\.d
+
+set 5/36-37-38/\.d/strings/strings1\.d
+
+set 5/36-37-38/\.d/strings/strings2\.d
+
+set 5/36-37-38/\.d/strings/strings3\.d
+
+set 5/36-37-38/\.d/strings/strings4\.d
+
+set 5/36-37-38/\.d/stringsSwap/stringsSwap\.d
+
+set 5/36-37-38/Makefile
+
+set 5/36-37-38/set
+
+set 5/39/main

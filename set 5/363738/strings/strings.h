@@ -28,7 +28,7 @@ class Strings
         void add(std::string str);                             // add string to object data
 
                                                                // switch contents of 2 strings objects
-        void stringsSwap(Strings& objectA, Strings& objectB);
+        void stringsSwap(Strings& objectB);
 
     private:
         std::string &priv_at(size_t index) const;                    // backdoor

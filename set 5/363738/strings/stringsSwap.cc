@@ -1,4 +1,4 @@
-#include "../strings/strings.h"
+#include "strings.h"
  
  
 void Strings::stringsSwap(Strings& objectB)  

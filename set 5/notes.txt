@@ -43,3 +43,27 @@ it is stopping at endline
 
 filtering should happen in display
 
+
+
+
+
+10-18 TODO
+    implement at1
+    implement at2
+    implement private_at
+    rewrite argv constructor for Strings, avoid using add() here.               // email send to jurjen.
+        d_str contains pointer to array
+        arg contains pointers to ntsb
+        do:
+        *increase size of d_str by argc
+        *create new array of right size using new[]
+        *copy old contents to new array
+        *loop over pointers in arg, adding each string to new_array
+        *call delete[] on d_str
+        *pointer d_str to the new array
+        
+        
+
+        
+    
+    

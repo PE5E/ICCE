@@ -1,6 +1,6 @@
 #include "strings.ih"
 
-std::string at(size_t index)
+std::string const &Strings::at(size_t index) const          // non-modifiable at
 {
-    return d_str[index];
+    return priv_at(index);
 }

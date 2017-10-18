@@ -1,9 +1,15 @@
-strings/at1.cc: In member function ‘const string& Strings::at(size_t) const’:
-strings/at1.cc:5:25: error: passing ‘const Strings’ as ‘this’ argument discards qualifiers [-fpermissive]
-     return priv_at(index);
-                         ^
+strings/at2.cc:3:14: error: prototype for ‘std::__cxx11::string& Strings::at(size_t)’ does not match any in class ‘Strings’
+ std::string &Strings::at(size_t index)          // const ref to modifiable string
+              ^~~~~~~
 In file included from strings/strings.ih:3:0,
-                 from strings/at1.cc:1:
-strings/strings.h:34:22: note:   in call to ‘std::__cxx11::string& Strings::priv_at(size_t)’
-         std::string &priv_at(size_t index);                   // backdoor
-                      ^~~~~~~
+                 from strings/at2.cc:1:
+strings/strings.h:24:28: error: candidates are: const string& Strings::at(size_t)
+         std::string const &at(size_t index);                         // modifiable string
+                            ^~
+strings/strings.h:23:28: error:                 const string& Strings::at(size_t) const
+         std::string const &at(size_t index) const;             // non-modifiable string
+                            ^~
+strings/priv_at.cc: In member function ‘std::__cxx11::string& Strings::priv_at(size_t) const’:
+strings/priv_at.cc:5:41: error: binding reference of type ‘std::__cxx11::string& {aka std::__cxx11::basic_string<char>&}’ to ‘const string {aka const std::__cxx11::basic_string<char>}’ discards qualifiers
+     std::string &ref = (index > d_size) ? d_emptystring : d_str[index];
+                        ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

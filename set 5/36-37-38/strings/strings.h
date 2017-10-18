@@ -9,7 +9,7 @@ class Strings
 {
     size_t d_size = 0;                                         // number of strings
     std::string *d_str = 0;                                    // pointer to array of strings
-    std::string d_emptystring = "";
+    std::string const d_emptystring = "";
 
     public:
         Strings();
@@ -21,7 +21,7 @@ class Strings
         std::string *data()           const ;
 
         std::string const &at(size_t index) const;             // non-modifiable string
-        std::string &at(size_t index);                         // modifiable string
+        std::string const &at(size_t index);                         // modifiable string
 
         Rel release();                                         // return data and size; clean up
 
@@ -31,7 +31,7 @@ class Strings
         void stringsSwap(Strings& objectA, Strings& objectB);
 
     private:
-        std::string &priv_at(size_t index);                    // backdoor
+        std::string &priv_at(size_t index) const;                    // backdoor
 
 };
 

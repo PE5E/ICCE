@@ -2,5 +2,6 @@
 
 std::string &Strings::at(size_t index)          // const ref to modifiable string
 {
-    return priv_at(index);
+    std::string &ref = priv_at(index);
+    return ref;
 }

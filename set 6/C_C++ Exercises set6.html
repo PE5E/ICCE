@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven05.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven07.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l6"></a>
+<h1>Chapter 6: Exercises set six: Pointers Part 2. Deadline: October 26</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 42.</strong>
+        <br>
+        Purpose of this exercise: Familiarize yourself with the various new/delete
+variants.
+<p>
+What are the variants of new/delete? For each of the variants provide a
+(short!) example in which the used new/delete is appropriate and provide a
+short explanation why it is appropriately used.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 43.</strong>
+        <br>
+        
+<p>
+Purpose: learn to implement destructors for classes requiring them.
+</p><p>
+Earlier, the class <code>Strings</code> was introduced. Since the class allocates its
+own memory its objects cause memory leaks once they go out of scope.
+</p><p>
+Prevent the  memory leak: objects going out of scope should always
+automatically delete all the memory they've allocated for themselves.
+</p><p>
+Note: this modification of the <code>Strings</code> class doesn't make it full-proof,
+yet. We'll handle that shortly.
+</p><p>
+Only submit the modified header file and the member(s) you added to
+<code>Strings</code> to ensure that a <code>Strings</code> object does not cause a memory leak
+when it goes out of scope.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 44.</strong>
+        <br>
+        Purpose: learn to use double pointers.
+<p>
+The class <code>Strings</code> clearly uses a highly inefficent algorithm for adding
+another string, as it has to copy its full data structure for every newly
+added string.
+</p><p>
+Can we do better? Yes. First of all, a double pointer only needs to extend the
+array of pointers. Existing strings, once allocated, can be reused. Second,
+the array of pointers doesn't have to be copied at every new string. The
+class could use a doubling rule: each time the array is full,
+allocate enough room to store twice the number of strings. 
+</p><p>
+When doubling, the additional pointers don't have to be initialized. We can
+postpone initialization until it's actually required. It's probably a good
+idea to make the initial capacity equal to 1, allowing you to implement a
+simple doubling algorithm. Alternatively, you could extend in fixed block
+sizes (e.g., allowing the object to store 100 additional strings).
+</p><p>
+Modify the existing class <code>Strings</code> so that a double pointer is used. The
+class now needs a third data member: <code>d_capacity</code>, informing the object
+about the number of pointers that are in fact in use.
+</p><p>
+Make sure the destructor and <code>destroy</code> functions are modified accordingly.
+</p><p>
+The class should also be provided with <code>capacity</code>, <code>reserve</code> and
+<code>resize</code> facilities. These serve two distinct purposes. Take a look at the
+<code>std::string</code> class for an example, and copy the behaviour it exhibits.
+</p><p>
+When resizing to a larger amount of <code>std::string</code> objects
+the new <code>std::string</code> elements should be initialized using the default
+constructor. When resizing to a smaller amount, delete the strings
+affected by the resizing operation. When reserving to a smaller amount, do
+nothing, except maybe deleting the strings affected by the
+reserve-operation. The <code>d_capacity</code> member itself should not be affected.
+</p><p>
+In this exercise you may assume that enlarging the capacity is always
+possible, so no checks for legal capacity values are required.
+</p><p>
+Hint: define a support function <code>rawPointers</code> that is provided with the
+number of pointers to strings to allocate and that returns a pointer to that
+number of pointers to strings.
+</p><p>
+Submit the modified class <code>Strings</code>, using double pointers. 
+</p><p>
+Note that the <code>main</code> function used for the demo of the original
+<code>Strings</code> class can be reused without any modifications at all.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 45.</strong>
+        <br>
+        Purpose: learn to use the placement new operator.
+<p>
+The class <code>Strings</code> using a double pointer clearly offers an improvement
+over the basic form, allocating an array.
+</p><p>
+What about a third way to handle allocation? The <em>placement new</em> operator
+allows us to allocate blocks of (raw) memory, installing our data in it on
+request.
+</p><p>
+The class can still use a doubling rule: each time the array is full, 
+enough room is allocated to store twice the number of strings. This time, raw
+memory to allocate the strings in, not pointers to strings.
+</p><p>
+When doubling, the room for extra strings doesn't have to be initialized. We
+can postpone initialization until it's actually required. Again set the
+initial capacity equal to 1, allowing you to implement a simple doubling
+algorithm.
+</p><p>
+Modify the class <code>Strings</code> so that the placement new operator is used. All
+the previous class <code>Strings</code>' facilities (including those of the class using
+double pointers, so <code>capacity, reserve</code> and <code>resize</code> should still be
+available.
+</p><p>
+Make sure the destructor and <code>destroy</code> functions are modified accordingly.
+</p><p>
+Hint: define a support function <code>rawStrings</code> that is provided with the
+number of raw strings to allocate and that returns a pointer to that storage
+area.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 46.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to select an efficient implementation
+<p>
+In the previous exercises the <code>Strings</code> class was implemented using double
+pointers and an implementation using placement new was developed. Together
+with the original implementation of the <code>Strings</code> class we now have three
+different implementations.  
+</p><p>
+Here is a <code>main</code> function that can be used to perform a `stress test' of 
+a <code>Strings</code> object:
+</p><p>
+</p><pre>
+    extern char **environ;
+    
+    int main()
+    {
+        for (size_t iter = 0; iter != 1000; ++iter)
+        {
+            Strings env(environ);
+    
+            for (size_t rept = 0; rept != 100; ++rept)
+            {
+                for (char **ptr = environ; *ptr; ++ptr)
+                    env.add(*ptr);
+            }
+        }
+    }
+        
+</pre>
+
+<p>
+Use this program in combination with each of the three <code>Strings</code>
+implementations (so you create three programs). Then start each of the
+programs as argument of the <strong>time</strong>(1) program (e.g., execute <code>time
+stresstest</code>) and decide which implementation to prefer
+based on the execution times. 
+</p><p>
+Submit the output of the <code>time</code> program for each of the three programs, and
+submit your conclusion about which implementation to prefer.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 47.</strong>
+        <br>
+        Purpose of this exercise: learn to convert a switch to using pointers to
+functions. 
+<p>
+In exercise 29 we developed the CPU class, simulating a basic CPU. In the
+implementation of that class several switches were used. Redesign the class in
+such a way that the switches are each replaced by a single expression
+statement (using pointers to functions). Submit the modified header and
+modified functions.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 48.</strong>
+        <br>
+        Purpose of this exercise: learn to design and implement a non-trivial class
+<p>
+In this exercise you learn to design and implement the class <code>CSV</code>, handling
+comma separated values (CSVs). Although the full specification of CSVs is
+found in <a href="https://www.ietf.org/rfc/rfc4180.txt">RFC 4180 (section 2)</a>, in
+this exercise we'll implement only the basics of CSVs.
+</p><p>
+According to RFC 4180 lines contain comma separated values: comma separated
+values on one line are processed together, as a series of values. The final
+comma separated value on a line is not ended by a comma.
+</p><p>
+You may assume that the individual CSVs do not contain
+commas, do not extend over multiple lines, and are not surrounded by double
+quotes. Although this differs from the official specification, it's considered
+acceptable in the current context. But comma separated values may be
+empty: the following line defines three empty comma separated values:
+        </p><pre>
+,,
+        
+</pre>
+
+    The first empty value starts at the beginning of the line, and continues
+up to the first comma; the second empty value starts beyond the first comma
+and continues up to the second comma; the third empty value starts beyond the
+second comma, and continues up to the end of the line. If the line ends in
+blank space characters then the third value isn't empty, but contains those
+blank space characters.
+<p>
+Of course, there's always a situation where the separator isn't a comma, but
+e.g., a semicolon. For that the constructor has a 2nd parameter <code>fieldSep</code>
+which by default equals <code>','</code>. Its 1st parameter is <code>field</code>, by default 0,
+specifying the number of CSVs on a line. If 0 then the number of CSVs on the 
+first line determines the number of fields.
+</p><p>
+The class supports the following members:
+    </p><ul>
+    <li> <code>void clear(size_t nFields = 0)</code>
+       The internally stored data are erased. By default, the required number
+        of CSV fields is reset to 0, but can be set to a specific value by
+        specifying a value for its <code>nFields</code> parameter.
+<p>
+</p></li><li> <code>std::string const *const *const *data()</code>
+       A pointer to the lines of CSVs is returned. Each line is stored as an
+        array of pointers to the strings containing the actual CSVs. Each of
+        these arrays holds the same number of pointers to strings (see the
+        members <code>nFields</code> and <code>size</code> below). Note that a <em>triple</em>
+        pointer is returned. To access an individual CSV use the requested
+        line index, then the requested field index. Then dereference that
+        pointer to obtain the CSV.
+<p>
+</p></li><li> <code>std::string const &amp;lastLine()</code>
+       A reference to the last line that was successfully extracted from the
+        input stream by the <code>read1</code> member is returned. So once the lines
+        containing the comma separated values have been processed, the next
+        line on the input stream is obtained from this member.
+<p>
+</p></li><li> <code>size_t nFields()</code>
+       After successfully calling <code>read1</code> for the first time this member
+        returns the required number of comma separated values that must be
+        encountered on subsequent input lines.
+<p>
+</p></li><li> <code>size_t read(std::istream &amp;in, size_t nLines = 0)</code>
+       By default, all lines of <code>in</code> are read and are processed by the
+        <code>read1</code> member. By specifying a non-zero value for the <code>nLines</code>
+        parameter the specified number of lines is read from <code>in</code>.  Reading
+        stops once <code>in's</code> status is not <code>good</code>. When <code>nLines</code> is
+        specified as zero, then reading continues until all CSV lines have
+        been processed. The number of successfully processed lines is
+        returned.
+<p>
+</p></li><li> <code>bool read1(std::istream &amp;in)</code>
+       One line is read from <code>in</code> and is parsed for its CSVs. If parsing
+        fails, <code>false</code> is returned. After successfully calling
+        <code>read1</code> for the first time all subsequent lines read by <code>read1</code>
+        must have the same number of comma separated values as encountered
+        when calling <code>read1</code> for the first time..
+<p>
+</p></li><li> <code>std::string ***release()</code>
+       A pointer to the lines of CSVs is returned. See the member <code>data</code> for
+        details about the returned triple pointer. After calling <code>release</code> 
+        the internally stored triple pointer has been reset to its initial
+        value.  Note that this member does not reset the
+        number of expected fields for subsequently processed CSV-lines. If
+        that's what you want, call <code>clear</code> after calling <code>release</code>.
+<p>
+</p></li><li> <code>size_t size()</code>
+       The number of CSV lines that's currently stored in the CSV object is
+        returned. 
+    </li></ul>
+<p>
+Note that in the overview of member functions <code>const</code> attributes have
+not been used: it's up to you to determine which members should be
+const. 
+</p><p>
+Hints: 
+    </p><ul>
+    <li> use an initial capacity of 1, and double the number of elements that
+can be stored once the capacity is exhausted. Since in general you're going to
+allocate memory to represent multiple lines of CSVs, realize that the initial
+capacity's memory must also refer to an array, and not merely to a single
+pointer.
+<p>
+</p></li><li> to transfer a block of memory the function <strong>memcpy</strong>(3) may be
+used. Be sure to multiply the number of elements by their size.
+<p>
+</p></li><li> of course, once the first line of CSVs has been read or when
+<code>nFields</code> has been specified, the number of fields is known, and the
+required memory for subsequent lines of CSVs can thereupon immediately be
+allocated. A similar consideration applies to the number of lines.
+<p>
+</p></li><li> at CSV's level of specification the CSVs themselves should not be
+handled: handling the CSVs themselves is at another level of aggregation than
+what's expected of the class CSV. Therefore, retrieving individual CSV values
+is embedded in a separate class (<code>CSVextractor</code>), which is then used by the
+class CSV (also see the next exercises).
+    </li></ul>
+<p>
+Design and submit the class CSV's interface, and submit a drawing clearly
+showing how the CSVs are reached using <code>data()'s</code> return value.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 49.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to implement a non-trivial class
+<p>
+(See the CSV exercise) Implement the members of the class CSV.
+</p><p>
+At this point, based on the description of the class CSV, you know that
+handling the CSV fields is the responsibility of the class CSVextractor. When
+implementing CSV, avoid thinking about how CSVextractor should be
+implemented. Rather, when you need to process a line's CSV fields, assume a
+matching member exists, and call that member in your CSV implementation.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 50.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to design a support class
+<p>
+(See the CSV exercise) Design and implement the class CSVextractor. 
+</p><p>
+This is a support class for CSV, and so its public members are used by
+CSV. Those members should have names that are comparable to the names used by
+CSV. Avoid big functions: always ask yourself what a function's purpose is,
+and then implement that in such a way that the function's implementation
+closely follows its semantic description.
+</p><p>
+Submit the class's interface and implementation.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 51.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to use a non-trivial class
+<p>
+Implement a <code>main</code> function in which <code>cin</code> is read, all CSV
+values of all lines are shown, prefixed by their line and CSV indices, and
+finally showing the first line that didn't contain the required number of
+CSVs.
+</p><p>
+Your test-input should also contain some empty CSV fields.
+</p><p>
+When designing a class a small <em>driver</em> program can (should) be constructed
+showing that all members of your class are correctly working. For this
+exercise also design and submit a driver program for the class
+<code>CSVextractor</code>. 
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven05.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven07.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

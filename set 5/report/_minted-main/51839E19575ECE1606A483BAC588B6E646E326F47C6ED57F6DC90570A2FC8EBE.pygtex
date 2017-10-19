@@ -32,7 +32,6 @@ class Strings
 
     private:
         std::string \PYGZam{}priv\PYGZus{}at(size\PYGZus{}t index) const;  // backdoor
-
 \PYGZcb{};
 
 inline size\PYGZus{}t Strings::size() const  

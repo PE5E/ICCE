@@ -63,3 +63,31 @@ set 5/36-37-38/Makefile
 set 5/36-37-38/set
 
 set 5/39/main
+
+set 5/36-37-38/\.d/
+
+set 5/363738/\.d/filter/display\.d
+
+set 5/363738/\.d/filter/filter1\.d
+
+set 5/363738/\.d/filter/filter2\.d
+
+set 5/363738/\.d/main_36\.d
+
+set 5/363738/\.d/main\.d
+
+set 5/363738/\.d/strings/add\.d
+
+set 5/363738/\.d/strings/at2\.d
+
+set 5/363738/\.d/strings/release\.d
+
+set 5/363738/\.d/strings/strings1\.d
+
+set 5/363738/\.d/strings/strings2\.d
+
+set 5/363738/\.d/strings/strings3\.d
+
+set 5/363738/\.d/strings/strings4\.d
+
+set 5/363738/\.d/strings/stringsSwap\.d

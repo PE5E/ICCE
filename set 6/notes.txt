@@ -1,0 +1,141 @@
+SLIDES: POINTERS II
+    Passing of array to function is always passing of a pointer. Therefore 
+    a function should always take an array pointer as an argument.
+        func(int *param[])
+    instead of
+        func(int param[])
+
+    It follows from the previous that
+        - The first dim of an array becomes a pointer in the function param
+   
+    Pointers to functions
+        - Unknown action, to be performed repeatedly
+        - syntax: always (*fp)(varargin)
+
+    Considering why fp = &process; could be fp = process;? Its worse.
+    https://stackoverflow.com/questions/6893285/why-do-function-pointer-definitions-work-with-any-number-of-ampersands-or-as
+
+    Nice example of ternary operator abuse.
+    int (*pf)(int) = mode == TOLOWER ? tolower :
+                     mode == TOUPPER ? toupper :
+                                       asIs    ;
+    while (blabla)
+        result = (*pf)(stuff)
+
+
+    When NOT to use pointers to functions:
+        - long switch where action is constantly re-determined
+        - the action is not executed very often in series
+            constantly rewriting the pointer sucks
+            better to have a switch in this case
+    
+    function pointer 'switch':
+        int (*transform[)(int ch) = 
+        {
+            &tolower, 
+            &toupper,
+            &asIs
+        };
+        for (int ch: allChars() )        // allChars has .end .begin iterators
+            cout << (*transform[mode])(ch);
+        Note:
+            transform is an array of pointers to functions from int to int.
+            mode should be member of enum map to int
+    Pointers to member functions
+        void (Class:*fp)(int) = &class::function;
+        here fp is a pointer into class to a member function of that class.
+        
+        two ways to go about your day:
+        - (object.*fp)(12)  // pointer to member, object
+        - (obPtr->*pp)(12)  // pointer to member, pointer to object
+    
+    Pointer Array to Members 
+        Just like the pointer switch above, you can have an array of pointers
+        to member functions.
+        - Normally as a static member
+        - Class::*Class::arrayfunc(...)             // class function to class pointer
+
+    Destructor
+        Class String
+        {
+            public:
+                ~String();
+        }
+        ~String()
+        {
+            delete[] d_str;
+        }
+        - plain data members are never destroyed
+        - references         are never destroyed
+        - place holder ptrs  are never destroyed
+        
+        delete
+            - calls destructor of pointed to object
+                    delete memory allocated by object
+            - de-allocates memory containing the object
+        
+        delete[]
+            - delete for all objects in array
+        
+        new
+            - allocates bytes of memory
+            - calls constructor
+
+        Resizing is bad.
+        Moving is better.
+
+        Placement new
+            - Only construct when necessary, in already available raw memory.
+            - Raw memory may be pre-allocated in large chunks ready for later use.
+            - Used in classes.
+            - explicit destruction of objects.
+            Prototype:
+                void demo()
+                {
+                    char block[10 * sizeof(std::string)]
+                    ..
+                    string *sp = new(block + idx * sizeof(std::string))
+                                    std::string("in block");
+                };
+                - block is raw memory(bytes = chars)
+                - no automatic destruction at end of main
+                - call sp->~string() to delete
+            castable raw memory is easier:
+            int main()
+            {
+                string *block = static_cast<string *>(
+                                operator new(10 * sizeof(std::string)));
+
+
+
+DE PROGRAMMEERTAAL C: CHAPTER 8
+    &: adress of
+    *: contents of
+    - have higher priority than all binary operators. 
+
+QUESTIONS: 
+    1. When a function takes a pointer to an array (possibly passed using the 
+    name of the array), is the size of the array communicated?
+
+        int x[20];
+    means x = [x1 x2 ... x20]
+    The pointer x does not know the size of the array, only its type.
+
+    2. The book says I should call the array 'char mat[10][80' using fun(char (*mat)[80]). 
+                   Why not use fun(char **mat)?
+    
+    mat is an array of arrays. To pass it, we convert it's name to a function. Hence
+    we obtain a pointer to an array of chars. Dereferencing an array of chars makes
+    no sense and there is no automatic conversion here. Thus, the second size (80)
+    is known in the function and can be determined compile time using sizeof() * typesize, whereas
+    the first size is not known in the function. Pointers destroy size information of
+    arrays.
+
+NOTES:
+    A static member of a class is defined for the whole class once, not for each instance.
+    "When we declare a member of a class as static it means no matter how many objects of 
+    the class are created, there is only one copy of the static member."
+    - can't be defined inside the class header
+    - should be declared inside the class header
+    - can only acces static data members, functions
+    - correct way to test if instances created (or count them) 

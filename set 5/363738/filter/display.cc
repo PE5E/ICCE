@@ -1,11 +1,11 @@
-#include "filter.ih"                                                           // 'Filter' class, 'Struct', <istream>, <string>
-#include <iostream>                                                            // std::cout
+#include "filter.ih"                    // 'Filter' class, 'Struct', <istream>, <string>
+#include <iostream>                     // std::cout
 
 void Filter::display()
 {
     std::string whitespace = " \t\n\f\n\r";                                    // could use is_white
 
-    Rel released = d_String.release();                                         // this apporach destroys the String object
+    Rel released = d_String.release();                                         // destroys String object
     std::string *out = released.data;
     size_t siz = released.size;
 

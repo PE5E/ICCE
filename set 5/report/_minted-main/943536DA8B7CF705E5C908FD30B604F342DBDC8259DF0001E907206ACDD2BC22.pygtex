@@ -3,16 +3,16 @@
 
 using namespace std;
 
-int main() 
+int main()
 \PYGZob{}
-    int square[10][10];        // for the sake of the exercise the array is 
-                               // not initialized what normally should be done.
-    int (*row)[10] = square;   // pointer to the rows of square
+    int square[10][10];              // for the sake of the exercise the array is
+                                     // not initialized what normally should be done.
+    int (*row)[10] = square;         // pointer to the rows of square
 
-    inv\PYGZus{}identity(row);         // fill the matrix
+    inv\PYGZus{}identity(row);               // fill the matrix
 
 
-    for (size\PYGZus{}t r=0; r != 10 ; ++r)         // display the matrix
+    for (size\PYGZus{}t r=0; r != 10 ; ++r)  // display the matrix
     \PYGZob{}
         cout \PYGZlt{}\PYGZlt{} \PYGZdq{}Rij \PYGZdq{} \PYGZlt{}\PYGZlt{} r \PYGZlt{}\PYGZlt{} \PYGZdq{}: \PYGZdq{};
         for (size\PYGZus{}t c=0; c != 10 ; ++c)

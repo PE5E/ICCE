@@ -1,6 +1,5 @@
 #include "strings.h"
  
- 
 void Strings::stringsSwap(Strings& objectB)  
 { 
     std::string *tempA = d_str;     // store the address of the data of objectA 

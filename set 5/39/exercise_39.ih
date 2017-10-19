@@ -1,12 +1,12 @@
 #include <iostream>     // size_t
 
-    #ifdef __cplusplus
-	    extern "C" {
-    #endif
+#ifdef __cplusplus
+    extern "C" {
+#endif
 
-    void inv_identity(int (*arrayPointer)[10]); 
-   
-    #ifdef __cplusplus
-    	}
-    #endif
+void inv_identity(int (*arrayPointer)[10]); 
+
+#ifdef __cplusplus
+    }
+#endif
 

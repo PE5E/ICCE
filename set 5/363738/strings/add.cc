@@ -1,6 +1,6 @@
 #include "strings.ih"                                    // 'Strings' class
 
-void Strings::add(std::string str)                       // ntbs will be converted (?)
+void Strings::add(std::string str)                       // ntbs will be converted
 {
     std::string *tmp = new std::string[++d_size];        // array 1 string bigger
     for (size_t index = 0; index != d_size - 1; ++index) // copy

@@ -1,0 +1,52 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}ifndef DEFINE\PYGZus{}STRINGS\PYGZus{}H
+\PYGZsh{}define DEFINE\PYGZus{}STRINGS\PYGZus{}H
+
+\PYGZsh{}include \PYGZdq{}../struct.h\PYGZdq{}                             // \PYGZsq{}Rel\PYGZsq{} output struct
+\PYGZsh{}include \PYGZlt{}string\PYGZgt{}                                  // std::string, size\PYGZus{}t
+\PYGZsh{}include \PYGZlt{}istream\PYGZgt{}                                 // std::istream
+
+class Strings
+\PYGZob{}
+    size\PYGZus{}t d\PYGZus{}size = 0;                             // number of strings
+    std::string *d\PYGZus{}str = 0;                        // pointer to array of strings
+    std::string const d\PYGZus{}emptystring = \PYGZdq{}\PYGZdq{};          // yeah.
+
+    public:
+        Strings();
+        Strings(int const argc, char *argv[]);
+        Strings(char *env[]);
+        Strings(std::istream \PYGZam{}in);
+
+        size\PYGZus{}t size()                 const ;
+        std::string *data()           const ;
+
+        std::string const \PYGZam{}at(size\PYGZus{}t index) const; // non\PYGZhy{}modifiable string
+        std::string \PYGZam{}at(size\PYGZus{}t index);             // modifiable string
+
+        Rel release();                             // return data and clear
+
+        void add(std::string str);                 // add string to object data
+
+        void stringsSwap(Strings\PYGZam{} objectB);        // switch contents of 2 strings objects
+
+    private:
+        std::string \PYGZam{}priv\PYGZus{}at(size\PYGZus{}t index) const;  // backdoor
+
+\PYGZcb{};
+
+inline size\PYGZus{}t Strings::size() const  
+\PYGZob{}
+    return d\PYGZus{}size; 
+\PYGZcb{}
+inline std::string Strings::data() const 
+\PYGZob{} 
+    return d\PYGZus{}str; 
+\PYGZcb{}
+
+\PYGZsh{}endif
+
+// class Strings that can either be initialized with an argc, argv
+// pair of arguments, with an environ type of argument,
+// or with an input stream.
+\end{Verbatim}

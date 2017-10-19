@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}exercise\PYGZus{}39.ih\PYGZdq{}
+
+using namespace std;
+
+void inv\PYGZus{}identity(int (*arrayPointer)[10])
+\PYGZob{}
+    for (int (*row)[10] = arrayPointer; row != arrayPointer + 10; ++row)
+    \PYGZob{}
+        for (int *col = static\PYGZus{}cast\PYGZlt{}int*\PYGZgt{}(*row), 
+            *cross = (static\PYGZus{}cast\PYGZlt{}int*\PYGZgt{}(*row) + (row \PYGZhy{} arrayPointer)); 
+            col != static\PYGZus{}cast\PYGZlt{}int*\PYGZgt{}(*row) + 10;
+            ++col)
+
+                (col == cross) ? *col = 0 : *col = 1;
+    \PYGZcb{}
+\PYGZcb{}
+
+// explanation:
+// int *col = static\PYGZus{}cast\PYGZlt{}int*\PYGZgt{}(*row):
+// *col gets the same address of row. Since row points to 10 ints and col points
+// to a single int a conversion is necessary.
+//
+// *cross = (static\PYGZus{}cast\PYGZlt{}int*\PYGZgt{}(*row) + (row \PYGZhy{} arrayPointer):
+// *cross gets the address of row. Then the index of row (from the first for loop)
+// is added
+//
+// (col == cross) ? *col = 0 : *col = 1:
+// if the addresses of col and cross match, that means that both indices from both
+// for loops are equal. So we have a point on the main diagonal and there should be 
+// a zero, while all the others should be ones
+\end{Verbatim}

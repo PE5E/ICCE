@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}filter.h\PYGZdq{}    // \PYGZsq{}Filter\PYGZsq{} class
+\PYGZsh{}include \PYGZdq{}../struct.h\PYGZdq{} // output struct Rel
+\PYGZsh{}include \PYGZlt{}istream\PYGZgt{}     // std::istream
+\PYGZsh{}include \PYGZlt{}string\PYGZgt{}      // std::string
+\end{Verbatim}

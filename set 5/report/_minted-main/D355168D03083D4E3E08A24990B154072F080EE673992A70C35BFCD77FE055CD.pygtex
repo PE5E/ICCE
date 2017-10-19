@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}filter.ih\PYGZdq{}
+
+Filter::Filter(std::istream \PYGZam{}is)
+    :
+        d\PYGZus{}String(is)
+\PYGZob{}
+    // thats all folks
+\PYGZcb{}
+\end{Verbatim}

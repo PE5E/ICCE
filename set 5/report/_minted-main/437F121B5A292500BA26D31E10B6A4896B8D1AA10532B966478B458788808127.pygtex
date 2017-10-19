@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{} 
+\PYGZsh{}include \PYGZlt{}string\PYGZgt{} 
+\PYGZsh{}include \PYGZdq{}strings/strings.h\PYGZdq{}
+ 
+ 
+using namespace std; 
+ 
+int main()                                          // int argc, char *argv[], char* envp[])
+\PYGZob{}
+
+    string A = \PYGZdq{}Hello world for the first time\PYGZbs{}n\PYGZdq{};
+    string B = \PYGZdq{}Hello world for the second time\PYGZbs{}n\PYGZdq{};
+
+    Strings strA;                                   // create first object with first string as data
+    strA.add(A);
+
+    Strings strB;                                   // create second object with second string as data
+    strB.add(B);
+
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}before swapping: \PYGZbs{}n\PYGZdq{};
+    cout \PYGZlt{}\PYGZlt{} *strA.data();
+    cout \PYGZlt{}\PYGZlt{} *strB.data();
+
+
+    strA.stringsSwap(strB);                         // call function to swap data.
+                                                    // since these are the pointer weeks, no data
+                                                    // is swapped really. Only the addresses in the
+                                                    // pointers pointing to the data.
+
+    cout \PYGZlt{}\PYGZlt{} \PYGZdq{}after swapping: \PYGZbs{}n\PYGZdq{};
+    cout \PYGZlt{}\PYGZlt{} *strA.data();
+    cout \PYGZlt{}\PYGZlt{} *strB.data();
+
+\PYGZcb{}
+\end{Verbatim}

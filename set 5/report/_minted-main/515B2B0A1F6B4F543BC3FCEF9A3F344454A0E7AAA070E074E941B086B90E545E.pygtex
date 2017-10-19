@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}strings.h\PYGZdq{}
+ 
+void Strings::stringsSwap(Strings\PYGZam{} objectB)  
+\PYGZob{} 
+    std::string *tempA = d\PYGZus{}str;     // store the address of the data of objectA 
+    d\PYGZus{}str = objectB.d\PYGZus{}str;          // now switch the addresses 
+    objectB.d\PYGZus{}str = tempA; 
+\PYGZcb{} 
+\end{Verbatim}

@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}filter.ih\PYGZdq{}                    // \PYGZsq{}Filter\PYGZsq{} class, \PYGZsq{}Struct\PYGZsq{}, \PYGZlt{}istream\PYGZgt{}, \PYGZlt{}string\PYGZgt{}
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{}                     // std::cout
+
+void Filter::display()
+\PYGZob{}
+    std::string whitespace = \PYGZdq{} \PYGZbs{}t\PYGZbs{}n\PYGZbs{}f\PYGZbs{}n\PYGZbs{}r\PYGZdq{};                                    // could use is\PYGZus{}white
+
+    Rel released = d\PYGZus{}String.release();                                         // destroys String object
+    std::string *out = released.data;
+    size\PYGZus{}t siz = released.size;
+
+    while (out\PYGZhy{}\PYGZgt{}find\PYGZus{}first\PYGZus{}not\PYGZus{}of(whitespace) == std::string::npos)            // forward loop
+    \PYGZob{}
+        ++out;
+        \PYGZhy{}\PYGZhy{}siz;
+    \PYGZcb{}
+
+    while((out + siz \PYGZhy{} 1)\PYGZhy{}\PYGZgt{}find\PYGZus{}first\PYGZus{}not\PYGZus{}of(whitespace) == std::string::npos) // backward loop
+        \PYGZhy{}\PYGZhy{}siz;
+
+    for (std::string *ptr = out; ptr != out + siz; ++ptr)
+        std::cout \PYGZlt{}\PYGZlt{} *ptr \PYGZlt{}\PYGZlt{} \PYGZsq{}\PYGZbs{}n\PYGZsq{};
+\PYGZcb{}
+\end{Verbatim}

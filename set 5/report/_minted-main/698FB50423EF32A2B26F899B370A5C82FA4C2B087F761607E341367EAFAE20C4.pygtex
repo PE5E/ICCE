@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{}     // size\PYGZus{}t
+
+\PYGZsh{}ifdef \PYGZus{}\PYGZus{}cplusplus
+    extern \PYGZdq{}C\PYGZdq{} \PYGZob{}
+\PYGZsh{}endif
+
+void inv\PYGZus{}identity(int (*arrayPointer)[10]); 
+
+\PYGZsh{}ifdef \PYGZus{}\PYGZus{}cplusplus
+    \PYGZcb{}
+\PYGZsh{}endif
+\end{Verbatim}

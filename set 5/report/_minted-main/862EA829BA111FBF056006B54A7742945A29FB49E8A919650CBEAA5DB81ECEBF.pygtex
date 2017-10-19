@@ -1,7 +1,7 @@
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYGZsh{}include \PYGZdq{}strings.ih\PYGZdq{}                                    // \PYGZsq{}Strings\PYGZsq{} class
 
-void Strings::add(std::string str)                       // ntbs will be converted (?)
+void Strings::add(std::string str)                       // ntbs will be converted
 \PYGZob{}
     std::string *tmp = new std::string[++d\PYGZus{}size];        // array 1 string bigger
     for (size\PYGZus{}t index = 0; index != d\PYGZus{}size \PYGZhy{} 1; ++index) // copy

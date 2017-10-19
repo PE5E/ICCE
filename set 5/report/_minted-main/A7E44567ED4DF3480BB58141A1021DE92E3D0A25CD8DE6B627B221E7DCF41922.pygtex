@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZlt{}istream\PYGZgt{}                      // std::istream
+\PYGZsh{}include \PYGZdq{}../strings/strings.h\PYGZdq{}         // \PYGZsq{}Strings\PYGZsq{} class
+
+class Filter
+\PYGZob{}
+    Strings d\PYGZus{}String;
+    public:
+        Filter();
+        Filter(std::istream \PYGZam{}is);
+        void display();
+    private: 
+        void removeWhitespace();
+\PYGZcb{};
+\end{Verbatim}

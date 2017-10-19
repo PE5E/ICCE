@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZsh{}include \PYGZdq{}filter/filter.h\PYGZdq{}
+\PYGZsh{}include \PYGZlt{}iostream\PYGZgt{}
+
+int main()
+\PYGZob{}
+    Filter fil(std::cin);
+    fil.display();
+\PYGZcb{}
+\end{Verbatim}

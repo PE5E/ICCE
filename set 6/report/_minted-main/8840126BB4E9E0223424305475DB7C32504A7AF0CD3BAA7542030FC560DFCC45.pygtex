@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{*}\PYG{n}{ptr} \PYG{o}{=} \PYG{k}{new} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{p}{;}
+    \PYG{k}{delete} \PYG{n}{ptr}\PYG{p}{;}
+\end{Verbatim}

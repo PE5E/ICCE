@@ -1,0 +1,72 @@
+\documentclass{article}[9pt]
+
+%%----PACKS----%%
+% misc
+\usepackage[margin=1in]{geometry}
+\usepackage{import}
+% math
+\usepackage{amsmath,
+            amsfonts,
+            amssymb}
+% images
+\usepackage{graphicx}
+% code
+\usepackage{listings,
+            minted}
+\usepackage{inconsolata}
+%%-------------%%
+
+%%--SETTINGS---%% 
+% minted
+\usepackage{xcolor}
+\definecolor{cppbg}{rgb}{10,240,240}
+\newminted[cpp]{C++}{linenos=true, texcl=true, bgcolor=cppbg, tabsize=4 , frame=lines}
+\newminted[bashing]{zsh}
+
+%%--CUSTOM-----%%
+\newenvironment{question}
+{
+\noindent \bf Problem statement. \rm \it
+}
+{
+\rm
+}
+
+\newenvironment{solution}
+{
+\noindent \bf Solution. \rm
+}
+
+\begin{document}
+
+% authors
+\begin{flushright}
+	\textbf{Jaap van der Leest\\ Timon van der Berg \\ }
+\today
+\end{flushright}
+
+% title
+\begin{center}
+\textbf{C++ Course \\
+Assignment 6} \\
+\end{center}
+
+%%--BEGIN ACTUAL CONTENT--%%
+
+% exercise 42
+    \import{../42/}{solution.tex}
+% exercise 43
+    \import{../43/}{solution.tex}
+% exercise 44
+    \import{../44/}{solution.tex}
+% exercise 45
+    \import{../45/}{solution.tex}
+% exercise 46
+    \import{../46/}{solution.tex}
+% exercise 47
+    \import{../47/}{solution.tex}
+% exercise 48
+    \import{../48/}{solution.tex}
+ 
+\end{document}
+

@@ -1,0 +1,50 @@
+% latex to be imported
+
+\section*{Exercise 42}
+
+\begin{question}
+What are the variants of new/delete? For each of the variants provide a (short!) example in which the used new/delete is appropriate and provide a short explanation why it is appropriately used. 
+
+\end{question}
+\begin{solution}
+\subsection*{new/delete}
+\texttt{new} is used to allocate memory for a primitive type or object. When allocating for an object it will call the object constructor. Example of \texttt{new} use:
+    \begin{minted}{cpp}
+    int *ptr = new int;
+    \end{minted}
+This allocation is appropriate since we want to allocate memory for a single int.
+
+\texttt{delete} is used to deallocate memory that was allocated using \texttt{new}. 
+If called on an object (not a primitive type) it will also call that objects' destructor.
+Example of \texttt{delete} use:
+    \begin{minted}{cpp}
+    std::string *ptr = new std::string; 
+    delete ptr;
+    \end{minted}
+This is appropriate because \texttt{delete} is used on memory allocated using \texttt{new}.
+\end{solution}
+
+\subsection*{new[], delete[]}
+\texttt{new[]} is used to allocate memory for arrays. Like \texttt{new} it is type-safe: the type of the element has to be declared. Like \texttt{new}, it calls constructors. An example of using \texttt{new}:
+    \begin{minted}{cpp}
+    int *aoi = new int[20];
+    \end{minted}
+\texttt{delete[]} is used to delete memory allocated using \texttt{new[]}. Unlike \texttt{new}, \text{new[]} saves the size of the array it allocates. \texttt{delete[]} uses this to delete the array. Destructors are called\footnote{If the array contains a primitive type no destructors are called. Therefore an array of pointers require manual destruction of whatever is pointed to.}. An example of \texttt{delete[]} usage:
+    \begin{minted}{cpp}
+    string *strp = new string[550];
+    delete[] strp;
+    \end{minted}
+This is appropriate because \texttt{delete[]} is used on an array allocated using \texttt{new[]}.
+
+\subsection*{operator new, operator delete}
+\texttt{operator new} is used to allocate raw bytes of memory. To actually use this memory, a static cast is required. An example of using \texttt{operator new}:
+    \begin{minted}{cpp}
+    size_t *sp = static_cast<size_t *>(operator new(5 * sizeof(size_t)));
+    \end{minted}
+    This is appropriate because \texttt{operator new} is used to allocate raw memory.
+    Here we first calculate the number of bytes needed for 5 \texttt{size_t} variables. We then allocate the memory. \texttt{operator new} does not care for types.
+    \texttt{operator delete} is used to deallocate memory that was allocated using \text
+    
+    \begin{minted}{cpp}
+     
+    \end{minted}

@@ -84,7 +84,7 @@ SLIDES: POINTERS II
         Resizing is bad.
         Moving is better.
 
-        Placement new
+        New
             - Only construct when necessary, in already available raw memory.
             - Raw memory may be pre-allocated in large chunks ready for later use.
             - Used in classes.
@@ -100,18 +100,105 @@ SLIDES: POINTERS II
                 - block is raw memory(bytes = chars)
                 - no automatic destruction at end of main
                 - call sp->~string() to delete
-            castable raw memory is easier:
+            castable raw memory is easieri (operator new for allocation):
+                your memory now knows the type 
             int main()
-            {
+            
                 string *block = static_cast<string *>(
-                                operator new(10 * sizeof(std::string)));
-
-
+                                operator new(10 * sizeof(std::string)))
+                string *sp = new(block + idx) std::string("in block");
+        
+        Pointer Specials
+            - double pointer to value can't be passed to function expecting double pointer to const.
+            - single pointer to value can be passed to function expection pointer to const!
+        
+        void fun(int const **doublePointer2Const)
+        {
+            int *pi;                                                \\ pointer to int.
+            int const **AnotherDoublePointer2Const = &pi;           \\ adress of pointer pi
+            *AnotherDoublePointer2Const = *doublePointer2Const      \\ 
 
 DE PROGRAMMEERTAAL C: CHAPTER 8
     &: adress of
     *: contents of
     - have higher priority than all binary operators. 
+    - to give a function a access to a pointer, 
+    - verder veel geblaat of malloc enzo. 
+
+C++ ANNOTATIONS: CHAPTER 9 CLASSES AND MEMORY ALLOCATION
+    new:
+    - c++ uses new, delete instead of malloc &co.
+    - new memory is type safe.
+    - simple example
+        int *pi = new int;          // pointer to int-sized allocated memory.
+        delete ip;                  // delete pointer, return memory
+    - Every new has a corresponding delete (eventually).
+    - New can allocate primitive types but also objects.
+    operator new:
+        - allocates raw memory
+        - memory returned as void*
+        - often cast as char*
+            char *chPtr = static_cast<char *>(operator new(numberofbytes));
+    allocating arrays:
+    new[]:
+        - type must be specified
+        - size must be specified
+        - arrays allocated by new[] are called 'dynamic'
+        - such arrays may outlive their function
+        - such arrays may live as long as the program
+        - guaranteed to be consecutively
+        - may not initialize to zero 
+        - automatically calls constructors if allocating for objects
+    deleting arrays
+    delete[]:
+        - dynamically allocated arrays deletion 
+        - expects pointer to block of memory allocated by new[]
+        - calls class destructor for each object in the array / deallocate memory
+        - simple example
+            std::string *sp = new std::string[10];
+            delete[] sp;
+        - primitive types are not destroyed.
+        - pointers are primitive types
+        - whatever the pointers point at, is not destroyed: memory leak
+    raw memory
+    operator new:
+        operator new(sizeInBytes);
+        - returns *void, static cast required before use(yeah, static cast on memory)
+        - doesn't know about types, specifiy size manually
+    operator delete:
+        - does not call destructors
+        - takes pointer of any type
+        - simple example
+            int *ip = static_cast<int *>(operator new(5 * sizeof(int)));
+            operator delete(ip)     
+    placement new:
+        - #include <memory>
+        - places new object in previously allocated memory
+        - simple example
+            Type *new(void *memory) Type(arguments);
+            int *new(void *memory) int;
+        - we can't use delete, delete[]
+        - call destructors ~ manually!
+    destructors
+        - called when object stops existing
+        - have no arguments
+        - have no return value 
+        - only called for fully constructed objects
+        - destruction of local non-static objects is automatic when leaving scope
+        - destruction of global or static objects when program terminates
+        - dynamically allocated stuff destructor is called using delete, delete[]
+    pointer data members are dangerous.
+        - copy an object. destroy copy. your allocated memory is gone. second object still exists!
+        - solution: overload the assignment operator
+            - operator overloading
+    the 'this' pointer
+        - points to the objects for which the member function was called
+        - rarely used
+
+
+
+
+
 
 QUESTIONS: 
     1. When a function takes a pointer to an array (possibly passed using the 
@@ -131,6 +218,18 @@ QUESTIONS:
     the first size is not known in the function. Pointers destroy size information of
     arrays.
 
+    3. According to the C book: to give a pointervariable a value trough a function parameter
+    we need the adress of the pointer variable; i.e. a pointer to a the pointer.
+
+    Why is this true? What does it mean? Why don't we call
+    int num = 5;
+    int *ptr = &num;
+    void fun(int *ptr)
+    {
+        int num2 = 6;
+        ptr = &num2;
+    }
+    
 NOTES:
     A static member of a class is defined for the whole class once, not for each instance.
     "When we declare a member of a class as static it means no matter how many objects of 
@@ -139,3 +238,6 @@ NOTES:
     - should be declared inside the class header
     - can only acces static data members, functions
     - correct way to test if instances created (or count them) 
+        
+
+    - keyword extern tells compiler that variable is definded elsewhere.

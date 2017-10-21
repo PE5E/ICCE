@@ -1,8 +1,15 @@
 % latex to be imported
 \section*{Exercise 43}
 \begin{question}
-gi
+    Fix the memory leak in the 'Strings' class.
 \end{question}
+
 \begin{solution}
-go
+    Because our own implementation of 'Strings` was not perfect, we instead modified the official solution provided in the answers of set 5. 
+
+    \subsection*{strings.h}
+    \cppfile{../43/strings/strings/strings.h}
+    \vspace{20pt}
+    \subsection*{strings5.cc}
+    \cppfile{../43/strings/strings/strings5.cc}
 \end{solution}

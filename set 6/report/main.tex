@@ -11,17 +11,18 @@
 % images
 \usepackage{graphicx}
 % code
-\usepackage{listings,
-            minted}
-\usepackage{inconsolata}
+\usepackage{minted}
+
 %%-------------%%
 
 %%--SETTINGS---%% 
 % minted
 \usepackage{xcolor}
-\definecolor{cppbg}{rgb}{10,240,240}
-\newminted[cpp]{C++}{linenos=true, texcl=true, bgcolor=cppbg, tabsize=4 , frame=lines}
+\newminted[cpp]{C++}{linenos=true, texcl=true, tabsize=4, frame=lines}
+\newmintedfile[cppfile]{C++}{linenos=true, tabsize=4, frame=lines, fontsize=\footnotesize}
+
 \newminted[bashing]{zsh}
+
 
 %%--CUSTOM-----%%
 \newenvironment{question}
@@ -36,6 +37,8 @@
 {
 \noindent \bf Solution. \rm
 }
+
+\newcommand{\hli}{\par\noindent\rule{\textwidth}{0.4pt}}
 
 \begin{document}
 
@@ -56,17 +59,17 @@ Assignment 6} \\
 % exercise 42
     \import{../42/}{solution.tex}
 % exercise 43
-%    \import{../43/}{solution.tex}
+    \import{../43/}{solution.tex}
 % exercise 44
-%    \import{../44/}{solution.tex}
+    \import{../44/}{solution.tex}
 % exercise 45
-%    \import{../45/}{solution.tex}
+    \import{../45/}{solution.tex}
 % exercise 46
-%    \import{../46/}{solution.tex}
+    \import{../46/}{solution.tex}
 % exercise 47
-%    \import{../47/}{solution.tex}
+    \import{../47/}{solution.tex}
 % exercise 48
-%    \import{../48/}{solution.tex}
+    \import{../48/}{solution.tex}
  
 \end{document}
 

@@ -1,0 +1,69 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+cp}{\PYGZsh{}ifndef INCLUDED_STRINGS_}
+\PYG{c+cp}{#define INCLUDED_STRINGS_}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iosfwd>}
+
+\PYG{k}{class} \PYG{n+nc}{Strings}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}size}\PYG{p}{;}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{*}\PYG{n}{d\PYGZus{}str}\PYG{p}{;}
+
+    \PYG{k}{public}\PYG{o}{:}
+        \PYG{k}{struct} \PYG{n}{POD}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k+kt}{size\PYGZus{}t}      \PYG{n}{size}\PYG{p}{;}
+            \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{*}\PYG{n}{str}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{};}
+
+        \PYG{n}{Strings}\PYG{p}{();}
+        \PYG{o}{\PYGZti{}}\PYG{n}{Strings}\PYG{p}{();}                                 
+        \PYG{n}{Strings}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{argv}\PYG{p}{[]);}
+        \PYG{n}{Strings}\PYG{p}{(}\PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{environLike}\PYG{p}{[]);}
+        \PYG{n}{Strings}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{);}
+
+        \PYG{k+kt}{void} \PYG{n+nf}{swap}\PYG{p}{(}\PYG{n}{Strings} \PYG{o}{\PYGZam{}}\PYG{n}{other}\PYG{p}{);}              
+
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{size}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{*}\PYG{n}{data}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}
+        \PYG{n}{POD} \PYG{n+nf}{release}\PYG{p}{();}
+
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{at}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx}\PYG{p}{)} \PYG{k}{const}\PYG{p}{;}    \PYG{c+c1}{// for const-objects}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{\PYGZam{}}\PYG{n}{at}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx}\PYG{p}{);}                \PYG{c+c1}{// for non-const objects}
+
+        \PYG{k+kt}{void} \PYG{n+nf}{add}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{next}\PYG{p}{);}          \PYG{c+c1}{// add another element}
+
+    \PYG{k}{private}\PYG{o}{:}
+        \PYG{k+kt}{void} \PYG{n}{fill}\PYG{p}{(}\PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{ntbs}\PYG{p}{[]);}                    \PYG{c+c1}{// fill prepared d_str}
+
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{\PYGZam{}}\PYG{n}{safeAt}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx}\PYG{p}{)} \PYG{k}{const}\PYG{p}{;}      \PYG{c+c1}{// private backdoor}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{*}\PYG{n}{enlarge}\PYG{p}{();}
+        \PYG{k+kt}{void} \PYG{n+nf}{destroy}\PYG{p}{();}                 
+
+        \PYG{k}{static} \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{count}\PYG{p}{(}\PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{environLike}\PYG{p}{[]);}   \PYG{c+c1}{// # elements in env.like}
+
+\PYG{p}{\PYGZcb{};}
+
+\PYG{k+kr}{inline} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{size}\PYG{p}{()} \PYG{k}{const}         \PYG{c+c1}{// potentially dangerous practice:}
+\PYG{p}{\PYGZob{}}                                           \PYG{c+c1}{// inline accessors}
+    \PYG{k}{return} \PYG{n}{d\PYGZus{}size}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kr}{inline} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{*}\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{data}\PYG{p}{()} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{d\PYGZus{}str}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kr}{inline} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{at}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx}\PYG{p}{)} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{safeAt}\PYG{p}{(}\PYG{n}{idx}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kr}{inline} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{\PYGZam{}}\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{at}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{safeAt}\PYG{p}{(}\PYG{n}{idx}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+        
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

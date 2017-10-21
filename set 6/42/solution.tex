@@ -42,9 +42,21 @@ This is appropriate because \texttt{delete[]} is used on an array allocated usin
     size_t *sp = static_cast<size_t *>(operator new(5 * sizeof(size_t)));
     \end{minted}
     This is appropriate because \texttt{operator new} is used to allocate raw memory.
-    Here we first calculate the number of bytes needed for 5 \texttt{size_t} variables. We then allocate the memory. \texttt{operator new} does not care for types.
-    \texttt{operator delete} is used to deallocate memory that was allocated using \text
-    
+    Here we first calculate the number of bytes needed for 5 \texttt{size\_t} variables. We then allocate the memory. \texttt{operator new} does not care for types.
+        
+    \texttt{operator delete} is used to deallocate memory that was allocated using \texttt{operator new}. Like \texttt{operator new}, \texttt{operator delete} does not care for types. Because \texttt{operator new} saves the number of bytes allocated, \texttt{operator delete} knows how much memory to deallocate. \texttt{operator delete} does not call any destructors. An example of using \texttt{operator delete}:
     \begin{minted}{cpp}
-     
+    string *sp = static_cast<string *>(operator new(5 * sizeof(string)));
+    operator delete(sp)
     \end{minted}
+   This is appropriate because we are using operator delete to deallocate memory that was allocated using operator new.
+
+\subsection*{placement new}
+placement \texttt{new} is found in \texttt{<memory>} and overloads \texttt{new}.  Placement \texttt{new} is used to place objects in previously allocated memory.
+An example of using placement \texttt{new}:
+    \begin{minted}{cpp}
+     string *sp = static_cast<string *>( operator new(15 * sizeof(string)));
+     new sp string("Donald Knuth");
+    \end{minted}
+This is appropriate because we are using operator new on memory of the correct type that was previously allocated. 
+We have placed a single string in this memory, leaving room for 14 more.

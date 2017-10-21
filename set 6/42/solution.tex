@@ -47,7 +47,7 @@ This is appropriate because \texttt{delete[]} is used on an array allocated usin
     \texttt{operator delete} is used to deallocate memory that was allocated using \texttt{operator new}. Like \texttt{operator new}, \texttt{operator delete} does not care for types. Because \texttt{operator new} saves the number of bytes allocated, \texttt{operator delete} knows how much memory to deallocate. \texttt{operator delete} does not call any destructors. An example of using \texttt{operator delete}:
     \begin{minted}{cpp}
     string *sp = static_cast<string *>(operator new(5 * sizeof(string)));
-    operator delete(sp)
+    operator delete(sp);
     \end{minted}
    This is appropriate because we are using operator delete to deallocate memory that was allocated using operator new.
 

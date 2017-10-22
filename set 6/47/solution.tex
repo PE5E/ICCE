@@ -1,8 +1,18 @@
 % latex to be imported
 \section*{Exercise 47}
 \begin{question}
-gi
+Replace the switches in the 'CPU' class using function pointers.
 \end{question}
+
 \begin{solution}
-go
+    Because our own implementation of CPU was imperfect, we used the official solutions for Exercise 31.
+    Our modified header is found below, followed byany new or modified helper functions. Everything not shown is assumed to be the unchanged.
+    \subsection*{cpu.h}
+    \cppfile{../47/cpu/cpu.h}
+    \subsection*{dereference.cc}
+    \cppfile{../47/cpu/dereference.cc}
+    \subsection*{start.cc}
+    \cppfile{../47/cpu/start.cc}
+    \subsection*{store.cc}
+    \cppfile{../47/cpu/store.cc}
 \end{solution}

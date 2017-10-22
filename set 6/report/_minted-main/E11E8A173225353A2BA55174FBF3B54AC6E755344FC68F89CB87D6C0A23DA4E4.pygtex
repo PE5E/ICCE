@@ -1,0 +1,55 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{store}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{switch} \PYG{p}{(}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{type}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{default}\PYG{o}{:} \PYG{c+c1}{// not used, but satisfies the compiler}
+        \PYG{k}{break}\PYG{p}{;}
+
+        \PYG{k}{case} \PYG{n}{OperandType}\PYG{o}{::}\PYG{n+nl}{REGISTER}\PYG{p}{:}
+            \PYG{n}{d\PYGZus{}register}\PYG{p}{[}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{value}\PYG{p}{]} \PYG{o}{=} \PYG{n}{value}\PYG{p}{;}
+        \PYG{k}{break}\PYG{p}{;}
+
+        \PYG{k}{case} \PYG{n}{OperandType}\PYG{o}{::}\PYG{n+nl}{MEMORY}\PYG{p}{:}
+            \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{store}\PYG{p}{(}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{value}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}
+        \PYG{k}{break}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// code above is original from official solutions}
+\PYG{c+c1}{// lhs is struct \PYGZsq{}Operand\PYGZsq{}}
+\PYG{c+c1}{// lhs.type is \PYGZsq{}Operandtype\PYGZsq{} from enums.h  }
+\PYG{c+c1}{// code below is rewrite using function pointers}
+\PYG{c+c1}{// enum class OperandType}
+\PYG{c+c1}{//    \PYGZob{}}
+\PYG{c+c1}{//        SYNTAX,             // syntax error while specifying an operand}
+\PYG{c+c1}{//        VALUE,              // direct value}
+\PYG{c+c1}{//        REGISTER,           // register index}
+\PYG{c+c1}{//        MEMORY              // memory location (= index)}
+\PYG{c+c1}{//    \PYGZcb{};}
+\PYG{c+c1}{//}
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{store}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}                                                  \PYG{c+c1}{// should this be moved 1 lvl up? I think not.}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{storeValue}\PYG{p}{[}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{type}\PYG{p}{](}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{value}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}                                                     \PYG{c+c1}{// store}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{p}{(}\PYG{o}{*}\PYG{n}{storeValue}\PYG{p}{[])(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{nullptr}\PYG{p}{,}
+    \PYG{k}{nullptr}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{storeRegister}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{storeMemory}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeRegister}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}                                                   \PYG{c+c1}{// sep file, add  to header}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{d\PYGZus{}register}\PYG{p}{[}\PYG{n}{place}\PYG{p}{]} \PYG{o}{=} \PYG{n}{value}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeMemory}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}                                                     \PYG{c+c1}{// sep file, add to header}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{store}\PYG{p}{(}\PYG{n}{place}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,56 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{int} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{dereference}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{switch} \PYG{p}{(}\PYG{n}{value}\PYG{p}{.}\PYG{n}{type}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{default}\PYG{o}{:}
+        \PYG{c+c1}{// FALLING THROUGH (not used, but satisfies the compiler)}
+        \PYG{k}{case} \PYG{n}{OperandType}\PYG{o}{::}\PYG{n+nl}{VALUE}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{value}\PYG{p}{.}\PYG{n}{value}\PYG{p}{;}
+
+        \PYG{k}{case} \PYG{n}{OperandType}\PYG{o}{::}\PYG{n+nl}{REGISTER}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{d\PYGZus{}register}\PYG{p}{[}\PYG{n}{value}\PYG{p}{.}\PYG{n}{value}\PYG{p}{];}
+
+        \PYG{k}{case} \PYG{n}{OperandType}\PYG{o}{::}\PYG{n+nl}{MEMORY}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n}{value}\PYG{p}{.}\PYG{n}{value}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{c+c1}{// above is official solution}
+\PYG{c+c1}{// below is rewritten using function pointers. }
+\PYG{c+c1}{// todo:}
+\PYG{c+c1}{//  move to files}
+\PYG{c+c1}{//  add to header}
+
+\PYG{k+kt}{int} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{dereference}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{readOperand}\PYG{p}{[}\PYG{n}{value}\PYG{p}{.}\PYG{n}{type}\PYG{p}{](}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{p}{(}\PYG{o}{*}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{readOperand}\PYG{p}{[])(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{)} \PYG{c+c1}{// order as in enums.h}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{nullptr}\PYG{p}{,}                                    \PYG{c+c1}{// padding for syntax, will never be called ; should it be removed? WC? }
+    \PYG{o}{\PYGZam{}}\PYG{n}{valueReturn}\PYG{p}{,}                               \PYG{c+c1}{// could make it like store.cc}
+    \PYG{o}{\PYGZam{}}\PYG{n}{registerReturn}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{memoryReturn}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{k+kt}{int} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{valueReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{value}\PYG{p}{.}\PYG{n}{value}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{registerReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{d\PYGZus{}register}\PYG{p}{[}\PYG{n}{value}\PYG{p}{.}\PYG{n}{value}\PYG{p}{];}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{memoryReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n}{value}\PYG{p}{.}\PYG{n}{value}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

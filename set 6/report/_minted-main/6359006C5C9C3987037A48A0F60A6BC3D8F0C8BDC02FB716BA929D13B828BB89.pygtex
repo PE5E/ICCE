@@ -1,0 +1,91 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{start}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{while} \PYG{p}{(}\PYG{n+nb}{true}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{switch} \PYG{p}{(}\PYG{n}{d\PYGZus{}tokenizer}\PYG{p}{.}\PYG{n}{opcode}\PYG{p}{())}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{ERR}\PYG{p}{:}
+                \PYG{n}{error}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}         
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{MOV}\PYG{p}{:}
+                \PYG{n}{mov}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{ADD}\PYG{p}{:}
+                \PYG{n}{add}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{SUB}\PYG{p}{:}
+                \PYG{n}{sub}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{MUL}\PYG{p}{:}
+                \PYG{n}{mul}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{DIV}\PYG{p}{:}
+                \PYG{n}{div}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{NEG}\PYG{p}{:}
+                \PYG{n}{neg}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{DSP}\PYG{p}{:}
+                \PYG{n}{dsp}\PYG{p}{();}
+            \PYG{k}{break}\PYG{p}{;}
+
+            \PYG{k}{case} \PYG{n}{Opcode}\PYG{o}{::}\PYG{n+nl}{STOP}\PYG{p}{:}
+            \PYG{k}{return}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}} \PYG{c+c1}{// switch}
+
+        \PYG{n}{d\PYGZus{}tokenizer}\PYG{p}{.}\PYG{n}{reset}\PYG{p}{();}        \PYG{c+c1}{// prepare for the next line}
+
+    \PYG{p}{\PYGZcb{}} \PYG{c+c1}{// while}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{c+c1}{// code above is official solution}
+\PYG{c+c1}{// d\PYGZus{}tokenizer.opcode() is opcode from enums.h}
+\PYG{c+c1}{//  enum class Opcode}
+\PYG{c+c1}{//    \PYGZob{}}
+\PYG{c+c1}{//        ERR,}
+\PYG{c+c1}{//        MOV,}
+\PYG{c+c1}{//        ADD,}
+\PYG{c+c1}{//        SUB,}
+\PYG{c+c1}{//        MUL,}
+\PYG{c+c1}{//        DIV,}
+\PYG{c+c1}{//        NEG,}
+\PYG{c+c1}{//        DSP,}
+\PYG{c+c1}{//        STOP,}
+\PYG{c+c1}{//    \PYGZcb{};}
+\PYG{c+c1}{// below is rewrite using function pointers}
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{Start}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{while} \PYG{p}{(}\PYG{n+nb}{true}\PYG{p}{)}
+        \PYG{n}{execute}\PYG{p}{[}\PYG{n}{d\PYGZus{}tokenizer}\PYG{p}{.}\PYG{n}{opcode}\PYG{p}{()];}
+        \PYG{n}{d\PYGZus{}tokenizer}\PYG{p}{.}\PYG{n}{reset}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{p}{(}\PYG{o}{*}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{execute}\PYG{p}{[])()} \PYG{c+c1}{// order as in enums.h}
+\PYG{p}{\PYGZob{}}                        \PYG{c+c1}{// seperate file, add to header}
+    \PYG{o}{\PYGZam{}}\PYG{n}{error}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{mov}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{add}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{sub}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{mul}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{div}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{neg}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{dsp}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{stp}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{stp}\PYG{p}{()}          \PYG{c+c1}{// seperate file, add to header}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{break}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

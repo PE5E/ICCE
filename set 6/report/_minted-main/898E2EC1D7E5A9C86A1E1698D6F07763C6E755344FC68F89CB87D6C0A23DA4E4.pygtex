@@ -30,9 +30,9 @@
 \PYG{c+c1}{//        MEMORY              // memory location (= index)}
 \PYG{c+c1}{//    \PYGZcb{};}
 \PYG{c+c1}{//}
-\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{store}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}                                                  \PYG{c+c1}{// should this be moved 1 lvl up? I think not.}
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{store}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)} \PYG{c+c1}{// should this be moved 1 lvl up? I think not.}
 \PYG{p}{\PYGZob{}}
-    \PYG{n}{storeValue}\PYG{p}{[}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{type}\PYG{p}{](}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{value}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}                                                     \PYG{c+c1}{// store}
+    \PYG{n}{storeValue}\PYG{p}{[}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{type}\PYG{p}{](}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{value}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}    \PYG{c+c1}{// store}
 \PYG{p}{\PYGZcb{}}
 
 \PYG{k+kt}{void} \PYG{p}{(}\PYG{o}{*}\PYG{n}{storeValue}\PYG{p}{[])(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}
@@ -43,12 +43,12 @@
     \PYG{o}{\PYGZam{}}\PYG{n}{storeMemory}
 \PYG{p}{\PYGZcb{}}
 
-\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeRegister}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}                                                   \PYG{c+c1}{// sep file, add  to header}
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeRegister}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}  \PYG{c+c1}{// sep file, add  to header}
 \PYG{p}{\PYGZob{}}
     \PYG{n}{d\PYGZus{}register}\PYG{p}{[}\PYG{n}{place}\PYG{p}{]} \PYG{o}{=} \PYG{n}{value}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
-\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeMemory}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}                                                     \PYG{c+c1}{// sep file, add to header}
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeMemory}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}    \PYG{c+c1}{// sep file, add to header}
 \PYG{p}{\PYGZob{}}
     \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{store}\PYG{p}{(}\PYG{n}{place}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}
 \PYG{p}{\PYGZcb{}}

@@ -27,24 +27,24 @@ class Strings
         std::string const *data() const;
         POD release();
 
-        std::string const &at(size_t idx) const;    // for const-objects
-        std::string &at(size_t idx);                // for non-const objects
+        std::string const &at(size_t idx) const;  // for const-objects
+        std::string &at(size_t idx);              // for non-const objects
 
-        void add(std::string const &next);          // add another element
+        void add(std::string const &next);        // add another element
 
     private:
-        void fill(char *ntbs[]);                    // fill prepared d_str
+        void fill(char *ntbs[]);                  // fill prepared d_str
 
-        std::string &safeAt(size_t idx) const;      // private backdoor
+        std::string &safeAt(size_t idx) const;    // private backdoor
         std::string *enlarge();
-        void destroy();                 
+        void destroy();
 
-        static size_t count(char *environLike[]);   // # elements in env.like
+        static size_t count(char *environLike[]); // # elements in env.like
 
 };
 
-inline size_t Strings::size() const         // potentially dangerous practice:
-{                                           // inline accessors
+inline size_t Strings::size() const               // potentially dangerous practice:
+{                                                 // inline accessors
     return d_size;
 }
 

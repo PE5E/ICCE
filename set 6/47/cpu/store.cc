@@ -29,9 +29,9 @@ void CPU::store(Operand const &lhs, int value)
 //        MEMORY              // memory location (= index)
 //    };
 //
-void CPU::store(Operand const &lhs, int value)                                                  // should this be moved 1 lvl up? I think not.
+void CPU::store(Operand const &lhs, int value) // should this be moved 1 lvl up? I think not.
 {
-    storeValue[lhs.type](lhs.value, value);                                                     // store
+    storeValue[lhs.type](lhs.value, value);    // store
 }
 
 void (*storeValue[])(int place, int value)
@@ -42,12 +42,12 @@ void (*storeValue[])(int place, int value)
     &storeMemory
 }
 
-void CPU::storeRegister(int place, int value)                                                   // sep file, add  to header
+void CPU::storeRegister(int place, int value)  // sep file, add  to header
 {
     d_register[place] = value;
 }
 
-void CPU::storeMemory(int place, int value)                                                     // sep file, add to header
+void CPU::storeMemory(int place, int value)    // sep file, add to header
 {
     d_memory.store(place, value);
 }

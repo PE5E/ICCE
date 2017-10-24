@@ -17,6 +17,7 @@ void CPU::start()
 {
     while (true)
     {
+// was        (this->*execute[d_tokenizer.opcode()])();
         (this->*execute[d_tokenizer.opcode()])();
         d_tokenizer.reset();
     }

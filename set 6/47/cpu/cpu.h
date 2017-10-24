@@ -5,7 +5,7 @@
 #include "../memory/memory.h"
 #include "../enums/enums.h"
 
-class Memory;
+class Memory;  //     Jaap: why this?
 
 class CPU
 {

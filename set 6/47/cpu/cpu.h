@@ -2,6 +2,7 @@
 #define INCLUDED_CPU_
 
 #include "../tokenizer/tokenizer.h"
+#include "../memory/memory.h"
 
 class Memory;
 
@@ -27,13 +28,19 @@ class CPU
     public:
         CPU(Memory &memory);
         void start();
-
+        void stp();
+        static void (CPU::*execute[])();
+        void errorwrap();
     private:
         bool error();                                                 // show 'syntax error', and prepare for the
                                                                       // next input line
                                                                       // return a value or a register's or
                                                                       // memory location's value
         int dereference(Operand const &value);
+        static int (CPU::*readOperand[])(Operand const &value);
+        int valueReturn(Operand const &value);
+        int memoryReturn(Operand const &value);
+        int registerReturn(Operand const &value);
 
         bool rvalue(Operand &lhs);                                    // retrieve an rvalue operand
         bool lvalue(Operand &lhs);                                    // retrieve an lvalue operand
@@ -45,6 +52,10 @@ class CPU
 
                                                                       // store a value in register or memory
         void store(Operand const &lhs, int value);
+        void storeRegister(int place, int value);
+        void storeMemory(int place, int value);
+        static void (CPU::*storeValue[])(int place, int value);
+
         void mov();                                                   // assign a value
         void add();                                                   // add values
         void sub();                                                   // subtract values
@@ -53,6 +64,7 @@ class CPU
                                                                       // div a b computes a /= b, last reg: %
         void neg();                                                   // negate a value
         void dsp();                                                   // display a value
+
 };
 
 #endif

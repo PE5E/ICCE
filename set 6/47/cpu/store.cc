@@ -1,22 +1,22 @@
-#include "cpu.ih"
-
-void CPU::store(Operand const &lhs, int value)
-{
-    switch (lhs.type)
-    {
-        default: // not used, but satisfies the compiler
-        break;
-
-        case OperandType::REGISTER:
-            d_register[lhs.value] = value;
-        break;
-
-        case OperandType::MEMORY:
-            d_memory.store(lhs.value, value);
-        break;
-    }
-}
-
+//#include "cpu.ih"
+//
+//void CPU::store(Operand const &lhs, int value)
+//{
+//    switch (lhs.type)
+//    {
+//        default: // not used, but satisfies the compiler
+//        break;
+//
+//        case OperandType::REGISTER:
+//            d_register[lhs.value] = value;
+//        break;
+//
+//        case OperandType::MEMORY:
+//            d_memory.store(lhs.value, value);
+//        break;
+//    }
+//}
+//
 // code above is original from official solutions
 // lhs is struct 'Operand'
 // lhs.type is 'Operandtype' from enums.h  
@@ -29,25 +29,28 @@ void CPU::store(Operand const &lhs, int value)
 //        MEMORY              // memory location (= index)
 //    };
 //
-void CPU::store(Operand const &lhs, int value) // should this be moved 1 lvl up? I think not.
-{
-    storeValue[lhs.type](lhs.value, value);    // store
-}
+#include "cpu.ih"
 
-void (*storeValue[])(int place, int value)
+void CPU::store(Operand const &lhs, int value) 
 {
-    nullptr,
-    nullptr,
-    &storeRegister,
-    &storeMemory
+    (this->*storeValue[lhs.type])(lhs.value, value);   
 }
-
-void CPU::storeRegister(int place, int value)  // sep file, add  to header
+void CPU::storeRegister(int place, int value)  
 {
     d_register[place] = value;
 }
 
-void CPU::storeMemory(int place, int value)    // sep file, add to header
+void CPU::storeMemory(int place, int value)   
 {
     d_memory.store(place, value);
 }
+
+void (CPU::*CPU::storeValue[])(int place, int value)
+{
+    nullptr,
+    nullptr,                                        // these should never be called
+    &CPU::storeRegister,
+    &CPU::storeMemory
+};
+
+

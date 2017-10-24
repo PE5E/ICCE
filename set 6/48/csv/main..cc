@@ -2,6 +2,6 @@
 
 int main()
 {
-    CSV file1;
+    CSV file1(5, ',');
 }
 

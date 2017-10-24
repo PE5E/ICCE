@@ -9,7 +9,10 @@ class CSV
     size_t d_size = 1;                                     // number of lines allocated
     size_t d_nLines = 0;                                   // number of lines read
     size_t d_nFields = 1;                                  // number of values per line
+    char d_fieldSep;                                       // field seperator (default comma)
+
     std::string ***bigPtr;                                 // pointer to array of line pointers (see also big comment below)
+
     public:
         CSV(size_t field, char fieldSep = ',');
 
@@ -30,12 +33,11 @@ class CSV
 
 #endif // CSV_HEADER_H
 
-// this exercise implements the class, but not the members.
-//
 // Line pointers point to array of pointers
 // to std::string. i.e. :
 // bigPtr -> [Lptr0 Lptr1 ... LptrN]
 // where Lptri -> [strPtri1 strPtri2 ... strPtriM] for i = 1,...,N
 // where strPtrik -> std::string                   for k = 1,...,M/
+// see also the figure in the report.
 
 

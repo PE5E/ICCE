@@ -12,4 +12,3 @@ void Strings::reserve()
 
     d_arrayStr = newArray;
 }
-

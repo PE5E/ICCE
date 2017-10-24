@@ -3,7 +3,7 @@
 Strings::~Strings()
 {
     for (size_t idx = 0; idx != d_size; ++idx) // delete all strings by calling 
-        d_arrayStr[idx]->~string;              // their destructor 
+        delete d_arrayStr[idx];                // their destructor and free their memory
 
     operator delete(d_arrayStr);               // delete pointer to array of pointers
 }

@@ -3,7 +3,10 @@
 Strings::Strings(char *environLike[])
 :
     d_size(count(environLike)),
-    d_str(new string[d_size])
+    d_capacity(d_size),
+    d_arrayStr(new string *[d_capacity]) 
+
+//  d_str(new string[d_size])
 {
-    fill(environLike);
+    fill(environLike);       // fill the newly created array 
 }

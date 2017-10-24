@@ -5,8 +5,9 @@
 
 class Strings
 {
-    size_t d_size;
-    std::string *d_str;
+    size_t              d_size;    // number of stored strings
+    size_t      d_capacity = 1;    // number of strings that can be stored
+    std::string   **d_arrayStr;    // pointer to pointers of string data
 
     public:
         struct POD
@@ -34,9 +35,12 @@ class Strings
 
     private:
         void fill(char *ntbs[]);                    // fill prepared d_str
+// not needed anymore??
 
         std::string &safeAt(size_t idx) const;      // private backdoor
         std::string *enlarge();
+// not needed anymore??
+
         void destroy();                 
 
         static size_t count(char *environLike[]);   // # elements in env.like
@@ -50,7 +54,7 @@ inline size_t Strings::size() const         // potentially dangerous practice:
 
 inline std::string const *Strings::data() const
 {
-    return d_str;
+    return d_arrayStr;
 }
 
 inline std::string const &Strings::at(size_t idx) const

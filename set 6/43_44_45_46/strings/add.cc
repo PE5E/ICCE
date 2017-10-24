@@ -17,16 +17,21 @@ void Strings::add(string const &next)
 
 
 { 
-    string *strPointer = new string(next); // store new string address in pointer
+    cout << "add.cc regel 20";    
 
+    string *strPointer = new string(next); // store new string address in pointer
+        cout << "add.cc regel 23";    
     if (d_size >= d_capacity)
     {
+        cout << "add.cc regel 26";
         d_capacity <<= 1;       // multiply d_capacity by 2
+
+        cout << "add.cc regel 29";
         reserve();              // reserve memory for strings
     }
-
+        cout << "add.cc regel 32";
     d_arrayStr[d_size] = strPointer;   // store new pointer in array
-
+        cout << "add.cc regel 34";
     ++d_size;
-    
-}   // wordt nog aan gewerkt
+            cout << "add.cc regel 36";
+}   

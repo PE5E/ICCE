@@ -1,6 +1,7 @@
 #include "strings.h"
 
-#include <istream>
+#include <iostream>     // debug only
+// #include <istream>
 #include <string>
 #include <memory>       // placement new
 

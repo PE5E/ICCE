@@ -25,7 +25,7 @@ class Strings
         void swap(Strings &other);              
 
         size_t size() const;
-        std::string const *data() const;
+        std::string **const data() const;
         POD release();
 
         std::string const &at(size_t idx) const;    // for const-objects
@@ -45,6 +45,8 @@ class Strings
         static size_t count(char *environLike[]);   // # elements in env.like
 
         void reserve();                     // reserves memory to size d_capacity
+
+//        void rewPointers()          // nieuw
 };
 
 inline size_t Strings::size() const         // potentially dangerous practice:
@@ -52,9 +54,10 @@ inline size_t Strings::size() const         // potentially dangerous practice:
     return d_size;
 }
 
-inline std::string const *Strings::data() const
+
+inline std::string **const Strings::data() const
 {
-    return d_arrayStr[0];       // return pointer to first element
+    return d_arrayStr;       // return pointer to first element
 }
 
 inline std::string const &Strings::at(size_t idx) const

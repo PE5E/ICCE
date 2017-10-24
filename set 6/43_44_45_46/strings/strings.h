@@ -35,7 +35,6 @@ class Strings
 
     private:
         void fill(char *ntbs[]);                    // fill prepared d_str
-// not needed anymore??
 
         std::string &safeAt(size_t idx) const;      // private backdoor
         std::string *enlarge();
@@ -45,6 +44,7 @@ class Strings
 
         static size_t count(char *environLike[]);   // # elements in env.like
 
+        void reserve();                     // reserves memory to size d_capacity
 };
 
 inline size_t Strings::size() const         // potentially dangerous practice:
@@ -54,7 +54,7 @@ inline size_t Strings::size() const         // potentially dangerous practice:
 
 inline std::string const *Strings::data() const
 {
-    return d_arrayStr;
+    return d_arrayStr[0];       // return pointer to first element
 }
 
 inline std::string const &Strings::at(size_t idx) const

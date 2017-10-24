@@ -17,7 +17,7 @@ void Strings::add(string const &next)
 
 
 { 
-    string *strPointer = new string next; // store new string address in pointer
+    string *strPointer = new string(next); // store new string address in pointer
 
     if (d_size >= d_capacity)
     {
@@ -25,6 +25,8 @@ void Strings::add(string const &next)
         reserve();              // reserve memory for strings
     }
 
-    d_arrayString[d_size] = strPointer;   // store new pointer in array
+    d_arrayStr[d_size] = strPointer;   // store new pointer in array
+
+    ++d_size;
     
 }   // wordt nog aan gewerkt

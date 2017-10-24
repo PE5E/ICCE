@@ -1,3 +1,7 @@
+/*
+not being used anymore
+
+
 #include "strings.ih"
 
 string *Strings::enlarge()
@@ -9,3 +13,5 @@ string *Strings::enlarge()
 
     return ret;
 }
+
+*/

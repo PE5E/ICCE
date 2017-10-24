@@ -92,3 +92,7 @@ set 5/363738/\.d/strings/strings3\.d
 set 5/363738/\.d/strings/strings4\.d
 
 set 5/363738/\.d/strings/stringsSwap\.d
+
+*.d
+
+set 6/43_44_45_46/Makefile

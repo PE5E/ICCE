@@ -2,8 +2,17 @@
 
 Strings::~Strings()
 {
-    for (size_t idx = 0; idx != d_size; ++idx) // delete all pointers and strings they point to
-        delete d_arrayStr[idx];
+    for (size_t idx = 0; idx != d_size; ++idx) // delete all strings by calling 
+        d_arrayStr[idx]->~string;              // their destructor 
 
-    delete[] d_arrayStr;                       // delete pointer to array of pointers
+    operator delete(d_arrayStr);                       // delete pointer to array of pointers
 }
+
+/*
+void Strings::destroy()
+{
+for (std::string *sp = d_memory + d_size; sp-- != d_memory; )
+sp->~string();
+operator delete(d_memory);
+}
+*/

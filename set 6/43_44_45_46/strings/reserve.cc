@@ -8,7 +8,7 @@ void Strings::reserve()
     for (size_t idx = 0; idx != d_size; ++idx)
         new (newArray + idx) string(d_arrayStr[idx]);
 
-    destroy();
+    destroy();      // delete old array of pointers, not the string data
 
     d_arrayStr = newArray;
 }

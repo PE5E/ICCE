@@ -27,4 +27,4 @@ void Strings::add(string const &next)
 
     d_arrayString[d_size] = strPointer;   // store new pointer in array
     
-} 
+}   // wordt nog aan gewerkt

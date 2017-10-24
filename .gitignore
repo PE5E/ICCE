@@ -29,6 +29,7 @@
 
 # vim swap
 *.swp
+*.swo
 
 # latex files
 main.log

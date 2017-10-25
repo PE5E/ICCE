@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{errorwrap}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{error}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

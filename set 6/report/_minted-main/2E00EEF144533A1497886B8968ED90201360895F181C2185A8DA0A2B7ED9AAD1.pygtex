@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeMemory}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}   
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{store}\PYG{p}{(}\PYG{n}{place}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

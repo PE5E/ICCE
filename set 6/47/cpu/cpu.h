@@ -29,14 +29,17 @@ class CPU
     public:
         CPU(Memory &memory);
         void start();
-        void stp();
-        static void (CPU::*execute[])();
-        void errorwrap();
+   
     private:
         bool error();                                                 // show 'syntax error', and prepare for the
                                                                       // next input line
                                                                       // return a value or a register's or
                                                                       // memory location's value
+
+        void stp();                                                   // helpers for start
+        static void (CPU::*execute[])();
+        void errorwrap();
+
         int dereference(Operand const &value);
         static int (CPU::*readOperand[])(Operand const &value);
         int valueReturn(Operand const &value);
@@ -65,7 +68,6 @@ class CPU
                                                                       // div a b computes a /= b, last reg: %
         void neg();                                                   // negate a value
         void dsp();                                                   // display a value
-
 };
 
 #endif

@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{execute}\PYG{p}{[])()} \PYG{o}{=}                 \PYG{c+c1}{// order as in enums.h}
+\PYG{p}{\PYGZob{}}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{errorwrap}\PYG{p}{,}            
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{mov}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{add}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{sub}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{mul}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{div}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{neg}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{dsp}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{stp}
+\PYG{p}{\PYGZcb{};}
+\end{Verbatim}

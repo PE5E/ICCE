@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{n}{string}\PYG{o}{*} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{rawStrings}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{nrPointers}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{string} \PYG{o}{*}\PYG{n}{newArray} \PYG{o}{=} \PYG{k}{static\PYGZus{}cast}\PYG{o}{\PYGZlt{}}\PYG{n}{string} \PYG{o}{*\PYGZgt{}}\PYG{p}{(}\PYG{k}{operator} \PYG{k}{new}\PYG{p}{[](}\PYG{n}{nrPointers} \PYG{o}{*} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{string}\PYG{p}{)));}
+
+    \PYG{k}{return} \PYG{n}{newArray}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

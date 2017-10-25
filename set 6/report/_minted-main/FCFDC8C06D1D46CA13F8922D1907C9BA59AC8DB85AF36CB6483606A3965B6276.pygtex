@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{add}\PYG{p}{(}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{next}\PYG{p}{)}
+
+\PYG{p}{\PYGZob{}} 
+    \PYG{n}{string} \PYG{o}{*}\PYG{n}{strPointer} \PYG{o}{=} \PYG{k}{new} \PYG{n}{string}\PYG{p}{(}\PYG{n}{next}\PYG{p}{);}  \PYG{c+c1}{// store new string address in pointer}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{d\PYGZus{}size} \PYG{o}{\PYGZgt{}=} \PYG{n}{d\PYGZus{}capacity}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{d\PYGZus{}capacity} \PYG{o}{\PYGZlt{}\PYGZlt{}=} \PYG{l+m+mi}{1}\PYG{p}{;}                   \PYG{c+c1}{// multiply d\PYGZus{}capacity by 2}
+
+        \PYG{n}{reserve}\PYG{p}{(}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{);}                \PYG{c+c1}{// reserve memory for strings}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{d\PYGZus{}size}\PYG{p}{]} \PYG{o}{=} \PYG{n}{strPointer}\PYG{p}{;}        \PYG{c+c1}{// store new pointer in array}
+    \PYG{o}{++}\PYG{n}{d\PYGZus{}size}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+   
+\end{Verbatim}

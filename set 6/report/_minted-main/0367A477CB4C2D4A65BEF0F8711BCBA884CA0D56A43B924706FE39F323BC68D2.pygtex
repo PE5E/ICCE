@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{Strings}\PYG{p}{(}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{)}
+\PYG{o}{:}
+    \PYG{n}{d\PYGZus{}size}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),}
+    \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{(}\PYG{k}{new} \PYG{n}{string} \PYG{o}{*}\PYG{p}{[}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{])} 
+
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{string} \PYG{n}{line}\PYG{p}{;}
+
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{in}\PYG{p}{,} \PYG{n}{line}\PYG{p}{))}
+        \PYG{n}{add}\PYG{p}{(}\PYG{n}{line}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

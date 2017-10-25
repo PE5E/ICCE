@@ -14,6 +14,7 @@ class CSV
     std::string ***bigPtr;                                 // pointer to array of line pointers (see also big comment below)
 
     public:
+        ~CSV();
         CSV(size_t field, char fieldSep = ',');
 
         std::string const *const *const *data() const;     // return pointer to data
@@ -39,5 +40,3 @@ class CSV
 // where Lptri -> [strPtri1 strPtri2 ... strPtriM] for i = 1,...,N
 // where strPtrik -> std::string                   for k = 1,...,M/
 // see also the figure in the report.
-
-

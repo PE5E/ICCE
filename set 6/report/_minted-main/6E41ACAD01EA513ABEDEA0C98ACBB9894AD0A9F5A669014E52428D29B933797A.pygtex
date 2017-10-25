@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}ifndef INCLUDED\PYGZus{}FILTER\PYGZus{}}
+\PYG{c+cp}{\PYGZsh{}define INCLUDED\PYGZus{}FILTER\PYGZus{}}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iosfwd\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}../strings/strings.h\PYGZdq{}}
+
+\PYG{k}{class} \PYG{n+nc}{Filter}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Strings} \PYG{n}{d\PYGZus{}lines}\PYG{p}{;}
+
+    \PYG{k}{public}\PYG{o}{:}
+        \PYG{n}{Filter}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{);}
+
+        \PYG{k+kt}{void} \PYG{n+nf}{display}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}
+
+    \PYG{k}{private}\PYG{o}{:}
+
+        \PYG{k}{static} \PYG{k+kt}{bool} \PYG{n}{empty}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{str}\PYG{p}{);}
+
+        \PYG{k}{static} \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{firstNonEmpty}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{size}\PYG{p}{,} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{*}\PYG{n}{str}\PYG{p}{);}
+        \PYG{k}{static} \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{beyondLastNonEmpty}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{size}\PYG{p}{,} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{*}\PYG{n}{str}\PYG{p}{);}
+
+
+\PYG{p}{\PYGZcb{};}
+        
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

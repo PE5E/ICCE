@@ -1,0 +1,40 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+
+\PYG{k+kt}{void} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{reserve}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{k}{const} \PYG{n}{newCapacity}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{string} \PYG{o}{**}\PYG{n}{newArray} \PYG{o}{=} \PYG{k}{nullptr}\PYG{p}{;}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{newCapacity} \PYG{o}{\PYGZgt{}=} \PYG{n}{d\PYGZus{}capacity}\PYG{p}{)}                   
+    \PYG{p}{\PYGZob{}}   
+        \PYG{n}{d\PYGZus{}capacity} \PYG{o}{=} \PYG{n}{newCapacity}\PYG{p}{;}
+        \PYG{n}{newArray} \PYG{o}{=} \PYG{k}{new} \PYG{n}{string}\PYG{o}{*}\PYG{p}{[}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{];}                  \PYG{c+c1}{// not initialized}
+
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{idx} \PYG{o}{!=} \PYG{n}{d\PYGZus{}size}\PYG{p}{;} \PYG{o}{++}\PYG{n}{idx}\PYG{p}{)}           \PYG{c+c1}{// copy old pointers}
+            \PYG{n}{newArray}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]} \PYG{o}{=} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{];}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{newCapacity} \PYG{o}{\PYGZlt{}} \PYG{n}{d\PYGZus{}size}\PYG{p}{)}                           \PYG{c+c1}{// if new array is too small}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{newArray} \PYG{o}{=} \PYG{k}{new} \PYG{n}{string}\PYG{o}{*}\PYG{p}{[}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{];}                  \PYG{c+c1}{// not initialized}
+
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{idx} \PYG{o}{!=} \PYG{n}{newCapacity}\PYG{p}{;} \PYG{o}{++}\PYG{n}{idx}\PYG{p}{)}      \PYG{c+c1}{// copy old pointers}
+            \PYG{n}{newArray}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]} \PYG{o}{=} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{];}
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx} \PYG{o}{=} \PYG{n}{newCapacity}\PYG{p}{;} \PYG{n}{idx} \PYG{o}{!=} \PYG{n}{d\PYGZus{}size}\PYG{p}{;} \PYG{o}{++}\PYG{n}{idx}\PYG{p}{)} \PYG{c+c1}{// delete pointers and }
+            \PYG{k}{delete} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{];}                          \PYG{c+c1}{// strings outside new array}
+    \PYG{p}{\PYGZcb{}}
+        
+    \PYG{k}{else}                    \PYG{c+c1}{// if newCapacity is between d\PYGZus{}size and d\PYGZus{}capacity}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{newArray} \PYG{o}{=} \PYG{k}{new} \PYG{n}{string}\PYG{o}{*}\PYG{p}{[}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{];}                  \PYG{c+c1}{// not initialized}
+
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{idx} \PYG{o}{!=} \PYG{n}{d\PYGZus{}size}\PYG{p}{;} \PYG{o}{++}\PYG{n}{idx}\PYG{p}{)}           \PYG{c+c1}{// copy old pointers}
+            \PYG{n}{newArray}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]} \PYG{o}{=} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{];}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{destroy}\PYG{p}{();}                       \PYG{c+c1}{// delete old array of pointers, not the string data}
+
+    \PYG{n}{d\PYGZus{}arrayStr} \PYG{o}{=} \PYG{n}{newArray}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

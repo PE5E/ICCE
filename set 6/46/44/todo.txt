@@ -1,0 +1,21 @@
+44
+dubblele pointer
+geen placement new
+
+functions:
+capacity(): Return size of allocated storage
+
+reserve(): Request a change in capacity 
+
+
+resize(): Resize string 
+naar groter: elementen (string's) initialiseren door default constructor
+naar kleiner: delete string's affected
+ 
+rawPointers(): 
+is provided with the number of pointers to strings to allocate
+returns pointer to the pointers to strings (d_arrayStr)
+
+
+45
+enkele pointer met placement new?

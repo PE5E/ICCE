@@ -7,7 +7,7 @@ class Strings
 {
     size_t              d_size;    // number of stored strings
     size_t      d_capacity = 1;    // number of strings that can be stored
-    std::string   **d_arrayStr;    // pointer to pointers of string data
+    std::string   **d_arrayStr = nullptr;    // pointer to pointers of string data
 
     public:
         struct POD

@@ -1,0 +1,16 @@
+#define MAIN                "main.cc"
+#define BINARY              "binary"
+#define REFRESH
+#define SHAREDREQ           ""
+//#define CLS
+#define COMPILER            "g++"
+#define COMPILER_OPTIONS    "-Wall -O2"
+#define SOURCES             "*.cc"
+#define LINKER_OPTIONS      "-s"
+#define ADD_LIBRARIES       ""
+#define ADD_LIBRARY_PATHS  ""
+#define USE_ECHO              ON
+#define TMP_DIR             "tmp"
+#define OBJ_EXT             ".o"
+
+#define DEFCOM "program"

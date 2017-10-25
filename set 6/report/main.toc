@@ -60,7 +60,7 @@
 \contentsline {subsection}{cpu.h}{21}
 \contentsline {subsection}{dereference.cc}{22}
 \contentsline {subsection}{memoryreturn.cc}{22}
-\contentsline {subsection}{readoperand.cc}{22}
+\contentsline {subsection}{readoperand.cc}{23}
 \contentsline {subsection}{registerreturn.cc}{23}
 \contentsline {subsection}{valuereturn.cc}{23}
 \contentsline {subsection}{start.cc}{23}

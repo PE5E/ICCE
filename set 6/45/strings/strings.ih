@@ -1,9 +1,6 @@
 #include "strings.h"
-
-#include <iostream>     // debug only
-// #include <istream>
+#include <iostream> 
 #include <string>
-#include <memory>       // placement new
 
 using namespace std;
 

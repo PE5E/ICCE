@@ -12,5 +12,5 @@ std::string &Strings::safeAt(size_t idx) const
         return empty;
     }
 
-    return *(d_arrayStr[idx]);
+    return d_str[idx];
 }

@@ -17,8 +17,8 @@ class Filter
 
         static bool empty(std::string const &str);
 
-        static size_t firstNonEmpty(size_t size, std::string **const str);
-        static size_t beyondLastNonEmpty(size_t size, std::string **const str);
+        static size_t firstNonEmpty(size_t size, std::string const *str);
+        static size_t beyondLastNonEmpty(size_t size, std::string const *str);
 
 
 };

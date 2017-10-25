@@ -2,5 +2,6 @@
 
 void Strings::destroy()
 {
-    delete[] d_arrayStr;  // delete the array of pointers but not what they point to
+    operator delete[](d_str);   // frees the allocated memory but doesn't
+                                // delete the strings
 }

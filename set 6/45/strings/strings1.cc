@@ -3,5 +3,5 @@
 Strings::Strings()
 :
     d_size(0),
-    d_arrayStr(new string *[d_capacity])  
+    d_str(rawStrings(d_capacity))
 {}

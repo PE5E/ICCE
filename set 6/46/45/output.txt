@@ -1,0 +1,52 @@
+*** Error in `./main': double free or corruption (out): 0x0000000000d2d990 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x777e5)[0x7f028bcfb7e5]
+/lib/x86_64-linux-gnu/libc.so.6(+0x8037a)[0x7f028bd0437a]
+/lib/x86_64-linux-gnu/libc.so.6(cfree+0x4c)[0x7f028bd0853c]
+/usr/lib/x86_64-linux-gnu/libstdc++.so.6(_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm+0xfd)[0x7f028c5a052d]
+/usr/lib/x86_64-linux-gnu/libstdc++.so.6(_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm+0x19b)[0x7f028c5a100b]
+./main[0x4021e5]
+./main[0x401be0]
+./main[0x40158a]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf0)[0x7f028bca4830]
+./main[0x401479]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 08:03 526492                             /home/fastjack/C++/GIT/set 6/46/45/main
+00602000-00603000 r--p 00002000 08:03 526492                             /home/fastjack/C++/GIT/set 6/46/45/main
+00603000-00604000 rw-p 00003000 08:03 526492                             /home/fastjack/C++/GIT/set 6/46/45/main
+00d18000-00d4a000 rw-p 00000000 00:00 0                                  [heap]
+7f0284000000-7f0284021000 rw-p 00000000 00:00 0 
+7f0284021000-7f0288000000 ---p 00000000 00:00 0 
+7f028b97b000-7f028ba83000 r-xp 00000000 08:03 2364182                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f028ba83000-7f028bc82000 ---p 00108000 08:03 2364182                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f028bc82000-7f028bc83000 r--p 00107000 08:03 2364182                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f028bc83000-7f028bc84000 rw-p 00108000 08:03 2364182                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f028bc84000-7f028be44000 r-xp 00000000 08:03 2364112                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f028be44000-7f028c044000 ---p 001c0000 08:03 2364112                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f028c044000-7f028c048000 r--p 001c0000 08:03 2364112                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f028c048000-7f028c04a000 rw-p 001c4000 08:03 2364112                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f028c04a000-7f028c04e000 rw-p 00000000 00:00 0 
+7f028c04e000-7f028c066000 r-xp 00000000 08:03 2364258                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f028c066000-7f028c265000 ---p 00018000 08:03 2364258                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f028c265000-7f028c266000 r--p 00017000 08:03 2364258                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f028c266000-7f028c267000 rw-p 00018000 08:03 2364258                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f028c267000-7f028c26b000 rw-p 00000000 00:00 0 
+7f028c26b000-7f028c281000 r-xp 00000000 08:03 2364150                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f028c281000-7f028c480000 ---p 00016000 08:03 2364150                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f028c480000-7f028c481000 rw-p 00015000 08:03 2364150                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f028c481000-7f028c5f3000 r-xp 00000000 08:03 1050185                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f028c5f3000-7f028c7f3000 ---p 00172000 08:03 1050185                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f028c7f3000-7f028c7fd000 r--p 00172000 08:03 1050185                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f028c7fd000-7f028c7ff000 rw-p 0017c000 08:03 1050185                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f028c7ff000-7f028c803000 rw-p 00000000 00:00 0 
+7f028c803000-7f028c829000 r-xp 00000000 08:03 2364084                    /lib/x86_64-linux-gnu/ld-2.23.so
+7f028ca04000-7f028ca0a000 rw-p 00000000 00:00 0 
+7f028ca25000-7f028ca28000 rw-p 00000000 00:00 0 
+7f028ca28000-7f028ca29000 r--p 00025000 08:03 2364084                    /lib/x86_64-linux-gnu/ld-2.23.so
+7f028ca29000-7f028ca2a000 rw-p 00026000 08:03 2364084                    /lib/x86_64-linux-gnu/ld-2.23.so
+7f028ca2a000-7f028ca2b000 rw-p 00000000 00:00 0 
+7ffffb0b6000-7ffffb0d7000 rw-p 00000000 00:00 0                          [stack]
+7ffffb13d000-7ffffb13f000 r--p 00000000 00:00 0                          [vvar]
+7ffffb13f000-7ffffb141000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+Aborted (core dumped)

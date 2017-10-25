@@ -7,14 +7,14 @@ void Strings::reserve(size_t const newCapacity)
 
     if (newCapacity >= d_capacity)                   
     {   
-        cerr << "reserve line 10 \n";
+       
         d_capacity = newCapacity;
-        cerr << "reserve line 12 \n";
+       
         newArray = rawStrings(d_capacity);                   // not initialized
-        cerr << "reserve line 14 \n";
+       
         for (size_t idx = 0; idx != d_size; ++idx)           // copy old pointers
             newArray[idx] = d_str[idx];
-        cerr << "reserve line 17 \n";
+       
     }
 
     else if (newCapacity < d_size)                           // if new array is too small

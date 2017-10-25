@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{destroy}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{delete} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{;}  \PYG{c+c1}{// delete the array of pointers but not what they point to}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

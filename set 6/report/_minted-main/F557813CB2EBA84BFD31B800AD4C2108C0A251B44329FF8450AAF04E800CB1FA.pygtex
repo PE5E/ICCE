@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{fill}\PYG{p}{(}\PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{ntbs}\PYG{p}{[])}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{index} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{index} \PYG{o}{!=} \PYG{n}{d\PYGZus{}size}\PYG{p}{;} \PYG{o}{++}\PYG{n}{index}\PYG{p}{)}
+        \PYG{o}{*}\PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]} \PYG{o}{=} \PYG{n}{string}\PYG{p}{(}\PYG{n}{ntbs}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

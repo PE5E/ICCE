@@ -1,0 +1,44 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}ifndef CSV\PYGZus{}HEADER\PYGZus{}H}
+\PYG{c+cp}{\PYGZsh{}define CSV\PYGZus{}HEADER\PYGZus{}H}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}string\PYGZgt{}                                          // std::string}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}istream\PYGZgt{}                                         // std::istream}
+
+\PYG{k}{class} \PYG{n+nc}{CSV}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}                                     \PYG{c+c1}{// number of lines allocated}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}nLines} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}                                   \PYG{c+c1}{// number of lines read}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}nFields} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}                                  \PYG{c+c1}{// number of values per line}
+    \PYG{k+kt}{char} \PYG{n}{d\PYGZus{}fieldSep}\PYG{p}{;}                                       \PYG{c+c1}{// field seperator (default comma)}
+
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{***}\PYG{n}{bigPtr}\PYG{p}{;}                                 \PYG{c+c1}{// pointer to array of line pointers (see also big comment below)}
+
+    \PYG{k}{public}\PYG{o}{:}
+        \PYG{o}{\PYGZti{}}\PYG{n}{CSV}\PYG{p}{();}
+        \PYG{n}{CSV}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{field}\PYG{p}{,} \PYG{k+kt}{char} \PYG{n}{fieldSep} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{},\PYGZsq{}}\PYG{p}{);}
+
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{*}\PYG{k}{const} \PYG{o}{*}\PYG{k}{const} \PYG{o}{*}\PYG{n}{data}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}     \PYG{c+c1}{// return pointer to data}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lastline}\PYG{p}{()}           \PYG{k}{const}\PYG{p}{;}     \PYG{c+c1}{// ref last extraction}
+
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{nFields}\PYG{p}{()}                        \PYG{k}{const}\PYG{p}{;}     \PYG{c+c1}{// values per line, set in first read}
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{size}\PYG{p}{()}                           \PYG{k}{const}\PYG{p}{;}     \PYG{c+c1}{// number of currently stored lines}
+
+        \PYG{k+kt}{size\PYGZus{}t} \PYG{n+nf}{read}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{nLines} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{);}  \PYG{c+c1}{// read lines using read1, return number read}
+
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{***}\PYG{n}{release}\PYG{p}{();}                          \PYG{c+c1}{// return pointer to data, move responsibility for data}
+                                                           \PYG{c+c1}{// to called. Resets bigPtr but does not erase stored lines.}
+        \PYG{k+kt}{void} \PYG{n+nf}{clear}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{nFields} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{);}                    \PYG{c+c1}{// erase everything}
+    \PYG{k}{private}\PYG{o}{:}
+        \PYG{k+kt}{bool} \PYG{n}{read1}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{);}                      \PYG{c+c1}{// read 1 line, parse for CSV\PYGZsq{}s, set nFields}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{c+cp}{\PYGZsh{}endif }\PYG{c+c1}{// CSV\PYGZus{}HEADER\PYGZus{}H}
+
+\PYG{c+c1}{// Line pointers point to array of pointers}
+\PYG{c+c1}{// to std::string. i.e. :}
+\PYG{c+c1}{// bigPtr \PYGZhy{}\PYGZgt{} [Lptr0 Lptr1 ... LptrN]}
+\PYG{c+c1}{// where Lptri \PYGZhy{}\PYGZgt{} [strPtri1 strPtri2 ... strPtriM] for i = 1,...,N}
+\PYG{c+c1}{// where strPtrik \PYGZhy{}\PYGZgt{} std::string                   for k = 1,...,M/}
+\PYG{c+c1}{// see also the figure in the report.}
+\end{Verbatim}

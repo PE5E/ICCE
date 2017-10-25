@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{k}{namespace} \PYG{p}{\PYGZob{}}
+    \PYG{n}{string} \PYG{n}{empty}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{\PYGZam{}}\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{safeAt}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx}\PYG{p}{)} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{\PYGZgt{}=} \PYG{n}{d\PYGZus{}size}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{empty}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+        \PYG{k}{return} \PYG{n}{empty}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{return} \PYG{o}{*}\PYG{p}{(}\PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

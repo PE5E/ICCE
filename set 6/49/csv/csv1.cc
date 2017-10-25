@@ -8,5 +8,5 @@ CSV::CSV(size_t field, char fieldSep)
         d_fieldSep(fieldSep),          // set field seperator, default ','
         d_lastLine()
 {
-    allocate();                       
+    bigPtr = new std::string **[1];     // allocate line array
 }

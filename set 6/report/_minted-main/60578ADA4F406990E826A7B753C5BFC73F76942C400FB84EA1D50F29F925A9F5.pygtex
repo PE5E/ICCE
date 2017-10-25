@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}filter.ih\PYGZdq{}}
+
+\PYG{c+c1}{// static}
+\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{Filter}\PYG{o}{::}\PYG{n}{firstNonEmpty}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{size}\PYG{p}{,} \PYG{n}{string} \PYG{o}{**}\PYG{k}{const} \PYG{n}{str}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{idx} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+                                        \PYG{c+c1}{// skip initial empty lines}
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{!=} \PYG{n}{size} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{empty}\PYG{p}{(}\PYG{o}{*}\PYG{n}{str}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]))}
+        \PYG{o}{++}\PYG{n}{idx}\PYG{p}{;}
+
+    \PYG{k}{return} \PYG{n}{idx}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -2,8 +2,6 @@
 
 void CSV::allocate()
 {
-    bigPtr = new std::string **[d_size];                              // line array
-    for(string **line = bigPtr[0]; line != bigPtr[d_size - 1]; ++line) // strings in lines
-        line = new std::string *[d_nFields];
+    bigPtr = new std::string **[1];                              // line array
 }
 // allocate me some memory

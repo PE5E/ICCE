@@ -12,8 +12,8 @@ class Strings
     public:
         struct POD
         {
-            size_t      size;
-            std::string *str;
+            size_t       size;
+            std::string **str;
         };
 
         Strings();
@@ -28,36 +28,42 @@ class Strings
         std::string **const data() const;
         POD release();
 
-        std::string const &at(size_t idx) const;    // for const-objects
-        std::string &at(size_t idx);                // for non-const objects
+        std::string const &at(size_t idx) const;      // for const-objects
+        std::string &at(size_t idx);                  // for non-const objects
 
-        void add(std::string const &next);          // add another element
+        void add(std::string const &next);            // add another element
+
+        size_t const capacity() const;                // return allocated memory in nr of strings
+
+        void reserve(size_t const newCapacity);       // reserves memory to new size 
+
+        void resize(size_t const newCapacity);        // resizes and initializes 
+
 
     private:
-        void fill(char *ntbs[]);                    // fill prepared d_str
+        void fill(char *ntbs[]);                      // fill prepared d_str
 
-        std::string &safeAt(size_t idx) const;      // private backdoor
-        std::string *enlarge();
-// not needed anymore??
+        std::string &safeAt(size_t idx) const;        // private backdoor
 
         void destroy();                 
 
-        static size_t count(char *environLike[]);   // # elements in env.like
+        static size_t count(char *environLike[]);     // # elements in env.like
 
-        void reserve();                     // reserves memory to size d_capacity
 
-//        void rewPointers()          // nieuw
+
+        std::string** rawPointers(size_t nrPointers); // creates initialized array of 
+                                                      // pointers to strings       
 };
 
-inline size_t Strings::size() const         // potentially dangerous practice:
-{                                           // inline accessors
+inline size_t Strings::size() const                   // potentially dangerous practice:
+{                                                     // inline accessors
     return d_size;
 }
 
 
 inline std::string **const Strings::data() const
 {
-    return d_arrayStr;       // return pointer to first element
+    return d_arrayStr;     
 }
 
 inline std::string const &Strings::at(size_t idx) const

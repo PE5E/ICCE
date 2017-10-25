@@ -7,4 +7,3 @@ string* Strings::rawStrings(size_t nrPointers)
     return newArray;
 }
 
-

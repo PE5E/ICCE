@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{stp}\PYG{p}{()} \PYG{c+c1}{// seperate file, add to header}
+\PYG{p}{\PYGZob{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,44 @@
+Exercise 43
+    - check which functions should be private DONE
+Exercise 47                                                 COMPILED
+    - derefence.cc
+        - seperate file registerReturn.cc     DONE
+        - seperate file valueReturn.cc        DONE
+        - seperate file memoryReturn.cc       DONE
+        - seperate file readoperand.cc        DONE
+    - start.cc
+        - seperate file execute.cc            DONE
+        - seperate file stp.cc                DONE
+        - seperate file errorwrap.cc          DONE
+    - store.cc
+        - seperate file storeRegister.cc      DONE
+        - seperate file storeMemory.cc        DONE
+        - seperate file storeValue.cc         DONE
+    - cpu.h
+        - check privateness                   DONE
+Exercise 48
+    - csv.h
+        - check constructor                   DONE
+        - check consts                        DONE
+        - check privateness                   DONE
+
+Exercise 49
+     - csv.h
+        - check constructor
+        - check consts
+        - check privateness
+        - lastline &?
+    - lastline.cc
+        - ?  
+    - read.cc
+        - get rid of double loop
+    - read1.cc
+        - add comment to return statement 
+        - add argument to CSVextractor constructor
+    - release.cc
+        - write!
+
+
+General
+    - increase font size
+    - descrease comment length

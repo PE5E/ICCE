@@ -30,14 +30,17 @@
     \PYG{k}{public}\PYG{o}{:}
         \PYG{n}{CPU}\PYG{p}{(}\PYG{n}{Memory} \PYG{o}{\PYGZam{}}\PYG{n}{memory}\PYG{p}{);}
         \PYG{k+kt}{void} \PYG{n+nf}{start}\PYG{p}{();}
-        \PYG{k+kt}{void} \PYG{n+nf}{stp}\PYG{p}{();}
-        \PYG{k}{static} \PYG{n+nf}{void} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{execute}\PYG{p}{[])();}
-        \PYG{k+kt}{void} \PYG{n+nf}{errorwrap}\PYG{p}{();}
+   
     \PYG{k}{private}\PYG{o}{:}
         \PYG{k+kt}{bool} \PYG{n}{error}\PYG{p}{();}                                                 \PYG{c+c1}{// show \PYGZsq{}syntax error\PYGZsq{}, and prepare for the}
                                                                       \PYG{c+c1}{// next input line}
                                                                       \PYG{c+c1}{// return a value or a register\PYGZsq{}s or}
                                                                       \PYG{c+c1}{// memory location\PYGZsq{}s value}
+
+        \PYG{k+kt}{void} \PYG{n+nf}{stp}\PYG{p}{();}                                                   \PYG{c+c1}{// helpers for start}
+        \PYG{k}{static} \PYG{n+nf}{void} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{execute}\PYG{p}{[])();}
+        \PYG{k+kt}{void} \PYG{n+nf}{errorwrap}\PYG{p}{();}
+
         \PYG{k+kt}{int} \PYG{n+nf}{dereference}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
         \PYG{k}{static} \PYG{n+nf}{int} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{readOperand}\PYG{p}{[])(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
         \PYG{k+kt}{int} \PYG{n+nf}{valueReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
@@ -66,7 +69,6 @@
                                                                       \PYG{c+c1}{// div a b computes a /= b, last reg: \PYGZpc{}}
         \PYG{k+kt}{void} \PYG{n+nf}{neg}\PYG{p}{();}                                                   \PYG{c+c1}{// negate a value}
         \PYG{k+kt}{void} \PYG{n+nf}{dsp}\PYG{p}{();}                                                   \PYG{c+c1}{// display a value}
-
 \PYG{p}{\PYGZcb{};}
 
 \PYG{c+cp}{\PYGZsh{}endif}

@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}csv.h\PYGZdq{}}
+
+\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{CSV}\PYG{o}{::}\PYG{n}{read}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{nLines}\PYG{p}{)} \PYG{c+c1}{// nLines defaults to 0}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{lines} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{nLines} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)}
+        \PYG{k}{while} \PYG{p}{(}\PYG{n}{in}\PYG{p}{.}\PYG{n}{good}\PYG{p}{())}                         \PYG{c+c1}{// read all lines}
+            \PYG{p}{\PYGZob{}}
+                    \PYG{n}{read1}\PYG{p}{(}\PYG{n}{in}\PYG{p}{);}
+                    \PYG{o}{++}\PYG{n}{lines}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+    \PYG{k}{else}
+         \PYG{k}{while} \PYG{p}{(}\PYG{n}{lines} \PYG{o}{!=} \PYG{n}{nLines} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{in}\PYG{p}{.}\PYG{n}{good}\PYG{p}{())}     \PYG{c+c1}{// read \PYGZsq{}nLines\PYGZsq{} lines}
+            \PYG{p}{\PYGZob{}}
+                    \PYG{n}{read1}\PYG{p}{(}\PYG{n}{in}\PYG{p}{);}
+                    \PYG{o}{++}\PYG{n}{lines}\PYG{p}{;}
+            \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n}{lines}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// By default, all lines of in are read and are processed by the read1 member.}
+\PYG{c+c1}{// By specifying a non\PYGZhy{}zero value for the nLines parameter the specified number of}
+\PYG{c+c1}{// lines is read from in. Reading stops once in\PYGZsq{}s status is not good. When nLines }
+\PYG{c+c1}{// is specified as zero, then reading continues until all CSV lines have been processed.}
+\PYG{c+c1}{// The number of successfully processed lines is returned. }
+\end{Verbatim}

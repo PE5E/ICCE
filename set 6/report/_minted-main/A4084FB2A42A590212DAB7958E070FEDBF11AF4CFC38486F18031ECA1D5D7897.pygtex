@@ -3,8 +3,10 @@
 \PYG{c+cp}{\PYGZsh{}define INCLUDED\PYGZus{}CPU\PYGZus{}}
 
 \PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}../tokenizer/tokenizer.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}../memory/memory.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}../enums/enums.h\PYGZdq{}}
 
-\PYG{k}{class} \PYG{n+nc}{Memory}\PYG{p}{;}
+\PYG{k}{class} \PYG{n+nc}{Memory}\PYG{p}{;}  \PYG{c+c1}{//     Jaap: why this?}
 
 \PYG{k}{class} \PYG{n+nc}{CPU}
 \PYG{p}{\PYGZob{}}
@@ -28,13 +30,19 @@
     \PYG{k}{public}\PYG{o}{:}
         \PYG{n}{CPU}\PYG{p}{(}\PYG{n}{Memory} \PYG{o}{\PYGZam{}}\PYG{n}{memory}\PYG{p}{);}
         \PYG{k+kt}{void} \PYG{n+nf}{start}\PYG{p}{();}
-
+        \PYG{k+kt}{void} \PYG{n+nf}{stp}\PYG{p}{();}
+        \PYG{k}{static} \PYG{n+nf}{void} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{execute}\PYG{p}{[])();}
+        \PYG{k+kt}{void} \PYG{n+nf}{errorwrap}\PYG{p}{();}
     \PYG{k}{private}\PYG{o}{:}
         \PYG{k+kt}{bool} \PYG{n}{error}\PYG{p}{();}                                                 \PYG{c+c1}{// show \PYGZsq{}syntax error\PYGZsq{}, and prepare for the}
                                                                       \PYG{c+c1}{// next input line}
                                                                       \PYG{c+c1}{// return a value or a register\PYGZsq{}s or}
                                                                       \PYG{c+c1}{// memory location\PYGZsq{}s value}
         \PYG{k+kt}{int} \PYG{n+nf}{dereference}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
+        \PYG{k}{static} \PYG{n+nf}{int} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{readOperand}\PYG{p}{[])(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
+        \PYG{k+kt}{int} \PYG{n+nf}{valueReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
+        \PYG{k+kt}{int} \PYG{n+nf}{memoryReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
+        \PYG{k+kt}{int} \PYG{n+nf}{registerReturn}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{value}\PYG{p}{);}
 
         \PYG{k+kt}{bool} \PYG{n+nf}{rvalue}\PYG{p}{(}\PYG{n}{Operand} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{);}                                    \PYG{c+c1}{// retrieve an rvalue operand}
         \PYG{k+kt}{bool} \PYG{n+nf}{lvalue}\PYG{p}{(}\PYG{n}{Operand} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{);}                                    \PYG{c+c1}{// retrieve an lvalue operand}
@@ -46,6 +54,10 @@
 
                                                                       \PYG{c+c1}{// store a value in register or memory}
         \PYG{k+kt}{void} \PYG{n+nf}{store}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{);}
+        \PYG{k+kt}{void} \PYG{n+nf}{storeRegister}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{);}
+        \PYG{k+kt}{void} \PYG{n+nf}{storeMemory}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{);}
+        \PYG{k}{static} \PYG{n+nf}{void} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{storeValue}\PYG{p}{[])(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{);}
+
         \PYG{k+kt}{void} \PYG{n+nf}{mov}\PYG{p}{();}                                                   \PYG{c+c1}{// assign a value}
         \PYG{k+kt}{void} \PYG{n+nf}{add}\PYG{p}{();}                                                   \PYG{c+c1}{// add values}
         \PYG{k+kt}{void} \PYG{n+nf}{sub}\PYG{p}{();}                                                   \PYG{c+c1}{// subtract values}
@@ -54,6 +66,7 @@
                                                                       \PYG{c+c1}{// div a b computes a /= b, last reg: \PYGZpc{}}
         \PYG{k+kt}{void} \PYG{n+nf}{neg}\PYG{p}{();}                                                   \PYG{c+c1}{// negate a value}
         \PYG{k+kt}{void} \PYG{n+nf}{dsp}\PYG{p}{();}                                                   \PYG{c+c1}{// display a value}
+
 \PYG{p}{\PYGZcb{};}
 
 \PYG{c+cp}{\PYGZsh{}endif}

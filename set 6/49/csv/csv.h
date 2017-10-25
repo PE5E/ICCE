@@ -3,6 +3,7 @@
 
 #include <string>                                           // std::string
 #include <istream>                                          // std::istream
+#include "../csvextractor/csvextractor.h"
 
 class CSV
 {
@@ -31,6 +32,7 @@ class CSV
     private:
         bool read1(std::istream &in);                       // read 1 line, parse for CSV's, set nFields
         void allocate();
+        void doubleSize();
 };
 
 inline size_t CSV::nFields() const

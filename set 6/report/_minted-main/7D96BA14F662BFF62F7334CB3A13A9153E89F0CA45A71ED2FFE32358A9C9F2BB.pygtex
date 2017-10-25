@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}csv.h\PYGZdq{}}
+
+\PYG{k+kt}{bool} \PYG{n}{CSV}\PYG{o}{::}\PYG{n}{read1}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{in}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{CSVextractor} \PYG{n}{csvFile}\PYG{p}{(}\PYG{n}{in}\PYG{p}{);}              \PYG{c+c1}{// CSVextractor takes 1 line from stream \PYGZsq{}in\PYGZsq{}}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{d\PYGZus{}nFields} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)}                    \PYG{c+c1}{// field count}
+        \PYG{n}{d\PYGZus{}nFields} \PYG{o}{=} \PYG{n}{csvFile}\PYG{p}{.}\PYG{n}{nFields}\PYG{p}{();}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{d\PYGZus{}size} \PYG{o}{\PYGZhy{}} \PYG{n}{d\PYGZus{}nLines}  \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)}           \PYG{c+c1}{// increase capacity}
+        \PYG{n}{doubleSize}\PYG{p}{();}
+
+    \PYG{k}{return} \PYG{n}{csvFile}\PYG{p}{.}\PYG{n}{parse}\PYG{p}{(}\PYG{n}{bigPtr}\PYG{p}{);}        
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// One line is read from in and is parsed for its CSVs. If parsing fails, false is returned.}
+\PYG{c+c1}{// After successfully calling read1 for the first time all subsequent lines read by read1 must}
+\PYG{c+c1}{// have the same number of comma separated values as encountered when calling read1 for the first time.. }
+\end{Verbatim}

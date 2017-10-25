@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}csv.ih\PYGZdq{}}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{k}{const} \PYG{o}{*}\PYG{k}{const} \PYG{o}{*}\PYG{k}{const} \PYG{o}{*}\PYG{n}{CSV}\PYG{o}{::}\PYG{n}{data}\PYG{p}{()} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{bigPtr}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

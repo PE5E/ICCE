@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}csv.ih\PYGZdq{}}
+
+\PYG{n}{CSV}\PYG{o}{::}\PYG{n}{CSV}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{field}\PYG{p}{,} \PYG{k+kt}{char} \PYG{n}{fieldSep}\PYG{p}{)}
+    \PYG{o}{:}
+        \PYG{n}{d\PYGZus{}fieldSep}\PYG{p}{(}\PYG{n}{fieldSep}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{bigPtr} \PYG{o}{=} \PYG{k}{new} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{**}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}       \PYG{c+c1}{// allocate array of line pointers}
+    \PYG{n}{bigPtr}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{k}{new} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{*}\PYG{p}{[}\PYG{n}{field}\PYG{p}{];} \PYG{c+c1}{// allocate array of string pointers (line)}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

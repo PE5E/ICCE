@@ -1,11 +1,22 @@
 #include "csv.h"
 
-size_t CSV::read(std::istream &in, size_t nLines = 0)
+size_t CSV::read(std::istream &in, size_t nLines) // nLines defaults to 0
 {
-    size_t count = 0;
-    while (count != nLines + 1 && getline(in, d_lastLine) && is.good()) 
-            read1(d_lastLine);
-            ++count;
+    size_t lines = 0;
+
+    if (nLines == 0)
+        while (in.good())                         // read all lines
+            {
+                    read1(in);
+                    ++lines;
+            }
+    else
+         while (lines != nLines && in.good())     // read 'nLines' lines
+            {
+                    read1(in);
+                    ++lines;
+            }
+    return lines;
 }
 
 // By default, all lines of in are read and are processed by the read1 member.

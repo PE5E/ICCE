@@ -1,29 +1,3 @@
-//#include "cpu.ih"
-//
-//int CPU::dereference(Operand const &value)
-//{
-//    switch (value.type)
-//    {
-//        default:
-//        // FALLING THROUGH (not used, but satisfies the compiler)
-//        case OperandType::VALUE:
-//        return value.value;
-//
-//        case OperandType::REGISTER:
-//        return d_register[value.value];
-//
-//        case OperandType::MEMORY:
-//        return d_memory.load(value.value);
-//    }
-//}
-//
-//
-// above is official solution
-// below is rewritten using function pointers. 
-// todo:
-//  move to files
-//  add to header
-
 #include "cpu.ih"
 int CPU::valueReturn(Operand const &value)
 {

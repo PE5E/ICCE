@@ -8,8 +8,12 @@
 \PYG{k}{class} \PYG{n+nc}{CSV}
 \PYG{p}{\PYGZob{}}
     \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}                                     \PYG{c+c1}{// number of lines allocated}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}nLines} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}                                   \PYG{c+c1}{// number of lines read}
     \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{d\PYGZus{}nFields} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}                                  \PYG{c+c1}{// number of values per line}
+    \PYG{k+kt}{char} \PYG{n}{d\PYGZus{}fieldSep}\PYG{p}{;}                                       \PYG{c+c1}{// field seperator (default comma)}
+
     \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{***}\PYG{n}{bigPtr}\PYG{p}{;}                                 \PYG{c+c1}{// pointer to array of line pointers (see also big comment below)}
+
     \PYG{k}{public}\PYG{o}{:}
         \PYG{n}{CSV}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{field}\PYG{p}{,} \PYG{k+kt}{char} \PYG{n}{fieldSep} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{},\PYGZsq{}}\PYG{p}{);}
 
@@ -30,11 +34,10 @@
 
 \PYG{c+cp}{\PYGZsh{}endif }\PYG{c+c1}{// CSV\PYGZus{}HEADER\PYGZus{}H}
 
-\PYG{c+c1}{// this exercise implements the class, but not the members.}
-\PYG{c+c1}{//}
 \PYG{c+c1}{// Line pointers point to array of pointers}
 \PYG{c+c1}{// to std::string. i.e. :}
 \PYG{c+c1}{// bigPtr \PYGZhy{}\PYGZgt{} [Lptr0 Lptr1 ... LptrN]}
 \PYG{c+c1}{// where Lptri \PYGZhy{}\PYGZgt{} [strPtri1 strPtri2 ... strPtriM] for i = 1,...,N}
 \PYG{c+c1}{// where strPtrik \PYGZhy{}\PYGZgt{} std::string                   for k = 1,...,M/}
+\PYG{c+c1}{// see also the figure in the report.}
 \end{Verbatim}

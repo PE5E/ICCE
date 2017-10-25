@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}cpu.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{store}\PYG{p}{(}\PYG{n}{Operand} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{lhs}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)} 
+\PYG{p}{\PYGZob{}}
+    \PYG{p}{(}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}*}\PYG{n}{storeValue}\PYG{p}{[}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{type}\PYG{p}{])(}\PYG{n}{lhs}\PYG{p}{.}\PYG{n}{value}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}   
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeRegister}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}  
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{d\PYGZus{}register}\PYG{p}{[}\PYG{n}{place}\PYG{p}{]} \PYG{o}{=} \PYG{n}{value}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeMemory}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}   
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{d\PYGZus{}memory}\PYG{p}{.}\PYG{n}{store}\PYG{p}{(}\PYG{n}{place}\PYG{p}{,} \PYG{n}{value}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{p}{(}\PYG{n}{CPU}\PYG{o}{::*}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeValue}\PYG{p}{[])(}\PYG{k+kt}{int} \PYG{n}{place}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{value}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{nullptr}\PYG{p}{,}
+    \PYG{k}{nullptr}\PYG{p}{,}                                        \PYG{c+c1}{// these should never be called}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeRegister}\PYG{p}{,}
+    \PYG{o}{\PYGZam{}}\PYG{n}{CPU}\PYG{o}{::}\PYG{n}{storeMemory}
+\PYG{p}{\PYGZcb{};}
+\end{Verbatim}

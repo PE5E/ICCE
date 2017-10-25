@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}csv.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{CSV}\PYG{o}{::}\PYG{n}{allocate}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{bigPtr} \PYG{o}{=} \PYG{k}{new} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{**}\PYG{p}{[}\PYG{n}{d\PYGZus{}size}\PYG{p}{];}                              \PYG{c+c1}{// line array}
+    \PYG{k}{for}\PYG{p}{(}\PYG{n}{string} \PYG{o}{**}\PYG{n}{line} \PYG{o}{=} \PYG{n}{bigPtr}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];} \PYG{n}{line} \PYG{o}{!=} \PYG{n}{bigPtr}\PYG{p}{[}\PYG{n}{d\PYGZus{}size} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{];} \PYG{o}{++}\PYG{n}{line}\PYG{p}{)} \PYG{c+c1}{// strings in lines}
+        \PYG{n}{line} \PYG{o}{=} \PYG{k}{new} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{o}{*}\PYG{p}{[}\PYG{n}{d\PYGZus{}nFields}\PYG{p}{];}
+\PYG{p}{\PYGZcb{}}
+\PYG{c+c1}{// allocate me some memory}
+\end{Verbatim}

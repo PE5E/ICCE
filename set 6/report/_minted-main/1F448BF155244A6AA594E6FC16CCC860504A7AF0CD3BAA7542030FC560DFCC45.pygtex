@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-    \PYG{k+kt}{int} \PYG{o}{*}\PYG{n}{ptr} \PYG{o}{=} \PYG{k}{new} \PYG{k+kt}{int}\PYG{p}{;}
-\end{Verbatim}

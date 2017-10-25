@@ -1,0 +1,30 @@
+\contentsline {section}{Exercise 43}{1}
+\contentsline {subsection}{strings.h}{2}
+\contentsline {subsection}{strings5.cc}{3}
+\contentsline {section}{Exercise 44}{3}
+\contentsline {section}{Exercise 45}{3}
+\contentsline {section}{Exercise 46}{3}
+\contentsline {section}{Exercise 47}{3}
+\contentsline {subsection}{cpu.h}{3}
+\contentsline {subsection}{dereference.cc}{4}
+\contentsline {subsection}{start.cc}{5}
+\contentsline {subsection}{store.cc}{5}
+\contentsline {section}{Exercise 48}{6}
+\contentsline {subsection}{Data Model}{6}
+\contentsline {subsection}{csv.h}{6}
+\contentsline {subsection}{csh.ih}{7}
+\contentsline {subsection}{csh1.cc}{7}
+\contentsline {subsection}{main.cc}{7}
+\contentsline {section}{Exercise 49}{7}
+\contentsline {subsection}{csv.h}{7}
+\contentsline {subsection}{csv.ih}{8}
+\contentsline {subsection}{allocate.cc}{8}
+\contentsline {subsection}{clear.cc}{9}
+\contentsline {subsection}{csv1.cc}{9}
+\contentsline {subsection}{data.cc}{9}
+\contentsline {subsection}{doublesize.cc}{9}
+\contentsline {subsection}{lastline.cc}{10}
+\contentsline {subsection}{main.cc}{10}
+\contentsline {subsection}{read.cc}{10}
+\contentsline {subsection}{read1.cc}{10}
+\contentsline {subsection}{release.cc}{11}

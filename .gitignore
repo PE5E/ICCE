@@ -35,6 +35,10 @@
 main.log
 *.aux
 
+# geen idee wat dit is maar het is wel irritant
+GIT_INFO
+.GIT_NEWINFO
+
 set 5/exercise_34\.txt
 
 set 5/36-37-38/\.d/filter/display\.d

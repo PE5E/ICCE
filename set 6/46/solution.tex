@@ -1,8 +1,41 @@
 % latex to be imported
 \section{Exercise 46}
 \begin{question}
-gi
+    Write a speed test.
 \end{question}
+
 \begin{solution}
-go
+In 46 there is a main program provided.
+Sadly it uses a pointer as argument to the add member function.
+This will not work. Add expects a string as argument, not a pointer.
+
+So we have altered the stresstest to the following code:
+
+    \subsection{main.cc}
+    \cppfile{../44/main.cc}
+
+Given the short time remaining there was no way to come up with a better solution.
+
+Here are the results we got:
+
+Original class as provided:
+Output: none
+Takes quite some time to process, about 20 sec.
+
+Strings class according to exercise 44:
+output: none
+pretty fast. Done in less than a sec.
+
+Strings class according to exercise 45:
+Output: file: 
+    \subsection{ouput.txt}
+    \textfile{../46/45/output.txt}
+No oportunity to speed test.
+
+Best result we had with 44. This implementation worked and was a lot faster than
+the original. 
+Not sure what happened with 45 though. Maybe by doubling the amount of memory 
+the program wants to claim more than is available at that time. We could see it doubles
+a few times the memory before giving the error as stated.
+
 \end{solution}

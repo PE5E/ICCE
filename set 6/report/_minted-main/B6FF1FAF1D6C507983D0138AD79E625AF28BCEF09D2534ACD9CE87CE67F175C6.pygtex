@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}main.ih\PYGZdq{}}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Filter} \PYG{n}{filter}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{);}                 \PYG{c+c1}{// filters out initial and final }
+                                        \PYG{c+c1}{// empty lines}
+
+    \PYG{n}{filter}\PYG{p}{.}\PYG{n}{display}\PYG{p}{();}                   \PYG{c+c1}{// show the remaining lines to cout}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

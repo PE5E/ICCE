@@ -2,8 +2,11 @@
 
 CSV::CSV(size_t field, char fieldSep)
     :
-        d_fieldSep(fieldSep)              // set field seperator, default ','
+        d_size(1),                   // to allocate: 1 line
+        d_nLines(0),                  // 0 lines read so far
+        d_nFields(field),             // to allocate: 'field' fields
+        d_fieldSep(fieldSep),          // set field seperator, default ','
+        d_lastLine()
 {
-    bigPtr = new std::string **[1];       // allocate array of line pointers
-    bigPtr[0] = new std::string *[field]; // allocate array of string pointers (line)
+    allocate();                       
 }

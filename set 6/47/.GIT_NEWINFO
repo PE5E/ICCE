@@ -1,1 +1,1 @@
- constexpr char const *git__info = " Git Information:\n Clean build: false\n Hash: 545c3851885a958c685b6a19276bc50d8c17a245\n Current tag: untagged\n Last tag: \n Commits since last tag: 161\n Clean build count: 0\n "; 
+ constexpr char const *git__info = " Git Information:\n Clean build: false\n Hash: 13017d23261aa58f2c1c46651cde53c95c5afd4a\n Current tag: untagged\n Last tag: \n Commits since last tag: 166\n Clean build count: 0\n "; 

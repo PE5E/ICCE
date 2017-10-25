@@ -6,10 +6,11 @@
 
 class CSV
 {
-    size_t d_size = 1;                                      // number of lines allocated
-    size_t d_nLines = 0;                                    // number of lines read
-    size_t d_nFields = 1;                                   // number of values per line
+    size_t d_size;                                      // number of lines allocated
+    size_t d_nLines;                                    // number of lines read
+    size_t d_nFields;                                   // number of values per line
     char d_fieldSep;                                  // field seperator (default comma)
+    std::string d_lastLine;
 
     std::string ***bigPtr;                                  // pointer to array of line pointers (see also big comment below)
 
@@ -29,8 +30,18 @@ class CSV
         void clear(size_t nFields = 0);                     // erase everything
     private:
         bool read1(std::istream &in);                       // read 1 line, parse for CSV's, set nFields
+        void allocate();
 };
 
+inline size_t CSV::nFields() const
+{
+    return d_nFields;
+}
+
+inline size_t CSV::size() const
+{
+    return d_size;
+}
 #endif // CSV_HEADER_H
 
 // Line pointers point to array of pointers

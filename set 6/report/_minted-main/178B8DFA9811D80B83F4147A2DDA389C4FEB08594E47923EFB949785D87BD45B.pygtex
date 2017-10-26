@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}filter.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{Filter}\PYG{o}{::}\PYG{n}{display}\PYG{p}{()} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{size} \PYG{o}{=} \PYG{n}{d\PYGZus{}lines}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}          \PYG{c+c1}{// get number and contents}
+    \PYG{n}{string} \PYG{o}{**}\PYG{k}{const} \PYG{n}{str} \PYG{o}{=} \PYG{n}{d\PYGZus{}lines}\PYG{p}{.}\PYG{n}{data}\PYG{p}{();}
+
+                                           \PYG{c+c1}{// print fm first non empty through }
+                                           \PYG{c+c1}{// last non empty}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{index} \PYG{o}{=} \PYG{n}{firstNonEmpty}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,} \PYG{n}{str}\PYG{p}{),} 
+            \PYG{n}{end} \PYG{o}{=} \PYG{n}{beyondLastNonEmpty}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,} \PYG{n}{str}\PYG{p}{);}
+            \PYG{n}{index} \PYG{o}{!=} \PYG{n}{end}\PYG{p}{;}
+                \PYG{o}{++}\PYG{n}{index}
+    \PYG{p}{)}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{o}{*}\PYG{n}{str}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+    
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

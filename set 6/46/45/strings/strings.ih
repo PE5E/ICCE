@@ -1,0 +1,7 @@
+#include "strings.h"
+#include <iostream> 
+#include <string>
+#include <memory>  // placement new
+
+using namespace std;
+

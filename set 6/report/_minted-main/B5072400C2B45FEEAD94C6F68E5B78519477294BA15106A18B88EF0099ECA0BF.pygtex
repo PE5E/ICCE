@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}filter.ih\PYGZdq{}}
+
+\PYG{c+c1}{// static}
+\PYG{k+kt}{bool} \PYG{n}{Filter}\PYG{o}{::}\PYG{n}{empty}\PYG{p}{(}\PYG{n}{string} \PYG{k}{const} \PYG{o}{\PYGZam{}}\PYG{n}{str}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{// find\PYGZus{}first\PYGZus{}not\PYGZus{}of(\PYGZdq{} \PYGZbs{}t\PYGZdq{}) returns index \PYGZhy{}\PYGZgt{} not empty, }
+    \PYG{c+c1}{//  so:}
+        \PYG{c+c1}{// find\PYGZus{}first\PYGZus{}not\PYGZus{}of(\PYGZdq{} \PYGZbs{}t\PYGZdq{}) != npos       \PYGZhy{}\PYGZgt{} not empty}
+        \PYG{c+c1}{//  so:}
+            \PYG{c+c1}{// find\PYGZus{}first\PYGZus{}not\PYGZus{}of(\PYGZdq{} \PYGZbs{}t\PYGZdq{}) == npos       \PYGZhy{}\PYGZgt{} empty}
+
+    \PYG{k}{return} \PYG{n}{str}\PYG{p}{.}\PYG{n}{find\PYGZus{}first\PYGZus{}not\PYGZus{}of}\PYG{p}{(}\PYG{l+s}{\PYGZdq{} }\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)} \PYG{o}{==} \PYG{n}{string}\PYG{o}{::}\PYG{n}{npos}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

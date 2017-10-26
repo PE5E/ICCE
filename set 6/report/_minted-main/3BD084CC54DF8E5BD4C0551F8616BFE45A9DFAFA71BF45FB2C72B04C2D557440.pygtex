@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{Strings}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{argv}\PYG{p}{[])}
+\PYG{o}{:}
+    \PYG{n}{d\PYGZus{}size}\PYG{p}{(}\PYG{n}{argc}\PYG{p}{),}
+    \PYG{n}{d\PYGZus{}capacity}\PYG{p}{(}\PYG{n}{argc}\PYG{p}{),}
+    \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{(}\PYG{n}{rawPointers}\PYG{p}{(}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{))} 
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{fill}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{);}          \PYG{c+c1}{// fill the newly created array}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

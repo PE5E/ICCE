@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{POD} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{release}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{POD} \PYG{n}{ret}\PYG{p}{\PYGZob{}}\PYG{n}{d\PYGZus{}size}\PYG{p}{,} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{\PYGZcb{};}       \PYG{c+c1}{// initialize the POD for the caller}
+
+    \PYG{n}{d\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{n}{d\PYGZus{}capacity} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}                   
+    \PYG{n}{d\PYGZus{}arrayStr} \PYG{o}{=} \PYG{k}{nullptr}\PYG{p}{;}   
+
+    \PYG{k}{return} \PYG{n}{ret}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

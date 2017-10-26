@@ -1,38 +1,77 @@
-\contentsline {section}{Exercise 43}{1}
+\contentsline {section}{Exercise 43}{2}
 \contentsline {subsection}{strings.h}{2}
 \contentsline {subsection}{strings5.cc}{3}
 \contentsline {section}{Exercise 44}{3}
-\contentsline {section}{Exercise 45}{3}
-\contentsline {section}{Exercise 46}{3}
-\contentsline {section}{Exercise 47}{3}
-\contentsline {subsection}{cpu.h}{3}
-\contentsline {subsection}{dereference.cc}{4}
-\contentsline {subsection}{memoryreturn.cc}{5}
-\contentsline {subsection}{readoperand.cc}{5}
-\contentsline {subsection}{registerreturn.cc}{5}
-\contentsline {subsection}{valuereturn.cc}{5}
-\contentsline {subsection}{start.cc}{5}
-\contentsline {subsection}{errorwrap.cc}{5}
-\contentsline {subsection}{execute.cc}{6}
-\contentsline {subsection}{stp.cc}{6}
-\contentsline {subsection}{store.cc}{6}
-\contentsline {subsection}{storememory.cc}{6}
-\contentsline {subsection}{storeregister.cc}{7}
-\contentsline {subsection}{storevalue.cc}{7}
-\contentsline {section}{Exercise 48}{7}
-\contentsline {subsection}{Data Model}{7}
-\contentsline {subsection}{csv.h}{7}
-\contentsline {subsection}{main.cc}{8}
-\contentsline {section}{Exercise 49}{8}
-\contentsline {subsection}{csv.h}{8}
-\contentsline {subsection}{csv.ih}{9}
-\contentsline {subsection}{allocate.cc}{9}
-\contentsline {subsection}{clear.cc}{10}
-\contentsline {subsection}{csv1.cc}{10}
-\contentsline {subsection}{data.cc}{10}
-\contentsline {subsection}{doublesize.cc}{10}
-\contentsline {subsection}{lastline.cc}{10}
-\contentsline {subsection}{main.cc}{11}
-\contentsline {subsection}{read.cc}{11}
-\contentsline {subsection}{read1.cc}{11}
-\contentsline {subsection}{release.cc}{12}
+\contentsline {subsection}{strings.h}{4}
+\contentsline {subsection}{strings.ih}{5}
+\contentsline {subsection}{add.cc}{5}
+\contentsline {subsection}{capacity.cc}{5}
+\contentsline {subsection}{count.cc}{6}
+\contentsline {subsection}{destroy.cc}{6}
+\contentsline {subsection}{fill.cc}{6}
+\contentsline {subsection}{rawpointers.cc}{6}
+\contentsline {subsection}{release.cc}{6}
+\contentsline {subsection}{reserve.cc}{7}
+\contentsline {subsection}{resize.cc}{7}
+\contentsline {subsection}{safeat.cc}{8}
+\contentsline {subsection}{strings1.cc}{8}
+\contentsline {subsection}{strings2.cc}{9}
+\contentsline {subsection}{strings3.cc}{9}
+\contentsline {subsection}{strings4.cc}{9}
+\contentsline {subsection}{strings5.cc}{9}
+\contentsline {subsection}{swap.cc}{9}
+\contentsline {subsection}{filter.h}{10}
+\contentsline {subsection}{filter.ih}{10}
+\contentsline {subsection}{display.cc}{10}
+\contentsline {subsection}{empty.cc}{11}
+\contentsline {subsection}{filter1.cc}{11}
+\contentsline {subsection}{firstnonempty.cc}{11}
+\contentsline {subsection}{lastnonempty.cc}{11}
+\contentsline {section}{Exercise 45}{12}
+\contentsline {subsection}{strings.h}{12}
+\contentsline {subsection}{strings.ih}{13}
+\contentsline {subsection}{add.cc}{13}
+\contentsline {subsection}{capacity.cc}{13}
+\contentsline {subsection}{count.cc}{13}
+\contentsline {subsection}{destroy.cc}{14}
+\contentsline {subsection}{fill.cc}{14}
+\contentsline {subsection}{rawpointers.cc}{14}
+\contentsline {subsection}{release.cc}{14}
+\contentsline {subsection}{reserve.cc}{15}
+\contentsline {subsection}{resize.cc}{15}
+\contentsline {subsection}{safeat.cc}{16}
+\contentsline {subsection}{strings1.cc}{16}
+\contentsline {subsection}{strings2.cc}{17}
+\contentsline {subsection}{strings3.cc}{17}
+\contentsline {subsection}{strings4.cc}{17}
+\contentsline {subsection}{strings5.cc}{17}
+\contentsline {subsection}{swap.cc}{17}
+\contentsline {subsection}{filter.h}{18}
+\contentsline {subsection}{filter.ih}{18}
+\contentsline {subsection}{display.cc}{18}
+\contentsline {subsection}{empty.cc}{19}
+\contentsline {subsection}{filter1.cc}{19}
+\contentsline {subsection}{firstnonempty.cc}{19}
+\contentsline {subsection}{lastnonempty.cc}{19}
+\contentsline {section}{Exercise 46}{20}
+\contentsline {subsection}{main.cc}{20}
+\contentsline {subsection}{ouput.txt}{20}
+\contentsline {section}{Exercise 47}{21}
+\contentsline {subsection}{cpu.h}{21}
+\contentsline {subsection}{dereference.cc}{22}
+\contentsline {subsection}{memoryreturn.cc}{22}
+\contentsline {subsection}{readoperand.cc}{23}
+\contentsline {subsection}{registerreturn.cc}{23}
+\contentsline {subsection}{valuereturn.cc}{23}
+\contentsline {subsection}{start.cc}{23}
+\contentsline {subsection}{errorwrap.cc}{23}
+\contentsline {subsection}{execute.cc}{23}
+\contentsline {subsection}{stp.cc}{24}
+\contentsline {subsection}{store.cc}{24}
+\contentsline {subsection}{storememory.cc}{24}
+\contentsline {subsection}{storeregister.cc}{24}
+\contentsline {subsection}{storevalue.cc}{25}
+\contentsline {section}{Exercise 48}{25}
+\contentsline {subsection}{Data Model}{25}
+\contentsline {subsection}{csv.h}{25}
+\contentsline {subsection}{main.cc}{26}

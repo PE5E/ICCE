@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{n}{Strings}\PYG{o}{::}\PYG{n}{Strings}\PYG{p}{(}\PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{environLike}\PYG{p}{[])}
+\PYG{o}{:}
+    \PYG{n}{d\PYGZus{}size}\PYG{p}{(}\PYG{n}{count}\PYG{p}{(}\PYG{n}{environLike}\PYG{p}{)),}
+    \PYG{n}{d\PYGZus{}capacity}\PYG{p}{(}\PYG{n}{d\PYGZus{}size}\PYG{p}{),}
+    \PYG{n}{d\PYGZus{}str}\PYG{p}{(}\PYG{n}{rawStrings}\PYG{p}{(}\PYG{n}{d\PYGZus{}capacity}\PYG{p}{))}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{fill}\PYG{p}{(}\PYG{n}{environLike}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

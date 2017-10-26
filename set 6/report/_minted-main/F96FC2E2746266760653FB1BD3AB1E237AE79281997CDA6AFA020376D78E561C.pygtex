@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}csv.h\PYGZdq{}}
-
-\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()}
-\PYG{p}{\PYGZob{}}
-    \PYG{n}{CSV} \PYG{n}{file1}\PYG{p}{(}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{},\PYGZsq{}}\PYG{p}{);}
-\PYG{p}{\PYGZcb{}}
-\end{Verbatim}

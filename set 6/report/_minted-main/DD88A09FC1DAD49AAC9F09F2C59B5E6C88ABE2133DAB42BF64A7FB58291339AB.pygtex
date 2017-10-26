@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}strings.ih\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{Strings}\PYG{o}{::}\PYG{n}{swap}\PYG{p}{(}\PYG{n}{Strings} \PYG{o}{\PYGZam{}}\PYG{n}{other}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{string} \PYG{o}{**}\PYG{n}{tmp} \PYG{o}{=} \PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{;}
+    \PYG{n}{d\PYGZus{}arrayStr} \PYG{o}{=} \PYG{n}{other}\PYG{p}{.}\PYG{n}{d\PYGZus{}arrayStr}\PYG{p}{;}
+    \PYG{n}{other}\PYG{p}{.}\PYG{n}{d\PYGZus{}arrayStr} \PYG{o}{=} \PYG{n}{tmp}\PYG{p}{;}
+
+    \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{size} \PYG{o}{=} \PYG{n}{d\PYGZus{}size}\PYG{p}{;}
+    \PYG{n}{d\PYGZus{}size} \PYG{o}{=} \PYG{n}{other}\PYG{p}{.}\PYG{n}{d\PYGZus{}size}\PYG{p}{;}
+    \PYG{n}{other}\PYG{p}{.}\PYG{n}{d\PYGZus{}size} \PYG{o}{=} \PYG{n}{size}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

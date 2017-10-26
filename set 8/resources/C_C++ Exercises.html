@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven07.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l8"></a>
+<h1>Chapter 8: Exercises set eight: Allocation in classes. Deadline: November 16</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 61.</strong>
+        <br>
+        Purpose of this exercise: learn to create leak-free classes
+<p>
+In the exercises about pointers (i.e., pointers1 exercises) we encountered
+the initial definition of the class <code>Strings</code>. Convert this basic class
+<code>Strings</code> into a full-proof value-class. Submit the modified header and all
+members that you added to make the class full-proof (So <em>don't</em> submit the
+implementations of members like the already defined constructors and other
+members implemented earlier).
+</p><p>
+If you think it's sensible to support move-operations: explain why and add
+the required members. If you <em>don't</em> think it's sensible to support
+move-operations: explain why.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 62.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to create leak-free classes
+<p>
+In the 2nd set of exercises about pointers (i.e., pointers2 exercises) we
+encountered a refined definition of the class <code>Strings</code>, using double
+pointers. Convert this refined <code>Strings</code> class to a full-proof value class
+(cf. the previous exercise). Here, too, submit the class's header file and
+only the implementations of members that are added merely for this exercise. 
+</p><p>
+If you think it's sensible to support move-operations for this class:
+explain why and add the required members. If you <em>don't</em> think it's sensible
+to support move-operations for this class: also explain why.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 63.</strong>
+        <br>
+        Purpose of this exercise: learn to recognize situations where copy elision may
+be active.
+<p>
+Construct a small class Demo. The class provides a constructor, a destructor,
+copy and move constructors and overloaded copy and move assignment
+operators. Their actions are irrelevant: for this exercise they may be
+implemented in-class, but they should contain a short <code>cout</code> statement
+showing them being called. 
+</p><p>
+Also construct a factory function <code>Demo factory()</code>. Illustrate, using
+<em>small</em> code fragments,
+    </p><ul>
+    <li> a situation where copy elision is used
+    </li><li> a situation where the move constructor is (or should be) used
+    </li><li> a situation where the copy assignment is used
+    </li><li> a situation where the move assignment is used
+    </li></ul>
+<p>
+Hint: define a simple class where its constructors/assignment operators simply
+display that they're called.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 64.</strong>
+        <br>
+        
+Purpose of this exercise: learn to handle matrices of different sizes.
+<p>
+Remember the slides of the first lecture about pointers? Slide 26 showed
+square matrices of different sizes, noting that it's hard to process such
+matrices by a single function. The solution was to turn to pointers to
+pointers and passing relevant sizes to such a function. 
+</p><p>
+But there's an alternative, which is introduced in this exercise. In broad
+terms, the solution consists of <em>encapsulation</em>!
+</p><p>
+In this exercise design and implement a class <code>Matrix</code>. Eventually this may
+become a fairly elaborate class, but for now we keep it simple. Here are its
+characteristics:
+    </p><ul>
+    <li> The elements of the matrix are <code>double</code> values.
+    </li><li> All elements are retrievable (by the class's members) through a
+        <code>double *d_data</code> data member. Furthermore, it has a <code>d_nRows</code> and
+        a <code>d_nCols</code> data member holding, resp., the matrix's number of rows
+        and number of columns.
+    </li></ul>
+    <ul>
+    <li> There is a constructor expecting two arguments: the number of rows
+        and the number of columns (nitializing the matrix with zeroes).
+    </li><li> There is a constructor expecting an initializer list having row
+        initializer lists containing  column double values (if  the
+        latter initializer lists differ in length, then display a warning
+        message and call <code>exit(1)</code>).<br>
+        Hint: at some point you may want to access the address of 
+        an <code>initializer_list's</code> first element. One way of doing that is
+        (assuming <code>list</code> is an <code>initializer_list&lt;double&gt;</code>):
+            <pre>
+            double const *dptr = &amp;*list.begin();
+            
+</pre>
+
+    </li><li> Do not define the default constructor, but it must be available,
+        initializing its objects with 0 rows and 0 columns.
+    </li><li> The class is a value-type of class.
+    </li><li> The number of rows and the number of columns can be retrieved
+        (<code>nRows()</code>, nCols()).
+    </li><li> The member <code>row(size_t idx)</code> returns a pointer to the first element
+        of row <code>idx</code>. There's also a const variant of this member.
+    </li><li> A static factory function <code>identity(int dim)</code> returns a (square)
+        identity matrix having <code>dim</code> rows and columns (the elements of an
+        identity matrix are zeroes, except for its main diagonal (elements
+        <code>[x][x]</code>), which are ones).
+    </li><li> To transpose a matrix, the member <code>tr</code> transposes the current
+        matrix (returning a reference to itself) <em>only</em> if the matrix is a
+        square matrix. If the matrix is not a square matrix, call <code>exit(1)</code>
+        after issuing an error message. The member <code>transpose</code> is a factory
+        member returning a transposed copy of the current matrix (of any
+        dimension).
+    </li></ul>
+<p>
+Design and implement <code>Matrix</code>. Show that it's easy to implement a
+        (single) function that changes a (square) <code>Matrix</code> of any dimension
+        into an identity matrix (cf. slide 32, pointers-1). Submit your
+        implementation of such a function as well.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 65.</strong>
+        <br>
+        Purpose of this exercise: learn that moving can also be useful for
+non-temporary objects.
+<p>
+Consider the basic <code>Strings</code> class introduced in the 1st set of pointers. 
+</p><p>
+When a new string was added, new memory was allocated, and the existing
+strings were copied to the newly allocated memory. 
+</p><p>
+Since we <em>know</em> that the old strings are no longer used, rather than copying
+the old strings to their new locations we might consider moving them. The
+class <code>strings</code> supports moving, and moving is OK (even though the old
+strings aren't anonymous temporary objects), because classes are responsible
+for their own integrity: if you move string <code>src</code> to string <code>dest</code>, then
+<code>src's</code> contents will have disappeared, but the object (<code>src</code>) remains in
+a valid state.
+</p><p>
+Since moving is faster than copying, using a move operation should result in a
+more efficient program.
+</p><p>
+Extend the class <code>Strings</code> so that the memory extension procedure either
+uses the standard (copy) procedure, or the string's move operation to transfer
+the existing strings to their new locations. 
+</p><p>
+Add a constructor <code>Strings(size_t nIterate, bool copy = true)</code> preparing the
+object for n iterations, either using copying (when <code>copy</code> is <code>true</code>) or
+moving (when <code>copy</code> is <code>false</code>)
+</p><p>
+Select which method to use by specifying a pointer to a member that either
+uses the copy operation or the move operation (adapt <code>add</code>, and rename
+<code>enlarge</code> to <code>enlargeByCopy</code>; also create a member <code>enlargeByMove</code>).
+The pointer is initialized by the mentioned constructor.
+</p><p>
+Also defined a member <code>iterate(char **environLike)</code> that expects a <code>char
+**</code> argument (yes, like <code>environ</code>), which then performs the required number
+of iterations using the requested method. Your <code>main</code> function should expect
+at least one argument (the number of iterations) and optionally a second one,
+in which case moving, rather than copying is used. The member <code>iterate</code>
+should (for the benefit of the experiment) act rather dumbly: it does <em>not</em>
+count the number of <code>environ's</code> elements, but repeatedly calls <code>add</code>. This
+is then repeated <code>nIterations</code> times. Make sure that before each iteration
+all allocated memory has been destroyed. After the iterations, all of
+<code>environLike's</code> strings must be available: let your program display the
+first and last elements of <code>environLike</code>, as stored by your <code>Strings</code>
+object. 
+</p><p>
+Use the <strong>time</strong>(1) program to verify that moving is indeed faster
+than copying.
+</p><p>
+Submit the modified header and all sources you have modified / created. Also
+submit the results of your timing-experiments.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 66.</strong>
+        <br>
+        Purpuse of this exercise: understand the need for using the <code>default</code>
+keyword. 
+<p>
+The following types of constructors can be distinguished: default constructor,
+copy constructor, move constructor, and all other constructors (considered a 
+single category in this exercise). In addition we've encountered the
+overloaded assignment operator, for which three variants are available: the
+copy-assignment operator, the move assignment operator, and all other
+assignment operators (also considered a single category). 
+</p><p>
+Fill out the entries in the following table: put a <code>-</code> in the cells where
+the column element isn't provided by the compiler when you define the row
+element (e.g., when you define the default constructor, the compiler doesn't
+provide the default constructor, and so there's a - in that row/column
+entry. Use the abbreviations for the copy and move constructors/assignment
+operators (e.g., CC for the copy constructor) if the compiler will in fact use
+that member instead of the column entry's default implementation.
+</p><p>
+</p><pre>
+-----------------------------------------------------------
+	   			        constructors        assignment ops.
+	   			     ------------------     ---------------  
+define:			     default copy move        copy    move   
+-----------------------------------------------------------
+no constructor:                                            
+default cons:           
+copy cons (CC):         
+move cons (MC):         
+other cons:             
+                        
+no assignment:          
+copy assignmnt (C=):    
+move assignmnt (M=):    
+other assignmnt:                                             
+-----------------------------------------------------------
+    
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven07.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

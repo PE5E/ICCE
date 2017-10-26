@@ -69,6 +69,22 @@ ifstringstream   ifstream ofstream   osstringstream
                     return ret
                 }
             - read strings? How big is the string?
+            - make an index section saving for each string
+                - position
+                - offset
+ std::string SStream::at(size_t post) const
+{
+    d_in.seekg(pos * sizeof(size_t));
+    d_in.read(reinterpret_cast<char *>(&pos), sizeof(size_t));
+    size_t end;
+    d_in.read(reinterpret_cast<char* >(&end) sizeof(size_t));
+    d_in.seekg(pos);
+    char buffer[end - pos];
+    d_in.read(buffer, end - pos);
+
+    return string(buffer, buffer + d_in.gcount());
+}
+
             
         
     

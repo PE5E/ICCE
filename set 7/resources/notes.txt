@@ -85,9 +85,80 @@ ifstringstream   ifstream ofstream   osstringstream
     return string(buffer, buffer + d_in.gcount());
 }
 
-            
-        
-    
+    - clear if file fails           
+
+K&R BOOK CHAPTER 8
+    UNIX
+        - everything is a file
+    read/write
+        - open file (inform system of intent)
+        - create file or discard pervious contents (system permission check)
+        - if succesful, system returns a 'file descriptor'
+    when running in shell
+        - 3 files (file descriptor 0,1,2)
+            standard input 0
+            standard output 1
+            standard error 2
+    Low level IO
+        - use read, write system calls
+        int n_read = read(int fd, char *buf int n)
+        - returns bytes transferred
+        - 0 means eof
+        - -1 means error
+
+    OOPS IT SAYS CHAPTER 7 NOT 8
+
+K&R BOOK CHAPTER 7
+    - blabla prinft blabla
+
+C++ ANNOTATIONS VERSION 10.8.1 CHAPTER 6
+    - all i/o in std::
+    - forward declare iostream objects 
+        class std::ostream      // BAD
+        #include <iosfwd>       // GOOD
+    - ios_base is.. the base.
+    - ios derives from ios_base and is the base for everything else
+        - implements communication with streambuf objects
+        - streambuf does actual i/o
+    - ostringstream (memory buf)
+    - istringstream (memory buf)
+     
+ <iosfwd> forward declaration       
+ <ios>: sources should include this header file when using types and facilitesi
+ (like ios::off_type, see below) defined in the ios class.
+<streambuf>: sources should include this header file when using streambuf or
+ filebuf classes. See sections 14.8 and 14.8.2.
+<istream>: sources should include this preprocessor directive when using the
+ class istream or when using classes that do both input and output. 
+See section 6.5.1.
+<ostream>: sources should include this header file when using the class 
+ostream class or when using classes that do both input and output.
+ See section 6.4.1.
+<iostream>: sources should include this header file when using the
+ global stream objects (like cin and cout).
+<fstream>: sources should include this header file when using the file 
+stream classes. See sections 6.4.2, 6.5.2, and 6.6.3.
+<sstream>: sources should include this header file when using the string 
+stream classes. See sections 6.4.3 and 6.5.3.
+<iomanip>: sources should include this header file when using
+ parameterized manipulators. See section 6.3.2. 
+ 
+    - badbit: illlegal operation requested at streambuf level
+    - eofbif: end of file
+    - failbit: operation failed at stream level
+    - goodbit: when none of the above happens
+
+    member functions:
+    - copyfmt : copy format flags to current ios object
+    - fill: current padding char
+    - flags: return current flags
+    - flags: return flags end redefine
+    - precision: significant digits for floats
+    - put_time: render std::tm objects
+    - fmtflags: do stuff with the format flags
+    - width: output width for next insertion
+
+
 QUESTIONS
     1. Regarding slide 30 of Basic IO
         why is the read value reinterpret_cast<char *> and not

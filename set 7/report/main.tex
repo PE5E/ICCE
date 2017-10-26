@@ -1,0 +1,89 @@
+\documentclass{article}[9pt]
+
+%%----PACKS----%%
+% misc
+\usepackage[margin=0.5in]{geometry}
+\usepackage{import}
+% math
+\usepackage{amsmath,
+            amsfonts,
+            amssymb}
+% images
+\usepackage{graphicx}
+% code
+\usepackage{minted}
+
+%%-------------%%
+
+%%--SETTINGS---%% 
+% minted
+\usepackage{xcolor}
+\newminted[cpp]{C++}{linenos=true, texcl=true, tabsize=4, frame=lines}
+\newmintedfile[cppfile]{C++}{linenos=true, tabsize=4, frame=lines, fontsize=\small}
+
+\newminted[bashing]{zsh}
+
+% toc
+\setcounter{secnumdepth}{0}
+
+%%--CUSTOM-----%%
+\newenvironment{question}
+{
+\noindent \bf Problem statement. \rm \it
+}
+{
+\rm
+}
+
+\newenvironment{solution}
+{
+\noindent \bf Solution. \rm
+}
+
+\newcommand{\hli}{\par\noindent\rule{\textwidth}{0.4pt}}
+
+\begin{document}
+
+% authors
+\begin{flushright}
+	\textbf{Jaap van der Leest\\ Timon van der Berg \\ }
+\today
+\end{flushright}
+
+% title
+\begin{center}
+\textbf{C++ Course \\
+Assignment 6} \\
+\end{center}
+
+\tableofcontents
+
+%%--BEGIN ACTUAL CONTENT--%%
+\import{../52/}{solution.tex}
+
+
+\import{../53/}{solution.tex}
+
+
+\import{../54/}{solution.tex}
+
+
+\import{../55/}{solution.tex}
+
+
+\import{../56/}{solution.tex}
+
+
+\import{../57/}{solution.tex}
+
+
+\import{../58/}{solution.tex}
+
+
+\import{../59/}{solution.tex}
+
+
+\import{../60/}{solution.tex}
+
+
+\end{document}

@@ -1,0 +1,79 @@
+LECTURE SLIDES: BASIC IO
+    - from C: isattay
+    - don't use variadic functions
+
+    - use streams
+        - streams are classes (use stream objects)
+        - operations decoupled from medium
+
+    - hierarchy
+        ios_base -> ios
+                    |   \
+                    |    \
+                    v     v 
+                 istream  ostream 
+               /    |        |    \
+             /      v        v     \
+ifstringstream   ifstream ofstream   osstringstream
+                    \       /
+                     v     v
+                     fstream
+        istream: input
+        osteram: output
+        iostream: standard streams
+        iosfwd: forward declarations
+
+    - ostream defines insertion operator << for all primitive types and 
+      std::string
+    - istream         extraction         >>                  
+    - istream and ostream use streambuf objects
+    
+    - all above are 'derivated classes'
+        - wrappers
+        - are their parent: ifstream is an istream 
+        - additional functionality is just wrapping - never extend base class 
+        - no surprises: everything in base still available
+    
+    - istringstream, ostringstream
+        - derivated classes
+        - ostringstream: convert to text
+        - istringstream: convert from text
+
+    - stream formatting
+        - formatting members
+        - manipulators
+            often used: hex, dec, endl
+        - parametrized manipulators (#include <iomanip>)
+            often used: setprecision(x), setw(x)
+            (un) setf() // set unset formatting flags
+        
+        - write your own manipulators
+            std::ostream &nl(std::ostream &stream)
+            {
+                return stream << '\n';
+            }
+            use:
+            cout << nl; 
+    - unformatted I/O
+        - no conversions
+        - can be fixed, can combine in/out on single file
+            x.read() x.write() to write bytes
+            x.seek{g,p} x.tell{g,p} to set,  determine file position
+        - drawbacks:
+            - have to use reinterpret_cast
+                double DStream::at(size_t idx) const
+                {
+                    d_in.seekg(idx * sizeof(double));
+                    double ret;
+                    d_in.read(reinterpret_cast<char *>(&ret), sizeof(double))
+                    return ret
+                }
+            - read strings? How big is the string?
+            
+        
+    
+QUESTIONS
+    1. Regarding slide 30 of Basic IO
+        why is the read value reinterpret_cast<char *> and not
+        reinterpret_cast<double *>?
+    2. 

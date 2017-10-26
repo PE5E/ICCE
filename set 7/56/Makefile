@@ -87,7 +87,7 @@ QUIET := @
 endif
 
 # Any environment variables are extended, not replaced
-CXX=g++
+CXX=g++-7
 # So either edit here, or set in the environment
 #CXXFLAGS += -Wall -std=c++17
 # -fabi-version=7 -Wabi

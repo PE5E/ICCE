@@ -158,6 +158,12 @@ stream classes. See sections 6.4.3 and 6.5.3.
     - fmtflags: do stuff with the format flags
     - width: output width for next insertion
 
+CHAPTER 6.4.3
+    - ostringstream: stream to memory
+    - found in <sstream>
+    - has al ostream facilities
+    - 
+    
 
 QUESTIONS
     1. Regarding slide 30 of Basic IO

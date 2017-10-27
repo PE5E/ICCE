@@ -1,7 +1,4 @@
-#include "iosfwd"
-
-// maybe write a declaration that tells the compiler to insert the arguments 
-// of fun in some ostream object?
+void fun(...);                      // compiles, does not link
 
 int main()
 {

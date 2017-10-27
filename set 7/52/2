@@ -1,0 +1,20 @@
+ #include "iosfwd"
+// std::iostream fun;
+// #include <cstdarg>
+// void fun(...);   // C style, deprecated
+
+// void fun(std::string = "", std::string = "", std::string = ""); // does not
+// work
+
+
+// maybe write a declaration that tells the compiler to insert the arguments 
+// of fun in some ostream object?
+std::ostringstream fun;
+void fun(reinterpret_cast<char const*>(x));
+int main()
+{
+    fun();
+    fun("with functions");
+    fun(1, 2, 3);
+}
+        

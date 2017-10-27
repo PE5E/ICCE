@@ -12,16 +12,19 @@ int main(int argc, char **argv)
         return 1;
     }
                                     // istr is initialized with contents
-    istringstream istr(argv[1]);    // of argv[1], "1"    
+    istringstream istr(argv[1]);    // of argv[1]
     size_t no1 = 0;                           
-    istr >> no1;                    // extract, write to size_t no1
-  
+    istr >> no1;                    // extract
+    
     cout << "extracted first number: " << no1 << '\n';
                                     // discards istr contents, copies argv[2] 
     istr.str(argv[2]);              // into istr, moves writing position to end
-                                    // of stream (which is -1)
-    cout << istr.tellg() << '\n';
-    istr.seekg(0);                  // set stream position
+                                    // of stream, but does not unset eof even
+                                    // though it is fixed
+
+    istr.clear();                   // we have fixed the eof, so we may clear
+                                    // the eof bit
+
     size_t no2 = 0;                 
     istr >> no2;                    // extract, write to size_t no2
   

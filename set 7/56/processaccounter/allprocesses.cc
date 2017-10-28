@@ -3,7 +3,7 @@
 void ProcessAccounter::allProcesses()
 {
     resetStream();
-    while (readStruct())
+    while (readProcess())
         printProcess();
 }
 

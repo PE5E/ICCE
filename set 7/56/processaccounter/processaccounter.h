@@ -17,7 +17,7 @@ class ProcessAccounter
         ~ProcessAccounter();
         ProcessAccounter(std::ifstream &is);
 
-        bool readStruct();
+        bool readProcess();
 
         int exitCode()      const;
         char *processName() const;

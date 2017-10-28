@@ -12,11 +12,11 @@ int main()
     std::cerr << __LINE__ << ": open = " << file.is_open() << '\n';
 
     ProcessAccounter object(file);
-    bool did_read = object.readStruct();
+    bool did_read = object.readProcess();
     std::cerr << __LINE__ << ": read = " << did_read << '\n';
 
     size_t count = 0;
-    while (count < 10 && object.readStruct())
+    while (count < 10 && object.readProcess())
     {
         std::cout << object.exitCode() << '\n';      
         std::cout << object.processName() << '\n';

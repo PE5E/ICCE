@@ -3,7 +3,7 @@
 void ProcessAccounter::badProcesses()
 {
     resetStream();
-    while (readStruct())
+    while (readProcess())
         if (exitCode() != 0)
             printProcess();
 }

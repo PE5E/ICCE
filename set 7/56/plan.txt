@@ -1,0 +1,142 @@
+reading binary files
+    int gcount() const
+        number of characters read last operation
+    int get()
+        next available single unsigned char as int
+    istream &get(char *ch)
+        get char, store in ch, return stream
+    istream &get(char *buffer, int len, char delim = '\n')
+        at most len - 1 characters from stream to buffer
+        leaves delim in stream
+    istream &getline(char *buffer, int len, char delim = '\n')
+        like get, but remove delim
+    istream &ignore()
+        skip char
+    istream &ignore(int n)
+        skip n chars
+    istream &ignore(int n, int delim)
+        at most n chars skipped, stop after removing delim
+    int peek()
+        look at next char without removing from stream
+    istream &putback(char ch)
+        ch is pushed back in stream
+        returns eof if not allowed    
+    istream &read(char *buffer, int len)
+        at most len bytes from buffer
+        stops at EOF
+    istream &readsome(char *buffer, int len)
+        at most len bytes read
+        stops at eof without setting eofbit or failbit
+    istream &unget()
+        last read character is put back
+
+- need to know the format of the file
+    - open file stream
+    - read bytes
+    - reinterpret_cast 
+    - cout result 
+
+bool readEntr(std::ifstream &if, std::ostream &os)
+    read a single entry                     // maybe split more
+    reinterpret_cast on the parts
+    write to ostream                        // H
+    return a status bool (read failure or eof?)
+
+class Pracct
+    d_file
+    d_status
+    readEntry           // see above
+    readFile            // call readEntry repeatedly
+    Pracct();           // read default file or argv[1] 
+
+    
+- Can we reinterpret_cast this strct? yes.
+
+struct acct_v3
+{
+        char            ac_flag;                /* Flags */
+        char            ac_version;             /* Always set to ACCT_VERSION */
+        __u16           ac_tty;                 /* Control Terminal */
+        __u32           ac_exitcode;            /* Exitcode */
+        __u32           ac_uid;                 /* Real User ID */
+        __u32           ac_gid;                 /* Real Group ID */
+        __u32           ac_pid;                 /* Process ID */
+        __u32           ac_ppid;                /* Parent Process ID */
+        __u32           ac_btime;               /* Process Creation Time */
+        float           ac_etime;               /* Elapsed Time */
+        comp_t          ac_utime;               /* User Time */
+        comp_t          ac_stime;               /* System Time */
+        comp_t          ac_mem;                 /* Average Memory Usage */
+        comp_t          ac_io;                  /* Chars Transferred */
+        comp_t          ac_rw;                  /* Blocks Read or Written */
+        comp_t          ac_minflt;              /* Minor Pagefaults */
+        comp_t          ac_majflt;              /* Major Pagefaults */
+        comp_t          ac_swaps;               /* Number of Swaps */
+        char            ac_comm[ACCT_COMM];     /* Command Name */
+};
+    
+ 
+do something like
+    size_t entrySize = sizeof(acct_v3); 
+    // read entrySize bytes 
+    // reinterpret_cast                 // opti: read only exit code first
+    // if exit code is not 0
+        output process name 
+i.e. in seperate functons
+when do I stop reading? when we reach eof
+
+class should be asociated with
+        - input file (default or argv[1]
+What is the type for an input file?
+    - just a string
+-------------------------------------------------------------
+class ProccesAccounter
+    ~ProcessAccounter();            // destructor should close file stream?
+                                    // only primitive data members
+                                    // so no need to delete manually
+
+    ProcessAccounter(std::ifstream file):
+    d_struct                        // don't _really_ need to save whole struct
+                                    // but we are reading it from file and
+                                    // saving it (since we dont look for exit
+                                    // code before reading)
+                                    // thus not saving the struct is not an 
+                                    // option anyway
+    readstruct()
+    exitcode()
+    name()
+   
+main.cc:
+ 
+create file stream fstr;
+ProcessAccounter object(fstr);    
+
+while object.readstruct()               // could also calculate number of
+                                        // structs in file (but this is nicer)
+    if object.code != 0
+        cout object.name
+--------------------------------------------------------------------------------
+todo
+    - process that did not exit properly
+    void badProcesses()
+        while readStruct()
+            if d_file.exitcode != 0
+                cout << d_file.processName()
+
+    - -a option (we need getopt for this)
+    - SIGKILL or SIGGTERM name instead of number
+
+
+void printProcess() const;
+    cout << name << 
+    cout << exitcode
+
+
+todo 2
+    - getopt for
+        - -a 
+        - filenamo  
+    - name output for SIGKILL, SIGTERM
+        
+
+    

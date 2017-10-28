@@ -17,15 +17,15 @@ class ProcessAccounter
         ~ProcessAccounter();
         ProcessAccounter(std::ifstream &is);
 
-        bool readProcess();
-
+        void badProcesses();            // processes with nonzero exit code
+        void allProcesses();            // all processes and their exit code
+    private:
+        bool readProcess();             // read a process from file
+        void resetStream();             // restart at beginning
         int exitCode()      const;
         char *processName() const;
-        void badProcesses();
-        void allProcesses();
-        void resetStream(); 
-    private:
         void printProcess() const;
+
 };
         
 #endif

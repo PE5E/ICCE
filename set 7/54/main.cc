@@ -1,15 +1,17 @@
-#include <iostream> // cout
-#include <sstream>  // istringstream
-#include <ctime>    // asctime
+#include <iostream>
+#include <iomanip>      // parametric manipulator
+#include <ctime>        // asctime, localtime, time_t
 
-using namespace std;
+std::ostream &now(std::ostream &out)
+{
+    std::time_t time = std::time(0);                           // posix time
+    std::string timestr = std::asctime(std::localtime(&time)); // h-readable
+    out << timestr.substr(0, timestr.size() - 1);              // remove \n
+    return out;
+}
 
 int main()
 {
-    time_t result = time(nullptr);
-    istringstream is(asctime(localtime(&result)));
-    char now[100];
-    is.getline(now, 25);    // take the 25 first chars
-    cout << now << '\n';
+    std::cout << "lol" << now << "lol" << '\n';
 }
 

@@ -157,6 +157,91 @@ stream classes. See sections 6.4.3 and 6.5.3.
     - put_time: render std::tm objects
     - fmtflags: do stuff with the format flags
     - width: output width for next insertion
+   
+    IOS member functions
+    - std::streambug *ios::rdbuf()  // pointer to streambuf object 
+    - std::streambuf *ios::rdbuf(std::streambuf *new)
+                                    // associate with other streambug
+    - std::ostream *ios::tie()      // pointer to ostream object
+    - std::ostream *ios::tie(std::ostream *outs)
+                                    // associate with other ostream
+    Condition states
+    - badbit: illegal operation at streambuf level
+    - eofbit: ios sensed eof
+    - failbit: failure at stream level
+    - goodbit: this is fine.
+
+    - streams may be used as logical values 
+    - meaning: not fail()
+    Condition state members 
+        - void ios::clear():
+            clears the flags (assuming repaired)
+        - ios::iostate ios::rdstate()
+            return state
+        - void ios::setstate(ios::iostate state)
+            set flags (why?!)
+     
+    Formatting member functions
+        <very intersting stuff>
+    
+    OSTREAM
+    - std::ostream object(std::streambuf *sb)
+        (stream object around streambuf
+    - ostream supports formatted and binary output
+    - insertion operator is the type safe way to be alive
+    ostream binary
+    - ostream& put(char c)
+        write char (byte) to output stream
+    - ostream& write(char const *buffer, int length)
+        write at most length bytes from buffer
+        - to write other types
+            int x;
+            out.write(reinterpet_cast<char const*>(&x), sizeof(int));
+
+    ostream POSITIONING 
+        - ios::post_type tellp():
+            current (absolute) position in file for next write
+        - ostream &seekp(ios::off_type_step, ios::seekdir org)
+            change position relative to org
+            seekdir can be
+                ios::beg (beginning)
+                ios::cur (current)
+                ios::end 
+        - its okay to write behind the end
+        - writing before begin raises ios::fail
+    
+    ofstream
+        - ostream + files
+        - <fstream> header
+        constructors
+            - ofstream object
+            - ofstream object(char const *name, os::openmode mode = ios::out)
+        void open(char const *name, ios::openmode mode =ios::out)
+            open a stream 
+        void close 
+            duh
+        bool is_open const
+            test if stream is open
+    MODES of stream objects
+        - ios::app
+            reposition stream to end before every output
+        - ios::ate
+            start at end of file
+        - ios::binary
+            this is bullshit
+        - ios::in
+            open existing file
+        - ios::out 
+            open or create&open file
+        - ios::trunc
+            start with empty file, remove existin contents
+    
+    ostringstream
+        
+            
+     
+
+
 
 CHAPTER 6.4.3
     - ostringstream: stream to memory
@@ -170,3 +255,8 @@ QUESTIONS
         why is the read value reinterpret_cast<char *> and not
         reinterpret_cast<double *>?
     2. 
+
+
+
+
+

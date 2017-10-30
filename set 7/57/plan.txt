@@ -59,21 +59,6 @@ reading binary
     convert bit array to letters
 
 class DNA
-    bool d_buffer [8];
-    Mode d_mode; // associated enum
-    size_t d_numbases;
-    std::ostream &d_os;
-    std::istream &d_is;
-    
-    void writeByte()
-    void readByte()
-    void readChar()
-    void writeChar()
-    
-    char bitsToChar
-    char charToBits
-    
-    void parseLastByte();
     
 
     

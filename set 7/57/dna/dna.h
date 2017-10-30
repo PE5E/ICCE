@@ -6,9 +6,13 @@
 
 class DNA
 {
-    bool            d_buffer[8];    // one byte   
+    bool            d_buffer[8];
+    char            d_charBuffer[4];
+    size_t          d_bufSize;      // # currently stored in buffer
+    size_t          d_numBases;     // # in binary file
+
     WriteMode       d_mode;
-    size_t          d_numBases;     // bases in file
+
     std::ofstream   &d_os;          // write stream
     std::ifstream   &d_is;          // read stream
 
@@ -16,11 +20,10 @@ class DNA
         DNA(std::ofstream &os, std::ifstream &is);
 
     private:
-        void readLetters(size_t number);
-        void writeLetters(size_t number);
-        void writeByte();          
-        void readByte();
-        void parseLastByte(size_t bits);
+        size_t readLetters();                     // read 4 letters to buffer
+        void writeLetters(size_t number);                 // write 4 letters from buffer
+        void writeByte();                       // write buffer to byte
+        void readByte();                        // read byte to buffer
 };
         
 #endif

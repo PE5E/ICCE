@@ -1,33 +1,21 @@
-#include "processaccounter/processaccounter.ih"
+#include "processaccounter/processaccounter.h"
+#include "optstruct.h"          // 'Opts'
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <unistd.h>             // getopt
-using std::string;
 
-struct Opts {
-    bool aflag;                 // -a print all processes with exit status
-    string path;                // path of process file
-};
+using std::string;
 
 extern int optind;
 
 int main(int argc, char *argv[])
 {
-    Opts opt;                                       // cmdline default values
-    opt.aflag = false;
-    opt.path = "/var/log/account/pacct";
-
-    int val;                                        // parse cmdline options
-    while((val = getopt(argc, argv, "a")) != -1)
-        if (val == 'a')
-            opt.aflag = true;
-
-    if (optind != argc)                             // parse path
-        opt.path = string(argv[optind]);
-
+    Opts opt = parseArgs(argc, argv);                 // cmdline default values
+   
     std::ifstream file(opt.path, std::ios::binary); // open file stream
 
+    // todo : make this a ProcessAccounter method
     if (!file.good())                               // make sure file exists
     {                                               // and opened correct
         std::cerr << "file \'" << opt.path << "\' " 
@@ -37,6 +25,7 @@ int main(int argc, char *argv[])
 
     ProcessAccounter object(file);
 
+    // todo: tert statement can do this :)
     if (opt.aflag)
         object.allProcesses();
     else

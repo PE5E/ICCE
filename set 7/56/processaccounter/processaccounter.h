@@ -19,6 +19,7 @@ class ProcessAccounter
 
         void badProcesses();            // processes with nonzero exit code
         void allProcesses();            // all processes and their exit code
+        bool fileGood()     const;
     private:
         bool readProcess();             // read a process from file
         void resetStream();             // restart at beginning

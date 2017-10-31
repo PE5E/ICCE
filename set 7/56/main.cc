@@ -1,8 +1,6 @@
 #include "processaccounter/processaccounter.h"
 #include "main.h"           // 'Opts' struct, parseArgs
 #include <fstream>
-#include <iostream>
-#include <string>
 
 using std::string;
 

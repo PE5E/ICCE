@@ -1,6 +1,5 @@
-#include "optstruct.h"                               // 'Opts'
+#include "main.h"
 #include <unistd.h>                                  // getopt
-#include <string>
 
 using std::string;
 extern int optind;

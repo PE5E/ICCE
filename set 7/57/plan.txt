@@ -59,8 +59,15 @@ reading binary
     convert bit array to letters
 
 class DNA
-    
 
+-------------------------------------------------------------------------------
+plan
+    implement first
+        simple read of 4 letters to buf             // done
+        simple write of 4 letters from buf          // done
+      
+        simple write of 1 byte from buf
+        simple read of 1 byte to buf
     
     
 

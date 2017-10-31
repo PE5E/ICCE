@@ -6,9 +6,6 @@
 
 class DNA
 {
-    bool            d_buffer[8];
-    char            d_charBuffer[4];
-    size_t          d_bufSize;      // # currently stored in buffer
     size_t          d_numBases;     // # in binary file
 
     WriteMode       d_mode;
@@ -18,12 +15,13 @@ class DNA
 
     public:
         DNA(std::ofstream &os, std::ifstream &is);
+        ~DNA();
+        
+        char getByte(size_t numchars = 4);      // get 4 letters from stream
+        char charMap(char ch);
+        void printByte();
 
     private:
-        size_t readLetters();                     // read 4 letters to buffer
-        void writeLetters(size_t number);                 // write 4 letters from buffer
-        void writeByte();                       // write buffer to byte
-        void readByte();                        // read byte to buffer
 };
         
 #endif

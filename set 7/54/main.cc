@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip>      // parametric manipulator
 #include <ctime>        // asctime, localtime, time_t
 #include <string>
 
@@ -13,6 +12,5 @@ std::ostream &now(std::ostream &out)
 
 int main()
 {
-    std::cout << "lol" << now << "lol" << '\n';
+    std::cout << now << '\n';
 }
-

@@ -1,0 +1,10 @@
+#include "lock.h"
+#include <fstream>
+#include <string>
+#include <unistd.h>    // access(2)
+#include <sys/types.h> // open
+#include <sys/stat.h>
+#include <fcntl.h>
+
+using namespace std;
+

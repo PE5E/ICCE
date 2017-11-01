@@ -1,8 +1,7 @@
 #include "lock.ih"
 
-LOCK::~LOCK()
+Lock::~Lock()
 {
-    d_file.close (d_path + ".lck")
-    remove(d_path + ".lck");
+    unlink(d_lockFile);
 }
 

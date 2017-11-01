@@ -69,6 +69,20 @@ plan
         simple write of 1 byte from buf
         simple read of 1 byte to buf
     
+-------------------------------------------------------------------------------
+cleanup operation
+    dna.h
+        - privateness, consts
+    dna.ih
+        - no iostream, bitset, letters.h
+    remove destructor
+    
+
+todo
+    * implment argument handeling
+        -b flag
+        filenames
+    * binary checking 
     
 
     

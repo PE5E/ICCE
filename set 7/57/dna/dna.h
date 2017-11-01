@@ -3,11 +3,12 @@
 
 #include "enums/writemode.h"
 #include <iosfwd>             // ofstream, istream
+#include <cstdint> // unit16_t
 
 class DNA
 {
-    size_t          d_numBases;     // # in binary file
-
+    static const size_t charcap = 4;    // number of letters that can be stored
+                                        // in 4 bits = 1 char
     WriteMode       d_mode;
 
     std::ofstream   &d_os;          // write stream
@@ -15,12 +16,18 @@ class DNA
 
     public:
         DNA(std::ofstream &os, std::ifstream &is);
-        ~DNA();
-        
-        char getByte(size_t numchars = 4);      // get 4 letters from stream
-        char charMap(char ch);
-        void printByte();
 
+        size_t writeByte(size_t numchars = 4);      // get 4 letters from stream
+                                                  // write single byte to bin
+        char charMap(char ch);
+        char letterMap(char ch);
+        void readByte(size_t numchars = 4);      // get byte from bin
+        void readBin();                         // read a binary file
+                                                 // write 4 letters to stream
+
+        void readHuman();
+        void writeSize(uint32_t size);
+        uint32_t readSize();
     private:
 };
         

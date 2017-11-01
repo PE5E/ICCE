@@ -6,7 +6,7 @@ using std::string;
 
 int main(int argc, char *argv[])
 {
-    Opts opt = parseArgs(argc, argv);                    // cmdline default values
+    Opts opt = parseArgs(argc, argv);                    // cmdline arguments 
 
     std::ifstream file(opt.path, std::ios::binary);      // open file stream
 

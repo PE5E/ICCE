@@ -1,3 +1,0 @@
-#include "dna.h"
-#include <fstream>
-#include <cstdint>  // uint16_t

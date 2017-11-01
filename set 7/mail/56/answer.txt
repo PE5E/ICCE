@@ -1,0 +1,7 @@
+Optional question:
+
+It would be nice to be able to request the program to `tail' the accounting file. In that case it doesn't exit on end-of-file, but it resumes reading as soon as new data becomes available. In C, you would use facilities like select, epoll or inotify. Explain why it is hard to obtain the same effect in standard C++. 
+
+Answer:
+Het probleem ligt bij de file descriptor, die gedeeld is door alle programma's die een bestand openen, en de lees/schrijf positie bevat. Als je gaat schrijven terwijl je leest vliegt die positie alle kanten op.
+In C heb je direct toegang tot de file descriptor en fread, fwrite locken automatisch. In C++ zitten deze functies verstopt achter een stream. 

@@ -1,0 +1,91 @@
+DNA
+    A
+    T
+    G
+    C
+
+Two formats
+    ATGC (human readable)           // chars
+    Binary (design this)
+
+Arguments
+    - input file    
+    - output file
+    - option -b  // convert from H to b
+
+Features
+    - make sure the H file contains only ACTG
+    - binary format should be identifiable as such
+
+Binary format
+    00 A
+    01 C
+    10 G
+    11 T 
+
+array of two bools?
+    bools are a byte, so no.
+bitsets 
+    can we use them? probably no.
+
+buffer 4 letters = 8 bits = 1 byte          // how to buffer?
+                                            // what do to if we dont
+                                            // get enough letters?
+                                            // * keep track!
+                                            // extra byte at start of file
+                                            // for #letters
+                                            // #letters mod 4 tells you size of
+                                            // last char array
+
+    bool buffer[8] = {0,0,0,0,0,0,0,0};     // writing per byte may be slow
+
+    example:
+    A  C  G  T
+    00 01 10 11
+    
+    buffer [00011011]
+
+    char byte;
+    for (size_t index = 0; index != 7; ++index)
+        byte |= buffer[index] << index;     // indexth bit raised
+                                            // if raised in buffer
+                    
+    - write byte to file
+    ostream.write(byte, ..)
+         
+reading binary
+    read byte
+    convert to bit array
+    convert bit array to letters
+
+class DNA
+
+-------------------------------------------------------------------------------
+plan
+    implement first
+        simple read of 4 letters to buf             // done
+        simple write of 4 letters from buf          // done
+      
+        simple write of 1 byte from buf
+        simple read of 1 byte to buf
+    
+-------------------------------------------------------------------------------
+cleanup operation
+    dna.h
+        - privateness, consts
+    dna.ih
+        - no iostream, bitset, letters.h
+    remove destructor
+    
+
+todo
+    * implment argument handeling
+        -b flag
+        filenames
+    * binary checking 
+    
+
+    
+    
+    
+

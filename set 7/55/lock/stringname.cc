@@ -1,11 +1,13 @@
 #include "lock.ih"
 
-static string const LOCK::stringName(string mode)
+std::string Lock::stringName(std::string mode, std::string const &path)
 {
-    if (mode == "dirname")
-        return this.d_path;
+    size_t found = path.find_last_of("/\\");       // works for unix and windows
+
+    if (mode == "dirname" && found != string::npos)
+        return path.substr(0,found) + "/";         // dirname only
     else if (mode == "basename")
-        return this.d_baseDir;
-    else
-        return "error";
+        return path.substr(found+1);               // filename only
+
+    return "";
 }

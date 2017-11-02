@@ -18,7 +18,7 @@ class DNA
         void readBin();                         // read a binary file
         void readHuman();                       // read a human file
     private:
-        size_t writeByte(size_t numchars = 4);      // get 4 letters from stream
+        size_t writeByte(size_t numchars = 4);    // get 4 letters from stream
                                                   // write single byte to bin
         char charMap(char ch);
         char letterMap(char ch);

@@ -27,8 +27,7 @@ void Lock::process()
         cin >> text;
 
         const char *buffer = text.c_str();
-        write(fdFile, buffer, 1024);
-
+        write(fdFile, buffer, text.length());
         closePartOfLock(fdFile, fdLock);
     }
 

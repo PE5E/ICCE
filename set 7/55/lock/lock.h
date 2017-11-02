@@ -16,16 +16,16 @@ class Lock
         Lock();
         ~Lock();
         Lock(std::string const &path);
-        Lock(std::string const &path, std::string &lockingdir);
+        Lock(std::string const &path, std::string const &lockingdir);
 
     private:
        static std::string stringName(std::string mode, std::string const &path);
 
-        int openPartOfLock();  // can not use plain "open" because of file: open
+        const int openPartOfLock();  // cant use plain "open"
         void closePartOfLock(int fdLock, int fdFile);
         bool valid(int lockStat);
         void process();        // function called from constructors
-        int createLockFile();     
+        const int createLockFile();     
     public:
         
 

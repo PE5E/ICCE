@@ -1,6 +1,6 @@
 #include "lock.ih"
 
-Lock::Lock(string const &path, string &lockingdir)
+Lock::Lock(string const &path, string const &lockingdir)
 :
     d_dirName(stringName("dirname", path)),
     d_baseName(stringName("basename", path)),

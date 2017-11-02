@@ -1,6 +1,6 @@
 #include "lock.ih"
 
-int Lock::createLockFile()
+const int Lock::createLockFile()
 {
     int fdLock = 0;
     if (access(d_lockFile, F_OK) == 0)                 // if file exists

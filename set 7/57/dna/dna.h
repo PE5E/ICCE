@@ -1,7 +1,6 @@
 #ifndef INCLUDED_DNA_
 #define INCLUDED_DNA_
 
-#include "enums/writemode.h"
 #include <iosfwd>             // ofstream, istream
 #include <cstdint> // unit16_t
 
@@ -9,7 +8,6 @@ class DNA
 {
     static const size_t charcap = 4;    // number of letters that can be stored
                                         // in 4 bits = 1 char
-    WriteMode       d_mode;
 
     std::ofstream   &d_os;          // write stream
     std::ifstream   &d_is;          // read stream

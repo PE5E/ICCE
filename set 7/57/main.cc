@@ -1,27 +1,16 @@
 #include "dna/dna.h"
+#include "main.h"
 #include "fstream"
 #include <iostream>
 
-void fun()
+int main(int argc, char *argv[])
 {
-    std::ifstream infile("IN.txt");
-    std::ofstream outfile("OUT.txt");
-    
+    Opts opt = parseArgs(argc, argv);
+   
+    std::ifstream infile(opt.infile);
+    std::ofstream outfile(opt.outfile);
+
     DNA object(outfile, infile);
-    object.readHuman();
-}
 
-void lol()
-{
-    std::ifstream infile2("OUT.txt");
-    std::ofstream outfile2("inback.txt");
-
-    DNA object2(outfile2, infile2);
-    object2.readBin();
-}
-
-int main()
-{
-    fun();
-    lol();
+    opt.bflag ? object.readHuman() : object.readBin();
 }

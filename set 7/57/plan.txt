@@ -79,11 +79,11 @@ cleanup operation
     
 
 todo
-    * implment argument handeling
-        -b flag
-        filenames
+    * implment argument handeling           DONE
+        -b flag                             DONE
+        filenames                           DONE
     * binary checking 
-    
+            
 
     
     

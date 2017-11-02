@@ -14,3 +14,8 @@ int main(int argc, char *argv[])
 
     opt.bflag ? object.readHuman() : object.readBin();
 }
+
+
+// usage:
+// ./main -b infile outfile (text to binary)
+//./main infile outfile (binary to text)

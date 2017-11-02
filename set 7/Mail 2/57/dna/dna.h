@@ -6,7 +6,7 @@
 
 class DNA
 {
-    static const size_t d_charcap = 4;    // number of letters that can be stored
+    static const size_t d_charcap = 4;  // number of letters that can be stored
                                         // in 8 bits = 4, see also below
     static const char d_magicbyte = 255;
 

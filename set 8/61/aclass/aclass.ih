@@ -1,0 +1,5 @@
+#include "aclass.h"
+#include <cstring>
+
+using namespace std;
+

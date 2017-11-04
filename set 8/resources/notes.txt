@@ -1,0 +1,64 @@
+LECTURE NOTES SLIDES: ALLOCATION IN CLASSES
+    example
+        struct Entry;
+        class Symtab
+        {
+            entry **d_entry;    
+            size_t  d_size;
+        };
+    
+    destructors recap
+        * delete memory allocated & owned by obj
+        * cleanup
+            * close streams
+            * derived classes       // future topic
+        
+    initialization of object example:
+        void fun(Symtab const &outer)
+        {
+            Symtab inner{ outer };
+            ...
+        }
+        * note we just created a new object with values from old object
+        * structs and classes are copied MEMBER-WISE
+        * the POINTER d_entry is copied; the copy points to the SAME ADRESS
+        * destroying outer will make the pointer in inner WILD!
+
+    the solution: COPY CONSTRUCTOR
+        * always REQUIRED when objects allocate its own memory 
+        * syntax
+            ClassName::ClassName(ClassName const &other)
+            :
+                // member initializers if possible
+            {
+                // allocate mem
+                // copy info stored in other
+            }
+        * example
+            Symtab::Symtab(Symtab const &other)
+            :
+                d_entry(new Entry *[other.d_size]),
+                d_size(other.d_size)
+            {
+                for (size_t idx = 0; idx != d_size; ++idx)
+                    d_entry[idx] = new Entry(*other.d_entry[idx]);
+            }
+    DEFAULT copy constructor
+        * copy simple data byte-wise (pointers too)
+        * copy other data using their copy constructors
+    
+    copy constructor CALLS
+        * value class parameter is used
+            fun(SymTab thing)
+        * value class return type is used
+            SymTab fun(...)
+            {
+                SymTab bla;
+                return bla;
+            }
+        * initializing object from existing object of same class (see above)
+
+    compilers & the CC
+        * compilers like to avoid CC: COPY ELISION
+
+=====   slide 15 / tbc ===== 

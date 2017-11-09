@@ -61,4 +61,99 @@ LECTURE NOTES SLIDES: ALLOCATION IN CLASSES
     compilers & the CC
         * compilers like to avoid CC: COPY ELISION
 
-=====   slide 15 / tbc ===== 
+    
+    Blunt assignment: bad (wild pointers)
+        * lvalue object must allocate it own memory
+        * OVERLOAD the ASSIGNMENT operator!
+            Symtab &Symtab::operator=(Symtab const &rvalue)
+            {
+                deleteEntryObjects();       // what is behind the pointer
+                delete[] d_entry;           // the pointer
+            
+                d_size = rvalue.d_size;             // how big?
+                d_entry = new Entry * [d_size];     // welcome new space
+                
+                for (size_t idx = 0; idx != d_size; ++idx)          // copy
+                    d_entry[idx] = new Entry(*rvalue.d_entry[idx]);
+
+                return *this;                   // 
+            }
+
+    Intermezzo: THIS
+        * pointer (adress of object calling member function)
+        * always available in non-statics
+        * type is 'Myclass *const this'
+        * used for
+            * returning ref to current object (return *this)
+            * point to current obj when using pointers to members
+
+    SUMMARY
+       when a class has memory:
+            + COPY CONSTRUCTOR
+            + OVERLOADED ASSIGNMENT OPERATOR
+            + DESTRUCTOR
+        and optionally
+            + move constructor
+            + move assignment operator
+            + swap member
+   
+    BUT: BEFORE implmenting overloaded assignment (destruct + copy)
+    consider SWAPPING:
+        - objects may swap member-wise IF no ref members
+        - classes often provide swap members
+        - simple but very fast:
+        void Class::swap(Class &other)
+        { 
+            char bytes[sizeof(Class)];
+            memcpy(bytes,   this,   sizeof(Class));
+            memcpy(this,    &other, sizeof(Class));
+            memcpu(&other,  bytes,  sizeof(Class));
+        }
+        - possible for members with/without reference members
+        and dynamic allocationconst 
+            # not for linked lists / self-pointing classes
+
+    Class design PROTOTYPE
+        class Symtab
+        {
+                // data
+            public:
+                Symtab(...);        // constructors
+                Symtab(Symtab const &other);
+                ~Symtab();
+                Symtab &Operator=(Symtab const &other);
+    
+                void swap(Symtab &other);       // maybe
+                // more members
+            private:
+                // YEAH PRIVATE MEMBERS 
+        }
+        
+    Sometimes you can't define copy constructor
+            PREVENT use:
+            public:
+                Symtab(Symtab const &other) = delete;
+                Symtab &operator=(Symtab const &other) = delete; 
+            PS could use =default
+    
+    RVALUE references &&ref
+        * anonymous temporary values
+        * may be modified (unlike Class const &)
+        * 
+            
+
+C++ ANNOTATIONS: CHAPTER 9 (CLASSES AND MEMORY ALLOCATION)
+
+
+GENERAL
+    lvalue vs rvalues
+        - every expression is either lvalue or rvalue
+        rvalue &&
+            - temps or objects that pretend to be temp
+            - we can steal their resources
+        lvalue &
+            - not rvalues
+        primordial example
+            int dog = 5;
+            dog is lvalue
+            5 is rvalue

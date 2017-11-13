@@ -1,0 +1,10 @@
+#include "lock.h"
+#include <iostream>    // cin, cout
+#include <string>
+#include <unistd.h>    // access, unlink
+#include <sys/types.h> // open
+#include <sys/stat.h>  // open
+#include <fcntl.h>     // open
+#include <sys/file.h>  // flock
+
+using namespace std;

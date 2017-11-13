@@ -2,7 +2,7 @@ dna/dna.h
 dna/dna.ih
 main.cc
 main.h
-parseargs
+parseargs.cc
 dna/charmap.cc
 dna/dna1.cc
 dna/lettermap.cc

@@ -1,0 +1,11 @@
+54: 1
+55: 0
+- NAE: er wordt niet geprompt en ook geen regel aan de file toegevoegd.
+- Zie inline.
+56: 0
+- Zie inline.
+57: 1
+- You don't detect input format, but simply assume that when binary must be written, HR will be on input and v.v.
+  So you don't get the second point.
+- No enums where they should've been. But you lost points to that mistake in earlier exercises in this set, and
+  the rest of the program isn not bad.

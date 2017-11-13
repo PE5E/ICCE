@@ -5,3 +5,6 @@ It would be nice to be able to request the program to `tail' the accounting file
 Answer:
 Het probleem ligt bij de file descriptor, die gedeeld is door alle programma's die een bestand openen, en de lees/schrijf positie bevat. Als je gaat schrijven terwijl je leest vliegt die positie alle kanten op.
 In C heb je direct toegang tot de file descriptor en fread, fwrite locken automatisch. In C++ zitten deze functies verstopt achter een stream. 
+
+// JB: Nee. Als twee processen p1 en p2 beide een file openen, kan het best zijn dat ze beide file descriptor 4 krijgen. Maar die beide file descriptors wijzen wel naar verschillende entries in de file descriptor table. En ze hebben elk een eigen read- en write-positie.
+Het probleem is dat je met stream moet busy-waiten om te zien of er nog data beschikbaar is.

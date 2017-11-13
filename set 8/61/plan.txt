@@ -1,0 +1,8 @@
+Summary: When a class allocates memory for its own use, it must define:
+    A copy constructor
+    An overloaded assignment operator
+    A destructor
+And optionally:
+    a move constructor
+    a move assignment operator
+    a dedicated swap member

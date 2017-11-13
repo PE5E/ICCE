@@ -139,10 +139,92 @@ LECTURE NOTES SLIDES: ALLOCATION IN CLASSES
     RVALUE references &&ref
         * anonymous temporary values
         * may be modified (unlike Class const &)
-        * 
-            
+    
+    Just before temporaries cease you can steal their resources
+        * suppose you initialize a symtab oject like this
+            Symtab factory();
+            Symtab symtab(factory());
+            - CC will copy return of factory()
+            - the return of factory is just for this copy 
+        * the move constructor can use this fact:
+            Symtab::Symtab(Symtab &&tmp)
+            :
+                d_entry(tmp.d_entry),
+                d_size(tmp.d_size)
+            {
+                tmp.d_size = 0;
+                tmp.d_entry = 0;
+            }             
+            The move constructor does not move the data - it steals the pointer.
+        * X && overloads for X const& often useful
+        
+    std::move
+        string *d_str;
+        size_t d_size;
+    * when extending memory, old data becomes obsolete
+    * therefore: MOVE dont copy
+        void Class::enLarge(size_t newSize)
+        {
+            string *newStr = new string[newSize]
+            for (size_t idx = 0; idx != d_size; ++idx)
+                newStr[idx] = move(d_str[idx]);
+            delete[] d_str;
+            d_str = newStr;
+            d_size = newSize;
+        }
 
 C++ ANNOTATIONS: CHAPTER 9 (CLASSES AND MEMORY ALLOCATION)
+
+9.7 Moving data
+    tradionally: two ways to assign to lvalue
+        - copy constructor
+        - reference counting
+    now also: move semantics
+        - transfer data
+        - for anon data
+        - usually value return is anon
+        - anon is short-lived
+        - class destructor is called for anon object
+    
+    * classes with own memory usually benefit from move-awereness
+    * other classes may also 
+    * moveable parameters: Class &&tmp (rvalue ref)
+    * compiler has preference for these
+    * When called inside a function like that, they are no longer anon
+    * anonymous returns are rarely used
+
+ 9.7.1 The move constructor
+    * consider this:
+        Strings loadStrings(std::istream &in)
+        {
+            Strings ret;
+            // load the strings into 'ret'
+            return ret;
+        {
+        // usage
+        Strings store(loadStrings(cin));
+    * note that here two copies are made (internal external)
+    * we can avoid this using a move constructor
+        Strings(Strings &&tmp)
+        :
+            d_string(tmp.d_string),
+            d_size(tmp.d_size),
+            d_capacity(tmp.d_capacity)
+        {
+            tmp.d_string = 0;
+        }
+    * defining move constructor surpresses the default copy constr.
+    * to get it back
+        Class(Class const &other) = default;
+        (you need this if you try to initialize using a non-anon obj)
+9.7.1. The move constructor (composition)
+    * moving also possible for data types that are not owned by class pointer
+    Person::Person(Person &&tmp)
+    :
+        d_name(std::move(tmp.d_name)),          // tell compiler that this is 
+                                                // really anon
+        d_adress(std::move(tmp.d_adress))
+    {} 
 
 
 GENERAL

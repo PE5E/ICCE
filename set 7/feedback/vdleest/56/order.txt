@@ -1,3 +1,17 @@
+processaccounter/processaccounter.h
+processaccounter/processaccounter.ih
+main.h
 main.cc
+parseargs.cc
+processaccounter/allprocesses.cc
+processaccounter/badprocesses.cc
+processaccounter/exitcode.cc
+processaccounter/filegood.cc
+processaccounter/printprocess.cc
+processaccounter/processaccounter1.cc
+processaccounter/processaccounterdestr.cc
+processaccounter/processname.cc
+processaccounter/readprocess.cc
+processaccounter/resetstream.cc
 answer.txt
 

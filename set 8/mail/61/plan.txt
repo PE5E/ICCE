@@ -1,0 +1,40 @@
+Summary: When a class allocates memory for its own use, it must define:
+    A copy constructor -> done
+    An overloaded assignment operator -> done
+    A destructor -> done
+    A dedicated swap member -> done, nodig bij assignment operator (alleen 
+versie 1, niet meer in huidige vorm)
+Dus vanaf hier werkt de class Strings leak-free!!
+
+And optionally:
+    A move constructor  -> done
+    A move assignment operator -> done
+
+Move kan hier wel toegepast worden. Zie annot. pag. 215:
+"Classes not using pointer members pointing to memory controlled by its objects
+(and not having base classes doing so, see chapter 13) may also benefit from 
+overloaded members expecting rvalue references. 
+The class benefits from move operations when one or more of the composed data 
+members themselves support move operations.
+Move operations cannot be implemented if the class type of a composed data 
+member does not support moving or copying. Currently, stream classes fall into 
+this category."
+
+De class Strings maakt geen gebruik van stream classes als data member, dus move
+operatorations can be implemented.
+
+Move operations zijn hier logisch, daarom zijn ze ook geïmplementeerd. Immers de
+class voldoet aan alle voorwaarden die hierboven genoemd zijn. Voordeel van 
+een move-awareness class is dat er beter omgegaan kan worden met het geheugen. 
+
+
+
+Gewijzigd / nieuw:
+strings.h
+assignment.cc
+destructor.cc
+move.cc        move assignment
+strings5.cc    copy constructor
+strings6.cc    move constructor
+swapupdated.cc
+

@@ -19,8 +19,11 @@ class Strings
         Strings(int argc, char *argv[]);
         Strings(char *environLike[]);
         Strings(std::istream &in);
+        Strings(Strings const &other);              // copy constructor
+        Strings(Strings &&tmp);                     // move constructor
+        ~Strings();                                 // destructor
 
-        void swap(Strings &other);              
+        void swap(Strings &other);                  // updated version
 
         size_t size() const;
         std::string const *data() const;
@@ -30,6 +33,9 @@ class Strings
         std::string &at(size_t idx);                // for non-const objects
 
         void add(std::string const &next);          // add another element
+
+        Strings &operator=(Strings const &other);   // assignment operator
+        Strings &operator=(Strings &&tmp);          // move operator
 
     private:
         void fill(char *ntbs[]);                    // fill prepared d_str

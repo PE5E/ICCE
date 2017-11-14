@@ -1,0 +1,9 @@
+   [Compiling] matrix/matrix5.cc
+matrix/matrix5.cc: In constructor ‘Matrix::Matrix(std::initializer_list<std::initializer_list<double> >)’:
+matrix/matrix5.cc:11:45: error: cannot convert ‘std::initializer_list<std::initializer_list<double> >::const_iterator {aka const std::initializer_list<double>*}’ to ‘const double*’ in initialization
+         double const *dptr = rows.begin() + rowidx; // first
+                                             ^~~~~~
+matrix/matrix5.cc:13:19: error: request for member ‘size’ in ‘* dptr’, which is of non-class type ‘const double’
+         if (dptr->size() != d_ncols)
+                   ^~~~
+make: *** [Makefile:451: matrix/matrix5.o] Error 1

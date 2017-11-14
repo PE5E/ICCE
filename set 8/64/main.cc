@@ -17,7 +17,6 @@ void printMat(Matrix &matr)
 int main()
 {
     Matrix mati(3,4);       
-    printMat(mati);
-
-
+    Matrix matii({{1,2},{3,4}});
+    printMat(matii);
 }

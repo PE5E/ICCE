@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include <cstring>
-#include <utility>
+#include <utility>              
+#include <iostream>             // cout
 
 using namespace std;
 

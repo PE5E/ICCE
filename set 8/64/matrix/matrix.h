@@ -2,6 +2,7 @@
 #define INCLUDED_MATRIX_
 
 #include <cstddef>
+#include <initializer_list>
 
 class Matrix
 {
@@ -16,6 +17,8 @@ class Matrix
         Matrix(Matrix &&tmp);               // matrix3.cc
 
         Matrix(size_t ncols, size_t nrows); // matrix4.cc
+                                            // matrix5.cc
+        Matrix(std::initializer_list<std::initializer_list<double>> inlist);
 
         ~Matrix();
         Matrix &operator=(Matrix const &other);
@@ -24,19 +27,19 @@ class Matrix
 
                                             // return members
         size_t const nRows()            const;
-        size_t const rCols()            const;
+        size_t const nCols()            const;
 
         double const *row(size_t row)   const;
 
     private:
 };
         
-inline size_t const Matrix::nRows()
+inline size_t const Matrix::nRows() const
 {
     return d_nrows;
 }
 
-inline size_t const Matrix::nCols()
+inline size_t const Matrix::nCols() const
 {
     return d_ncols;
 }

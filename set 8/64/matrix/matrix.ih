@@ -1,7 +1,9 @@
 #include "matrix.h"
 #include <cstring>
-#include <utility>              
+#include <utility>              // swap?
 #include <iostream>             // cout
 
-using namespace std;
+using std::cout; 
+using std::cerr;
+
 

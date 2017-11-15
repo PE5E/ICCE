@@ -6,13 +6,13 @@
 
 class Matrix
 {
-    double *d_data;
-    size_t  d_nrows;
-    size_t  d_ncols; 
+    double *d_data = nullptr;
+    size_t  d_nrows = 0;
+    size_t  d_ncols = 0; 
 
     public:
                                             // constructors
-        Matrix();                           // matrix1.cc
+        Matrix() = default;                 //
         Matrix(Matrix const &other);        // matrix2.cc
         Matrix(Matrix &&tmp);               // matrix3.cc
 
@@ -30,7 +30,11 @@ class Matrix
         size_t const nCols()            const;
 
         double const *row(size_t row)   const;
+        double *row(size_t row);
 
+        static Matrix identity(size_t dim); 
+
+        Matrix &tr();           
     private:
 };
         

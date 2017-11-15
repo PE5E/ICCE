@@ -5,13 +5,13 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> rows)
         d_nrows(rows.size()),
         d_ncols(rows.begin()->size())
 {
-    d_data = new double[d_nrows * d_ncols];                      // alloc
+    d_data = new double[d_nrows * d_ncols];                     
 
-    for (size_t rowidx = 0; rowidx != d_nrows; ++ rowidx)        // loop rows
+    for (size_t rowidx = 0; rowidx != d_nrows; ++ rowidx)        
     {
         if ((&*rows.begin() + rowidx)->size() != d_ncols)        // row length
-        {                                        // consider sep
-            std::cerr << "AHHH" << '\n';                         
+        {                                        
+            std::cerr << "ERROR: incoherent matrix" << '\n';                         
             exit(1);
         }
 

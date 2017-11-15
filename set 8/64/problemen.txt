@@ -1,9 +1,0 @@
-   [Compiling] matrix/tr.cc
-matrix/tr.cc: In member function ‘Matrix& Matrix::tr()’:
-matrix/tr.cc:7:45: error: lvalue required as unary ‘&’ operand
-             std::swap(&(row(rowidx) + colidx), &(row(colidx) + rowidx));
-                                             ^
-matrix/tr.cc:7:70: error: lvalue required as unary ‘&’ operand
-             std::swap(&(row(rowidx) + colidx), &(row(colidx) + rowidx));
-                                                                      ^
-make: *** [Makefile:451: matrix/tr.o] Error 1

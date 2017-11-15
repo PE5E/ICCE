@@ -11,21 +11,15 @@ class Matrix
     size_t  d_ncols = 0; 
 
     public:
-                                            // constructors
-        Matrix() = default;                 //
-        Matrix(Matrix const &other);        // matrix2.cc
-        Matrix(Matrix &&tmp);               // matrix3.cc
-
-        Matrix(size_t ncols, size_t nrows); // matrix4.cc
-                                            // matrix5.cc
+        Matrix() = default;                 
+        Matrix(Matrix const &other);        
+        Matrix(size_t ncols, size_t nrows); 
         Matrix(std::initializer_list<std::initializer_list<double>> inlist);
-
-        ~Matrix();
+        ~Matrix();              
         Matrix &operator=(Matrix const &other);
         Matrix &operator=(Matrix &&tmp);
         void swap(Matrix &other);
 
-                                            // return members
         size_t const nRows()            const;
         size_t const nCols()            const;
 
@@ -35,7 +29,9 @@ class Matrix
         static Matrix identity(size_t dim); 
 
         Matrix &tr();           
+        Matrix transpose()              const;
     private:
+        void isSquare()                 const;
 };
         
 inline size_t const Matrix::nRows() const

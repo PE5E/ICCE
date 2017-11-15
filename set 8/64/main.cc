@@ -20,23 +20,42 @@ void line()
 
 int main()
 {
-    Matrix mati(3,4);       
+    Matrix mati(3,4);                   // zeros constructor
     printMat(mati);
     line();
 
-    Matrix matii({{1,2},{3,4}});
+//    Matrix transp = mati.transpose();
+
+    Matrix matii({{1,2},{3,4}});        // list-specified
     printMat(matii);
     line();
 
-    Matrix matiii;
+    Matrix matiii;                      // default constr
     printMat(matiii);
     line();
 
-    Matrix matj;
+    Matrix matj;                        // identity matrix
     matj = matj.identity(5);
     printMat(matj);
     line();
 
-    matii.tr();
+    matii.tr();                         // transpose
     printMat(matii);
+    line();
+
+    Matrix matcop(matii);               // copy constr
+    printMat(matcop);
+    line();
+
+    Matrix matcopi = matcop;            // overload assign op
+    printMat(matcopi);
+    line();
+                                        // overload assign &&
+    Matrix matcopii = std::move(matcop); 
+    printMat(matcopii);
+    line();
+
+    Matrix hoi = matcopii.transpose();
+    printMat(hoi);
+
 }

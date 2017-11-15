@@ -1,9 +1,9 @@
 plan.txt
 strings.h
-destructor.cc
 assignment.cc
 move.cc
+strings4.cc
 strings5.cc
-strings6.cc
-swapupdated.cc
+swap.cc
+
 

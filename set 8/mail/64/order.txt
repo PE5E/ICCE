@@ -13,3 +13,4 @@ matrix/row.cc
 matrix/swap.cc
 matrix/transpose.cc
 matrix/tr.cc
+main.cc

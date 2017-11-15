@@ -8,11 +8,11 @@ void pl()           // not related to poland
 }
 
 
-demo fun()          // for copy elision demonstration
+demo factory()          // for copy elision demonstration
 {
-    std::cout << "fun() called" << '\n';
+    std::cout << "factory() called" << '\n';
     demo ret;
-    std::cout << "end of fun()" << '\n';
+    std::cout << "end of factory()" << '\n';
     return ret;
 }
 
@@ -24,7 +24,7 @@ int main()
     pl();
     std::cout << __FILE__ << __LINE__ << ": COPY ELISION EXAMPLE" << '\n';
 
-    demo thing2(fun());             // copy elision: only 1 constructor call
+    demo thing2(factory());             // copy elision: only 1 constructor call
 
     
     // move constructor
@@ -45,7 +45,7 @@ int main()
     pl();
     std::cout << __FILE__ << __LINE__ << ": MOVE ASSIGNMENT EXAMPLE"
               << '\n';
-    demo thing5 = fun();            
+    demo thing5 = factory();            
 
     pl();
     std::cout << __FILE__ << __LINE__ << ": END OF PROGRAM" << '\n';

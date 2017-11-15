@@ -31,9 +31,9 @@ een move-awareness class is dat er beter omgegaan kan worden met het geheugen.
 
 Gewijzigd / nieuw:
 strings.h
-assignment.cc
+assignment.cc  overloaded assignment operator
 destructor.cc
-move.cc        move assignment
+move.cc        move assignment operator
 strings5.cc    copy constructor
 strings6.cc    move constructor
 swapupdated.cc

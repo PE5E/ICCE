@@ -1,0 +1,15 @@
+matrix/matrix.h
+matrix/matrix.ih
+matrix/destructor.cc
+matrix/identity.cc
+matrix/issquare.cc
+matrix/matrix2.cc
+matrix/matrix4.cc
+matrix/matrix5.cc
+matrix/operatorassign1.cc
+matrix/operatorassign2.cc
+matrix/row1.cc
+matrix/row.cc
+matrix/swap.cc
+matrix/transpose.cc
+matrix/tr.cc

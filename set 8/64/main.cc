@@ -11,12 +11,32 @@ void printMat(Matrix &matr)
         }
         std::cout << '\n';
     }
-
-        
 }
+
+void line()
+{
+    std::cerr << "-------------------------------------------" << '\n';
+}
+
 int main()
 {
     Matrix mati(3,4);       
+    printMat(mati);
+    line();
+
     Matrix matii({{1,2},{3,4}});
+    printMat(matii);
+    line();
+
+    Matrix matiii;
+    printMat(matiii);
+    line();
+
+    Matrix matj;
+    matj = matj.identity(5);
+    printMat(matj);
+    line();
+
+    matii.tr();
     printMat(matii);
 }

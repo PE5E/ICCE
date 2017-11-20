@@ -1,0 +1,11 @@
+Why First::fun is called
+    If we don't explicitly tell the compiler in which namespace to look
+    for fun(), it will use the namespace of the argument given to fun().
+    This is called Koenig lookup.
+How to call Second::fun
+    By explicitly writing Second::fun(enist); in main
+Why << is simplified by Koenig lookup
+
+Why fun(First::Enum symbol) fails
+    The compiler is looking for fun() in the namespace First::Enum. 
+    Since the function fun() is not there, WC.

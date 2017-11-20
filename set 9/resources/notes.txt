@@ -1,0 +1,54 @@
+Namespaces
+    namespace ident
+    {
+        // declared or defined entities
+        
+    }
+    - not in a func body
+    - can be 'defined' in multiple places (they are connected)
+    - possible to declare things
+
+anonymous namespaces
+    - restricted to file that defines it
+
+koenig lookup
+    - if no namespace specified, function argument namespace is used
+    to determine where to look for function. 
+
+CH11: operator overloading
+
+int main()
+{
+    IntArray x{ 20 };       // 20 ints
+    for (int i = 0; i < 20; ++i)
+        x[i] = i * 2;
+    
+    for (int i = 0; i <= 20; i++)
+        cout << "At index " << i << ": value is" << x[i] << '\n';
+}
+
+class IntArray
+{
+    int     *d_size;
+    size     d_size;
+
+    public:
+        IntArray(size_t size = 1);
+        IntArray(IntArray const &other);
+        ~IntArray();
+        IntArray &operator=(IntArray const &other);
+
+        int &operator[](size t index);
+        int operator[](size_t index) const;
+    
+        void swap(IntArray &other);
+
+    private:
+        void boundary(size_t index) const;
+        int &operator(size_t index) const;
+
+    
+
+
+
+    

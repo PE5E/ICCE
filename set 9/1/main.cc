@@ -20,9 +20,10 @@ namespace Second
     } 
 }
 
+void fun(First::Enum symbol);
+
 int main()
 {
     First::Enum eninst;
     fun(eninst);
-    fun(First::enum Symbol);
 }

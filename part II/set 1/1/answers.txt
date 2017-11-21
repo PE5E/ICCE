@@ -7,10 +7,10 @@ How to call Second::fun
     By explicitly writing Second::fun(enist); in main
 
 Why << is simplified by Koenig lookup
-    It is the reason we don't have to write std::cout std::<< "Hello"
-    but can write std::cout << "Hello.
+    It is the reason we don't have to write std::cout std::operator<< "Hello"
+    but can write std::cout << "Hello".
     Since std::cout is in std:: the compiler looks for the operator << in
-    the namaspace std too.
+    the namespace std too.
 
 Why fun(First::Enum symbol) fails
     The compiler is looking for fun() in the namespace First::Enum. 

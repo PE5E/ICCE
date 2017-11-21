@@ -1,0 +1,19 @@
+Overloaded operators
+Toevoegen een operator die het ene object met het andere kan vergelijken.
+Dus een check of de inhoud van de ene gelijk is aan de andere.
+
+Strings class:
+bool Strings::operator==(const Strings& other)
+
+strings.h
+compare.cc
+main.cc
+
+Matrix class:
+bool Matrix::operator==(const Matrix& other)
+
+matrix.h
+compare.cc
+main.cc
+
+

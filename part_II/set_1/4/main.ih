@@ -1,0 +1,8 @@
+#include <iostream>
+
+#include "matrix/matrix.h"
+
+using namespace std;
+
+ostream &show(ostream &out, Matrix const &mat);
+

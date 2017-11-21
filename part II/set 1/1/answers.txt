@@ -13,5 +13,4 @@ Why << is simplified by Koenig lookup
     the namespace std too.
 
 Why fun(First::Enum symbol) fails
-    The compiler is looking for fun() in the namespace First::Enum. 
-    Since the function fun() is not there, WC.
+    There are two functions matching the function call: 

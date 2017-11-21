@@ -8,9 +8,12 @@ Matrix operator+(Matrix const &lhs, Matrix const &rhs)
 		std::cerr << "Matrix dimensions not equal" << '\n';
 		return lhs;
 	}
+	
 	Matrix tmp(lhs);
+
 	for (size_t idx = 0, end = tmp.d_nCols * tmp.d_nRows;
 		idx != end; ++idx)
 		*(tmp.d_data + idx) += *(rhs.d_data + idx);
+
 	return tmp;
 }

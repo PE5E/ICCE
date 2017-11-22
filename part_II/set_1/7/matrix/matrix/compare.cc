@@ -2,10 +2,8 @@
 
 bool Matrix::operator==(const Matrix& other)
 {
-    if (this->d_nRows != other.d_nRows)
-        return false;
-
-    if (this->d_nCols != other.d_nCols)
+    if (this->d_nRows != other.d_nRows ||
+        this->d_nCols != other.d_nCols)
         return false;
 
     for (size_t idx =0; idx != d_nRows * d_nCols; ++idx)

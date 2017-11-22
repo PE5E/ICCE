@@ -6,4 +6,3 @@ matrix/operatorcall2.cc
 matrix/operatorcall.cc
 matrix/operatorextract.cc
 matrix/operatorinsert.cc
-show.cc

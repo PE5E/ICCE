@@ -38,8 +38,9 @@ class Matrix
 
         void swap(Matrix &other);
 
-        bool operator==(const Matrix& other);      // compare Matrix objects
-    
+        bool operator==(Matrix const &other) const;// EX7
+        bool operator!=(Matrix const &other) const;// EX7
+
     private:
         double &el(size_t row, size_t col) const;
         void transpose(double *dest) const;

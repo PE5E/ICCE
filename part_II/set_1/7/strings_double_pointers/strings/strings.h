@@ -27,8 +27,9 @@ class Strings
         void resize(size_t newSize);
         void reserve(size_t newCapacity);
     
-        bool operator==(const Strings& other);      // comparison operator
-        
+        bool operator==(Strings const &other) const;// EX7
+        bool operator!=(Strings const &other) const;// EX7
+
     private:
         std::string &safeAt(size_t idx) const;      // private backdoor
         std::string **storageArea();                // to store the next str.

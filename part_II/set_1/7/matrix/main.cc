@@ -19,13 +19,13 @@ int main(int argc, char **argv)
     show(cout, mat4) << '\n';
 
 
-    cout << "Is mat1 gelijk aan mat2?\n";
-    cout << (mat1 == mat2 ? "Ja\n\n" : "Nee\n\n");
+    cout << "Is mat1 ongelijk aan mat2?\n";
+    cout << (mat1 != mat2 ? "Ja\n\n" : "Nee\n\n");
 
-    cout << "Is mat1 gelijk aan mat3?\n";
-    cout << (mat1 == mat3 ? "Ja\n\n" : "Nee\n\n");
+    cout << "Is mat1 ongelijk aan mat3?\n";
+    cout << (mat1 != mat3 ? "Ja\n\n" : "Nee\n\n");
 
-    cout << "Is mat1 gelijk aan mat4?\n";
-    cout << (mat1 == mat4 ? "Ja\n\n" : "Nee\n\n");
+    cout << "Is mat1 ongelijk aan mat4?\n";
+    cout << (mat1 != mat4 ? "Ja\n\n" : "Nee\n\n");
 }
 

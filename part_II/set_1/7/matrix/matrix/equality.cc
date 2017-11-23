@@ -1,14 +1,13 @@
 #include "matrix.ih"
 
-bool Matrix::operator==(const Matrix& other)
+bool Matrix::operator==(Matrix const &other) const
 {
-    if (this->d_nRows != other.d_nRows)
+    if (this->d_nRows != other.d_nRows ||
+        this->d_nCols != other.d_nCols)
         return false;
 
-    if (this->d_nCols != other.d_nCols)
-        return false;
-
-    for (size_t idx =0; idx != d_nRows * d_nCols; ++idx)
+    for (size_t idx = 0, end = d_nRows * d_nCols;
+    	idx != end; ++idx)
         if (this->d_data[idx] != other.d_data[idx])   // check each element
             return false;
 

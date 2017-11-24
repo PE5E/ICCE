@@ -44,19 +44,19 @@ int main()
     try
     {
         std::cerr << "Trying (outer)" << '\n';
-    try
-    {
-        std::cerr << "Trying (inner)" << '\n';
-        Dem lol3;
-        std::cerr << "Throwing" << '\n';
-        throw lol3;
-    }
-    catch(Dem &lol)
-    {
-        std::cerr << "Catching!" << '\n';
-        std::cerr << "Re-throwing!" << '\n';
-        throw;
-    }
+        try
+        {
+            std::cerr << "Trying (inner)" << '\n';
+            Dem lol3;
+            std::cerr << "Throwing" << '\n';
+            throw lol3;
+        }
+        catch(Dem &lol)
+        {
+            std::cerr << "Catching!" << '\n';
+            std::cerr << "Re-throwing!" << '\n';
+            throw;
+        }
     }
     catch(Dem &lol)
     {
@@ -69,17 +69,17 @@ int main()
     try
     {
         std::cerr << "Trying (outer)" << '\n';
-    try
-    {
-        std::cerr << "Trying (inner)" << '\n';
-        Dem lol4;
-        throw lol4;
-    }
-    catch(Dem lol)
-    {
-        std::cerr << "Catching!" << '\n';
-        throw;
-    }
+        try
+        {
+            std::cerr << "Trying (inner)" << '\n';
+            Dem lol4;
+            throw lol4;
+        }
+        catch(Dem lol)
+        {
+            std::cerr << "Catching!" << '\n';
+            throw;
+        }
     }
     catch(Dem lol)
     {

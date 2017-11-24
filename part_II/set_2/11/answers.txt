@@ -11,3 +11,5 @@ thrown
 
 'throw;' does result in another copy if the object is passed directly
     see example 4 in main.cc
+
+conclusion: do not throw objects. throw references.

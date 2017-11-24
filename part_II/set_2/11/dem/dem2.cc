@@ -3,5 +3,5 @@
 Dem::Dem(Dem const &other)
 //:
 {
-    std::cerr << "Calling copy constructor" << '\n';
+    std::cerr << "\t Calling copy constructor" << '\n';
 }

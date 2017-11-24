@@ -3,11 +3,10 @@
 
 int main()
 {
-   MaxFour *list = nullptr;
    try
    {
        std::cerr << "Trying outer!" << '\n';
-       list = new MaxFour[10];      // constructor will throw
+       MaxFour *list = new MaxFour[10];      // constructor will throw
    }
    catch(std::string &problem)
    {

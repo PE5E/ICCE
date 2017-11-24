@@ -9,7 +9,6 @@ class MaxFour
     public:
         MaxFour();      // constructor
         ~MaxFour();     // destructor
-        static size_t getCount();
     private:
 };
 

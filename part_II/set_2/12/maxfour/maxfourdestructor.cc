@@ -2,6 +2,6 @@
 
 MaxFour::~MaxFour()
 {
-    std::cerr << "\tDestroying object " << count << '\n';
-    --count;
+    std::cerr << "\tDestroying object " << s_count << '\n';
+    --s_count;
 }

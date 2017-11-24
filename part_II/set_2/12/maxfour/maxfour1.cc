@@ -5,10 +5,10 @@ MaxFour::MaxFour()
     try
     {
         std::cerr << "\tTring constructor!" << '\n';
-        if (count == 4)
+        if (s_count == 4)
             throw std::string("max number of objects reached");
-        ++count;
-        std::cerr << "\tCreating object " << count << '\n';
+        ++s_count;
+        std::cerr << "\tCreating object " << s_count << '\n';
     }
     catch(std::string &problem)
     {

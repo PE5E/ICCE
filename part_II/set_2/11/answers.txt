@@ -1,3 +1,48 @@
+If the program is run using ./main the following is returned
+
+-------------------------------------------------------------------------------
+Example 1: return object
+-------------------------------------------------------------------------------
+Trying
+	 Calling default constructor 
+Throwing
+	 Calling move constructor
+	 Calling copy constructor
+Catching!
+-------------------------------------------------------------------------------
+Example 2: return object reference
+-------------------------------------------------------------------------------
+Trying
+	 Calling default constructor 
+Throwing
+	 Calling move constructor
+Catching!
+-------------------------------------------------------------------------------
+Example 3: rethrow by reference
+-------------------------------------------------------------------------------
+Trying (outer)
+Trying (inner)
+	 Calling default constructor 
+Throwing
+	 Calling move constructor
+Catching!
+Re-throwing!
+Re-catching!
+-------------------------------------------------------------------------------
+Example 4: rethrow object
+-------------------------------------------------------------------------------
+Trying (outer)
+Trying (inner)
+	 Calling default constructor 
+	 Calling move constructor
+	 Calling copy constructor
+Catching!
+	 Calling copy constructor
+Re-catching!
+-------------------------------------------------------------------------------
+
+from this we draw the following conclusions:
+
 Exception catchers catching objects result in additional copies of thrown
 objects:
     see example 1 in main.cc
@@ -13,3 +58,5 @@ thrown
     see example 4 in main.cc
 
 conclusion: do not throw objects. throw references.
+
+

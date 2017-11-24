@@ -3,5 +3,5 @@
 Dem::Dem()
 //:
 {
-    std::cerr << "\t Calling Default Constructor " << '\n';
+    std::cerr << "\t Calling default constructor " << '\n';
 }

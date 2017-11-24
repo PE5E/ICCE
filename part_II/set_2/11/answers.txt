@@ -1,0 +1,13 @@
+Exception catchers catching objects result in additional copies of thrown
+objects:
+    see example 1 in main.cc
+
+When throwing objects or references copies of the (referred to) objects are 
+thrown
+    see example 2 in main.cc
+
+'throw;' does not result in another copy if the object is passed by reference
+    see example 3 in main.cc
+
+'throw;' does result in another copy if the object is passed directly
+    see example 4 in main.cc

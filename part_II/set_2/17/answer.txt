@@ -1,0 +1,10 @@
+Using 'throw 1', the code works fine. When changing this to 'throw 1.0', we get the following output:
+
+terminate called after throwing an instance of 'std::bad_exception'
+  what():  std::bad_exception
+Aborted (core dumped)
+
+When we use the member function asNoexcept however, we get the following output:
+
+terminate called after throwing an instance of 'double'
+Aborted (core dumped)

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven01.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l2"></a>
+<h1>Chapter 2: Exercises set two: Exceptions. Deadline: Dec. 7</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 11.</strong>
+        <br>
+        Purpose: learn to appreciate catching references when throwing exceptions
+<p>
+Show that exception catchers catching objects result in additional copies
+of thrown objects, compared to exception catchers catching references to
+objects. Also show that when throwing objects or references copies of the
+(referred to) objects are thrown.
+</p><p>
+Also answer the question whether `<code>throw;</code>' results in throwing the
+currently available exception or a copy of that exception.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 12.</strong>
+        <br>
+        Purpose of this exercise: study the way delete[] works
+<p>
+Design a simple class <code>MaxFour</code> (only a constructor and destructor need to
+be implemented). Once four <code>MaxFour</code> objects have been constructed its
+constructor should throw an exception showing <code>max. number of objects
+reached</code>. 
+</p><p>
+Next write a small program in which an array of 10 <code>MaxFour</code> objects are to
+be constructed. Show how you can destroy the already allocated objects once
+you've caught the exception and explain why the solution is (so) simple.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 13.</strong>
+        <br>
+        Purpose of this exercise: learn to create an exception safe class
+<p>
+Earlier (part I, see also the exercises about allocation) we encountered the
+<code>Matrix</code>. The code of this class can also be downloaded
+<a href="https://www.icce.rug.nl/edu/2/overloading/matrix.tgz">here</a>.
+</p><p>
+The code of some members of the <code>Matrix</code> class might fail (some of them even
+use <strong>exit</strong>(3)). Identify those points, and make sure that the matrix becomes
+exception safe (or at least exception neutral).
+</p><p>
+For this exercise your may also look at the overloaded operators (see the
+`overloading' exercises). If you correctly handle those additional functions,
+then you receive a point for the next (optional) exercise.
+</p><p>
+<strong>Note:</strong> <code>operator[]</code> may fail due to an array bound excess. In line with
+the standard semantics of the index operator this is acceptable. 
+</p><p>
+However, there should <em>also</em> be a matching <code>at</code> function which should do
+array bound checking, throwing an exception if the index is out of bounds.
+</p><p>
+Make sure that the <code>at</code> function can be used like the index operator, so
+also for the 2nd index (this is somewhat complex: if this part is correctly
+implemented it earns you another point for the 2nd optional exercise following
+this one). Here is an example showing what happens when using the <code>at</code>
+members on a 5 x 3 matrix:
+        </p><pre>
+    cout &lt;&lt; "Element 3, 2 of mat: " &lt;&lt; mat[3][2] &lt;&lt; "\n"
+            "same, using at(): " &lt;&lt; mat.at(3).at(2) &lt;&lt; '\n';    
+
+    mat.at(3).at(2) = 12;
+
+    cout &lt;&lt; "Element 3, 2 of mat after assiging to 12: " &lt;&lt; mat[3][2] &lt;&lt; "\n"
+            "same, using at(): " &lt;&lt; mat.at(3).at(2) &lt;&lt; '\n';    
+
+    cout &lt;&lt; "Exception when exceeding row index:\n";
+    try
+    {
+        mat.at(30).at(2);
+    }
+    catch (exception const &amp;exc)
+    {
+        cout &lt;&lt; exc.what() &lt;&lt; '\n';
+    }
+
+    cout &lt;&lt; "Exception when exceeding col index:\n";
+    try
+    {
+        mat.at(3).at(20);
+    }
+    catch (exception const &amp;exc)
+    {
+        cout &lt;&lt; exc.what() &lt;&lt; '\n';
+    }
+
+    /* Generated output:
+
+        Element 3, 2 of mat: 8
+        same, using at(): 8
+        Element 3, 2 of mat after assiging to 12: 12
+        same, using at(): 12
+        Exception when exceeding row index:
+        Row index (30) exceeded. nRows = 5
+        Exception when exceeding col index:
+        Col index (20) exceeded. nCols = 3
+    */
+        
+</pre>
+
+    Hint: let the first <code>at</code> return a <code>Row</code> object, defined as nested
+class in Matrix, and define the 2nd <code>at</code> in <code>Row</code>.
+<p>
+A simpler (but non-standard) <code>at</code> implementation consists of an <code>at</code>
+function expecting two index arguments: one for the row, one for the
+column. If you skip the 2nd optional exercise, then the 1st optional exercise
+should offer a <code>at(rowIdx, colIdx)</code> function, checking the indices.
+</p><p>
+The resulting <code>Matrix</code> class must offer the exception guarantees: explain
+for each member function why this is true by adding a <strong>short</strong> explanatory
+comment at the top of each source file.
+</p><p>
+Note: this exercise, which may require you to define some additional
+members. Also, there are very few situations where your code actually has to
+create and throw exceptions; usually you only have to be able to properly
+handle exceptions thrown by, e.g., operator <code>new</code>.  Make sure that objects
+of the class you submit for this exercise can safely be used in programs.
+</p><p>
+<br><br>
+     
+</p><hr>
+        <strong>Exercise 14.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to create an exception safe class
+<p>
+If you cover the <code>Matrix's</code> overloaded operators in the previous
+exercise (see the `overloading' exercises), making them exception safe, you
+earn 1 point for this exercise.
+</p><p>
+If you do, then submit this exercise as a single line of text: 
+        </p><pre>
+    See the previous exercise.
+        
+</pre>
+
+<p>
+<br><br>
+     
+</p><hr>
+        <strong>Exercise 15.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to create an exception safe class
+<p>
+If you correctly implement the single argument <code>at</code> members (see the main
+exercise about <code>Matrix</code> then you earn 1 point for this exercise.
+</p><p>
+If you do, then submit this exercise as a single line of text: 
+        </p><pre>
+    See the Matrix exercise.
+        
+</pre>
+
+<p>
+<br><br>
+     
+</p><hr>
+        <strong>Exercise 16.</strong>
+        <br>
+        Purpose of this exercise: learn how to end a program safely.
+<p>
+Assume you're program is being executed at a deeply nested level. At that
+point the program notices that further execution is pointless. Of course,
+calling <code>exit(1)</code> is no option.
+</p><p>
+How do you end a program in such a situation? Your solution must be `bullet
+proof' in that:
+    </p><ul>
+    <li> it ends the program by properly calling the destructors
+        of any local object between <code>main</code> and your current execution
+        level</li></ul>, 
+    <li> it must be simple, without any possibility of confusion,
+    </li><li> the program must stop.
+    )
+<p>
+Make sure you also submit a small demo illustrating your findings.
+</p><p>
+Note: there are at least two ways of doing this. One is blunt, the other (the
+one you should at least develop) is in theory not completely `bullet proof',
+but in practice it is.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 17.</strong>
+        <br>
+        Purpose of this exercise: learn to understand how throw lists and noexept
+work.
+<p>
+As noted, throw lists and <code>noexept</code> are enforced by the compiler. It's not
+something that magically is enforced. But what is the compiler doing?
+</p><p>
+In this exercise design a little class <code>ShowExcepts</code> that has a constructor
+that accepts an <code>int</code> and a pointer to a function expecting no arguments and
+has a  <code>void</code> return type. The class has two functions:
+    </p><ul>
+    <li> <code>asAthrowList()</code>, that behaves like a function that specifies <code>throw
+        int, std::string</code>, but doesn't use a throw list;
+    </li><li> <code>asNoexcept()</code>, that calls the function passed to the object's
+        constructor, and behaves like a function that uses <code>noexcept</code>, but
+        doesn't use <code>noexcept</code>.
+    </li></ul>
+<p>
+Submit your class and a small program (and its output) showing that your code
+works as stated.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 18.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: Learn to identify points where exceptions may be
+thrown. 
+<p>
+Consider the following function and ask yourself at which points exceptions
+<em>may</em> be thrown. Assume that the function cleanly compiles and that <code>cout</code>
+does not throw exceptions.
+        </p><pre>
+    void fun()
+    {
+        X x;
+        cout &lt;&lt; x;
+        X *xp = new X(x);
+        cout &lt;&lt; (x + *xp);
+        delete xp;
+    }
+        
+</pre>
+ 
+    Hint: there are over 10 points in the above program where exceptions could
+be thrown.
+<p>
+Submit your answer as a numbered list stating the sequence number, the piece
+of code (the statement) that may throw an exception and a short (!)
+explanation why the exception might be thrown. Some statements may generate
+exceptions for multiple reasons: show each of them as a separate entry. Use
+the following format when submitting this exercise: statement you would write
+something like:
+        </p><pre>
+       statement   explanation
+  1.   ....
+  ...
+
+  5.   throw x;    A copy of object x is thrown
+                   Align comments requiring multiple
+                   lines of text.
+
+  6.   throw x;    Copying x may throw an exception
+  ....
+        
+</pre>
+
+    
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 19.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to allocate memory offering the strong
+guarantee.
+<p>
+Consider a <code>Strings</code> class using placement new to store <code>std::string</code>
+objects. It has data members <code>std::string *d_str, size_t d_size</code> and
+<code>size_t d_capacity</code>.
+</p><p>
+Implement a member <code>Strings &amp;Strings::add(std::string const *append, size_t
+count)</code> adding <code>count</code> strings pointed at by <code>append</code> to the strings
+maintained by the <code>Strings</code> object. Add a <em>small (!)</em> end-of-line comment
+to each statement in <code>add</code> describing why the statement was used. The
+comments should provide an explanation as to why the implementation offers the
+strong guarantee.
+</p><p>
+Capacity must be doubled when <code>d_size + count &gt;= d_capacity</code>, and <code>add</code>
+must throw an exception stating what went wrong if the addition
+cannot be completed. Firthermore, <code>add</code> must offer the strong guarantee.
+</p><p>
+Caveat: this is harder to accomplish than it appears to be at first sight. 
+</p><p>
+You may use an existing <code>Strings</code> class (e.g., as developed during part
+I). You may also use the following <code>Strings</code> interface, assuming that all
+members, except for <code>add</code> have already been implemented:
+        </p><pre>
+#include &lt;iosfwd&gt;
+
+class Strings
+{
+    std::string *d_str;
+    size_t d_size;
+    size_t d_capacity;        
+
+    public:
+        Strings();
+        Strings(Strings const &amp;other);
+        ~Strings();
+
+        Strings &amp;operator=(Strings const &amp;rhs);
+
+        Strings &amp;add(std::strings *append, size_t count);
+};
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven01.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</li></body></html>

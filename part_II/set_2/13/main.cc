@@ -4,6 +4,8 @@ int main(int argc, char **argv)
 {
     Matrix mat({{1,2,3,5,5},{6,7,8,9,0},{1,2,3,4,5},{6,7,8,9,0}});
     show(std::cout, mat);
+    std::cout << "__" << '\n';
+    show2(std::cout, mat);
 
     cout << "Element 3, 2 of mat: " << mat[3][2] << "\n"
             "same, using at(): " << mat.at(3).at(2) << '\n';    

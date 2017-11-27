@@ -5,4 +5,5 @@
 using namespace std;
 
 ostream &show(ostream &out, Matrix const &mat);
+ostream &show2(ostream &out, Matrix const &mat);
 

@@ -2,25 +2,35 @@
 
 int main(int argc, char **argv)
 {
-    cout << "3 x 3 matrix filled with zeros\n";
-    Matrix mat(3, 3);
-    show(cout, mat) << '\n';
+    Matrix mat({{1,2,3,5,5},{6,7,8,9,0},{1,2,3,4,5},{6,7,8,9,0}});
+    show(std::cout, mat);
 
-    cout << "4 x 4 identity matrix\n";
-    show(cout, Matrix::identity(4)) << '\n';
+    cout << "Element 3, 2 of mat: " << mat[3][2] << "\n"
+            "same, using at(): " << mat.at(3).at(2) << '\n';    
 
-    cout << "Changing the 3 x 3 matrix into a 3 x 4 matrix filled with 1..12"
-                                                                        "\n";
-    mat = Matrix{
-                    { 1,  2,  3}, 
-                    { 4,  5,  6}, 
-                    { 7,  8,  9}, 
-                    {10, 11, 12}, 
-                };
+    mat.at(3).at(2) = 12;
 
-    show(cout, mat) << '\n';
+    cout << "Element 3, 2 of mat after assiging to 12: " << mat[3][2] << "\n"
+            "same, using at(): " << mat.at(3).at(2) << '\n';    
 
-    cout << "Transposing the above matrix:\n";
-    show(cout, mat.transpose()) << '\n';
+    cout << "Exception when exceeding row index:\n";
+    try
+    {
+        mat.at(30).at(2);
+    }
+    catch (exception const &exc)
+    {
+        cout << exc.what() << '\n';
+    }
+
+    cout << "Exception when exceeding col index:\n";
+    try
+    {
+        mat.at(3).at(20);
+    }
+    catch (exception const &exc)
+    {
+        cout << exc.what() << '\n';
+    }
 }
 

@@ -24,8 +24,24 @@ class Matrix
         Matrix &operator=(Matrix const &rhs);
         Matrix &operator=(Matrix &&tmp);
 
-        double *row(size_t idx);
-        double const *row(size_t idx) const;
+        double *operator[](size_t rowindex);
+        double const *operator[](size_t rowindex) const;
+
+        class Row
+        {
+            double *d_row = nullptr;
+            public:
+                Row(size_t rowindex, Matrix const &mat);
+                double &at(size_t colindex);
+                double const &at(size_t colindex) const;
+            private:
+        };
+        
+        Row at(size_t colindex);
+        Row const at(size_t colindex) const;
+
+//        double *row(size_t idx);
+//        double const *row(size_t idx) const;
 
         size_t nRows() const;
         size_t nCols() const;
@@ -44,15 +60,15 @@ class Matrix
         void transpose(double *dest) const;
 };        
 
-inline double *Matrix::row(size_t row)
-{
-    return &el(row, 0);
-}
+//inline double *Matrix::row(size_t row)
+//{
+//    return &el(row, 0);
+//}
 
-inline double const *Matrix::row(size_t row) const
-{
-    return &el(row, 0);
-}
+//inline double const *Matrix::row(size_t row) const
+//{
+//    return &el(row, 0);
+//}
 
 inline size_t Matrix::nCols() const
 {

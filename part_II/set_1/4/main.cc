@@ -15,3 +15,15 @@ int main(int argc, char **argv)
     show(std::cout, mat4);
 }
 
+/*
+FIXED:
+-SF: operator+= maakt eerst een kopie, en gaat zich dan pas afvragen
+of hij eigenlijk wel verder kan.
+-Pointer notation in index loop.
+-DRY: de for-loop herberekent de size van tmp. (Ook IRE.) ???
+-Operator+(&&,&) roept operator+= aan, en maakt dus een overbodige kopie.
+-Operator+(&,&) maakt zodoende zelfs twee keer een kopie.
+Hint: in Strings::operator+= maken we een kopie voor we strings toevoegen.
+Waarom eigenlijk?
+*/
+

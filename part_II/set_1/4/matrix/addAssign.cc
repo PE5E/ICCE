@@ -2,19 +2,16 @@
 
 Matrix &Matrix::operator+=(Matrix const &other)
 {
-	Matrix tmp(*this);
-
-	if (tmp.d_nRows != other.d_nRows ||
-		tmp.d_nCols != other.d_nCols)
-	{	
-		std::cerr << "Matrix dimensions not equal" << '\n';
+	if (this->d_nRows != other.d_nRows ||
+        this->d_nCols != other.d_nCols)
+    {
+    	std::cerr << "Matrix dimensions not equal" << '\n';
 		return *this;
-	}
+    }
 
-	for (size_t idx = 0, end = tmp.d_nCols * tmp.d_nRows;
+	for (size_t idx = 0, end = this->size();
 		idx != end; ++idx)
-		*(tmp.d_data + idx) += *(other.d_data + idx);
+		this->d_data[idx] += other.d_data[idx];
 
-	swap(tmp);
 	return *this;
 }

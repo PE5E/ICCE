@@ -1,0 +1,7 @@
+matrix/matrix.h
+main.cc
+main.ih
+matrix/operatorindex.cc
+matrix/operatorindexconst.cc
+matrix/indexvalue.cc
+show.cc

@@ -24,7 +24,8 @@ class Matrix
         Matrix &operator=(Matrix const &rhs);
         Matrix &operator=(Matrix &&tmp);
 
-        double *operator[](size_t index);
+        double *operator[](size_t index);               // EX 3
+        double const *operator[](size_t index) const;   // EX 3
       
         size_t nRows() const;
         size_t nCols() const;
@@ -41,6 +42,7 @@ class Matrix
     private:
         double &el(size_t row, size_t col) const;
         void transpose(double *dest) const;
+        double *indexValue(size_t index) const;         // EX 3
 };        
 
 inline size_t Matrix::nCols() const

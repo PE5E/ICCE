@@ -1,6 +1,6 @@
 #include "matrix.ih"
 
-double *Matrix::operator[](size_t index)
+double const *Matrix::operator[](size_t index) const
 {
     return indexValue(index);
 }

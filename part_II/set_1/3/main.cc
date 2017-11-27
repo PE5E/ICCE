@@ -12,5 +12,8 @@ int main(int argc, char **argv)
     memcpy(mat2[2], mat2[1], 5 * sizeof(double));
     mat2[2][3] = 23.5;
     show(std::cout, mat2);
+    const Matrix mat7{3, 3};
+    cout << mat7[2];
+    
 }
 

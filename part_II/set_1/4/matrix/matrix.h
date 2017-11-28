@@ -46,6 +46,7 @@ class Matrix
         void transpose(double *dest) const;
 
     friend Matrix operator+(Matrix const &lhs, Matrix const &rhs); //EX4
+    friend Matrix operator+(Matrix &lhs, Matrix const &rhs);       //EX4
     friend Matrix operator+(Matrix &&lhs, Matrix const &rhs);      //EX4
 };        
 

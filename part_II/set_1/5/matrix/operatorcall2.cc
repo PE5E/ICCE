@@ -5,10 +5,10 @@ Matrix &Matrix::operator()(Mode mod,
                            size_t coloffset,
                            size_t cols)
 {
-    d_mode      = mod;
-    d_rowOffset = rowoffset;
-    d_rows      = rows;
-    d_colOffset = coloffset;
-    d_cols      = cols;
+    xtrPrm.d_mode      = mod;
+    xtrPrm.d_rowOffset = rowoffset;
+    xtrPrm.d_rows      = rows;
+    xtrPrm.d_colOffset = coloffset;
+    xtrPrm.d_cols      = cols;
     return *this;
 }

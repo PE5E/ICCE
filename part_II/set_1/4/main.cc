@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 
     Matrix mat4 = mat3;
 
-    mat4 = mat1 + mat2 + mat3;
+    mat4 = std::move(mat1) + mat2 + mat3;
     show(std::cout, mat4);
 }
 

@@ -1,0 +1,8 @@
+   [Compiling] matrix/row.cc
+matrix/row.cc:3:1: error: ‘Row’ does not name a type
+ Row::Row(size_t rowindex)
+ ^~~
+matrix/row.cc:6:1: error: expected unqualified-id before ‘{’ token
+ {
+ ^
+make: *** [Makefile:451: matrix/row.o] Error 1

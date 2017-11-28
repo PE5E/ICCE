@@ -1,7 +1,9 @@
+// Matrix constructor can throw
 #include "matrix.ih"
 
 // static
 Matrix Matrix::identity(size_t dim)
+try
 {
     Matrix ret(dim, dim);
 
@@ -9,4 +11,8 @@ Matrix Matrix::identity(size_t dim)
         ret.el(idx, idx) = 1;
 
     return ret;
+}
+catch (...)
+{
+    throw;
 }

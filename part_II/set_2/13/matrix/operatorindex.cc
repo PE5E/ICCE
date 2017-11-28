@@ -1,3 +1,4 @@
+// nothing can throw here
 #include "matrix.ih"
 
 double *Matrix::operator[](size_t index)

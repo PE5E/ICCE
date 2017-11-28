@@ -1,13 +1,11 @@
+// new, transpose and delete can all throw
 #include "matrix.ih"
 
 Matrix &Matrix::tr()
+try
 {
     if (d_nRows != d_nCols)
-    {
-        cerr << "Matrix::tr requires square matrix\n";
-
-        exit(1);        // BAD STYLE, but see the exercise's text
-    }
+        throw logic_error("Can only transpose square matrix");
 
     double *dest = new double[size()];
     transpose(dest);
@@ -16,4 +14,8 @@ Matrix &Matrix::tr()
     d_data = dest;
 
     return *this;
+}
+catch (...)
+{
+    throw;
 }

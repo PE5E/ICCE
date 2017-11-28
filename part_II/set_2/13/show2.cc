@@ -1,6 +1,6 @@
 #include "main.ih"
 
-ostream &show(ostream &out, Matrix const &mat)
+ostream &show2(ostream &out, Matrix const &mat)
 {
     for (size_t row = 0, nRows = mat.nRows(); row != nRows; ++row)
     {

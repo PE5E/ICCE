@@ -1,6 +1,8 @@
+// matrix constructor, new, can throw
 #include "matrix.ih"
 
 Matrix Matrix::transpose() const
+try
 {
     Matrix ret;                             // optimized implementation
 
@@ -12,4 +14,7 @@ Matrix Matrix::transpose() const
 
     return ret;
 }
-
+catch (...)
+{
+    throw;
+}

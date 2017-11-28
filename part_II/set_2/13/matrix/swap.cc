@@ -1,3 +1,4 @@
+// nothing can throw here
 #include "matrix.ih"
 
 void Matrix::swap(Matrix &other)

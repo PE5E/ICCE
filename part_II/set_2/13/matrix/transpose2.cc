@@ -1,3 +1,4 @@
+// nothing can throw here
 #include "matrix.ih"
 
 // see below for an explanation

@@ -1,6 +1,8 @@
+// new can throw, 
 #include "matrix.ih"
 
 Matrix::Matrix(IniList iniList)
+try
 :
     d_nRows(iniList.size()),
     d_nCols(iniList.begin()->size()),
@@ -10,13 +12,13 @@ Matrix::Matrix(IniList iniList)
     for (auto &list: iniList)
     {
         if (list.size() != d_nCols)
-        {
-            cerr << "Matrix(IniList): varying number of elements in rows\n";
-
-            exit(1);        // BAD STYLE, but see the exercise's text
-        }
+            throw invalid_argument("Inconsistent matrix");
 
         memcpy(ptr, &*list.begin() , list.size() * sizeof(double));
         ptr += list.size();
     }
+}
+catch (...)
+{
+    throw;
 }

@@ -1,6 +1,12 @@
+// delete could throw, exceptions may not leave destructor
 #include "matrix.ih"
 
 Matrix::~Matrix()
 {
-    delete[] d_data;
+    try
+    {
+        delete[] d_data;
+    }
+    catch (...)
+    {}
 }

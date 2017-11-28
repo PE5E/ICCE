@@ -30,6 +30,7 @@ class Matrix
         class Row
         {
             double *d_row = nullptr;
+            size_t d_colcount = 0;
             public:
                 Row(size_t rowindex, Matrix const &mat);
                 double &at(size_t colindex);

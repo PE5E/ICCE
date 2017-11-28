@@ -1,11 +1,13 @@
 #include "main.ih"
 
 int main(int argc, char **argv)
+try
 {
-    Matrix mat({{1,2,3,5,5},{6,7,8,9,0},{1,2,3,4,5},{6,7,8,9,0}});
-    show(std::cout, mat);
+    Matrix mat({{1,2,3,4,5},{6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20}});
+    std::cout << mat.nRows() << " by " << mat.nCols() << '\n';
+    show(std::cout, mat);           // gebruikt []
     std::cout << "__" << '\n';
-    show2(std::cout, mat);
+    show2(std::cout, mat);          // gebruikt at
 
     cout << "Element 3, 2 of mat: " << mat[3][2] << "\n"
             "same, using at(): " << mat.at(3).at(2) << '\n';    
@@ -34,5 +36,9 @@ int main(int argc, char **argv)
     {
         cout << exc.what() << '\n';
     }
+}
+catch (...)
+{
+    std::cerr << "ERROR: " <<  "Something else happened." << '\n';
 }
 

@@ -1,6 +1,7 @@
 matrix/matrix.h
 main.cc
 main.ih
+matrix/destructor.cc
 matrix/operatorindex.cc
 matrix/operatorindexconst.cc
 matrix/indexvalue.cc

@@ -1,17 +1,16 @@
 #include "matrix.ih"
 
-void Matrix::extractByRow(std::istream &is, Matrix &mat)
+void Matrix::extractByRow(istream &in, Matrix &mat)
 {
-    if (d_rowOffset > d_nRows || d_colOffset > d_nCols)      // row bounds       
+    if (offsetOutBounds())           
         return;
 
-    if (d_rowOffset + d_rows > d_nRows)         
-        d_rows = d_nRows - d_rowOffset;
-    if (d_colOffset + d_cols > d_nCols)
-        d_cols = d_nCols - d_colOffset;
+    checkXtrPrm();
 
-    for (size_t row = d_rowOffset; row != d_rowOffset + d_rows; ++row)
-        for (size_t col = d_colOffset; col != d_colOffset + d_cols; ++col)
-            cin >> mat[row][col];
+    for (size_t row = xtrPrm.d_rowOffset;
+        row != xtrPrm.d_rowOffset + xtrPrm.d_rows; ++row)
+        for (size_t col = xtrPrm.d_colOffset;
+            col != xtrPrm.d_colOffset + xtrPrm.d_cols; ++col)
+            in >> mat[row][col];
     return;
 }

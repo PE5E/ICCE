@@ -5,10 +5,10 @@
 #include <initializer_list>
 
 enum class Mode             // should this be here?
-    {
-        BY_ROW,
-        BY_COL,
-    };
+{
+    BY_ROW,
+    BY_COL,
+};
 
 class Matrix
 {
@@ -16,11 +16,14 @@ class Matrix
     size_t  d_nCols      = 0;
     double *d_data       = 0;                   // flattened matrix 
 
-    Mode    d_mode       = Mode::BY_ROW;        // extract/insert
-    size_t  d_rowOffset  = 0;               
-    size_t  d_colOffset  = 0;
-    size_t  d_cols       = 0;
-    size_t  d_rows       = 0; 
+    struct
+    {
+        Mode    d_mode       = Mode::BY_ROW;        // extract/insert
+        size_t  d_rowOffset  = 0;               
+        size_t  d_colOffset  = 0;
+        size_t  d_cols       = 0;
+        size_t  d_rows       = 0;
+    } xtrPrm;
 
     public:
         typedef std::initializer_list<std::initializer_list<double>> IniList;
@@ -68,6 +71,9 @@ class Matrix
 
         void extractByRow(std::istream &in, Matrix &mat);
         void extractByCol(std::istream &in, Matrix &mat);
+        bool offsetOutBounds();
+        void checkXtrPrm();
+
 };
 
 inline size_t Matrix::nCols() const

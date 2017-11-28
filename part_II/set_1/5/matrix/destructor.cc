@@ -2,5 +2,5 @@
 
 Matrix::~Matrix()
 {
-    delete d_data;
+    delete[] d_data;
 }

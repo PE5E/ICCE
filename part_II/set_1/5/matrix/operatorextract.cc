@@ -2,12 +2,12 @@
 
 istream &operator>>(istream &in, Matrix &mat)
 {
-    if (!mat.d_rows)                                    // unused arguments
-        mat.d_rows = mat.d_nRows;
-    if (!mat.d_cols)
-        mat.d_cols = mat.d_nCols;
+    if (!mat.xtrPrm.d_rows)                                    // unused arguments
+        mat.xtrPrm.d_rows = mat.d_nRows;
+    if (!mat.xtrPrm.d_cols)
+        mat.xtrPrm.d_cols = mat.d_nCols;
 
-    switch (mat.d_mode)
+    switch (mat.xtrPrm.d_mode)
     {
         default:                                       // for compiler
 

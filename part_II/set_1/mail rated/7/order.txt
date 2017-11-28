@@ -5,3 +5,5 @@ matrix/inequality.cc
 strings/strings.h
 strings/equality.cc
 strings/inequality.cc
+
+comments_rater.txt

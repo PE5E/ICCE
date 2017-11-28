@@ -6,3 +6,4 @@ matrix/operatorindex.cc
 matrix/operatorindexconst.cc
 matrix/indexvalue.cc
 show.cc
+comments_rater.txt

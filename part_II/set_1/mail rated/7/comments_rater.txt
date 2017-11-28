@@ -1,0 +1,4 @@
+7: ?
+- IRE in dit geval:
+    Matrix m1(10000, 10000);
+    return m1 == m1.

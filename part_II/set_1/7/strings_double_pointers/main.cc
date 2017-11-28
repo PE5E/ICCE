@@ -13,7 +13,6 @@ int main()
     cout << "Enter text for object B\n";
     cin >> temp;
     objectB.add(temp);
-    objectB.add(temp);
 
-    cout << (objectA == objectB ? "A is gelijk aan B\n" : "A verschilt van B\n");
+    cout << (objectA != objectB ? "A is niet gelijk aan B\n" : "A is gelijk aan B\n");
 }

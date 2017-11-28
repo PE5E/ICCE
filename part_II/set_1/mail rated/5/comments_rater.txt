@@ -1,0 +1,10 @@
+ex5: ?
+Je zit op de goede weg, maar...
+- Al die extra members kunnen wel in een struct. Dan kun je mooi zien
+dat ze bij elkaar horen.
+- De destructor en de constructor komen niet overeen. (Kan wel zijn dat
+wij die code hebben aangeleverd, maar je moet niet zomaar de code van de
+eerste de beste prutser overnemen. En als je Valgrind eroverheen had
+gehaald, had je het meteen gemerkt.
+- Kun je meer code delen tussen extractByCol en extractByRow?
+- CW: extractby* gebruikt istream 'is' niet, maar cin.

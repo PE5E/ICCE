@@ -1,0 +1,7 @@
+ex4: 0
+- SF: operator+= maakt eerst een kopie, en gaat zich dan pas afvragen of
+hij eigenlijk wel verer kan.
+- DRY: de for-loop herberekent de size van tmp. (Ook IRE.)
+- Pointer notation in index loop.
+- Operator+(&&,&) roept operator+= aan, en maakt dus een overbodige kopie.
+- Operator+(&,&) maakt zodoende zelfs twee keer een kopie.

@@ -1,8 +1,9 @@
 matrix/matrix.h
-main.cc
+matrix/checkxtrparam.cc
 matrix/extractbycol.cc
 matrix/extractbyrow.cc
-matrix/operatorcall2.cc
+matrix/offsetoutbounds.cc
 matrix/operatorcall.cc
+matrix/operatorcall2.cc
 matrix/operatorextract.cc
 matrix/operatorinsert.cc

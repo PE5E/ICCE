@@ -1,5 +1,5 @@
 answer.txt
 main.ih
+main.cc
 fun1.cc
 fun2.cc
-main.cc

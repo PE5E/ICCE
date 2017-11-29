@@ -3,7 +3,7 @@
 
 void pl()
 {
-    std::cerr << "-------------------------------------------------------------------------------" << '\n';
+    std::cerr << "------------------------------------------------------------------------------" << '\n';
 }
 
 int main()
@@ -11,6 +11,7 @@ int main()
     pl();
     std::cerr << "Example 1: return object" << '\n';
     pl();
+
     try
     {
         std::cerr << "Trying" << '\n';
@@ -26,6 +27,7 @@ int main()
     
     std::cerr << "Example 2: return object reference" << '\n';
     pl();
+
     try
     {
         std::cerr << "Trying" << '\n';
@@ -41,6 +43,7 @@ int main()
 
     std::cerr << "Example 3: rethrow by reference" << '\n';
     pl();
+
     try
     {
         std::cerr << "Trying (outer)" << '\n';
@@ -66,6 +69,7 @@ int main()
 
     std::cerr << "Example 4: rethrow object" << '\n';
     pl();
+
     try
     {
         std::cerr << "Trying (outer)" << '\n';
@@ -81,6 +85,7 @@ int main()
             throw;
         }
     }
+
     catch(Dem lol)
     {
         std::cerr << "Re-catching!" << '\n';

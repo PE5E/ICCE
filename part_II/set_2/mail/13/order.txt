@@ -14,12 +14,12 @@ matrix/matrix3.cc
 matrix/matrix4.cc
 matrix/operatorassign1.cc
 matrix/operatorassign2.cc
-matrix/operatorindex1.cc
 matrix/operatorindex.cc
+matrix/operatorindex1.cc
 matrix/row.cc
 matrix/swap.cc
-matrix/transpose2.cc
 matrix/transpose.cc
+matrix/transpose2.cc
 matrix/tr.cc
 show2.cc
 show.cc

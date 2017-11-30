@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven02.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l3"></a>
+<h1>Chapter 3: Exercises set two: Inheritance. Deadline: Dec. 14</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 20.</strong>
+        <br>
+        Purpose of this exercise: learn the implications of using friends.
+<p>
+When implementing binary operators some of these operators might be
+implemented in separate classes. Assume we have a class <code>Addition</code>
+implementing the binary addition operations, and a class <code>Subtraction</code>
+implementing the binary subtraction operations.
+</p><p>
+Furthermore, <code>Addition</code> and <code>Subtraction</code> are base classes of a class
+<code>Binops</code>. 
+</p><p>
+A class <code>Operations</code> implements the (private) functions
+        </p><pre>
+    void add(Operations const &amp;rhs);
+    void sub(Operations const &amp;rhs);
+        
+</pre>
+
+    and inherits from the class <code>Binops</code>. Furthermore, <code>Operations</code>
+declares <code>Binops</code> a friend class. 
+<p>
+Clearly, a member like <code>Addition::operator+=(Operations const &amp;rhs)</code>
+must call <code>Operations' add</code> member, but that member is private, and
+<code>Operations</code> does not declare <code>Addition</code> as a friend class. 
+</p><p>
+</p><ul>
+    <li> Describe (short!) how you solve this problem
+    </li><li> There is a fundamental (albeit solvable) problem with this
+        design. What is this problem?
+    </li><li> Provide the class interfaces of <code>Binops, Addition</code> and
+        <code>Subtraction</code>. 
+    </li></ul>
+<p>
+Note: you are not supposed to modify <code>Operations</code>. You may assume it
+offers a default constructor (declared as <code>Operations() = default</code>, and the
+abovementioned two members <code>add</code> and <code>sub</code>.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 21.</strong>
+        <br>
+        Purpose of this exercise: learn to implement a class hierarchy using friends
+in the final derived class.
+<p>
+(See the previous exercise)
+</p><p>
+Implement the classes <code>Addition, Subtraction, Binops</code>.
+</p><p>
+The free binary operators that are associated with the 
+classes <code>Addition</code> and <code>Subtraction</code> do not have to be implemented for
+this exercise; only the compound assignment operators need to be implented.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 22.</strong>
+        <br>
+        Purpose of this exercise: learn to use a class hierarchy using friends
+in the final derived class.
+<p>
+(See the previous two exercises)
+</p><p>
+Implement the free binary operators of the classes <code>Addition</code> and
+<code>Subtraction</code> and implement the <code>add</code> and <code>sub</code> members of
+<code>Operations</code>. These members merely have to insert a confirmation into
+<code>cout</code> when they are being called (e.g., <code>Operations::add</code> inserts
+<code>"addition"</code>.
+</p><p>
+Submit your implementations and show that a program calling all binary
+operators (free and compound) work as intended.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 23.</strong>
+        <br>
+        Purpose of this exercise: learn to use a class hierarchy using friends
+in the final derived class.
+<p>
+(See the previous three exercises)
+</p><p>
+Create a <code>main</code> function which is an interactive basic calculator, showing
+that all binary operators (free and compound) works as intended.
+</p><p>
+Briefly describe the steps that must be performed to add another operator
+(like multiplication) to the calculator (i.e., to the class <code>Operations</code>).
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 24.</strong>
+        <br>
+        Purpose of this exercise: learn to initialize <code>string</code> objects with <code>new</code>
+(<code>std::string</code> is used in this example, but other classes could also be used
+in analogous implementations.
+<p>
+Objects of the class <code>string</code> can be initialized in various ways.  Implement
+a function <code>string *factory(string const &amp;str, size_t count)</code> returning the
+result of a new-expression in which <code>`count' string</code> objects are allocated,
+and which were at construction time initialized with <code>str</code>.
+</p><p>
+Caveat: the initialization <em>must</em> be performed at the <code>new</code> expression, so
+allocate first, followed by e.g., copy assignments or placement new actions
+should not be used.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven02.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

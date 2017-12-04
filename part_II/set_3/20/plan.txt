@@ -1,0 +1,19 @@
+class Addition
+    implements binary addition operatrions
+
+class Subtraction
+    implements binary subtraction operations
+
+class Binops
+    derived from 2 bovenstaande
+
+Niet uitvoeren, alleen interface:
+class Operations
+    derived from Binops
+Heeft constructors:
+    - 
+private member functions:
+    - void add(Operations const &rhs);
+    - void sub(Operations const &rhs);
+declares Binops as friend class
+doesnt declare Addition as friend class

@@ -10,8 +10,8 @@ class Binops
 Niet uitvoeren, alleen interface:
 class Operations
     derived from Binops
-Heeft constructors:
-    - 
+Heeft constructor:
+    - Operations() = default;
 private member functions:
     - void add(Operations const &rhs);
     - void sub(Operations const &rhs);

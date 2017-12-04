@@ -1,6 +1,6 @@
 #include "addition.ih"
 
-Addition &Addition::operator+=(Addition const &other)
+Addition &Addition::operator+=(Operations const &other)
 {
-    return *this; // klopt niet
+    return *this; // klopt niet 
 }

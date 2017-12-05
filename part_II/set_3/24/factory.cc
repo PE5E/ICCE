@@ -12,6 +12,6 @@ string *factory(string const &str, size_t count)
 			string(*strTest)
 		{}
 	};
-
+    
 	return new Xstr[count];
 }

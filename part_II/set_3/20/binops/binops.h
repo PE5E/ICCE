@@ -1,6 +1,10 @@
 #ifndef INCLUDED_BINOPS_
 #define INCLUDED_BINOPS_
 
+#include "../addition/addition.h"
+#include "../subtraction/subtraction.h"
+
+
 class Operations;
 
 class Binops: public Addition, public Subtraction
@@ -9,11 +13,10 @@ class Binops: public Addition, public Subtraction
         Binops();
 
     private:
-        friend class Addition;
-        friend class Subtraction;
-
-        void Operations::add(Operations const &rhs);
-        void Operations::sub(Operations const &rhs);
+        Operations add(Addition firstOp, Operations const &secondOp);
+        friend Addition;
+        friend Subtraction;
 };
-        
+
+     
 #endif

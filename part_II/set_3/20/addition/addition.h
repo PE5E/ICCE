@@ -1,6 +1,7 @@
 #ifndef INCLUDED_ADDITION_
 #define INCLUDED_ADDITION_
 
+class Operations;
 class Binops;
 
 class Addition
@@ -11,8 +12,6 @@ class Addition
         Addition &operator+=(Operations const &other);
 
     private:
-        void Binops::Operations::add(Operations const &rhs);
-        void Binops::Operations::sub(Operations const &rhs);
 };
 
 

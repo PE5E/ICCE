@@ -1,0 +1,38 @@
+class Addition
+    implements binary addition operatrions
+
+class Subtraction
+    implements binary subtraction operations
+
+class Binops
+    derived from 2 bovenstaande
+
+Niet uitvoeren, alleen interface:
+class Operations
+    derived from Binops
+Heeft constructor:
+    - Operations() = default;
+private member functions:
+    - void add(Operations const &rhs);
+    - void sub(Operations const &rhs);
+declares Binops as friend class
+doesnt declare Addition as friend class
+
+Describe how you solve this problem:
+Frank zegt: static cast class.
+Je kan een derived class casted naar een base. 
+
+
+
+
+Oud:
+Since Binops is friend with Operations it can access it's private parts. 
+Meaning it can use the functions add and sub from that class. So we can make
+public Binops member functions which use Operations::add and sub and return this
+to anyone. 
+
+There is a fundamental problem with this design. What is this problem? 
+Operations has all the functionality that Add and Subtraction classes offer 
+also. Why make things complicated by using Add or Subtraction classes if we can 
+use the class Operations?
+Circular dependency?

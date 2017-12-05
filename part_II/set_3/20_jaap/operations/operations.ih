@@ -1,0 +1,6 @@
+#include "operations.h"
+
+//#include "../addition/addition.h"
+//#include "../subtraction/subtraction.h"
+using namespace std;
+

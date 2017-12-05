@@ -33,23 +33,17 @@
     |                          |
 10. | operator+;               | Since operator+ returns a temporary
     |                          | object, its destructor may throw an
-    |                          | exception. *
+    |                          | exception.
     |                          |
 11. | delete xp;               | Whenever operator new is overloaded,
     |                          | operator delete should be overloaded
-    |                          | as well, which may throw an exception,
-    |                          | only if the destructor throws. *
+    |                          | as well, which may throw an exception.
     |                          |
 12. | delete xp;               | X's destructor might again throw an
-    |                          | exception. *
+    |                          | exception.
     |                          |
 13. | };                       | When the function terminates, the
     |                          | local x object is destroyed: again an
-    |                          | exception could be thrown. *
-
-*: However, statements 10., 11., 12., and 13 may not throw themselves.
-If they do, an exception has left the destructor's body, which is
-bad C++. An exception from a destructor (as in 12.) must be handled
-within the destructor.
+    |                          | exception could be thrown.
 
 Note that these answers were taken from the C++ Annotations, chapter 10.

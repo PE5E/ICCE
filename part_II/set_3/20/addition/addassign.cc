@@ -1,6 +1,14 @@
 #include "addition.ih"
 
+class Operations;
+
 Addition &Addition::operator+=(Operations const &other)
-{
-    return *this; // klopt niet 
+{ 
+
+//    Operations tmp = *this;
+    
+//    tmp.add(*this, other);
+    Binops tmp;
+    return tmp.add(*this, other); 
+
 }

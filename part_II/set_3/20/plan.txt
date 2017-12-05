@@ -19,6 +19,13 @@ declares Binops as friend class
 doesnt declare Addition as friend class
 
 Describe how you solve this problem:
+Frank zegt: static cast class.
+Je kan een derived class casted naar een base. 
+
+
+
+
+Oud:
 Since Binops is friend with Operations it can access it's private parts. 
 Meaning it can use the functions add and sub from that class. So we can make
 public Binops member functions which use Operations::add and sub and return this

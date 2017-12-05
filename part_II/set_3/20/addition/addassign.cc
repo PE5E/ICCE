@@ -4,9 +4,14 @@ class Operations;
 
 Addition &Addition::operator+=(Operations const &other)
 { 
-    Operations *tmp = new Operations;
-    tmp = static_cast<Operations *>(this)->add(other);
-    return static_cast<Addition>(*tmp);
+    Addition tmp;
+    static_cast<Operations *>(this)->add(other);
+    
+    tmp = static_cast<Addition>(*this);
+
+    *this = tmp;
+
+    return *this;
 //    Operations tmp = *this;
     
 //    tmp.add(*this, other);

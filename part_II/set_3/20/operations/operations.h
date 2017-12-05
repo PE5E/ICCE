@@ -12,6 +12,7 @@ class Operations: public Binops
         void add(Operations const &rhs);
         void sub(Operations const &rhs);
         friend Binops;
+        friend Addition; // illegaal
 };
         
 #endif

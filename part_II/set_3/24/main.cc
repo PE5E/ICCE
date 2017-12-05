@@ -8,4 +8,7 @@ int main()
 
 	for(int i=0;i<10;++i)cout<<strPtr[i]<<'\n';
 	for(int i=0;i<10;++i)cout<<strPtr2[i]<<'\n';
+
+    delete[] strPtr;
+    delete[] strPtr2;
 }

@@ -6,7 +6,7 @@ using namespace std;
 void voidFunction()
 {
 	throw 1; // this works fine
-	//throw 1.0           		 
+	//throw 1.0;           		 
 }
 
 int main()

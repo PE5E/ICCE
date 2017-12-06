@@ -3,12 +3,15 @@
 
 int main()
 {
-	string *strPtr = factory("test", 10);
-	string *strPtr2 = factory("tes2wtwaet", 10);
+	size_t noOfStrings = 10;
+	string *strPtr = factory("test", noOfStrings);
+	string *strPtr2 = factory("test2", noOfStrings);
 
-	for(int i=0;i<10;++i)cout<<strPtr[i]<<'\n';
-    cout << "---" << '\n';
-	for(int i=0;i<10;++i)cout<<strPtr2[i]<<'\n';
+	for (size_t i = 0; i < noOfStrings; ++i)
+		cout << strPtr[i] << '\n';
+    cout << "-----" << '\n';
+	for (size_t i = 0; i < noOfStrings; ++i)
+		cout << strPtr2[i] << '\n';
 
     delete[] strPtr;
     delete[] strPtr2;

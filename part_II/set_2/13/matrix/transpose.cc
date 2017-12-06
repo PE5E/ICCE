@@ -2,7 +2,6 @@
 #include "matrix.ih"
 
 Matrix Matrix::transpose() const
-try
 {
     Matrix ret;                             // optimized implementation
 
@@ -13,8 +12,4 @@ try
     transpose(ret.d_data);
 
     return ret;
-}
-catch (...)
-{
-    throw;
 }

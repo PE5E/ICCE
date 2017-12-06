@@ -1,12 +1,8 @@
-// delete could throw, exceptions may not leave destructor
+// delete could throw only if a destructor throws 
+// illegally, which does not happen for doubles
 #include "matrix.ih"
 
 Matrix::~Matrix()
 {
-    try
-    {
-        delete[] d_data;
-    }
-    catch (...)
-    {}
+    delete[] d_data;
 }

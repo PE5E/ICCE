@@ -6,11 +6,10 @@ void fun2()
 
 	try
 	{
-		int someInt = 0;
-		throw someInt;
+		throw HorribleEvent{};
 	}
 	
-	catch(...)
+	catch (HorribleEvent hs)
 	{
 		throw;
 	}

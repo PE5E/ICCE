@@ -20,5 +20,6 @@ try
 }
 catch (...)
 {
+    delete d_data;
     throw;
 }

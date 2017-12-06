@@ -1,5 +1,0 @@
-#include "showexcepts.h"
-#include <stdexcept>
-#include <exception>
-
-using namespace std;

@@ -1,3 +1,0 @@
-#include "maxfour.h"
-#include <iostream>
-using std::string;

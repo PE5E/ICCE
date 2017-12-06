@@ -14,7 +14,6 @@ class Binops: public Addition, public Subtraction
 
     private:
         Binops add(Operations const &rhs);
-        Binops sub(Operations const &rhs);
         friend Addition;
         friend Subtraction;
 };

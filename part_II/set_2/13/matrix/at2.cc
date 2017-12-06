@@ -2,7 +2,6 @@
 #include "matrix.ih"
 
 double &Matrix::Row::at(size_t colindex)
-try
 {
     if (colindex > d_colcount)
         throw out_of_range("Column index " 
@@ -10,8 +9,4 @@ try
                             + " exceeds number of columns "
                             + to_string(d_colcount));
     return d_row[colindex];
-}
-catch (...)
-{
-    throw;
 }

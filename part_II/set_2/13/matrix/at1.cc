@@ -3,7 +3,6 @@
 
 Matrix::Row Matrix::at(size_t rowindex)
 {
-    try
     {
         if (rowindex > d_nRows)
             throw out_of_range("Row index " 
@@ -11,10 +10,6 @@ Matrix::Row Matrix::at(size_t rowindex)
                                 + " exceeds number of rows "
                                 + to_string(d_nRows));
         return Row(rowindex, *this);         // could throw
-    }
-    catch (...)                             // for Row throw?
-    {
-        throw;
     }
 }
 

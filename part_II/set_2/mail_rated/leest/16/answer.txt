@@ -1,0 +1,18 @@
+Exercise 16
+Jurjens comment:
+- While the theory is sound, there's a problem. What if between the
+throwing function and main(), somebody else's code catches ints and
+thinks it handles them?
+
+
+As explained in the annotations, every program has a global try block and a 
+corresponding catch block. When you are at a deeply nested level and want to 
+stop the program correctly, you can throw an object which does not have a 
+corresponding catch block that matches types. You can make sure of this by 
+making an own type, an empty enum HorribleEvent, for example. 
+Only make a catch clause for this type at the main level. Assuming you are using
+no functions with a catch-all clause that does not rethrow, the program will 
+reach the main function. The part of its code that (indirectly) may throw 
+exceptions should be in a try block. All objects between the current execution
+level and main will be properly destroyed, which we tested with a class that 
+printed when its destructor was called.

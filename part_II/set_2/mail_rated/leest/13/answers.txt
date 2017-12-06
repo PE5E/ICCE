@@ -1,0 +1,9 @@
+Jurjen commented at 13:
+here's my comments, partially inline. Nice attempt :-)
+- I found a leak :-/
+- The catch(...){throw;} all over is pretty pointless.
+
+So we:
+fixed memory leak
+deleted useless catch all
+adjusted some minor details

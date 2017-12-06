@@ -2,13 +2,8 @@
 #include "matrix.ih"
 
 Matrix &Matrix::operator=(Matrix const &other)
-try
 {
-    Matrix tmp(other);
-    swap(tmp);
-    return *this;
-}
-catch (...)
-{
-    throw;
+    Matrix tmp(other);  // if throw, our data is not changed
+    swap(tmp);          // can't throw
+    return *this;       // can't throw
 }

@@ -3,12 +3,5 @@
 
 Matrix::Row const Matrix::at(size_t rowindex) const
 {
-    try
-    {
-        return Row(rowindex, *this);
-    }
-    catch (...)
-    {
-        throw;
-    }
+    return Row(rowindex, *this);
 }

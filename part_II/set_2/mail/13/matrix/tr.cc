@@ -2,7 +2,6 @@
 #include "matrix.ih"
 
 Matrix &Matrix::tr()
-try
 {
     if (d_nRows != d_nCols)
         throw logic_error("Can only transpose square matrix");
@@ -14,8 +13,4 @@ try
     d_data = dest;
 
     return *this;
-}
-catch (...)
-{
-    throw;
 }

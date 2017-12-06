@@ -15,6 +15,5 @@ class Addition
 
 
 Addition operator+(Addition const &lhs, Addition const &rhs);
-Addition operator+(Addition &&lhs, Addition const &rhs); 
         
 #endif

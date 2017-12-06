@@ -15,6 +15,5 @@ class Subtraction
 };
 
 Subtraction operator-(Subtraction const &lhs, Subtraction const &rhs);
-Subtraction operator-(Subtraction &&lhs, Subtraction const &rhs); 
 
 #endif

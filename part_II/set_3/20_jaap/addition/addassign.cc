@@ -1,6 +1,6 @@
 #include "addition.ih"
 
-class Binops;
+class Binops;               // dit is niet nodig
 
 Addition &Addition::operator+=(Operations const &rhs)
 { 

@@ -1,0 +1,49 @@
+    | statement                | explanation
+-----------------------------------------------------------------------
+1.  | X x;                     | The default constructor could throw
+    |                          | an exception.
+    |                          |
+2.  | cout << x;               | The overloaded insertion operator
+    |                          | could throw an exception.
+    |                          |
+3.  | X::operator int() const; | Its rvalue argument could be an int,
+    |                          | instead of an X.
+    |                          |
+4.  | *xp = new X{ x };        | The copy constructor may throw an
+    |                          | exception.
+    |                          |
+5.  | *xp = new X{ x };        | The new operator could throw an 
+    |                          | exception.
+    |                          |
+6.  | cout << (x + *xp);       | If a conversion operator exists, then
+    |                          | depending on the overload of operator+
+    |                          | that is defined, the left-hand side
+    |                          | operand may throw an exception
+    |                          |
+7.  | cout << (x + *xp);       | or the right-hand side operator may
+    |                          | throw an exception.
+    |                          |
+8.  | cout << (x + *xp);       | The operator+ could also throw an 
+    |                          | exception.
+    |                          |
+9.  | cout << (x + *xp);       | The return type of operator+ may again
+    |                          | be of any type, so the overloaded
+    |                          | insertion operator could throw an
+    |                          | exception.
+    |                          |
+10. | operator+;               | Since operator+ returns a temporary
+    |                          | object, its destructor may throw an
+    |                          | exception.
+    |                          |
+11. | delete xp;               | Whenever operator new is overloaded,
+    |                          | operator delete should be overloaded
+    |                          | as well, which may throw an exception.
+    |                          |
+12. | delete xp;               | X's destructor might again throw an
+    |                          | exception.
+    |                          |
+13. | };                       | When the function terminates, the
+    |                          | local x object is destroyed: again an
+    |                          | exception could be thrown.
+
+Note that these answers were taken from the C++ Annotations, chapter 10.

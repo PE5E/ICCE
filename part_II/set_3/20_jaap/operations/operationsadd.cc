@@ -2,6 +2,6 @@
 
 void Operations::add(Operations const &rhs)
 {
-    cout << __FILE__ << ":Operations::add was called" << '\n';
+    cerr << __FILE__ << ":Operations::add was called" << '\n';
     return; 
 }

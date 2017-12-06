@@ -8,12 +8,11 @@ class Addition
 {
     public:
         Addition();
-
         Addition &operator+=(Operations const &rhs);
     private:
 };
 
 
-Addition operator+(Addition const &lhs, Addition const &rhs);
+Addition operator+(Addition &lhs, Addition &rhs);
         
 #endif

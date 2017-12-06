@@ -1,5 +1,5 @@
 #include "binops.h"
 #include "../operations/operations.h"
-
+#include <iostream>
 using namespace std;
 

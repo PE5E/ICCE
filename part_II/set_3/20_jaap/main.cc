@@ -12,4 +12,8 @@ int main(int argc, char **argv)
     Addition thing1;
     Addition thing2;
     thing1 + thing2;
+    cerr << "---" << '\n';
+    Subtraction thing3;
+    Subtraction thing4;
+    thing3 - thing4;
 }

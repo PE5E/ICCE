@@ -9,8 +9,8 @@ int main()
 		fun1();
 	}
 
-	catch(...)
+	catch (HorribleEvent hs)
 	{
-		std::cerr << "Caught an exception" << '\n';
+		std::cerr << "Caught a horrible exception" << '\n';
 	}
 }

@@ -2,5 +2,6 @@
 
 void Operations::add(Operations const &rhs)
 {
-    return; // nog aanvullen
+    cout << __FILE__ << ":Operations::add was called" << '\n';
+    return; 
 }

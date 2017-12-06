@@ -2,5 +2,6 @@
 
 void Operations::sub(Operations const &rhs)
 {
-    return; // nog aanvullen
+    cout << __FILE__ << ":Operations::sub was called" << '\n';
+    return; 
 }

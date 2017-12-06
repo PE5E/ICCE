@@ -19,5 +19,7 @@ class Binops: public Addition, public Subtraction
         friend Subtraction;
 };
 
+Binops operator+(Binops const &lhs, Binops const &rhs);
+Binops operator+(Binops &&lhs, Binops const &rhs);
      
 #endif

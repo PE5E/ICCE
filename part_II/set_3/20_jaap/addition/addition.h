@@ -10,7 +10,6 @@ class Addition
         Addition();
 
         Addition &operator+=(Operations const &rhs);
-
     private:
 };
 

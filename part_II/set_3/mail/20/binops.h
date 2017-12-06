@@ -13,7 +13,7 @@ class Binops: public Addition, public Subtraction
         Binops();
 
     private:
-        Operations add(Addition firstOp, Operations const &secondOp);
+        Binops add(Operations const &rhs);
         friend Addition;
         friend Subtraction;
 };

@@ -9,7 +9,7 @@ class Addition
     public:
         Addition();
 
-        Addition &operator+=(Operations const &other);
+        Addition &operator+=(Operations const &rhs);
 
     private:
 };

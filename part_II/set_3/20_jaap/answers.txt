@@ -1,0 +1,18 @@
+Exercise 20
+Describe (short!) how you solve this problem:
+Binops is friends with Operations so it can use Operation's functions add and 
+sub. So Binops makes the base classes Addition and Subtraction friends, so they
+can use Binops functions. Now we only have to create functions within Binops 
+which access Operation's add and sub functions.
+
+- There is a fundamental (albeit solvable) problem with this design. What is 
+this problem? 
+A base class is used to access a derived class functionality. This makes things
+very complicated and besides is unnecessary. The good solution is to simply use 
+the derived class. After all, the derived class has all the functionality that 
+the base class offers and even more. Why bother using the base class?
+
+- Provide the class interfaces of Binops, Addition and Subtraction. 
+
+
+

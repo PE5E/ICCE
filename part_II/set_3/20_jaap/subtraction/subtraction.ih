@@ -1,4 +1,6 @@
 #include "subtraction.h"
+#include "../binops/binops.h"
+#include "../operations/operations.h"
 
 using namespace std;
 

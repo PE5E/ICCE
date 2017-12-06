@@ -47,7 +47,7 @@
     |                          | local x object is destroyed: again an
     |                          | exception could be thrown. *
 
-*: However, statements 10., 11., 12., and 13 may not throw themselves.
+*: However, statements 10., 11., 12., and 13 should not throw themselves.
 If they do, an exception has left the destructor's body, which is
 bad C++. An exception from a destructor (as in 12.) must be handled
 within the destructor.

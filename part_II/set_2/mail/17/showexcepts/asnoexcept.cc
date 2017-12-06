@@ -1,6 +1,13 @@
 #include "showexcepts.ih"
 
-void ShowExcepts::asNoexcept() const throw ()
+void ShowExcepts::asNoexcept() const
 {
-	d_fun();
+	try
+	{
+		d_fun();
+	}
+	catch (...)
+	{
+		std::terminate();
+	}
 }

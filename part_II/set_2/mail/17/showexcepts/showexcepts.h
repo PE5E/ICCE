@@ -10,7 +10,7 @@ class ShowExcepts
 		ShowExcepts(int value, void (*fun)());
 
 		void asAthrowList() const;
-		void asNoexcept() const throw ();
+		void asNoexcept() const;
 };
 
 #endif

@@ -2,3 +2,6 @@
 
 void fun1();
 void fun2();
+
+enum HorribleEvent
+{};

@@ -1,5 +1,4 @@
-Using 'throw 1', the code works fine. When changing this to 'throw 1.0', we get 
-the following output:
+Using 'throw 1', the code works fine. When changing this to 'throw 1.0', we get the following output:
 
 terminate called after throwing an instance of 'std::bad_exception'
   what():  std::bad_exception

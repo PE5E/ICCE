@@ -11,7 +11,7 @@ class Binops: public Addition, public Subtraction
 {
     public:
         Binops();
-        Binops operator+(Binops &rhs);
+        //Binops operator+(Binops &rhs);
         Binops operator-(Binops &rhs);
 
     private:

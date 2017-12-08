@@ -8,10 +8,11 @@ int main(int argc, char **argv)
 {
     Addition add1;
     Operations op1;
-    add1 += op1;
+    op1 += op1;
     Addition thing1;
     Addition thing2;
-    thing1 + thing2;
+    //thing1 + thing2;
+    op1 + op1;
     cerr << "---" << '\n';
     Subtraction thing3;
     Subtraction thing4;

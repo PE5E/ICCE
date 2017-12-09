@@ -1,20 +1,34 @@
-#include <iostream>
+#include "main.ih"
 #include "addition/addition.h"
 #include "operations/operations.h"
 
-using namespace std;
-
-int main(int argc, char **argv)
+int main()
 {
-    Addition add1;
-    Operations op1;
-    op1 += op1;
-    Addition thing1;
-    Addition thing2;
-    //thing1 + thing2;
-    op1 + op1;
-    cerr << "---" << '\n';
-    Subtraction thing3;
-    Subtraction thing4;
-    thing3 - thing4;
+	string input;
+	Operations opObj;
+	Addition addObj;
+	Subtraction subObj;
+
+	usage();
+
+	while (true)
+	{
+		cout << "> ";
+
+		cin >> input;
+
+		if (input == "stop")
+			return 0;
+
+		if (input == "-")      //We choose this instead of a switch
+			opObj - opObj;     //statement, as we would have to use
+		else if (input == "-=")//unintuitive commands to easily make a
+			subObj -= opObj;   //distinction between them in the switch.
+		else if (input == "+") 
+			opObj + opObj;
+		else if (input == "+=")
+			addObj += opObj;
+		else
+			usage();
+	}
 }

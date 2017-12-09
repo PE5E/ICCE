@@ -8,17 +8,11 @@ class Addition
 {
     public:
         Addition();
-        //Addition &operator+=(Operations const &rhs);
         Addition &operator+=(Operations const &rhs) &;  // addassign1.cc
         Addition &&operator+=(Operations const &rhs) &&;// addassign2.cc
-    private:
 
     friend Addition operator+(Operations const &lhs, Operations const &rhs); // add1.cc
     friend Addition operator+(Operations &&lhs, Operations const &rhs);      // add2.cc
 };
-
-
-//Addition operator+(Addition &lhs, Addition &rhs);
-
         
 #endif

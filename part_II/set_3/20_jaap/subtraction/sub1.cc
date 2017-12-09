@@ -1,6 +1,7 @@
 #include "subtraction.ih"
 
-Subtraction operator-(Subtraction &lhs, Subtraction &rhs)
+Subtraction operator-(Operations const &lhs, Operations const &rhs)
 {
-    return *static_cast<Binops*>(&lhs) - *static_cast<Binops*>(&rhs);
+	Operations tmp(lhs); //Not sure how to prevent making a copy.
+	return tmp -= rhs;   
 }

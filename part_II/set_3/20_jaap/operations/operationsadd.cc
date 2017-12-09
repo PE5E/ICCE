@@ -2,6 +2,6 @@
 
 void Operations::add(Operations const &rhs)
 {
-    cerr << __FILE__ << ":Operations::add was called" << '\n';
+    cerr << __FILE__ << ": Operations::add was called" << '\n';
     return; 
 }

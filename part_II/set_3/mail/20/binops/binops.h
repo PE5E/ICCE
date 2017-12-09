@@ -5,7 +5,7 @@
 #include "../subtraction/subtraction.h"
 
 
-class Operations;
+class Operations; 
 
 class Binops: public Addition, public Subtraction
 {
@@ -14,9 +14,9 @@ class Binops: public Addition, public Subtraction
 
     private:
         Binops add(Operations const &rhs);
-        friend Addition;
+        Binops sub(Operations const &rhs);
+        friend Addition;    
         friend Subtraction;
 };
-
-     
+    
 #endif

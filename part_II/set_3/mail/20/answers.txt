@@ -12,7 +12,4 @@ very complicated and besides is unnecessary. The good solution is to simply use
 the derived class. After all, the derived class has all the functionality that 
 the base class offers and even more. Why bother using the base class?
 
-- Provide the class interfaces of Binops, Addition and Subtraction. 
-
-
-
+Now all the complete classes follow, providing answers for exercises 20 - 23.

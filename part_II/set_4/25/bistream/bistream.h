@@ -10,6 +10,7 @@ class BiStream: public std::ostream
     {
         std::streambuf *d_buffer1;
         std::streambuf *d_buffer2;
+
         public:
 
             BiStreamBuffer(std::streambuf *one, std::streambuf *two)
@@ -25,8 +26,6 @@ class BiStream: public std::ostream
                 d_buffer2->sputc(c);
                 return c;
             }
-
-        private:
     };
 
     BiStreamBuffer d_buffer;
@@ -39,9 +38,6 @@ class BiStream: public std::ostream
         {
             std::ostream::rdbuf(&d_buffer);                // associate 
         }
-
-
-    private:
 };
 
 #endif

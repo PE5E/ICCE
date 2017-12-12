@@ -33,7 +33,8 @@ class IFdStreambuf: public std::streambuf
 
         void clean();
 
-}; // IFdstreambuf
+};
 
 #endif
 
+// this class was 'inspired' by the implementation found in bobcat. 

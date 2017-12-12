@@ -23,7 +23,6 @@ class IFdStreambuf: public std::streambuf
 
         ~IFdStreambuf();
 
-        IFdStreambuf()                                      = delete;
         IFdStreambuf(IFdStreambuf const &other)             = delete;
         IFdStreambuf &operator=(IFdStreambuf const &other)  = delete;
 

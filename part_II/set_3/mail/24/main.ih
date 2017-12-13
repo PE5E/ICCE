@@ -1,0 +1,5 @@
+#include <string>
+
+std::string *factory(std::string const &str, size_t count);
+
+using namespace std;

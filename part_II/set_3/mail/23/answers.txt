@@ -1,0 +1,10 @@
+See 20 for code.
+
+Briefly describe the steps that must be performed to add another operator 
+(like multiplication) to the calculator (i.e., to the class Operations):
+
+To add another operator, for example multiplication
+    * define a class multiplication implementing the operator in terms in cast
+    to a corresponding Binops member.
+    * The binops member calls the real implementation that is found in
+    operations.  

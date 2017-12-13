@@ -1,0 +1,8 @@
+addition/add1.cc
+addition/add2.cc
+subtraction/sub1.cc
+subtraction/sub2.cc
+operations/operationsadd.cc
+operations/operationssub.cc
+main.cc
+

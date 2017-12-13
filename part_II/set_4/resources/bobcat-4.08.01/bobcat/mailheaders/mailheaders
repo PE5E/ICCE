@@ -1,0 +1,156 @@
+#ifndef INCLUDED_BOBCAT_MAILHEADERS_
+#define INCLUDED_BOBCAT_MAILHEADERS_
+
+#include <istream>
+#include <string>
+#include <vector>
+
+#include <bobcat/string>
+
+namespace FBB
+{
+
+class MailHeaders
+{
+    public:
+        typedef std::vector<std::string>::const_iterator const_iterator;
+        typedef std::vector<std::string>::const_reverse_iterator 
+                                                    const_reverse_iterator;
+        enum Mode
+        {
+            DONT_READ,
+            READ
+        };
+        enum Match
+        {
+            FAIL,
+            INITIAL,
+            PARTIAL,
+            FULL,
+
+            caseInsensitive,
+            CASE_INITIAL = caseInsensitive,
+            CASE_PARTIAL,
+            CASE_FULL,
+            lastMatch = CASE_FULL
+        };
+
+    private:
+        enum Size
+        {
+            SIZEOFMATCH = lastMatch + 1,
+        };
+
+        std::vector<std::string> d_lines;
+        std::istream            &d_in;
+        std::string             d_hdr;
+        Match                   d_match;
+
+    public:
+        class const_hdr_iterator:
+            public std::iterator<std::input_iterator_tag, 
+                                std::string const>
+        {
+            friend MailHeaders;
+            typedef bool(*Comparator)(std::string const &header, 
+                                      std::string const &key);
+
+            MailHeaders const  *d_mh;
+            std::string         d_key;
+            Comparator          d_comparator;
+            const_iterator      d_current;
+
+            static Comparator s_comparator[];
+
+            const_hdr_iterator(MailHeaders const *mailHeaders,
+                               const_iterator begin);
+
+            const_iterator lookup(const_iterator const &old) const;
+            const_iterator lookdown(const_iterator const &old) const;
+
+            static bool fail(std::string const &hdr,            // .f
+                                std::string const &key);
+            static bool initial(std::string const &hdr,         // .f
+                                std::string const &key);
+            static bool partial(std::string const &hdr,         // .f
+                                std::string const &key);
+            static bool full(std::string const &hdr,            // .f
+                                std::string const &key);
+            static bool caseInitial(std::string const &hdr,     // .f
+                                std::string const &key);
+            static bool casePartial(std::string const &hdr,     // .f
+                                std::string const &key);
+            static bool caseFull(std::string const &hdr,        // .f
+                                std::string const &key);
+
+            public:
+                const_hdr_iterator &operator++();               // opinc.f
+                const_hdr_iterator &operator--();               // opdec.f
+                const_hdr_iterator operator++(int);             // oppostinc.f
+
+                // not used, but potentially available in consthdropdec.cc
+                // const_hdr_iterator operator--(int);       
+
+                bool operator==(const_hdr_iterator const &other)    // opeq.f
+                                                            const; 
+
+                bool operator!=(const_hdr_iterator const &other)    // opneq.f
+                                                            const;
+
+                std::string const &operator*() const;           // opstar.f
+                std::string const *operator->() const;          // oparrow.f
+        };
+
+
+        typedef std::reverse_iterator<const_hdr_iterator>
+                                            const_reverse_hdr_iterator; 
+
+        explicit MailHeaders(std::istream &in, Mode mode = READ);
+        MailHeaders(MailHeaders &&tmp);
+
+        MailHeaders &operator=(MailHeaders &&tmp);
+
+        void read();
+        void setHeaderIterator(char const *header, Match match = FULL); // .f
+
+        const_hdr_iterator beginh() const;                      // .f
+        const_hdr_iterator endh() const;                        // .f
+
+        const_reverse_hdr_iterator rbeginh() const;             // .f
+        const_reverse_hdr_iterator rendh() const;               // .f
+
+        // available from vector<string>:
+
+        size_t size() const;                                    // .f
+        std::string const &operator[](size_t idx) const;        // opindex.f
+
+        const_iterator begin() const;                           // .f
+        const_iterator end() const;                             // .f
+
+        const_reverse_iterator rbegin() const;                  // .f
+        const_reverse_iterator rend() const;                    // .f
+};
+
+#include "begin.f"
+#include "beginh.f"
+#include "end.f"
+#include "endh.f"
+#include "opindex.f"
+#include "rbegin.f"
+#include "rbeginh.f"
+#include "rend.f"
+#include "rendh.f"
+#include "setheaderiterator.f"
+#include "size.f"
+
+#include "oparrow.f"
+#include "opdec.f"
+#include "opeq.f"
+#include "opinc.f"
+#include "opneq.f"
+#include "oppostinc.f"
+#include "opstar.f"
+
+} // FBB
+        
+#endif

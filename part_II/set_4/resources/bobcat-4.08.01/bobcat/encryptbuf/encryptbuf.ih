@@ -1,0 +1,64 @@
+#include "encryptbuf"
+
+#include <string>
+#include <iomanip>
+#include <ostream>
+#include <algorithm>
+#include <openssl/evp.h>
+
+#include <bobcat/exception>
+#include <bobcat/irandstream>
+
+#if  OPENSSL_VERSION_NUMBER < 0x10100000L
+
+#ifndef BOBCAT_EVP_CYPHER_CTX
+#define BOBCAT_EVP_CYPHER_CTX
+
+inline EVP_CIPHER_CTX *EVP_CIPHER_CTX_new(void)
+{
+    EVP_CIPHER_CTX *ret = new EVP_CIPHER_CTX;
+    EVP_CIPHER_CTX_init(ret);
+    return ret;
+}
+
+inline void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *ctx)
+{
+    EVP_CIPHER_CTX_cleanup(ctx);
+    delete ctx;
+}
+
+#endif
+    
+#endif
+
+namespace FBB
+{
+
+struct EncryptBufImp
+{
+    EVP_CIPHER_CTX     *ctx;
+    EVP_CIPHER const   *md;
+    bool                active;
+    size_t              bufsize;
+    char               *buffer;
+    char               *out;
+    std::string         iv;
+    std::ostream       &outStream;
+
+    EncryptBufImp(std::ostream &outStream, std::string const &iv, 
+                  size_t bufsize);
+    ~EncryptBufImp();
+
+    static void setChar(char &ch, IRandStream &irs);
+
+};
+
+} // FBB
+
+using namespace std;
+using namespace FBB;
+
+
+
+
+

@@ -1,0 +1,40 @@
+#ifndef INCLUDED_BOBCAT_X2A_
+#define INCLUDED_BOBCAT_X2A_
+
+#include <sstream>
+#include <string>
+
+namespace FBB
+{
+class X2a: public std::ostringstream
+{
+    static bool s_lastFail;
+
+    public:
+        template <typename T>                   // initialize from 
+        X2a(T const &x);                        // (insertable) type       1.f
+
+        X2a(X2a const &other);                                          // 2.f
+
+        X2a(double x, size_t behind);
+        X2a(double x, size_t width, size_t behind);
+
+        X2a &operator=(X2a const &rhs);                         // opassign.f
+        operator std::string const() const;                     // opstring.f
+
+        bool lastFail();                                                // .f
+};
+
+#include "x2a1.f"
+#include "x2a2.f"
+#include "opstring.f"
+#include "opassign.f"
+#include "lastfail.f"
+
+    // Free Functions
+
+#include "opinsert.f"       // ostream << X2a
+
+} // FBB
+
+#endif

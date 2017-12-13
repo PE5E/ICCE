@@ -1,0 +1,17 @@
+#ifndef INCLUDED_BOBCAT_STRINGLINE_
+#define INCLUDED_BOBCAT_STRINGLINE_
+
+#include <string>
+#include <istream>
+
+namespace FBB
+{
+
+struct StringLine: public std::string
+{};
+
+#include "opextract.f"  // istream >> StringLine
+
+} // FBB
+
+#endif

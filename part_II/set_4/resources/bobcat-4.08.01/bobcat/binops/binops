@@ -1,0 +1,39 @@
+#ifndef INCLUDED_BOBCAT_BINOPS_
+#define INCLUDED_BOBCAT_BINOPS_
+
+// This header file requires the separate inclusion of <bobcat/typetrait>
+//
+//
+// The templates in this file were not defined in the namespace FBB to enhance
+// their usability. If you want to declare them in a namespace of your own
+// include them in your namespace-block, like this:
+//  namespace YOUR_NAMESPACE
+//  {
+//      #include <bobcat/binops>
+//  }
+
+
+#include "opadd1.f"             // Class && + Class
+#include "opadd2.f"             // LHS + RHS
+#include "opbitand1.f"          // Class && & Class
+#include "opbitand2.f"          // LHS & RHS
+#include "opbitor1.f"           // Class && | Class
+#include "opbitor2.f"           // LHS | RHS
+#include "opbitxor1.f"          // Class && ^ Class
+#include "opbitxor2.f"          // LHS ^ RHS
+#include "opdiv1.f"             // Class && / Class
+#include "opdiv2.f"             // LHS / RHS
+#include "opmod1.f"             // Class && % Class
+#include "opmod2.f"             // LHS % RHS
+#include "opshl1.f"             // Class && << Class
+#include "opshl2.f"             // LHS << RHS
+#include "opshr1.f"             // Class && >> Class
+#include "opshr2.f"             // LHS >> RHS
+#include "opsub1.f"             // Class && - Class
+#include "opsub2.f"             // LHS - RHS
+#include "optimes1.f"           // Class && * Class
+#include "optimes2.f"           // LHS * RHS
+
+#endif
+
+

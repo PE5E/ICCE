@@ -1,0 +1,18 @@
+#ifndef INCLUDED_BOBCAT_FBB_
+#define INCLUDED_BOBCAT_FBB_
+
+namespace FBB
+{
+
+enum CryptType
+{
+    DECRYPT,
+    ENCRYPT,
+
+    DECODE = DECRYPT,
+    ENCODE
+};
+
+} // FBB        
+
+#endif

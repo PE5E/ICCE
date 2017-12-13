@@ -1,0 +1,41 @@
+#ifndef INCLUDED_BOBCAT_READLINESTREAM_
+#define INCLUDED_BOBCAT_READLINESTREAM_
+
+#include <istream>
+#include <bobcat/readlinebuf>
+
+namespace FBB
+{
+
+class ReadLineStream: public HistoryExpansion, 
+                      public std::istream
+{
+    ReadLineBuf &d_readLineBuf;
+
+    public:
+        explicit ReadLineStream(std::string const &prompt,              // 1.f
+                                Type type = DONT_EXPAND_HISTORY);
+        explicit ReadLineStream(std::string const &prompt,              // 2.f
+                                size_t historySize, 
+                                Type type = DONT_EXPAND_HISTORY);
+
+        void setPrompt(std::string const &prompt = "");                 // .f
+        bool setExpansion(Type type);                                   // .f
+
+        Expansion expansion() const;                                    // .f
+        std::string const &expansionError() const;                      // .f
+
+        bool useTimestamps(std::string (*timestamp)());
+};
+
+#include "readlinestream1.f"
+#include "readlinestream2.f"
+#include "setprompt.f"
+#include "setexpansion.f"
+#include "expansion.f"
+#include "expansionerror.f"
+#include "usetimestamps.f"
+
+} // FBB        
+#endif
+

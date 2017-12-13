@@ -1,0 +1,244 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Syslogbuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_-x.tar.gz)
+                    (Stream Buffer for Syslog)
+
+manpagename(FBB::Syslogbuf)(A streambuf object inserting syslog messages)
+
+manpagesynopsis()
+    bf(#include <bobcat/syslogbuf>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    Addresses of bf(FBB::Syslogbuf) objects can be passed as
+bf(std::streambuf) addresses to tt(std::ostream) objects to write messages to
+the syslog daemon using stream facilities.
+
+Multiple separate insertions can be used to create a single syslog message:
+the message is only sent to the syslog daemon after receiving a tt(flush)
+command (e.g., after inserting tt(std::flush) or tt(std::endl)). Non-printable
+characters (like tt('\n')) show up in the syslog message as octal values,
+preceded by tt(#) (e.g., tt(#012) for tt('\n')). The newline normally inserted
+by tt(std::endl) is ignored: bf(SyslogStream) objects interpret tt(std::endl)
+like tt(std::flush). 
+
+One series of insertions may contain multiple tt(std::endl) or tt(std::flush)
+manipulators. At each of these manipulators a new message is sent to the
+syslog daemon, containing all info that has so far been buffered. After
+sending a message to the syslog daemon, the bf(SyslogStream)'s internal buffer
+is cleared.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    bf(std::streambuf)
+
+manpagesection(ENUMERATIONS)
+
+    The following enumerations are defined in the namespace bf(FBB):
+
+    bf(Priority):
+
+        The values of this enumeration match the corresponding priority
+bf(LOG_xxx) values used with bf(syslog)(3):
+    itemization(
+    itb(EMERG)
+        system is unusable;
+    itb(ALERT)
+        action must be taken immediately;
+    itb(CRIT)
+        critical conditions;
+    itb(ERR)
+        error conditions;
+    itb(WARNING)
+        warning conditions;
+    itb(NOTICE)
+        normal, but significant, condition;
+    itb(INFO)
+        informational message;
+    itb(DEBUG)
+        debug-level message;
+    )
+
+    bf(PriorityType):
+
+        This enumberation has two values fine-tuning the type of messages that
+are actually processed by the syslog daemon:
+    itemization(
+    itb(SINGLE)
+        Only messages of the priority specified at the tt(setMask) call are
+processed by the syslog daemon;
+    itb(UPTO)
+        Messages of priority tt(EMERG) up to the the priority specified at the
+tt(setMask) call are processed by the syslog daemon;
+    )
+    By default, the syslog daemon processes all messages it receives.
+    
+
+    bf(Facility):
+
+        The values of this enumeration match the corresponding facility
+bf(LOG_xxx) values used with bf(syslog)(3):
+    itemization(
+    itb(AUTHPRIV)
+        security/authorization messages (private)
+    itb(CRON)
+        clock daemon (tt(cron) and tt(at))
+    itb(DAEMON)
+        other system daemons
+    itb(KERN)
+        kernel messages
+    itb(LOCAL0) 
+        reserved for local use. bf(LOCAL1) through bf(LOCAL7) are
+        available as well.
+    itb(LPR)
+        line printer subsystem
+    itb(MAIL)
+        mail subsystem
+    itb(NEWS)
+        tt(USENET) news subsystem
+    itb(SYSLOGBUF)
+        messages generated internally by tt(syslogbufd)
+    itb(USER)
+        generic user-level messages
+    itb(UUCP)
+        UUCP subsystem
+    )
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(Syslogbuf(string const &ident = "",
+                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Facility facility = FBB::USER,
+                int option = 0))
+        This constructor initializes a bf(Syslogbuf) object.  The
+tt(ident) parameter is usually the name of the program. Its contents are
+prepended to syslog messages. 
+
+The tt(priority) parameter determines the default importance of the message
+sent to the syslog daemon. By default messages are sent to the syslog daemon
+with priority bf(FBB::NOTICE). Syslog messages may be given different priority
+by inserting a bf(SyslogStream)(3bobcat) manipulator. The priority set at
+construction time may also be modified using the tt(setPriority) and
+tt(setDefaultPriority) members.
+
+Which messages actually appear in log facilities is not determined by
+the messages' priorities, but by syslog's em(log mask). The log mask can be
+set by the static member tt(setMask) (see below).
+
+The tt(facility) parameter determines the type of program doing the
+logging. By default bf(FBB::USER) is used.
+
+
+    The tt(option) parameter may be used to specify various options (use the
+binary `tt(bitor)' (`tt(|)') operator to combine options):
+
+       bf(LOG_CONS):
+              write directly to system console  if  there  is  an
+              error while sending to system logger nl()
+       bf(LOG_NDELAY):
+              open the connection immediately (normally, the con-
+              nection is opened when the first message is logged) nl()
+       bf(LOG_PERROR):
+              print to stderr as well nl()
+       bf(LOG__PID):
+              include PID with each message nl()
+
+    By default no options are used.
+
+    itb(Syslogbuf(char const *ident,
+                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Facility facility = FBB::USER,
+                int option = 0))
+        This constructor is kept for backward compatibility. Its parameters
+have the same meanings as those of the abovementioned constructor. A
+tt(nullptr) indicates that no text needs to be prepended to syslog messages.
+    )
+
+    Copy and move constructors are not available.
+
+manpagesection(MEMBER FUNCTIONS)
+
+     All members of bf(std::streambuf) are available, as bf(FBB::Syslogbuf)
+inherits from this class.
+
+    itemization(
+    itb(void close())
+       If the bf(SyslogStream)'s internal buffer is not empty it is flushed to
+        the syslog daemon. Thereafer bf(closelog)(3) is called.
+    itb(Priority defaultPriority() const)
+       Returns the current default priority. I.e., the priority that will be
+        used for the messages after inserting tt(endl) or tt(flush).
+    itb(void open(string const &ident,
+                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Facility facility = FBB::USER,
+                int option = 0))
+       Redefines the current identifier, priority, facility and options that
+        are used when sending messages to the syslog daemon. If the
+        bf(SyslogStream)'s internal buffer is not empty it is first flushed to
+        the syslog daemon using the identifier, priority and options that were
+        active just before calling tt(open).
+    itb(Priority priority() const)
+       Returns the next priority. I.e., the priority that will be used for
+        the next message that is sent to the syslog daemon.
+    itb(Priority setDefaultPriority(Priority priority))
+       Changes the default priority of the next message that is sent to the
+        syslog daemon after inserting tt(std::eoln) or
+        tt(std::flush). The previously active default priority is
+        returned.
+    itb(Priority setPriority(Priority priority)) Changes the priority for the
+        next message that is sent to the syslog daemon after inserting
+        tt(std::eoln) or tt(std::flush). Subsequent messages will again use
+        the default priority. The previously active priority setting is
+        returned.
+    )
+
+manpagesection(PROTECTED MEMBER FUNCTION)
+
+    The member listed in this section implements the tasks of the comparably
+named virtual function in the class's private interface. This separates the
+redefinable interface from the user-interface. The class bf(Syslogbuf)
+can, in accordance with Liskov's Substitution Principle, be used as a
+tt(std:streambuf); but it also offers a facility for classes deriving from
+bf(Syslogbuf).
+    itemization(
+    itb(int pSync())
+       The contents of the bf(Syslogbuf)'s internal buffer are flushed to the
+        syslog daemon.
+    )
+
+manpagesection(EXAMPLE)
+    See also bf(syslogstream)(3bobcat)
+
+    verb(
+#include <iostream>
+#include <bobcat/syslogstream>
+
+using namespace std;
+using namespace FBB;
+
+int main(int argc, char **argv)
+{
+    ostream sls(new Syslogbuf(argv[0]));
+
+    sls << SyslogStream::debug << "Hello world" << flush <<
+           SyslogStream::strerrno << endl;
+}
+    )
+
+manpagefiles()
+    em(bobcat/syslogbuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(closelog)(3), bf(openlog)(3), bf(rsyslogd)(8)
+        bf(syslog)(3), bf(syslogstream)(3bobcat)
+
+manpagebugs()
+    The constructor's tt(option) parameter is an tt(int). Because of this,
+tt(int) values rather than enumeration values are passed to the
+constructor. It is the responsibility of the programmer to pass defined option
+values only.
+
+includefile(include/trailer)
+

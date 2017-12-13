@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven03.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l4"></a>
+<h1>Chapter 4: Exercises set four: Polymorphism. Deadline: Dec. 21</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 25.</strong>
+        <br>
+        Purpose: learn to construct an <code>ostream</code> class.
+<p>
+Construct a class offering the same facilities as <code>ostream</code>, but
+inserting its information into <em>two</em> files, whose <code>ostream</code>-objects are
+passed to this class's constructor. So, if the class is called <code>BiStream</code>
+the following should be possible:
+        </p><pre>
+    int main()
+    {
+        ofstream one("one");
+        ofstream two("two");
+
+        BiStream ms(one, two);
+
+        ms &lt;&lt; "Hello world" &lt;&lt; endl;
+    }
+        
+</pre>
+
+    This should insert the text <code>hello world</code> in both <code>one</code> and <code>two</code>.
+Hint: derive a class from <code>streambuf</code> as well. Call it <code>BiStreamBuffer</code>,
+and implement this latter class as well. 
+<p>
+Hints: both classes are <em>extremely</em> simple: their members have bodies
+consisting of at most a few simple expression statements, and can often
+defensibly be implemented <em>inline</em>. If you're encountering complexities,
+then you're doing something wrong. Also: keep it simple and don't descend too
+quickly into stream intestines.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 26.</strong>
+        <br>
+        Purpose of this exercise: learn to design a streambuf reading from file
+descriptors. 
+<p>
+Formally, file descriptors (FDs) are not defined in the context of C++, but
+they are available in many operating systems. E.g., when connecting to a
+computer in the Internet TCP/IP communication is based on a <em>socket</em> which,
+in our computers, is a FD.
+</p><p>
+In this exercise design the class <code>IFdStreambuf</code>. Objects of this class may
+be used as a <code>std::streambuf</code> of std::istream objects to allow extractions
+from an (already open) FD.
+</p><p>
+The class should offer the following facilities:
+    </p><ul>
+    <li> A mode <code>Mode</code> having values <code>CLOSE_FD</code> and <code>KEEP_FD</code>. When the
+        objects is destroyed it should close the FD if its more equals
+        <code>CLOSE_FD</code>.
+    </li><li> A constructor optionally specifying the oject's Mode (by default:
+        <code>KEEP_FD</code>). 
+    </li><li> A constructor expecting a file descriptor and optionally a
+        Mode (by default <code>KEEP_FD</code>).
+    </li><li> A member <code>close</code> closing the FD.
+    </li><li> A member <code>open</code> having the same parameters as the second
+        constructor, resulting in using the specified FD.
+    </li><li> The class does not support promotions.
+    </li></ul>
+<p>
+Notes: no additional constructors and no assignment operators may be
+        available. Internally, use a buffer of some fixed size (e.g., 100
+        chars). In addition to standard extractions it should also support
+        <code>read</code> facilities, for which <code>xsgetn</code> should be overridden: it
+        first copies what's available in <code>IFdStreambuf's</code> own buffer and
+        will then try to read some more from the FD, adding it to the
+        destination buffer. 
+</p><p>
+Hints: consult the <strong>open</strong>(2) and <strong>close</strong>(2) man-pages.
+</p><p>
+        <br><br>
+    
+</p><hr>
+        <strong>Exercise 27.</strong>
+        <br>
+        Purpose of this exercise: learn to design a streambuf writing to file
+descriptors. 
+<p>
+See the previous exercise for a description of its counterpart:
+<code>IFdStreambuf</code>. <code>OFdStreambuf</code> objects can be used as <code>std::streambuf</code>
+objects writing information to FDs. 
+</p><p>
+Constructors should be designed like <code>IFdStreambuf</code> constructors, and the
+same <code>open</code> and <code>close</code> members must be offered. In addition it should
+offer a protected <code>pSync</code> member, allowing classes derived from
+<code>OFdStreambuf</code> to flush <code>OFdStreambuf's</code> internal buffer.
+</p><p>
+Hint: the actual flushing should be implemented by the (private) 
+member <code>sync</code>, which is used by other <code>OFdStreambuf</code> members as well. 
+</p><p>
+        <br><br>
+    
+</p><hr>
+        <strong>Exercise 28.</strong>
+        <br>
+        Purpose of this exercise: learn to design streams.
+<p>
+Design <code>IFdStream</code> and <code>OFdStream</code> which are, respectively <code>istream</code> and
+<code>ostream</code> objects reading from and writing to streams. Neither class
+supports promotions.
+</p><p>
+Both classes should <em>only</em> define a constructor expecting a FD.
+</p><p>
+Standard, the FD 0 is associated with the keyboard. FD 1 with the computer's
+screen. Assuming that <code>in</code> is an <code>IFdStream</code> associated with FD 0, and
+<code>out</code> is an <code>OFdStream</code> associated with FD 1, show in a <code>main</code> function
+how you define such objects and how to copy information entered at the
+keyboard to the screen.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 29.</strong>
+        <br>
+        Purpose of this exercise: learn to implement a base class that can be used
+when applying the Template Method Design Pattern.
+<p>
+The <strong>fork</strong>(2) function allows you to start a copy of the current
+process (see also the next exercise for an application). 
+</p><p>
+To summarize <strong>fork</strong>(2): at the <code>fork</code> call a duplicate (a <em>child</em>) of
+the current program (the <em>parent</em>) is created, and both programs (parent and
+child) continue beyond the <code>fork()</code> system call. Each program (also called a
+<em>process</em>) has a <em>process id</em>, and the child's process id is returned by
+<code>fork</code> in the parent process, while <code>fork</code> returns 0 in the child's
+process. In theory  <code>fork</code> may fail, in which case it returns -1.
+</p><p>
+Since the above details are invariant over all programs using <code>fork</code>, they
+are perfectly suited for encapsulation in an abstract base class, only
+requiring the construction of a derived class in which the parent's actions
+after <code>fork()</code> and in which the child's actions after <code>fork()</code> must be
+implemented.
+</p><p>
+Design and submit the abstract base class <code>Fork</code> which does not offer copy
+and move construction or assignment, and which only has one public member
+<code>void fork()</code>. In addition it offers private members <code>void
+parentProcess()</code> and <code>void childProcess()</code> which <em>must</em> be implemented by
+derived classes, implementing, respectively, the actions performed by the
+parent process and the actions implemented by the child process after the
+fork. When <code>childProcess()</code> ends the child process must stop. In addition
+some protected members must be defined:
+    </p><ul>
+    <li> <code>pid_t pid() const</code> returns the child's process id in the parent's code
+        and 0 in the child's code;
+    </li><li> <code>int waitForChild() const</code> This member may be called by parentProcess
+        to wait
+        for the completion of the child-process. The return value (exit-code)
+        of the child process is returned as a value between 0 and 255. If the
+        child process terminates before the completion of the parent process,
+        then <code>waitForChild</code> should (must) be called to prevent zombies from
+        occurring. Alternatively, the parent process may terminate while the
+        child process is still alive.  This is the normal way to create a
+        daemon process. The implementation of <code>waitForChild</code> is not
+        difficult. Since it's not the core topic of this exercise its
+        implementation is provided here:
+            <pre>
+    int Fork::waitForChild() const
+    {
+        int status;
+    
+        waitpid(d_pid, &amp;status, 0);
+    
+        return WEXITSTATUS(status);
+    }
+            
+</pre>
+
+    </li></ul>
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 30.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to handle input from multiple sources.
+<p>
+The <code>select</code> system call (see the <strong>select</strong>(2) man-page) allows you to
+react to input from different input-FDs. Since input from different FDs may
+arrive asynchroneously you cannot wait for input on one FD to arrive, because
+that might prevent you from obtaining the information arriving on another FD.
+</p><p>
+The <code>select</code> system call can be used for other purposes as well: it can do
+the same for output FDs and also for (what are called) <em>exception</em> FDs,
+which are unrelated to C++'s exceptions, but are primarily used with detecting
+`urgent' data in TCP connections (so called out-of-band data). Also,
+<code>select</code> can be used to trigger an alarm if no activity on the watched FDs
+was observed for a certain amount of time. 
+</p><p>
+Select is a very useful facility in situations where we need to process
+multiple input streams, but also if we want to do things if no input
+arrives. The Red Thread's monitor program uses this by setting an alarm for 1
+second while waiting for information appearing on the fifo it uses to read
+information from the various <code>Connections</code>. 
+</p><p>
+But <code>select</code> has one drawback: it requires lots of administrative work,
+which clobbers the environment in which <code>select</code> is used. Therefore,
+encapsulating it in a <code>Select</code> class is an attractive option.
+</p><p>
+In this exercise, design your class <code>Selector</code>. It should offer a default
+constructor, initializing the object with no input file descriptors and no
+alarm. Its members are:
+        </p><ul>
+        <li> <code>void addReadFd(int fd)</code>, adding a filedescriptor to the set of
+            file descriptors that are monitored for reading.
+        </li><li> <code>void noAlarm()</code>, preventing timeout-alarms from occurring.
+        </li><li> <code>int nReady()</code>, returning the number of available file descriptors.
+            0 is returned at a timeout, -1: is returned when select(2) itself
+            fails.
+        </li><li> <code>int readFd()</code>, returning -1 of no more file descriptors are
+            available for reading. Otherwise the next available file
+            descriptor for reading is returned. Returning from <code>wait</code> (see
+            below), this function can be called repeatedly until -1 is
+            returned, servicing each available filedescriptor in turn. Note
+            that the file whose file descriptor is returned by readFd may also
+            be at its end-of-file position.  The file is `ready for readingâ��,
+            but no characters will be returned when trying to read from it due
+            to its end-of-file status. In that case the file descriptor is
+            probably best removed from the set of active file descriptors.
+        </li><li> <code>void rmReadFd(int fd)</code> removes a filedescriptor from the set of
+            file descriptors that are monitored for reading.
+        </li><li> <code>void setAlarm(int sec, int usec = 0)</code>, sets the alarm at the
+            indicated seconds and micro-seconds. If no action occurred on one
+            of the monitored file descriptions following the indicated amount
+            of time, <code>wait</code> returns with <code>nReady</code> returning 0. The
+            requested alarm time (sec + usec / 1e+6) may not be negative or an
+            exception is thrown.  A 0 alarm time specification results in
+            <code>wait</code> returning immediately. To switch off the alarm time use
+            <code>noAlarm</code>.
+        </li><li> <code>int wait()</code>, called to wait for activities on the installed file
+            descriptors or timeout-period.  The members <code>nReady</code> and
+            <code>readFd</code> show their defined behaviors only after <code>wait</code> has
+            returned.
+<p>
+It throws an exception when <strong>select</strong>(2) fails, which may very
+            well indicate the end of any available input. An exception is also
+            thrown if the program received a signal.
+</p><p>
+If <code>wait</code> returns normally its return value represents the
+            number of available file descriptors. Note that <code>wait</code> may also
+            return with an input file descriptor returned by readFd of a file
+            at its end-of-file position. The file is `ready for readingâ��, but
+            no characters will be returned when trying to read from it due to
+            its end-of-file status.
+        </p></li></ul>
+    Illustrate the use of <code>Select</code> in a small program, printing the message
+<code>Are you there?</code> every 5 seconds after sensing activities on the standard
+input stream. When a line of input was read, then that line should be
+displayed, resetting the waiting interval to 5 seconds (hint: this resetting
+should not be required by the program, but should be automatically handled by
+the <code>Selector</code> object).
+<p>
+        <br><br>
+    
+</p><hr>
+        <strong>Exercise 31.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to broaden your view about polymorphism
+<p>
+This is a weird, and therefore optional exercise.
+</p><p>
+Construct a base class offering a member <code>Base *clone() const</code>. 
+</p><p>
+Derive two classes from it: class A and class C. Without using polymorphism
+your program should be able to clone A and C objects, as illustrated by the
+following program (the program by itself is a piece of shit, as it leaks like
+hell, but that's OK for this exercise):
+        </p><pre>
+    int main()
+    {
+        Base *base[4] = { new A{}, new C{} };
+    
+        cout &lt;&lt; "cloning 1\n";
+    
+        base[2] = base[0]-&gt;clone();
+        base[3] = base[1]-&gt;clone();
+    
+        cout &lt;&lt; "cloning 2\n";
+    
+        for (auto bp: base)
+            bp-&gt;clone();
+    }
+        
+</pre>
+
+<p>
+Its output should be:
+        </p><pre>
+    cloning 1
+    clone from A
+    clone from C
+    cloning 2
+    clone from A
+    clone from C
+    clone from A
+    clone from C
+        
+</pre>
+
+<p>
+In addition to submitting the program, answer the question why this
+non-polymorphic cloning is ill-advised.
+</p><p>
+Hint: the base class must know for what kind of class it is the base class,
+somewhat comparable to what happens in polymorphism, where you have Vtables.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven03.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

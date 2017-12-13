@@ -1,0 +1,4 @@
+#define LIBRARY             "configfile"
+
+#include "../icmconf"
+

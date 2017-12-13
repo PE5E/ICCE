@@ -1,0 +1,26 @@
+#ifndef INCLUDED_BOBCAT_IOSTREAM_
+#define INCLUDED_BOBCAT_IOSTREAM_
+
+#include <bobcat/iostreambuf>
+
+namespace FBB
+{
+
+class IOStream: private IOStreambuf, public std::istream, public std::ostream
+{
+    public:
+        IOStream();                                         // 1.f
+        IOStream(std::istream &in, std::ostream &out);      // 2.f
+
+        void clear();
+        void open(std::istream &in, std::ostream &out);     // .f
+};
+
+#include "iostream1.f"
+#include "iostream2.f"
+#include "open.f"
+
+} // namespace FBB
+
+#endif
+

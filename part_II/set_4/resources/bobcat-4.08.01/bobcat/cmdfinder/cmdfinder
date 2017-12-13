@@ -1,0 +1,76 @@
+#ifndef INCLUDED_BOBCAT_CMDFINDER_
+#define INCLUDED_BOBCAT_CMDFINDER_
+
+#include <algorithm>
+#include <string>
+
+#include <bobcat/cmdfinderbase>
+#include <bobcat/fswap>
+
+namespace FBB
+{
+
+template <typename FP>
+class CmdFinder: public CmdFinderBase
+{
+    size_t d_count;
+
+    protected:
+        typedef FP FunctionPtr;                 // define template type 
+                                                // as a named type
+
+                                                // elements of the array
+                                                // of keys/f-ptrs
+        typedef std::pair<char const *, FP> Entry;
+
+    private:
+        Entry const *d_begin;
+        Entry const *d_end;
+
+    protected:
+        CmdFinder(Entry const *begin, Entry const *end,                 // 1
+                                                    size_t mode = 0);   
+        CmdFinder(CmdFinder &&tmp);                                     // 2
+
+        CmdFinder &operator=(CmdFinder const &rhs)  = default;
+        CmdFinder &operator=(CmdFinder &&tmp);                  // opis1
+
+        FP findCmd(std::string const &cmd);
+        size_t count() const;
+
+        void swap(CmdFinder &rhs);
+
+    private:
+        class MatchKey
+        {
+            FP *d_fp;
+            CmdFinder<FP> *d_cmdFinder;
+
+            public:
+                MatchKey(FunctionPtr *fp, CmdFinder<FP> *cmdFinder);    // 1
+                bool operator()(CmdFinder::Entry const &entry);     // opfun
+        };
+
+        bool match(std::string const &key) const;
+
+    friend MatchKey;
+
+};
+
+#include "cmdfinder1.f"
+#include "cmdfinder2.f"
+#include "count.f"
+#include "findcmd.f"
+#include "opis1.f"
+#include "swap.f"
+#include "match.f"
+#include "matchkey1.f"
+#include "opfun.f"
+
+} // FBB
+        
+#endif
+
+
+
+

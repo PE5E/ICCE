@@ -1,8 +1,14 @@
 #include "subtraction.ih"
 
-Subtraction &Subtraction::operator-=(Operations const &rhs) &
+Operations &Subtraction::operator-=(Operations const &rhs) &
 { 
-    static_cast<Binops *>(this)->sub(rhs);
+    Operations tmp(*static_cast<Operations *>(this)); 
+        // something might go wrong in add so first a copy is made
 
-    return *this;
+    static_cast<Binops>(tmp).sub(rhs);
+
+    *this = tmp;  // fast swap could be implemented  
+
+    return *static_cast<Operations *>(this);
 }
+

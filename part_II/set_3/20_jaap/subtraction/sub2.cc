@@ -1,6 +1,7 @@
 #include "subtraction.ih"
 
-Subtraction operator-(Operations &&lhs, Operations const &rhs)
+Operations operator-(Operations &&lhs, Operations const &rhs)
 {
-	return move(*static_cast<Subtraction *>(&lhs)) -= rhs;
+	return move(lhs) -= rhs;
 }
+

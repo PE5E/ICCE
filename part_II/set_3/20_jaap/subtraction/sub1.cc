@@ -1,7 +1,8 @@
 #include "subtraction.ih"
 
-Subtraction operator-(Operations const &lhs, Operations const &rhs)
+Operations operator-(Operations const &lhs, Operations const &rhs)
 {
-	Operations tmp(lhs); //Not sure how to prevent making a copy.
-	return tmp -= rhs;   
+	Operations tmp(lhs); 
+    return move(tmp) -= rhs; // move is used to prevent making a copy 
 }
+

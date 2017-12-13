@@ -8,11 +8,11 @@ class Subtraction
 {
     public:
         Subtraction();
-        Subtraction &operator-=(Operations const &rhs) &;  // subassign1.cc
-        Subtraction &&operator-=(Operations const &rhs) &&;// subassign2.cc
+        Operations &operator-=(Operations const &rhs) &;  // subassign1.cc
+        Operations &&operator-=(Operations const &rhs) &&;// subassign2.cc
     
-    friend Subtraction operator-(Operations const &lhs, Operations const &rhs); // sub1.cc
-    friend Subtraction operator-(Operations &&lhs, Operations const &rhs);      // sub2.cc
+    friend Operations operator-(Operations const &lhs, Operations const &rhs);
+    friend Operations operator-(Operations &&lhs, Operations const &rhs);  
 };
 
 #endif

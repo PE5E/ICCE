@@ -1,6 +1,6 @@
 #include "addition.ih"
 
-Addition operator+(Operations &&lhs, Operations const &rhs)
+Operations operator+(Operations &&lhs, Operations const &rhs)
 {
-	return move(*static_cast<Addition *>(&lhs)) += rhs;
+	return move(lhs) += rhs;
 }

@@ -1,8 +1,10 @@
 #include "subtraction.ih"
 
-Subtraction &&Subtraction::operator-=(Operations const &rhs) &&
+Operations &&Subtraction::operator-=(Operations const &rhs) &&
 {
 	static_cast<Binops *>(this)->sub(rhs);
 
-    return move(*this);
+    return move(*static_cast<Operations *>(this));
 }
+
+

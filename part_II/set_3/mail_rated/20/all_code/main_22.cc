@@ -1,4 +1,4 @@
-// #include "main.ih"
+#include "main.ih"
 #include "addition/addition.h"
 #include "subtraction/subtraction.h"
 #include "operations/operations.h"

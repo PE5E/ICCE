@@ -1,7 +1,0 @@
-#include "fork.h"
-
-#include <sys/wait.h>
-#include <unistd.h>
-#include <cstdlib>
-
-using namespace std;

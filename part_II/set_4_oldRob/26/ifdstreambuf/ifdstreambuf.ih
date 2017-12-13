@@ -1,3 +1,0 @@
-#include "ifdstreambuf.hh"
-#include <unistd.h>         // open, close
-#include <cstring>          // memcpy

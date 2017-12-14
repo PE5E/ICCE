@@ -2,6 +2,7 @@
 
 void OFdStreambuf::clean()
 {
+    sync();
     if (d_mode == CLOSE_FD)
         ::close(d_fd);            // sys close
 

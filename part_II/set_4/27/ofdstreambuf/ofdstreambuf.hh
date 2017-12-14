@@ -1,6 +1,8 @@
 #ifndef __INCLUDED_OFDSTREAMBUF_H
 #define __INCLUDED_OFDSTREAMBUF_H
 
+#include <streambuf>
+
 class OFdStreambuf: public std::streambuf
 {
     public:
@@ -10,41 +12,28 @@ class OFdStreambuf: public std::streambuf
             KEEP_FD,
         };
     private:
-        static const s_SIZE = 100;
+        static const size_t s_SIZE = 100;
 
         char   *d_buffer;
         int     d_fd;
         Mode    d_mode;
     public:
         explicit OFdStreambuf(Mode mode = KEEP_FD);
-        explicit OFdStrambuf(int fd, Mode mode = KEEP_FD);
+        explicit OFdStreambuf(int fd, Mode mode = KEEP_FD);
 
         ~OFdStreambuf();
 
         OFdStreambuf(OFdStreambuf const &other)             = delete;
-        OFdStreambuf &operator=(OFdStreambuf const & ohter) = delete;
+        OFdStreambuf &operator=(OFdStreambuf const &other)  = delete;
 
         void open(int fd, Mode mode = KEEP_FD);
         void close();
 
-        void pSync(); 
     private:
-        void sync();
+        int sync() override;
+        int overflow(int c) override;
+        
         void clean();
-}
+};
 
 #endif 
-
-// should be same:
-//          open
-//          close
-//          clean
-//          destructor
-//          constructor 1
-//          constructor 2
-//          
-// new:
-//          sync()
-//          pSync
-//          <mysterious xsputn?>
-//

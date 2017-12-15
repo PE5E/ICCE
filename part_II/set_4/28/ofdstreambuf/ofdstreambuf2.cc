@@ -7,4 +7,5 @@ OFdStreambuf::OFdStreambuf(int fd, Mode mode)
         d_mode(mode)
 {
     setg(d_buffer, d_buffer + s_SIZE, d_buffer + s_SIZE);
+    std::cerr << "called " << __FILE__ << '\n';
 }

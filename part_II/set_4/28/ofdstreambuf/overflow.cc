@@ -2,6 +2,7 @@
 
 int OFdStreambuf::overflow(int c)
 {
+    std::cerr << "called " << __FILE__ << '\n';
     sync();                 // write current buffer
     if (c != EOF)           // prepare to close file
     {

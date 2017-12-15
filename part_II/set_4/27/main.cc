@@ -1,12 +1,14 @@
+#include "ofdstreambuf/ofdstreambuf.hh"
 #include <iostream>
+#include <istream>
+#include <unistd.h>
 
 using namespace std;
 
-int main(int argc, char **argv)
-try
-  {
-  }
- catch (...)
-   {
-     cerr << "Something bad happened\\n";
-   }
+int main()
+{
+	OFdStreambuf fds(STDOUT_FILENO);
+	ostream      os(&fds);
+}
+
+// as seen in the C++ annotations, Ch. 24

@@ -1,9 +1,16 @@
 #include "bistream/bistream.h"
+#include <fstream>
+
+using namespace std;
 
 int main()
 {
-    BiStream thing(std::cerr, std::cout);
-    thing << "testsdakdfjalksjdflakjsdflkajsdflaksjdflkajsdlfakjfdlak" << '\n';
+    ofstream one("one");
+    ofstream two("two");
+
+    BiStream ms(one, two);
+
+    ms << "Hello world" << endl;
 }
 
 

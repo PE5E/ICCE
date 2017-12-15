@@ -1,6 +1,5 @@
 #include "fork.ih"
 
-
 int Fork::waitForChild()
 {
     int status;

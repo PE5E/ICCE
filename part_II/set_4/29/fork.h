@@ -20,7 +20,6 @@ class Fork
 	private:
 		virtual void parentProcess() = 0;
 		virtual void childProcess() = 0;
-
 };
 
 inline pid_t Fork::pid() const
@@ -29,3 +28,5 @@ inline pid_t Fork::pid() const
 }
 
 #endif
+
+//Note this class is inspired by the C++ annotations, ch. 24, and Bobcat.

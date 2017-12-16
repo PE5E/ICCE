@@ -8,8 +8,8 @@
 
 int main()
 {
-	IFdStream in(STDIN_FILENO);
-    std::string tmp;
+	IFdStream in(STDIN_FILENO); //we are not sure when/how to enter with
+    std::string tmp;            //the keyboard using file descriptors.
     in  >> tmp;
     std::cerr << tmp;
 	OFdStream out(STDOUT_FILENO);

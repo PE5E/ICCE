@@ -1,0 +1,9 @@
+ifdstreambuf/ifdstreambuf.hh
+ifdstreambuf/ifdstreambuf.ih
+ifdstreambuf/clean.cc
+ifdstreambuf/close.cc
+ifdstreambuf/destructor.cc
+ifdstreambuf/ifdstreambuf1.cc
+ifdstreambuf/ifdstreambuf2.cc
+ifdstreambuf/open.cc
+ifdstreambuf/xsgetn.cc

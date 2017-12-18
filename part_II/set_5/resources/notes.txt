@@ -178,6 +178,72 @@ Ch 12.4 Available containers
         - collisions -> linear chaining
         - much more efficient than 'map'
     all the other unordered_ types are hash types of their parents
+   
+12.5 'complex'
+
+    - complex numbers 
     
+12.6 unrestriced unions
+    
+    - union can hold primitive types (one member per type)
+    - unrestricted unions can hold any type (one member per type)
+
+18.3 'unique_ptr'
+
+    - smart pointer that deletes 
+    - assignment uses move semantics
+    - no sharing memory with other pointers
+    - can destroy Derived through *Base if Derived::deleter(base *bp) is 
+    provided.
+        
+    18.3.1 defining
+    
+        unique_ptr<type> ident;
+        unique_ptr<type> ident(another unique_ptr for type)
+        unique_ptr<type> ident(new-expr[, deleter]);
+
+    18.3.2 form 1
+    
+        it's a nullptr.
+
+    18.3.3 form 2
+    
+        - move assignment using anon values 
+        - assignment using other unique_ptr
+            DESTROYS the other ptr :)
+    18.3.4 form 3
+    
+        unique_ptr<type [, deleter_type]> ident(new-expr [, deleter  =
+deleter_type{}]); 
+
+        for example:
+
+        unique_ptr<string> strPtr(new string("Hello world"));
+
+        example of deleter:
+
+#include <iostream>
+#include <string>
+#include <memory>
+
+struct Deleter
+{
+    size_t d_size;
+    Deleter(size_t size = 0)
+        :
+            d_size(size)
+    {]
+    void operator()(string **ptr) const
+    {
+        for (size_t idx = 0; idx < d_size; ++idx)
+            delete ptr[idx];
+        delete[] ptr;
+    }
+};
+int main()
+{
+    unique_ptr(string *, Delter> sp2{ new string *[10], Deleter{ 10 } };
+    Deleter &obj = sp2.get_deleter();
+}
         
 

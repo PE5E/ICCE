@@ -1,0 +1,121 @@
+To Install the bobcat library by hand instead of using the binary distribution
+perform the following steps:
+
+    0. To install bobcat icmake should be used, for which a top-level script
+        (build) and support scripts in the ./icmake/ directory are
+        available. Icmake is available on many architectures. 
+
+    1. Inspect the values of the variables in the file INSTALL.im, in
+        particular the #defines below COMPONENTS TO INSTALL. Modify
+        these #defines when necessary.
+
+    2. Inspect the path to icmake at the top of the `build' script. By default
+        it is /usr/bin/icmake, but some installations use
+        /usr/local/bin/icmake Adapt when necessary.
+
+    3. If you want to build the complete bobcat library, then execute
+
+            ./build libraries
+
+        to compile the bobcat libraries. 
+
+        Optionally add the argument 'strip' if you want the libraries to be
+        stripped. Unless you need the symbolic information in the compiled
+        object modules, it is probably a good idea to provide this
+        argument. So in that case issue:
+
+            ./build libraries strip 
+
+        Several Bobcat classes depend on additional, non standard,
+        libraries. They are libmilter, libssl, libX11, and libreadline. By
+        just starting ./build libraries [strip] you are asked whether you want
+        those classes included in the Bobcat library.
+
+        If you know beforehand that you don't need those additional classes,
+        then run
+
+            ./build light [strip]
+
+        (see also README.class-setup).
+
+        If you only need a particular subset of classes, then run
+
+            ./build select [strip] class ...
+
+        where 'class ...' is replaced by the name(s) of the class(es) you want
+        to include in the bobcat library. The build script will automatically
+        also add the classes on which the specified set of classes
+        (recursively) depend.
+
+        The file dependencies/using.classes contains an overview of all bobcat
+        classes (non-indented single words on separate lines) followed by an
+        indented list of classes that use the last-mentioned non-indented
+        class name. Each line in the file dependencies/required.classes starts
+        with the name of a bobcat class, followed by all bobcat classes on
+        which that particular bobcat class depends. Do not modify the file
+        dependencies/required.classes as 'build select' depends on its
+        contents.
+
+    4. Run (probably as root) 
+
+            ./build install 'LOG:path' 'what' 'base' 
+
+        to install components of the bobbat library.
+
+        Here, 
+            'LOG:path' is an optional item specifying the absolute or relative
+                path of a log file to contain a log of all installed files (see
+                also the next item). Using LOG:~/.bobcat usually works
+                well. Do not put any blanks between LOG: and the path
+                specification, or protect the LOG: specification by quotes.
+
+            'what' specifies what you want to install.
+                Specify:
+                          x, to install all components,
+                or specify a combination of:
+                           d (documentation),
+                           h (header files),
+                           l (libraries),
+                           m (man-pages)
+                E.g., use 
+                    ./build install hl 'base'
+                if you only want to install the header files and the library.
+    
+                When requesting non-existing elements (e.g., ./build install x
+                was requested, but the man-pages weren't constructed) then
+                these non-existing elements are silently ignored by the
+                installation process.
+
+            'base' is optional and specifies the base directory below which
+                the requested files are installed. This base directory is
+                prepended to the paths #defined in the INSTALL.im file. If
+                'base' is not specified, then INSTALL.im's #defined paths are
+                used as-is.
+
+    5.  Uninstalling previously installed components of Bobcat is easy if a
+        log path (LOG:...) was specified at the `./build install ...'
+        command. In that case, run the command
+
+            ./build uninstall logpath
+
+        where 'logpath' specifies the location of the logfile that was
+        written by ./build install.  Modified files and non-empty directories
+        are not removed, but the logfile itself is removed following the
+        uninstallation.
+
+
+Make sure that the bobcat library is found by the loader. By default it is
+installed in /usr/lib, which is in the loader's standard search path
+
+By default the headers are stored under /usr/include. Since this is part of
+the compiler's the standard include path the header files are included as,
+e.g., #include <bobcat/errno>. No `bobcat' headers have (.h) extensions.
+
+By default the manual pages are stored under /usr/share/man/man1,
+/usr/share/man/man3, and /usr/share/man/man7, which are normally in the `man'
+program's set of visited directories.
+
+
+
+
+

@@ -1,0 +1,4 @@
+#define LIBRARY             "syslogstream"
+
+#include "../icmconf"
+

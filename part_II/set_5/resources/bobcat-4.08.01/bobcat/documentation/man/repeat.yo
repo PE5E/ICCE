@@ -1,0 +1,74 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::repeat)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_-x.tar.gz)
+                    (repeated function calls)
+
+manpagename(FBB::repeat)(call a (member) function a fixed number of times)
+
+manpagesynopsis()
+    bf(#include <bobcat/repeat>)nl()
+
+manpagedescription()
+
+The bf(FBB::repeat) function template allows a function or member function to
+be called a certain number of times. The functions or member functions may
+define arguments. Arguments to these functions are specified when tt(repeat)
+is called, and are perfectly forwarded by the tt(repeat) function
+template to the (member) function called by tt(repeat).
+
+The first argument of the tt(repeat) function template defines the number of 
+times the (member) function must be called.
+
+The tt(FBB::repeat) function template are defined tt(inline),
+allowing the compiler to `optimize away' the tt(repeat) function call 
+itself.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(REPEAT FUNCTION TEMPLATE)
+    The tt(repeat) function template is declared as:
+    verb(
+template <typename Counter, typename First, typename ...Params>
+void repeat(Counter counter, First &&first, Params &&...params);
+    )
+    In this declaration,
+    itemization(
+    it() bf(Counter) represents the counter's type. Usually an tt(int) or
+        tt(size_t). When calling tt(repeat) tt(counter) must be initialized to
+        the number of times tt(repeat) must call the (member) function (see
+        below);
+    it() bf(First) represents the prototype of a function or the name of a
+        class.  name of a class. Likewise, tt(first) either is the address
+        (name) of the function to be called or the name of an object of class
+        type tt(First). In the latter case the object may or may not be a
+        tt(const) object.
+    it() bf(...Params) represents the set of parameter types of arguments
+        which must be perfectly forwarded to the called function. If tt(first)
+        represents a class type object, the first argument em(must) be the
+        address of a member function of the class tt(First).
+    )
+
+manpagesection(EXAMPLES)
+    verbinclude(../../repeat/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/repeat) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7)
+
+manpagebugs()
+    Be careful when using overloaded functions, as the template argument
+        resolution mechanism may be unable to determine which function to
+        call. If overloaded functions must be used, a tt(static_cast) is
+        likely required to disambiguate your intentions.
+
+includefile(include/trailer)
+
+
+
+

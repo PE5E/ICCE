@@ -1,0 +1,27 @@
+#ifndef INCLUDED_TEMPSTREAM_
+#define INCLUDED_TEMPSTREAM_
+
+#include <string>
+#include <fstream>
+
+namespace FBB
+{
+
+class TempStream: public std::fstream
+{
+    std::string d_fileName;
+
+    public:
+        TempStream(std::string const &base = "/tmp/FBB::TempStream");
+
+        ~TempStream();
+        std::string const &fileName() const;                        // .f
+};
+
+#include "filename.f"
+
+}   // FBB
+        
+#endif
+
+

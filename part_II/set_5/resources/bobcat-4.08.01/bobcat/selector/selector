@@ -1,0 +1,68 @@
+#ifndef INCLUDED_BOBCAT_SELECTOR_
+#define INCLUDED_BOBCAT_SELECTOR_
+
+#include <sys/select.h>
+
+namespace FBB
+{
+
+class Selector
+{
+    fd_set          d_read;
+    fd_set          d_write;
+    fd_set          d_except;
+    fd_set          d_ret_read;
+    fd_set          d_ret_write;
+    fd_set          d_ret_except;
+    timeval         d_alarm;
+    int             d_max;
+    int             d_ret;
+    int             d_readidx;
+    int             d_writeidx;
+    int             d_exceptidx;
+
+    public:
+        Selector();
+
+        int wait();             // nReady() and the get...() members 
+                                // perform defined behavior only after 
+                                // wait() returns.
+
+        int nReady();           // number of available fd's. 0: timeout    .f
+                                // occurred, -1: select() failed.
+
+        int exceptFd();                                                 // .f
+        int readFd();               // -1 if no more available             .f
+                                    // descriptors otherwise the next 
+                                    // available fd in each category
+        int writeFd();                                                  // .f
+        void setAlarm(int sec, int usec = 0);
+        void noAlarm();                                                 // .f
+        void addReadFd(int fd);                                         // .f
+        void addWriteFd(int fd);                                        // .f
+        void addExceptFd(int fd);                                       // .f
+        void rmReadFd(int fd);                                          // .f
+        void rmWriteFd(int fd);                                         // .f
+        void rmExceptFd(int fd);                                        // .f
+
+    private:
+        int checkSet(int *index, fd_set &set);
+        void addFd(fd_set *set, int fd);
+};
+
+#include "addexceptfd.f"
+#include "addreadfd.f"
+#include "addwritefd.f"
+#include "exceptfd.f"
+#include "noalarm.f"
+#include "nready.f"
+#include "readfd.f"
+#include "rmexceptfd.f"
+#include "rmreadfd.f"
+#include "rmwritefd.f"
+#include "writefd.f"
+
+} // FBB
+
+#endif
+

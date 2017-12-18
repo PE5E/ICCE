@@ -1,0 +1,157 @@
+#ifndef INCLUDED_BOBCAT_OFOLDSTREAMBUF_
+#define INCLUDED_BOBCAT_OFOLDSTREAMBUF_
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include <bobcat/ofilterstreambuf>
+
+namespace FBB
+{
+
+class lm
+{
+    size_t d_value;
+    
+    public:
+        lm(int value);                                  // 1.f
+        std::ostream &modify(std::ostream &out) const;  // 1.f
+};
+
+class mlm
+{
+    int d_value;
+    
+    public:
+        mlm(int value);                                 // 1.f
+        std::ostream &modify(std::ostream &out) const;  // 2.f
+};
+
+struct OFoldStreambufEnums
+{
+    enum TrailingBlanks
+    {
+        IGNORE_TRAILING_BLANKS,
+        HANDLE_TRAILING_BLANKS
+    };
+    enum TabsOrBlanks
+    {
+        BLANKS,
+        TABS
+    };
+};
+    
+    // 'virtual public OFoldStreambufBlanks is used to avoid 'base class not
+    // accessible' warnings when classes inherit from OFoldStreambuf like
+    // OFoldStream. 
+class OFoldStreambuf: virtual public OFoldStreambufEnums, 
+                      public OFilterStreambuf
+{
+    friend std::ostream &lm::modify(std::ostream &) const;
+    friend std::ostream &mlm::modify(std::ostream &) const;
+
+    enum Mode
+    {
+        INDENT,
+        WS,
+        NON_WS
+    };
+
+    std::string d_nonWs;
+    std::string d_ws;
+
+    size_t d_rightMargin;
+    size_t d_indent;
+    bool d_reqIndent;
+
+    size_t d_wsLength;
+    size_t d_next;
+
+    Mode d_mode;
+
+    char d_indentChar;
+    size_t d_indentWidth;
+    bool d_handleTrailingBlanks;
+
+    typedef std::vector<OFoldStreambuf const *>::iterator BufIt;
+    static std::vector<OFoldStreambuf const *> s_buffers;
+
+    public:
+        explicit OFoldStreambuf(
+                   size_t leftIndent = 0, size_t rightMargin = 80,
+                   TabsOrBlanks tob = BLANKS,
+                   TrailingBlanks tb = IGNORE_TRAILING_BLANKS);
+
+        explicit OFoldStreambuf(char const *fname,
+                   size_t leftIndent = 0, size_t rightMargin = 80,
+                   TabsOrBlanks tob = BLANKS,
+                   TrailingBlanks tb = IGNORE_TRAILING_BLANKS);
+
+        explicit OFoldStreambuf(std::ostream &stream,
+                   size_t leftIndent = 0, size_t rightMargin = 80,
+                    TabsOrBlanks tob = BLANKS,
+                   TrailingBlanks tb = IGNORE_TRAILING_BLANKS);
+
+        virtual ~OFoldStreambuf();
+
+        void setMargins(size_t leftMargin, size_t rightMargin);
+        void setTrailingBlanks(TrailingBlanks tb);                  // .f
+        void useBlanks();                                           // .f
+        void useTabs(size_t tabWidth = 8);                          // .f
+
+        static size_t leftMargin(std::streambuf const *buffer);
+        static size_t rightMargin(std::streambuf const *buffer);
+
+    protected:
+        int pSync();
+
+    private:
+        virtual int sync();
+        virtual int overflow(int c);
+
+        void indent(int c);
+        void ws(int c);
+        void nonWs(int c);
+
+        size_t length() const;
+
+        void iniBlankTabs(TabsOrBlanks tob);
+        void newline();
+        void addNonWs(int c);                           // .f
+        void addWs(int c);
+        void indent();
+        void flush();
+        void clearWs();
+
+        void modifyIndent(int delta);
+        void setIndent(int value);                      // .f
+
+        void writeWs() const;                           // .f    
+        void writeNonWs() const;                        // .f
+        void put(int ch) const;                         // .f
+
+        static BufIt findOFoldStreambuf(std::streambuf const *buffer);
+};
+
+#include "lm1.f"
+#include "modify1.f"
+
+#include "mlm1.f"
+#include "modify2.f"
+
+#include "leftmargin.f"
+#include "rightmargin.f"
+#include "setindent.f"
+#include "settrailingblanks.f"
+#include "useblanks.f"
+#include "usetabs.f"
+
+    // Free functions
+
+#include "opinsert1.f"      // ostream << lm
+#include "opinsert2.f"      // ostream << mlm
+
+} // FBB
+
+#endif

@@ -1,0 +1,25 @@
+#ifndef INCLUDED_BOBCAT_IRANDSTREAM_H_
+#define INCLUDED_BOBCAT_IRANDSTREAM_H_
+
+#include <istream>
+#include <bobcat/randbuffer>
+
+namespace FBB
+{
+
+class IRandStream: private Randbuffer, public std::istream
+{
+    public:    
+        explicit IRandStream(int max);
+        IRandStream(int min, int max);
+        IRandStream(int min, int max, long seed);
+};
+
+#include "irandstream1.f"
+#include "irandstream2.f"
+#include "irandstream3.f"
+
+} // FBB
+
+#endif
+

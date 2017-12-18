@@ -1,0 +1,63 @@
+#ifndef INCLUDED_BOBCAT_LOGBUFFER_
+#define INCLUDED_BOBCAT_LOGBUFFER_
+
+#include <streambuf>
+#include <ostream>
+#include <string>
+
+namespace FBB
+{
+
+enum TimeStamps
+{
+    NOTIMESTAMPS,
+    TIMESTAMPS,
+    UTCTIMESTAMPS
+};
+
+class LogBuffer: public std::streambuf
+{
+    std::ostream *d_stream; // the stream to insert info to
+    TimeStamps d_timestamps;// what timestamp to use?
+    bool d_active;          // actually write information or not
+    bool d_empty;           // set to true at the beginning, after writing \n
+    std::string d_delim;    // delimiter following time stamps
+
+    public:
+        explicit LogBuffer(         // output to cerr
+                TimeStamps timestamps = TIMESTAMPS,  
+                bool active = true,
+                char const *delim = " ");
+        explicit LogBuffer(std::ostream &stream, 
+                TimeStamps timestamps = TIMESTAMPS,
+                bool active = true,
+                char const *delim = " ");
+
+        void setStream(std::ostream &stream);               // .f
+        bool empty() const;                                 // .f
+
+        void setActive(bool active);                        // .f
+        void settimestamp(TimeStamps timestamps, char const *delim = " ");
+
+        void setEmpty(bool empty);                          // .f
+
+    protected:
+        virtual int pSync();
+
+    private:
+        virtual int sync();
+        virtual int overflow(int c);
+
+        void insertTimestamp();
+        LogBuffer(LogBuffer const &other) = delete;
+        LogBuffer &operator=(LogBuffer const &other) = delete;
+};
+
+#include "empty.f"
+#include "setactive.f"
+#include "setempty.f"
+#include "setstream.f"
+
+} // FBB
+        
+#endif

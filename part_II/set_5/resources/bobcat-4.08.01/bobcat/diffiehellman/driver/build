@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# For development purposes:
+
+tput clear
+
+LIBS=" -lbobcat -lcrypto"
+GPP="g++ --std=c++14"
+
+#   Using the standard bobcat library
+#CMD="$GPP -o driver -Wall *.cc ${LIBS} -s"
+
+#   Using the library in ../tmp/
+CMD="$GPP -o driver -Wall *.cc -isystem ../../tmp \
+           -L../tmp -ldiffiehellman -L../../bigint/tmp -lbigint ${LIBS} -s"
+
+echo ${CMD}
+${CMD}
+

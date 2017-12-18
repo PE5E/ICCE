@@ -1,0 +1,85 @@
+#ifndef INCLUDED_BOBCAT_READLINEBUF_
+#define INCLUDED_BOBCAT_READLINEBUF_
+
+#include <string>
+#include <streambuf>
+#include <memory>
+
+namespace FBB
+{
+
+struct HistoryExpansion
+{
+    enum Type
+    {
+        DONT_EXPAND_HISTORY,
+        EXPAND_HISTORY
+    };
+    enum Expansion
+    {
+        ERROR,
+        NO_EXPANSION,
+        EXPANDED,
+        DONT_EXEC,
+    };
+};
+        
+
+class ReadLineBuf: public HistoryExpansion, public std::streambuf
+{
+    bool d_history;
+    std::string d_prompt;
+    char *d_buffer;
+
+    char *(ReadLineBuf::*d_readline)(); // calls readLine() or expandLine()
+    std::string (*d_timestamp)();       // return a timestamp
+
+    Expansion d_expansion;
+    std::string d_expansionError;
+
+    static std::unique_ptr<ReadLineBuf> s_readLineBuf;
+
+    public:
+        static ReadLineBuf &initialize(std::string const &prompt,
+                                       Type type = DONT_EXPAND_HISTORY);
+        static ReadLineBuf &initialize(std::string const &prompt, 
+                             size_t historySize, 
+                             Type type = DONT_EXPAND_HISTORY);
+        static ReadLineBuf &instance();
+        
+
+        virtual ~ReadLineBuf();
+
+        void setPrompt(std::string const &prompt = "");             // .f
+        bool setExpansion(Type type);
+
+        Expansion expansion() const;                                // .f
+        std::string const &expansionError() const;                  // .f
+
+        bool useTimestamps(std::string (*timestamp)() = 0);
+
+    private:
+        explicit ReadLineBuf(std::string const &prompt,
+                             Type type = DONT_EXPAND_HISTORY);
+        explicit ReadLineBuf(std::string const &prompt, 
+                             size_t historySize, 
+                             Type type = DONT_EXPAND_HISTORY);
+
+        virtual int underflow();
+        char *readLine();           // reads a line, adds it to the history
+        char *expandLine();         // reads a line, expands it if necessary,
+                                    // then adds it to the history
+        char *nextLine(char *buf);
+};
+
+#include "setprompt.f"
+#include "expansion.f"
+#include "expansionerror.f"        
+
+} // FBB        
+#endif
+
+
+
+
+

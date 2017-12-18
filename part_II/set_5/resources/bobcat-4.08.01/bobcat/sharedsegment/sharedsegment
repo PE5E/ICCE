@@ -1,0 +1,107 @@
+#ifndef INCLUDED_BOBCAT_SHAREDSEGMENT_
+#define INCLUDED_BOBCAT_SHAREDSEGMENT_
+
+#include <iosfwd>
+
+#include <bobcat/sharedblock>
+
+namespace FBB
+{
+
+class SharedSegment
+{
+    friend std::ostream &operator<<(std::ostream &out, 
+                                    SharedSegment const &sharedData);
+    size_t      d_access;
+    size_t      d_segmentSize;
+
+    SharedMutex d_nReadableMutex;
+    std::streamsize d_nReadable;    // number of readable characters
+                                    // (just beyond offset of last character
+                                    // ever written)
+    size_t      d_nBlocks;
+    SharedBlock d_block[1];         // Mutexes and IDs of shared data blocks
+                                    // in fact SharedBlock block[nBlocks]   
+
+    public:
+        SharedSegment(SharedSegment const &other) = delete;
+        SharedSegment &operator=(SharedSegment const &rhs) = delete;
+
+        SharedBlock &operator[](size_t idx);
+
+
+        size_t access() const;
+
+        void clear();               // clear all data, nReadable = 0
+
+        void lock(size_t idx);
+
+        size_t nBlocks() const;
+
+        int newData(size_t idx);
+
+        std::streamsize nReadable() const;
+        void nReadableLock();
+        void nReadableUnlock();
+
+        size_t segmentSize() const;
+
+        bool truncate(std::streamsize offset);
+
+        void unlock(size_t idx);
+
+        void updateNreadable(std::streamsize offset);
+
+
+        static void *attach(int id);
+
+        static SharedSegment *create(int *id, 
+                                     size_t nBlocks, size_t segmentSize,
+                                     size_t access);
+
+        static void deleteSegment(int id);  // delete shared segment `id'
+
+                                    // attach/detach refer to the mapping 
+                                    // on the current process's memory space
+
+        template <typename Type>
+        static Type *detach(Type *sharedPtr, bool requireOK = true);   
+                                            // if sharedPtr != 0 the shared 
+                                            // segment is detached. throws
+                                            // exception if requireOK == true 
+                                            // but detaching fails.
+                                            // always returns 0
+
+        static size_t size(int id);         // size of shared data segment id
+
+
+    private:
+        SharedSegment(size_t access, size_t nBlocks, size_t segmentSize);
+        std::ostream &insert(std::ostream &out) const;
+
+        static void rawDetach(void *sharedPtr, bool requireOK);  // detaches
+                                            // throws exception if 
+                                            // requireOK == true 
+                                            // but detaching fails
+
+                                    // returns the ID of new shared memory
+        static int newSegment(size_t segmentSize, size_t access);
+};
+
+#include "access.f"
+#include "detach.f"
+#include "lock.f"
+#include "nblocks.f"
+#include "nreadable.f"
+#include "nreadablelock.f"
+#include "nreadableunlock.f"
+#include "operatorindex.f"
+#include "operatorinsert.f"
+#include "segmentsize.f"
+#include "unlock.f"
+
+} // FBB        
+#endif
+
+
+

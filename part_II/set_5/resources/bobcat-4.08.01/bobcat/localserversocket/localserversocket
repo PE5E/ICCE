@@ -1,0 +1,40 @@
+#ifndef INCLUDED_BOBCAT_LOCALSERVERSOCKET_
+#define INCLUDED_BOBCAT_LOCALSERVERSOCKET_
+
+#include <string>
+
+#include <bobcat/localsocketbase>
+
+namespace FBB
+{
+
+class LocalServerSocket: public LocalSocketBase
+{
+    bool        d_unlink;
+    std::string d_name;
+
+    public:
+        enum Socket
+        {
+            KEEP,
+            UNLINK,
+        };
+
+        LocalServerSocket() = default;
+        explicit LocalServerSocket(std::string const &name,     // 1.f
+                                   Socket action = UNLINK);
+        ~LocalServerSocket();
+
+        void open(std::string const &name, Socket action = UNLINK);
+        void listen(size_t backlog = 5, bool blocking = true);
+        size_t accept();
+
+    private:
+        LocalServerSocket(LocalServerSocket const &other) = delete;
+};
+
+#include "localserversocket1.f"
+
+} // FBB
+
+#endif

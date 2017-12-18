@@ -1,0 +1,14 @@
+#   This file is read from icmake/special
+
+pf_iterator
+pf_iteratorstream
+bigint
+decryptbuf
+diffiehellman
+digestbuf
+encryptbuf
+hmacbuf
+isymcryptstream
+isymcryptstreambuf
+primefactors
+symcryptstreambufbase

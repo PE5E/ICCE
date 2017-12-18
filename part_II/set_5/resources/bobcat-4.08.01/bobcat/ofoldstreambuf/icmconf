@@ -1,0 +1,4 @@
+#define LIBRARY             "ofoldstreambuf"
+
+#include "../icmconf"
+

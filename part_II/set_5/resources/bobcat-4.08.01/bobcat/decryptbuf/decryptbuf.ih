@@ -1,0 +1,52 @@
+#include "decryptbuf"
+
+#include <string>
+#include <openssl/evp.h>
+
+#include <bobcat/exception>
+
+#if  OPENSSL_VERSION_NUMBER < 0x10100000L
+
+#ifndef BOBCAT_EVP_CYPHER_CTX
+#define BOBCAT_EVP_CYPHER_CTX
+
+inline EVP_CIPHER_CTX *EVP_CIPHER_CTX_new(void)
+{
+    EVP_CIPHER_CTX *ret = new EVP_CIPHER_CTX;
+    EVP_CIPHER_CTX_init(ret);
+    return ret;
+}
+
+inline void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *ctx)
+{
+    EVP_CIPHER_CTX_cleanup(ctx);
+    delete ctx;
+}
+
+#endif
+    
+#endif
+
+namespace FBB
+{
+
+struct DecryptBufImp
+{
+    EVP_CIPHER_CTX     *ctx;
+    EVP_CIPHER const   *md;
+    bool                active;
+    size_t              bufsize;
+    char               *buffer;
+    char               *out;
+    std::ostream       &outStream;
+
+    DecryptBufImp(std::ostream &outStream, size_t bufsize);
+    ~DecryptBufImp();                       // destructor.f
+};
+
+#include "destructor.f"
+
+} // FBB
+
+using namespace std;
+using namespace FBB;

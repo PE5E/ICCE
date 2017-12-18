@@ -1,0 +1,134 @@
+Ch 12 Abstract Containers
+
+container
+    - put stuff inside
+    - take stuff out
+
+angle bracket notation
+    - templates infers types or
+    - explicit mention using < >   
+        pair<int, string> myPair;      // myPair holds int and string
+
+usual container operations
+    - overloaded assignment     // supports move
+    - equality tests
+    - elementwise ordering (ignores size differences!)
+    
+minimal supported operations for used-defined object 
+    - default value
+    - operator ==
+    - operator < 
+
+- sequential containers can be initialized used initializer lists
+- often max_size() is available
+- generic algorithms
+    - counting, filling, merging, filtering, ...
+    - usually rely on iterators
+
+- containers of pointers may cause leaks
+- data in containers is property of container (usually)
+- no const in pointers (usually)
+
+Ch 12.1 Notations
+
+- using std::namespace;
+- a container without angled brackets can be any specific
+- Type could be int, string, etc...
+- object, container means objects of the container under discussion
+- one-letter variables represent unsigned values.
+- longer identifier represent iterators (pos, from, beyond)
+
+Ch 12.2 Pair
+
+- stored two elements (first, second)
+- #include <utility>
+- specify data types when defining object
+    pair<string, string> piper("PA28", "PH-ANI");
+    pair<string, string> cessna("C172", "PH-ANG");
+    cout << piper.first << '\n';
+    cout << piper.second << '\n';
+- temporary variable for assignment:
+    type(initializer list) 
+    example:
+        cessna = pair<string, string>("C152", "PH-ANW");
+
+- using alot of pair<type1, type2 ,... > might be ugly
+- use typedef!
+    typedef pair<string, string, pairStrStr;
+
+Ch 12.3 Allocaters
+
+    special object used by containers to allocate memory
+
+- get_allocater returns the allocater
+- allocater members
+    value_type *adress(value_type &object)
+    value_type *allocate(size_t, count)
+    void construct(value_type *object, Arg &&...args)
+                    // use placement new to place value in object
+    void destroy(value_type *object)
+                    // does not deallocate
+    void deallocate(value_type *object, size_t count)
+                    // does deallocate :)
+    size_t max_size()
+
+example 
+
+    #include <iostream>
+    #include <vector>
+    #include <string>
+
+    using namespace std;
+    
+    int main()
+    {
+        vector<string> vs;
+    
+        auto allocater = vs.get_allocater();        // get allocater object
+        
+        string *sp = allocated.allocate(3);         // allocated for 3 strings
+
+        allocater.construct(&sp[0], "hello world");   // place 1 string
+
+        allocator.construct(&sp[1], sp[0]); // copy constructor
+        allocator.construct(&sp[2], 12, '='); // ======...
+    ....    // cba
+    }
+
+Ch 12.4 Available containers
+   12.4.1 'array'
+        - fixed-size array
+        #include <array>
+        - array<string, 4> is a different type from array<string, 5>
+    
+    12.4.2 'vector'
+        - resizable (unlike arrays)    
+        - may be initialized empty
+        - may be initialized n
+        - maybe initialized using iterators 
+        extern vector<string> container;
+        vector<string> object(&container[5]), &container[11]);
+            // NB element 11 is not included!!!
+        - index does not auto-expand or check boundso (just like array)
+           -----> use .at() instead if you need that 
+    
+    12.4.3 'list'  
+        front -> [ ] -> [] -> [] -> [] -> 0
+        0     <- [ ] <- [] <- [] <- [] <- back
+        " seperate list elements, connected by pointers "
+    
+    - rules of thumb
+        * mostly random acces? prefer vector. 
+        * size known beforehand? prefer vector.
+        * insertions or deletions prevail? prefer list.
+
+    14.4.4 'que'
+        Add -> [] [ ....................] [] -> Remove
+        - FIFO
+        - no iterators 
+        - no index operators
+
+    14.4.5 'priority_que
+        - queue which sorts before adding elements to its data
+        
+

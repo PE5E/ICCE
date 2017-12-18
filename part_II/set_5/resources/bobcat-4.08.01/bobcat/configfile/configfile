@@ -1,0 +1,144 @@
+#ifndef INCLUDED_BOBCAT_CONFIGFILE_
+#define INCLUDED_BOBCAT_CONFIGFILE_
+
+//    Lines are stored with initial WS removed.
+//    If a line ends in \, then the next line (initial WS removed)
+//    is appended to the current line.
+//    Information at and beyond the first # on individual lines is removed
+//    if the rmComment flag is set to true
+//    Then, lines containing only blanks and tabs are not stored
+
+#include <vector>
+#include <string>
+#include <iterator>
+
+namespace FBB
+{
+
+class RE_iterator: public std::iterator<std::input_iterator_tag, std::string>
+{
+    friend class ConfigFile__;
+
+    friend int operator-(RE_iterator const &lhs,        // opneg.f
+                         RE_iterator const &rhs);
+
+    friend bool operator==(RE_iterator const &lhs, RE_iterator const &rhs);
+
+                            // contains iterators to lines matching REs
+    typedef std::vector<std::string>::const_iterator VsIterator;
+    typedef std::vector<VsIterator> VsIterVector;
+
+    VsIterVector const &d_vsIter;
+    size_t d_idx;
+
+    public:
+        RE_iterator &operator++();
+
+        std::string const &operator*() const;           // opstar.f
+        std::string const *operator->() const;          // oparrow.f
+
+    private:
+        RE_iterator(VsIterVector const &vsIter, size_t idx);
+};
+
+struct CFEnums__
+{
+        typedef RE_iterator const_RE_iterator;
+        typedef std::vector<std::string>::const_iterator const_iterator;
+        typedef std::pair<const_RE_iterator, const_RE_iterator> 
+                                                        RE_iteratorPair;
+
+        enum Comment
+        {
+            KeepComment,
+            RemoveComment
+        };
+        enum SearchCasing
+        {
+            SearchCaseSensitive,
+            SearchCaseInsensitive
+        };
+
+        enum Indices
+        {
+            IgnoreIndices,
+            StoreIndices
+        };
+};
+
+class ConfigFile__;
+class ConfigFile: public CFEnums__
+{
+    ConfigFile__ *d_ptr;
+
+    public:
+        explicit ConfigFile(Comment cType = KeepComment,        // 1
+                   SearchCasing sType = SearchCaseSensitive,
+                   Indices iType = IgnoreIndices);
+                                                        // 2
+        explicit ConfigFile(std::string const &fname,   // config file name
+                    Comment cType = KeepComment, 
+                    SearchCasing sType = SearchCaseSensitive,
+                    Indices iType = IgnoreIndices);
+
+        ConfigFile(ConfigFile &&tmp);                   // 3
+        ConfigFile(ConfigFile const &rhs);              // 4
+
+        ~ConfigFile();                          
+
+        ConfigFile &operator=(ConfigFile &&tmp);
+        ConfigFile &operator=(ConfigFile const &rhs);   // 2
+
+        void open(std::string const &fname);
+
+        void setCommentHandling(Comment type);
+        void setSearchCasing(SearchCasing type);
+
+        const_iterator begin() const;
+        const_iterator end() const;
+
+        const_RE_iterator beginRE(std::string const &re);   // 2, deprecated
+        const_RE_iterator endRE() const;                    // deprecated
+
+        RE_iteratorPair beginEndRE(std::string const &re);
+        RE_iteratorPair beginEndRE();
+
+        const_iterator find(std::string const &target) const;
+        const_iterator findRE(std::string const &re) const;
+
+        std::string findKey(std::string const &key, size_t count = 1);
+        std::string findKeyTail(std::string const &key, size_t count = 1);
+
+        size_t index(size_t lineNr);                        // 1
+        size_t index(const_iterator const &iterator);       // 2
+
+        std::string const &operator[](size_t idx) const;
+
+        size_t size() const;
+};
+
+#include "opstar.f"
+#include "oparrow.f"
+
+    // Free members:
+
+bool operator==(RE_iterator const &lhs, RE_iterator const &rhs);
+
+#include "opneq.f"                  // RE_iterator != RE_iterator
+#include "opsub.f"                  // RE_iterator - RE_iterator
+
+
+} // FBB
+
+#endif
+
+
+
+
+
+
+
+
+
+
+

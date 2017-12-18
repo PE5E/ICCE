@@ -1,0 +1,222 @@
+#!/usr/bin/icmake -qt/tmp/bobcat
+
+#include "INSTALL.im"
+
+#define LIBRARY             "bobcat"
+//#define LIBRARY     "f16"
+
+list g_classes;         // list of classes/directories, listed in CLASSES
+
+int g_echo = ON;
+int g_nClasses;         // number of classes/subdirectories
+int g_all = 1;          // if 0: only compile the classes not requiring
+                        // additional libaries. see icmake/special
+
+string  
+    g_logPath,
+    g_cwd,              // current WD, ends in /.
+    g_file,             // used to store the name of a file from a list
+    g_copt,             // compiler options
+    g_cxx,              // compiler used
+    g_sources,          // sources to be used
+    g_version,          // The library's version from the file VERSION
+    g_tmpliba,          // Static Library compilation target
+    g_tmplibso,         // Shared Library compilation target
+    g_tmphdr,           // Class header target
+    g_tmpbin,           // Binary target
+    g_sharedLibReq;     // libraries required by the shared lib
+
+
+#include "icmake/cuteoln"
+#include "icmake/backtick"
+#include "icmake/run"
+#include "icmake/md"
+
+#include "icmake/getenv"
+#include "icmake/clean"
+#include "icmake/addclasses"
+#include "icmake/special"
+
+#include "icmake/findall"
+#include "icmake/loginstall"
+#include "icmake/logrecursive"
+#include "icmake/logzip"
+
+#include "icmake/uninstall"
+
+#include "icmake/man"
+#include "icmake/man1"
+
+#include "icmake/github"
+#include "icmake/library"
+#include "icmake/libraries"
+#include "icmake/install"
+
+
+void main(int argc, list argv)
+{
+    string option;
+    string all;
+    string strip;
+    int keepPch = 0;
+    int idx;
+
+    for (idx = listlen(argv); idx--; )
+    {
+        if (argv[idx] == "-q")
+        {
+            g_echo = OFF;
+            argv -= (list)"-q";
+        }
+        else if (argv[idx] == "-P")
+        {
+            g_gch = 0;
+            argv -= (list)"-P";
+        }
+        else if (argv[idx] == "-p")
+        {
+            keepPch = 1;
+            argv -= (list)"-p";
+        }
+        else if (strfind(argv[idx], "LOG:") == 0)
+        {
+            g_logPath = argv[idx];
+            argv -= (list)g_logPath;
+            g_logPath = substr(g_logPath, 4, strlen(g_logPath));
+        }
+    }
+
+    echo(g_echo);
+
+    g_cwd = chdir(".");
+
+    g_tmpliba   = "tmp/liba";
+    g_tmplibso  = "tmp/libso";
+    g_tmphdr    = "tmp/" LIBRARY "/";
+    g_tmpbin    = "tmp/bin";
+
+
+    g_cxx =  setOpt(CXX, "CXX");
+    g_copt = setOpt(CXXFLAGS, "CXXFLAGS");
+
+    option = argv[1];
+
+    if (option == "clean" || option == "distclean")
+        clean();
+
+    if (option == "light")
+    {
+        option = "libraries";
+        g_all   = 0;
+        libraries(keepPch, "bobcat", 1, argv[2] == "strip", 0);
+    }
+
+    if (option == "select")
+    {
+        if (!exists("CLASSES.bak"))
+            exec("cp CLASSES CLASSES.bak");
+
+        string subset;
+        idx = 2;
+        if (argv[2] == "strip")
+            ++idx;
+
+        for (int elem = listlen(argv); elem-- != idx; )
+            (subset += argv[elem]) += ' ';
+        system("icmake/subset.sh " + subset + "> CLASSES");
+        libraries(keepPch, "bobcat", 0, idx == 3, 1);
+    }
+
+
+        // 'all': all libraries unconditionally
+        // not 'all': ask for the inclusion of additional libraries
+        // g_light: do not consider the additional libraries
+    if (option == "libraries")
+    {
+        all = argv[2];          // maybe 'all' or 'strip' or empty
+
+        if (all == "all")       // all -> specify strip from [3]
+            strip = argv[3];
+        else                    // not all: defines 'strip'
+            strip = all;
+
+        libraries(keepPch, "bobcat", all == "all", strip == "strip", 0);
+    }
+
+    if (option == "l")
+    {
+        system(P_NOCHECK, "tput clear");
+        libraries(keepPch, "bobcat", 1, 0, 0);
+    }
+
+    if (option == "man")
+        man();
+
+    if (option == "man1")
+        man1(argv[2]);
+
+    if (option == "github")
+        github();
+
+    if (option == "install")
+        install(argv[2], argv[3]);
+
+    if (option == "uninstall")
+        uninstall(argv[2]);
+
+    if (option == "dep")
+    {
+        system("dependencies/store");
+        exit(0);
+    }
+
+    printf("Usage: build [-q -p -P] what\n"
+        "Where\n"
+        "   [-q]:   run quietly, do not show executed commands\n"
+        "   [-p]:   used with build light, build libraries and build l\n"
+        "           when specified, the precompiled headers are kept after\n"
+        "           constructing the libraries\n"   
+        "   [-P]:   do not use precompiled headers\n"
+        "`what' is one of:\n"
+        "   clean               - clean up remnants of previous compilations\n"
+        "   distclean           - same as clean\n"
+        "   man                 - build the manual page (requires Yodl)\n"
+        "   light [strip]       - build the bobcat(-dev) libraries without\n"
+        "                         the classes requiring the Milter, X11, SSL "
+                                                                    "and\n"
+        "                         Readline libraries\n"
+        "   libraries [all] [strip] - build the bobcat(-dev) libraries\n"
+        "                         (optionally add optional classes,\n"
+        "                         optionally strip the libraries)\n"
+        "   l                   - same as 'libraries all', but clearing the\n"
+        "                         screen before starting the compilation\n"
+        "   select [strip] class ... - build libbobcat for the class(es)\n"
+        "                         listed at 'class ...'. The original "
+                                                                "CLASSES\n"
+        "                         file is saved as CLASSES.bak\n"
+        "   install [LOG:path] selection [base] -\n"
+        "                         to install the software in the locations "
+                                                                "defined \n"
+        "                         in the INSTALL.im file, optionally below "
+                                                                "base.\n"
+        "                         LOG:path is optional: if specified `path' "
+                                                                "is the\n"
+        "                         logfile on which the installation log is "
+                                                                "written.\n"
+        "                         selection can be\n"
+        "                               x, to install all components,\n"
+        "                         or a combination of:\n"
+        "                               d (documentation),\n"
+        "                               h (header files),\n"
+        "                               l (libraries),\n"
+        "                               m (man-pages)\n"
+        "   uninstall logfile   - remove files and empty directories listed\n"
+        "                         in the file 'logfile'\n"
+        "\n"
+        "internal use only:\n"
+        "   man1 .yo-file       - build one man-page file\n"
+        "   dep                 - refresh the class-dependencies overview\n"
+        "   github              - prepare github's gh-pages update\n"
+    );
+}
+

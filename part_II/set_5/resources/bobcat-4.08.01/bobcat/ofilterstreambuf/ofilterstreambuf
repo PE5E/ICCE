@@ -1,0 +1,46 @@
+#ifndef _INCLUDED_OFILTERSTREAMBUF_
+#define _INCLUDED_OFILTERSTREAMBUF_
+
+#include <streambuf>
+#include <fstream>
+
+namespace FBB
+{
+
+class OFilterStreambuf: public std::streambuf
+{
+    typedef std::ios::openmode openmode;
+    std::ofstream d_dest;
+
+    std::ostream *d_out;
+
+    public:
+        OFilterStreambuf();                                 // 1.f
+        OFilterStreambuf(char const *fname,                 // 2.f
+                         openmode mode = std::ios::out);
+        OFilterStreambuf(std::ostream &out);                // 3.f
+        OFilterStreambuf(std::string const &fname, 
+                         openmode mode = std::ios::out);
+        virtual ~OFilterStreambuf();
+
+        void open(char const *fname, openmode mode = std::ios::out);
+        void open(std::string const &fname, openmode mode = std::ios::out);
+        void open(std::ostream &out);                       // .f
+
+        void close();                                       // .f
+
+    protected:
+        std::ostream &out() const;                          // .f
+};
+
+#include "ofilterstreambuf1.f"
+#include "ofilterstreambuf2.f"
+#include "ofilterstreambuf3.f"
+
+#include "close.f"
+#include "open.f"
+#include "out.f"
+
+} // FBB
+        
+#endif

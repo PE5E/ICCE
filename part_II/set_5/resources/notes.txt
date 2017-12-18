@@ -122,13 +122,62 @@ Ch 12.4 Available containers
         * size known beforehand? prefer vector.
         * insertions or deletions prevail? prefer list.
 
-    14.4.4 'que'
+    12.4.4 'que'
         Add -> [] [ ....................] [] -> Remove
         - FIFO
         - no iterators 
         - no index operators
 
-    14.4.5 'priority_que
+    12.2.5 'priority_que
         - queue which sorts before adding elements to its data
+        - no iterators
+        - no index operators
+        
+    12.4.6 'deque'
+        - double ended queue 
+        - read/write at both ends
+        - combination of vector and 2 queues
+        - use: random insertions at one/both side of vector
+
+    12.4.7 'map'
+        - sorted associative array
+        - (key, value)
+            map<string, double> object;
+        - use 'key' to acces 'value'
+        - sorts by key: 
+            make sure < is defined and makes sense
+        - constructing a value = (key, value) // overloading the word value
+            map<string, int>::value_type siValue{"Hello", 1};
+            map<string, int>::value_type{"hello", 1};       // anon
+        - supports index operator
+        - automatic index operator creation of pairs
+
+    12.4.8 'multimap'
+    
+        - sorted associative array
+        - multiple values per key
+        - no index operator (which value to return?)
+        - equal keys are not ordered
+
+    12.4.9 'set'
+
+        - sorted collection of unique values.
+
+    12.4.10 'multiset'
+        
+        - set with multiple entries thing
+
+    12.4.11 'stack'
+
+        - FILO
+        
+    12.4.12 'unordered_map'
+
+        - hash table
+        - elements stored according to some hashing scheme
+        - collisions -> linear chaining
+        - much more efficient than 'map'
+    all the other unordered_ types are hash types of their parents
+    
         
 

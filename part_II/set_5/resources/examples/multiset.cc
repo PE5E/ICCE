@@ -46,7 +46,7 @@ int main()
     cout << '\n' <<                                                   // number of hits
             object.count("ech") << " occurrences of 'ech'" << '\n';
 
-    cout << "Multiset::equal_range(\"echo\")\n";    // range of elements that have echo key
+    cout << "Multiset::equal_range(\"echo\")\n";    // iterator elements that have echo key
     itpair = object.equal_range("echo");
 
     for (; itpair.first != itpair.second; ++itpair.first)

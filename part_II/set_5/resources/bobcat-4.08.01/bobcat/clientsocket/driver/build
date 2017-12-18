@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tput clear
+
+GPP="g++ --std=c++14"
+
+CMD="$GPP -o client -Wall  client.cc -lbobcat -s"
+
+echo $CMD
+$CMD

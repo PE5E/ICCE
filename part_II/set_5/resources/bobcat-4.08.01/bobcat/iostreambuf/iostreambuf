@@ -1,0 +1,56 @@
+#ifndef INCLUDED_BOBCAT_IOSTREAMBUF_
+#define INCLUDED_BOBCAT_IOSTREAMBUF_
+
+#include <fstream>
+#include <streambuf>
+
+namespace FBB
+{
+
+class IOStreambuf: public std::streambuf
+{
+    char d_buf;
+    std::istream *d_in;
+    std::ostream *d_out;
+
+    public:
+        IOStreambuf();                                          // 1.f
+        IOStreambuf(std::istream &in, std::ostream &out);       // 2.f
+
+        virtual ~IOStreambuf();
+
+        void open(std::istream &in, std::ostream &out);
+
+    protected:
+        std::streamsize pXsputn(char const *buffer,             // .f
+                                std::streamsize n);
+        int pSync();
+        pos_type pSeekoff(off_type offset, std::ios::seekdir way,
+                                 std::ios::openmode mode = 
+                                                std::ios::in | std::ios::out);
+
+        pos_type pSeekpos(pos_type offset,                      // .f
+                                 std::ios::openmode mode = 
+                                                std::ios::in | std::ios::out);
+
+    private:
+        virtual int underflow();
+        virtual pos_type seekoff(off_type offset, std::ios::seekdir way,
+                                 std::ios::openmode mode = 
+                                                std::ios::in | std::ios::out);
+        virtual pos_type seekpos(pos_type offset, 
+                                 std::ios::openmode mode = 
+                                                std::ios::in | std::ios::out);
+        virtual int sync();
+        virtual int overflow(int c);
+        virtual std::streamsize xsputn(char const *buffer, std::streamsize n);
+};
+
+#include "iostreambuf1.f"
+#include "iostreambuf2.f"
+#include "pseekpos.f"
+#include "pxsputn.f"
+
+} // namespace FBB
+
+#endif

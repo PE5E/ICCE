@@ -1,0 +1,25 @@
+#ifndef INCLUDED_BOBCAT_ISYMCRYPTSTREAM_
+#define INCLUDED_BOBCAT_ISYMCRYPTSTREAM_
+
+#include <istream>
+#include <bobcat/isymcryptstreambuf>
+
+namespace FBB
+{
+
+template <CryptType cryptType>
+struct ISymCryptStream: private ISymCryptStreambuf<cryptType>, 
+                        public std::istream
+{
+    ISymCryptStream(                                            // 1.f
+        std::istream &in,       char const *type,
+        std::string const &key, std::string const &iv,
+        size_t bufSize = 100,   size_t filterBufSize = 1000,
+        ENGINE *engine = 0
+    );
+};
+
+#include "isymcryptstream1.f"
+
+} // FBB        
+#endif

@@ -1,0 +1,12 @@
+#ifndef INCLUDED_BOBCAT_BINARYSEARCH_
+#define INCLUDED_BOBCAT_BINARYSEARCH_
+
+namespace FBB
+{
+
+#include "binarysearch1.f"  // Iterator begin, Iterator end, Type const &value
+#include "binarysearch2.f"  // (... same ...), Comparator comparator
+
+} // FBB
+
+#endif

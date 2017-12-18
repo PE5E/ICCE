@@ -1,0 +1,77 @@
+#ifndef INCLUDED_BOBCAT_TABLE_
+#define INCLUDED_BOBCAT_TABLE_
+
+#include <sstream>
+
+#include <bobcat/tablebase>
+
+namespace FBB
+{
+
+class Table: public TableBase, public std::ostringstream
+{
+    template <typename Type>
+    friend Table &operator<<(Table &table, Type const &ref);
+
+    public:
+        typedef std::string value_type;     // for C++-0x
+        typedef Element const &const_reference;  // required for push_back()
+
+        Table(size_t nColumns, FillDirection direction,             // 0
+                                WidthType widthType = COLUMNWIDTH); 
+
+        Table(TableSupport &tableSupport,                           // 1
+                size_t nColumns, FillDirection direction,             
+                WidthType widthType = COLUMNWIDTH);
+
+        Table(Table const &other) = delete;
+        Table &operator=(Table const &other) = delete;
+
+        Table &append(std::string const &str, char const *sep = " \t",
+                            bool addEmpty = false);
+
+        template <typename InputIterator>
+        void fill(InputIterator begin, InputIterator end);              // .f
+
+        void push_back(Element const &element); // add an element to       .f
+                                                // the table, using the 
+                                                // default alignment. 
+
+        Table &setAlign(Align const &align);    // set an alignment        .f
+
+        Table &def();                   // fillup an incomplete table      .f
+                                        // automatically at insertions
+
+        using TableBase::clear;
+        void clearStr();                // clear the ostringstream part    .f
+
+    private:
+        Table &flush();                     // insert the text currently
+                                            // inserted into the Table object
+                                            // as ostringstream into the table 
+};
+
+#include "clearstr.f"
+#include "def1.f"
+#include "fill.f"
+#include "pushback.f"
+#include "setalign.f"
+
+    // Free Functions
+
+                        // Insert column or element alignments
+#include "opinsert1.f"   // Table << Align
+
+#include "def2.f"       // Table &def(Table &def)
+
+                        // For def
+#include "opinsert2.f"  // Table << Table &(*fun)(Table &)
+
+                        // Insert any other insertable type into a Table
+#include "opinsert3.f"  // Table << Type const &
+
+} // FBB
+
+
+
+#endif

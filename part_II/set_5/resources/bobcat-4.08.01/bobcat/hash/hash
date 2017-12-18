@@ -1,0 +1,159 @@
+#ifndef INCLUDED_BOBCAT_HASH_
+#define INCLUDED_BOBCAT_HASH_
+
+#include <string>
+#include <cstring>
+#include <unordered_map>
+
+#include <bobcat/string>
+
+namespace FBB
+{
+
+// Support structs
+// ===============
+
+struct CaseHash
+{
+    size_t operator()(std::string const &key) const;        // opfun1.f
+};
+
+struct CaseEqual
+{
+    bool operator()(char const *s1, char const *s2) const;  // opfun2.f
+    bool operator()(std::string const &s1,                  // opfun3.f
+                    std::string const &s2) const;           
+};
+
+struct CharPtrEqual
+{
+    bool operator()(char const *s1, char const *s2) const;  // opfun4.f
+};
+
+// HashCharPtr: case sensitive char const *keys
+// ============================================
+
+template<typename Value>
+class HashCharPtr: public std::unordered_map<
+                                char const *, Value, 
+                                std::hash<std::string>,  CharPtrEqual
+                             >
+{
+    typedef std::unordered_map<
+                                char const *, Value, 
+                                std::hash<std::string>,  CharPtrEqual
+                             > BaseClass;
+    public:
+        typedef typename BaseClass::value_type value_type;
+
+        HashCharPtr()                   = default;
+        HashCharPtr(HashCharPtr &&tmp);                             // 1.f
+        HashCharPtr(std::initializer_list<value_type> iniValues);   // 2.f
+
+        template <typename InputIterator>
+        HashCharPtr(InputIterator first, InputIterator beyond);     // 3.f
+
+        HashCharPtr<Value> &operator=(HashCharPtr &&tmp);           // 4.f
+};
+
+
+// HashCharCasePtr: case insensitive char const *keys
+// ==================================================
+
+template<typename Value>
+class HashCharCasePtr: public std::unordered_map<
+                                char const *, Value, 
+                                CaseHash,     CaseEqual
+                             >
+{
+    typedef std::unordered_map<char const *, Value, CaseHash, CaseEqual> 
+                                                                    BaseClass;
+    public:
+        typedef typename BaseClass::value_type value_type;
+
+        HashCharCasePtr()                       = default;
+        HashCharCasePtr(HashCharCasePtr &&tmp);                         // 1.f
+        HashCharCasePtr(std::initializer_list<value_type> iniValues);   // 2.f
+
+        template <typename InputIterator>
+        HashCharCasePtr(InputIterator first, InputIterator beyond);     // 3.f
+
+        HashCharCasePtr<Value> &operator=(HashCharCasePtr &&tmp);       // 4.f
+};
+
+
+// HashString: case sensitive std::string keys
+// ===========================================
+
+template<typename Value>
+class HashString: public std::unordered_map<std::string, Value>
+{
+    typedef std::unordered_map<std::string, Value> BaseClass;
+
+    public:
+        typedef typename BaseClass::value_type value_type;
+
+        HashString()                            = default;
+        HashString(HashString &&tmp);                               // 1.f
+        HashString(std::initializer_list<value_type> iniValues);    // 2.f
+
+        template <typename InputIterator>
+        HashString(InputIterator first, InputIterator beyond);      // 3.f
+
+        HashString<Value> &operator=(HashString &&tmp);             // 4.f
+};
+
+
+
+// HashStringCase: case insensitive std::string keys
+// =================================================
+
+template<typename Value>
+class HashStringCase: public std::unordered_map<
+                                std::string, Value, CaseHash, CaseEqual
+                             >
+{
+    typedef std::unordered_map<std::string, Value, CaseHash, CaseEqual> 
+                                                            BaseClass;
+    public:
+        typedef typename BaseClass::value_type value_type;
+
+        HashStringCase()                        = default;
+        HashStringCase(HashStringCase &&tmp);                           // 1.f
+
+        HashStringCase(std::initializer_list<value_type> iniValues);    // 2.f
+
+        template <typename InputIterator>
+        HashStringCase(InputIterator first, InputIterator beyond);      // 3.f
+
+        HashStringCase<Value> &operator=(HashStringCase &&tmp);         // 4.f
+};
+
+#include "opfun1.f"
+#include "opfun2.f"
+#include "opfun3.f"
+#include "opfun4.f"
+
+#include "hashcharptr1.f"
+#include "hashcharptr2.f"
+#include "hashcharptr3.f"
+#include "hashcharptr4.f"
+
+#include "hashcharcaseptr1.f"
+#include "hashcharcaseptr2.f"
+#include "hashcharcaseptr3.f"
+#include "hashcharcaseptr4.f"
+
+#include "hashstring1.f"
+#include "hashstring2.f"
+#include "hashstring3.f"
+#include "hashstring4.f"
+
+#include "hashstringcase1.f"
+#include "hashstringcase2.f"
+#include "hashstringcase3.f"
+#include "hashstringcase4.f"
+
+} // FBB
+
+#endif

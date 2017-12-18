@@ -1,0 +1,43 @@
+#ifndef INCLUDED_BOBCAT_INDENT_
+#define INCLUDED_BOBCAT_INDENT_
+
+#include <ostream>
+
+namespace FBB
+{
+
+class Indent
+{
+    friend std::ostream &indent(std::ostream &out);
+
+    static size_t s_width;
+    static size_t s_inc;
+
+    public:
+        static void setWidth(size_t width);             // .f
+        static void setInc(size_t inc);                 // .f
+        static void clear();                            // .f
+        static void inc();                              // .f
+        static void dec();
+};
+
+#include "clear.f"
+#include "inc.f"
+#include "setinc.f"
+#include "setwidth.f"
+
+    // Free functions
+
+std::ostream &indent(std::ostream &out);
+
+#include "nlindent.f"
+
+std::ostream &incindent(std::ostream &out);
+std::ostream &indentinc(std::ostream &out);
+
+std::ostream &decindent(std::ostream &out);
+std::ostream &indentdec(std::ostream &out);
+
+} // namespace FBB
+
+#endif

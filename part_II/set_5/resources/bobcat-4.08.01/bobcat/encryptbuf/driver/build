@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# ln -s .. bobcat
+# ln -s ../ohexstreambuf/ohexstreambuf bobcat
+# 
+# g++ -I. --std=c++14 -O2 -Wall -o driver driver.cc -lssl -lbobcat \
+#       -L../../ohexstreambuf/tmp -L../tmp -lencryptbuf -lohexstreambuf
+# 
+# rm bobcat/ohexstreambuf bobcat
+
+# echo g++ --std=c++14 -O2 -Wall -o driver driver.cc -lbobcat 
+# g++ --std=c++14 -O2 -Wall -o driver driver.cc -lbobcat 
+
+# echo g++ -I. --std=c++14 -O2 -Wall -o driver driver.cc -L../tmp -lencryptbuf \
+#         -lssl -lbobcat
+# 
+# g++ -I. --std=c++14 -O2 -Wall -o driver driver.cc -L../tmp -lencryptbuf \
+#         -lssl -lbobcat
+
+tput clear
+
+LIBS=" -lbobcat -lcrypto"
+GPP="g++ --std=c++14"
+
+#   Using the standard bobcat library
+#CMD="$GPP -o driver -Wall *.cc ${LIBS} -s"
+
+#   Using the library in ../tmp/
+CMD="$GPP -o driver -Wall *.cc -L../tmp -lencryptbuf ${LIBS} -s"
+
+echo ${CMD}
+${CMD}
+
+
+
+
+

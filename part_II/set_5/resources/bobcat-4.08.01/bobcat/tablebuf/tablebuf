@@ -1,0 +1,73 @@
+#ifndef INCLUDED_BOBCAT_TABLEBUF_
+#define INCLUDED_BOBCAT_TABLEBUF_
+
+#include <streambuf>
+#include <bobcat/tablebase>
+
+namespace FBB
+{
+
+class TableBuf: public TableBase, public std::streambuf
+{
+    friend std::ostream &operator<<(std::ostream &str,              // 1.f
+                                    TableBuf &table); 
+
+    friend std::ostream &fs(std::ostream &out);
+    friend std::ostream &rs(std::ostream &out);
+
+    int d_fs;
+    int d_rs;
+    std::string d_str;
+    bool d_buffered;
+    bool d_insertEmptyRow;
+
+    public:
+        TableBuf(size_t nColumns, FillDirection direction,          // 0
+                                WidthType widthType = COLUMNWIDTH); 
+
+        TableBuf(TableSupport &tableSupport,                        // 1
+                size_t nColumns, FillDirection direction,             
+                WidthType widthType = COLUMNWIDTH);
+
+        TableBuf &def();                // fillup an incomplete table  1.f
+        TableBuf &setAlign(Align const &align);    // set alignment    .f
+
+        void setFieldSeparator();                                   // 1.f
+        void setFieldSeparator(char fs);                            // 2.f
+        void setRowSeparator();                                     // 1.f
+        void setRowSeparator(char rs);                              // 2.f
+
+    protected:
+        virtual int pSync();
+
+    private:
+        virtual int sync();
+        virtual int overflow(int ch);
+
+        void nextField();
+        void endRow();
+
+};
+
+std::ostream &fs(std::ostream &out);
+std::ostream &rs(std::ostream &out);
+
+#include "setalign.f"
+#include "setfieldseparator1.f"
+#include "setfieldseparator2.f"
+#include "setrowseparator1.f"
+#include "setrowseparator2.f"
+
+    // Free Members
+
+#include "def2.f"       // TableBuf &def(TableBuf &table)
+
+                        // Insert column or element alignments
+#include "opinsert2.f"  // TableBuf << Align
+
+} // FBB
+        
+#endif
+
+
+

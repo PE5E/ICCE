@@ -1,0 +1,32 @@
+#ifndef INCLUDED_GS_
+#define INCLUDED_GS_
+
+namespace FBB
+{
+
+struct GS__
+{
+    enum Type
+    {
+        BLOCK_DEVICE        =  0060000,
+        CHARACTER_DEVICE    =  0020000,   
+        DIRECTORY           =  0040000,
+        FIFO                =  0010000,
+        REGULAR_FILE        =  0100000,
+        SOCKET              =  0140000,
+        SYMBOLIC_LINK       =  0120000,
+        ANY                 =  
+                                BLOCK_DEVICE  | CHARACTER_DEVICE | DIRECTORY |
+                                FIFO          | REGULAR_FILE     | SOCKET    |
+                                SYMBOLIC_LINK
+    };
+};
+
+#include "opbinor.f"        // Type | Type
+
+}   // namespace FBB
+        
+#endif
+
+
+

@@ -1,0 +1,3 @@
+#define LIBRARY             "argconfig"
+
+#include "../icmconf"

@@ -1,0 +1,160 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Fork)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_-x.tar.gz)
+                    (Template Design Pattern around fork(2))
+
+manpagename(FBB::Fork)
+            (Implements bf(fork)(2) using the Template Design Pattern)
+
+manpagesynopsis()
+    bf(#include <bobcat/fork>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    bf(FBB::Fork) objects may be used to implement the bf(fork)(2) call as part
+of the Template Algorithm Design Pattern. The class was designed as a virtual
+base class for classes implementing the essential parts of the forking
+process. The class is a virtual base class. Derived classes em(must) implement
+the members tt(childProcess) and tt(parentProcess) as part of the
+`Template Method Design Pattern' (see Gamma em(et al.), 1995).
+
+Terminating child processes send tt(SIGCHLD) signals to their parents. The
+bf(C) library offers the following em(macros) to analyze the em(status) values
+received by the parent process using a bf(wait)(2) or bf(waitpid)(2) system
+call: 
+    itemization(
+    itb(int WIFEXITED(int status))
+        This macro returns a nonzero value if the child process terminated
+     normally with `exit' or `_exit'.
+    itb(int WEXITSTATUS(int status))
+        If `WIFEXITED' is true of `tt(status)', this macro returns the
+        low-order 8 bits of the exit status value from the child process.  
+    itb(int WIFSIGNALED(int status))
+        This macro returns a nonzero value if the child process terminated
+     because it received a signal that was not handled.  
+    itb(int WTERMSIG(int status))
+        If `WIFSIGNALED' is true of `tt(status)', this macro returns the
+        signal number of the signal that terminated the child process.
+    itb(int WCOREDUMP(int status))
+        This macro returns a nonzero value if the child process terminated
+        and produced a core dump.
+    itb(int WIFSTOPPED(int status))
+        This macro returns a nonzero value if the child process is stopped.
+    itb(int WSTOPSIG(int status))
+        If `WIFSTOPPED' is true of `tt(status)', this macro returns the signal 
+        number of the signal that caused the child process to stop.
+    )
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(Fork())
+        This is the only available constructor. 
+    )
+    Note that there is no copy constructor.
+
+manpagesection(DESTRUCTOR)
+    itemization(
+    itb(virtual ~Fork())
+        Derived classes may define their own destructor, which is called when
+the tt(Fork) destructor is activated.
+    )
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(void fork())
+        Performs the actual forking. It is implemented in such a way that the
+corresponding parent- and child- processes are activated from virtual members
+of bf(Fork). If the forking operation fails, an tt(FBB::Exception) exception
+is thrown.
+    )
+
+manpagesection(PROTECTED MEMBER FUNCTIONS)
+    itemization(
+    itb(virtual void childProcess() = 0)
+        This member em(must) be implemented by derived classes. It defines the
+actions that are performed by the child process, following the bf(fork)(2)
+system call. Just before tt(childProcess) is called, tt(childRedirections)
+(see below) has been executed. The tt(childProcess()) function should
+terminate the child process. A good way to do this is to throw an exception
+which is caught by tt(main())'s function try block. Terminating a process 
+using bf(exit)(2) is deprecated in bf(C++).
+    itb(virtual void childRedirections())
+        This function em(may) be redefined in derived classes to set up the
+redirections that are necessary to communicate with the parent process. See
+also the classes bf(redirector)(3bobcat) and bf(pipe)(3bobcat). By default,
+tt(childRedirections) does nothing.
+    itb(virtual void parentProcess() = 0)
+        This member em(must) be implemented by derived classes. It defines the
+actions that are performed by the parent process, following the bf(fork)(2)
+system call. Just before tt(parentProcess) is called,
+tt(parentRedirections) (see below) has been executed.
+    itb(virtual void parentRedirections())
+        This function em(may) be redefined in derived classes to set up the
+redirections that are necessary to communicate with, e.g., the parent. See,
+e.g., the classes bf(redirector)(3bobcat) and bf(pipe)(3bobcat). By default,
+tt(parentRedirections) does nothing.
+    itb(pid_t pid() const)
+        Returns the child's process id in the parent's code (i.e., in the
+bf(parent-)members below), and 0 in the child's code (i.e., in the
+bf(child-)members below). Note that the value of tt(pid) is bf(undefined)
+when called em(before) the member tt(fork) has been called.
+    itb(void prepareDaemon() const)
+        Prepares for a daemon childprocess. This function may (should) be
+called from tt(childProcess) to ensure that the child process changes its
+current working directory to the root (/) directory, thus freeing up mount
+points; that the child process starts a new session/process group to allow the
+parent (group leader) to kill all its processes without terminating the
+daemon; and makes sure that the child process closes and reopens the standard
+streams by associating them with tt(/dev/null) to prevent ghost input and
+output actions from interfering with the daemon's actions. An
+tt(FBB::Exception) is thrown if changing directory to the root directory
+fails.
+    itb(void prepareDaemon(std::string const &out, std::string const &err,
+        mode_t mode = 0600) const)
+        Prepares for a daemon childprocess like the previous member function,
+but allows redirection of the standard output (tt(out)) and standard error
+(tt(err)) streams to files. Specify empty strings to redirect these streams to
+tt(/dev/null). With non-empty strings the specified files are opened in
+append-mode (and created if not yet existing), by default using mode 0600
+(read/write mode for the user only). An tt(FBB::Exception) is thrown if
+changing directory to the root directory or if using the specified file(s)
+fails.
+    itb(int waitForChild()) 
+        This member may be called by tt(parentProcess) to wait for the
+completion of the child-process. The return value (exit-code) of the child
+process is returned as a value between 0 and 255. If the child process
+terminates before the completion of the parent process, then
+tt(waitForChild) should be called to prevent em(zombies) from
+occurring. Alternatively, the parent process may terminate (e.g., using
+bf(exit)(2)) while the child process is still alive. This is the normal way to
+create a em(daemon) process.
+    )
+
+manpagesection(EXAMPLES)
+    verbinclude(../../fork/driver/driver.cc)
+
+Here's a more extensive example:
+
+    verbinclude(../../fork/driver/redirectedchild)
+
+
+manpagefiles()
+    em(bobcat/fork) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(cerrextractor)(3bobcat), bf(cininserter)(3bobcat),
+    bf(coutextractor)(3bobcat), bf(exec)(3bobcat), bf(fork)(2), 
+    bf(pipe)(3bobcat), bf(redirector)(3bobcat), 
+    bf(stdextractor)(3bobcat), bf(wait)(2), bf(waitpid)(2).
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)
+

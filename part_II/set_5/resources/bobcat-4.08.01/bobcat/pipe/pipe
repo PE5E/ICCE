@@ -1,0 +1,48 @@
+#ifndef INCLUDED_BOBCAT_PIPE_
+#define INCLUDED_BOBCAT_PIPE_
+
+#include <cstddef>
+
+namespace FBB
+{
+
+class Pipe
+{
+    protected:
+        enum  RW 
+        {
+            READ, 
+            WRITE 
+        };
+        int d_fd[2];
+
+    public:
+        Pipe();
+        explicit Pipe(int const *fd);
+
+        // ~Pipe(); removed from the interface as it's implementation was
+        //          empty and this class is not a Base class having virtual
+        //          members
+
+        void verify() const;        // SF, now empty
+
+        int readFd() const;                                     // .f
+        int writeFd() const;                                    // .f
+
+        void readFrom(int filedescriptor);   
+
+        // experimental:
+        void readFrom(int const *filedescriptor, size_t n);
+
+        int readOnly();
+        void writtenBy(int filedescriptor);
+        void writtenBy(int const *filedescriptor, size_t n = 2);
+        int writeOnly();
+};
+
+#include "readfd.f"
+#include "writefd.f"
+
+} // FBB
+
+#endif

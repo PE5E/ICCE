@@ -1,0 +1,10 @@
+#include "configfile.ih"
+
+ConfigFile &ConfigFile::operator=(ConfigFile const &rhs)
+{
+    ConfigFile tmp(rhs);
+    swap(d_ptr, tmp.d_ptr);
+    return *this;
+}
+
+    

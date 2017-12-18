@@ -1,0 +1,31 @@
+#ifndef INCLUDED_BOBCAT_REDIRECTOR_
+#define INCLUDED_BOBCAT_REDIRECTOR_
+
+namespace FBB
+{
+
+class Redirector
+{
+    int d_fd;
+
+    public:
+        enum StandardFilenos
+        {
+            STDIN = 0,
+            STDOUT,
+            STDERR
+        };
+
+        explicit Redirector(int fd);                            // 1.f
+
+        void accessVia(int alternateFd) const;                  // .f
+        void swallow(int alternateFd) const;
+        void through(int alternateFd) const;
+};            
+
+#include "redirector1.f"
+#include "accessvia.f"
+
+} // FBB
+
+#endif

@@ -1,0 +1,40 @@
+#ifndef INCLUDED_BOBCAT_ONEKEY_
+#define INCLUDED_BOBCAT_ONEKEY_
+
+#include <termios.h>
+
+namespace FBB
+{
+
+class OneKey
+{
+    termios     d_saved;
+    bool        d_useEcho;          // default false
+
+    public:
+        enum Mode
+        {
+            OFF,      
+            ON      
+        };
+
+        explicit OneKey(Mode state = OFF);    
+
+        ~OneKey();
+
+        int get() const;                // get the next char
+        void setEcho(Mode state);                                   // .f
+
+        void verify() const;            // kept for backward compat.
+
+    private:
+        OneKey(OneKey const &other) = delete;
+        OneKey const &operator=(OneKey const &other) = delete;
+
+};
+
+#include "setecho.f"
+
+} // FBB
+
+#endif

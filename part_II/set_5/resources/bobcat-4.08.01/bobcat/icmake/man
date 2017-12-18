@@ -1,0 +1,46 @@
+void man()
+{
+    list yo;
+    string base;
+    string yodl;
+    int idx;
+
+    special(0, 0, 0);
+
+    md("tmp/man/man3 tmp/man/man7 tmp/manhtml");
+
+    chdir("documentation/man");
+
+    yo = makelist("*.yo") - (list)LIBRARY ".yo" - (list)"reverseiter.yo" -
+                            (list)"sharedreadme.yo";
+
+    printf("    Building the man3 man-pages");
+
+    for (idx = listlen(yo); idx--; )
+    {
+        yodl = element(idx, yo);
+    
+        base = get_base(yodl);
+
+        run("yodl2man  --no-warnings -r 3 -o ../../tmp/man/man3/" + 
+                                        base + ".3" LIBRARY " " + yodl);
+        run("yodl2html --no-warnings -r 3 -o ../../tmp/manhtml/" + 
+                                        base + ".3.html " + yodl);
+        printf(".");
+    }
+
+    printf("\n"
+            "   Building the man7 man-pages\n");
+    run("yodl2man  --no-warnings  -r 3 -o ../../tmp/man/man7/" 
+                                          LIBRARY ".7 " LIBRARY ".yo");
+    run("yodl2html --no-warnings  -r 3 "
+                    "-o ../../tmp/manhtml/" LIBRARY ".7.html " LIBRARY ".yo");
+
+    run("yodl2man  --no-warnings  -r 3 "
+                "-o ../../tmp/man/man7/sharedreadme.7" LIBRARY
+                " sharedreadme.yo");
+    run("yodl2html --no-warnings  -r 3 "
+                    "-o ../../tmp/manhtml/sharedreadme.7.html "
+                                "sharedreadme.yo");
+    exit(0);
+}

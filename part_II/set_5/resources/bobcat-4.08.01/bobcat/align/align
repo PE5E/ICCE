@@ -1,0 +1,52 @@
+#ifndef INCLUDED_BOBCAT_ALIGN_
+#define INCLUDED_BOBCAT_ALIGN_
+
+#include <ostream>
+
+namespace FBB
+{
+
+typedef std::ios_base &(*Manipulator)(std::ios_base &);
+
+#include "center.f"
+
+class Align
+{
+    int d_row;              // -1 or the row index to align
+    size_t d_col;           // acts as field width when setting the width of 
+                            // an element.
+    Manipulator d_manip;
+
+    public:
+        Align(int row, size_t column, Manipulator manip);
+        Align(size_t col = 0, Manipulator manip = std::right);
+        explicit Align(Manipulator manip);
+
+        bool hasRow() const;
+
+        operator size_t() const;            // .f
+
+        size_t col() const;                 // .f
+        size_t row() const;                 // .f
+
+        Manipulator manip() const;          // .f
+
+        void setWidth(size_t width);        // .f
+        void setManip(Manipulator manip);   // .f
+};
+
+#include "opsizet.f"
+#include "col.f"
+#include "row.f"
+#include "hasrow.f"
+#include "manip.f"
+#include "setmanip.f"
+#include "setwidth.f"
+
+} // FBB
+
+#endif
+
+
+
+

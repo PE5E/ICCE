@@ -1,0 +1,27 @@
+#ifndef INCLUDED_BOBCAT_SHAREDBLOCK_
+#define INCLUDED_BOBCAT_SHAREDBLOCK_
+
+#include <bobcat/sharedmutex>
+
+namespace FBB
+{
+
+class SharedBlock
+{
+    SharedMutex d_mutex;
+    int         d_id = -1;
+
+    public:
+        int id() const;
+        void lock();
+        void setID(int id);
+        void unlock();
+};
+
+#include "id.f"
+#include "setid.f"
+#include "lock.f"
+#include "unlock.f"
+
+} // FBB        
+#endif

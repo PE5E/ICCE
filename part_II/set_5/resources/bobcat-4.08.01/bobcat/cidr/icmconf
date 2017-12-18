@@ -1,0 +1,4 @@
+#define LIBRARY             "cidr"
+
+#include "../icmconf"
+

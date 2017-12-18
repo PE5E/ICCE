@@ -1,0 +1,173 @@
+The following diagram shows the class dependencies. Classes listed on the same
+line have no mutual dependencies. Classes listed on lines starting with the
+digit 0 are not depenent on other bobcat classes. Then, diagrams showing
+dependencies of other classes. Dependencies should be read upwards, e.g.,
+String depends on A2x, Hostname depends on Hostent and Exception.
+
+Dependencies refer to the construction of the class members as well as the use
+of the class headers. So, when compiling the class Msg the class Exception
+must be available (if not compile-time then most likely run-time). The
+dependencies are not necessarily related to inheritance.
+
+The file CLASSES lists all classes, in something resembling the order of
+addition of the classes to the Bobcat library. The classes `Milter' and
+`Xpointer' are optionally compiled, and are therefore not listed in the
+CLASSES file.
+
+The label IUO does not refer to a class but to functions defined in the FBB
+namespace for internal use only. They are declared in the bobcat/iuo header.
+
+Entries below, tagged with `(cont)' were mentioned earlier in the next
+hierarchy. Entries tagged with (Obs) are obsolete and should no longer be
+used. 
+
+
+0   MultiStreambuf     SyslogBuf       ReadLineBuf      LinearMap
+                           |                |          
+                      SyslogStream     ReadLineStream  
+
+
+0   X2a     Hash   Hostent  TypeTrait   Swap     Indent     ReadLineHistory
+                                |                
+                          +-----+------+
+                          |            |
+                        binops       repeat              
+                  
+0                                                      RandBuffer    
+                                                           |        
+                                                       IRandStream  
+0   DateTime           Exception    IFilterStreambuf       |
+       |                   |                               |                
+       |                   |                               |                
+       |       +-----+-----+---+------+----------+         |
+       |       |     |     |   |      |          |         |
+       |      User Signal CSV  |      |          +----+----+------+
+       |       |               |      |               |           |
+       |       |     +---------+     Mbuf        EncryptBuf  SharedMutex
+       |       |     |         |      |                           |
+       |       |  BigInt       |    Mstream                   SharedBlock
+       |       |     |         |                                  |
+       |       |     |         |                              SharedSegment
+       |       |     |         |                                  |
+       |       |     |         |             SharedEnum__     SharedPos
+       +-------+     |         |                  |               |
+       |             |         |                  +------+--------+     
+       |    +--------+---+     |                         |
+       |    |            |     |                         |
+       |  PrimeFactors   |     |                         |
+       |                 |     |                         |
+       |        DiffieHellman  |                         |
+       |                       |                    SharedMemory
+       |   GS__                |                         |
+       |    |                  |                   SharedStreambuf   
+       +----+                  |                         |        
+       |                       |            +------------+-------------+
+       |                       |            |            |             |
+       |                       |     ISharedStream OSharedStream  SharedStream
+      Stat                     |     
+       |                       |
+      Glob                     |                                    LogBuffer
+              +--------+-------+------+------+-----+-------------+     |
+              |        |       |      |      |     |             |     |
+              |     Pattern  OneKey   |      |     |             +--+--+
+              |        |              |      |     |                |
+              +--------+          DecryptBuf |     |               Log
+              |        |                     |     |   Hostent      |  
+              |        |                     |     |    (cont)    level
+          ConfigFile   |                     |     |      |       
+                       |                     |     +---+--+       
+                       |                     |         |          
+                       |                     |     Hostname       
+                   GetHostent                |                    
+                       |              LocalSocketBase                 
+                   InetAddress               |                          
+                       |                     |                          
+                   SocketBase                +-------------------+  
+                       |                     |                   |
+                       |             LocalClientSocket   LocalServerSocket
+                +------+---------+       
+                |                |       
+            ClientSocket   ServerSocket  
+
+     Exception(cont)
+        |
+0       +---------+--------+----+----+-----+------+----------+    IOStreambuf
+        |         |        |    |    |     |      |          |         |
+    Xpointer MailHeaders Milter |   Pipe  Fork  Selector Redirector  IOStream
+                                |    |     |      |          |         |
+                                |    +-----+------+----------+---------+
+                                |    |
+                                |    |
+                         +------+    |                     
+                         |      |    |                     
+                     TempStream |    |                     
+                                |    |                     
+0                A2x            |    |                     
+                  |             |    |                     
+               String           |    +----+                
+                  |             |         |
+         +--------+----+        |         |
+         |             |        |         |
+         |             +---+----+         |
+         |             |   |              |
+         |             |  Arg  ConfigFile |
+         |             |   |     (cont)   |
+         |             |   |       |      |
+   CmdFinderBase       |   +---+---+      |
+         |             |       |          |
+         |             |   ArgConfig      |
+         |             |                  |
+     CmdFinder         +----+-------------+
+                            |                                    
+                            |                   A2x(cont)        
+                            |                    |               
+                            |                    |               
+0           OFdStreambuf    |   IFdStreambuf     |   OFilterStreambuf  
+                 |          |        |           |       |             
+                 |          |        |           |   +---+             
+                 |          |        |           |   |   |             
+                 |          |        |           +---+   |             
+                 |          |        |           |       |             
+                 |          |        |     OHexStreambuf |             lm  mlm
+                 |          |        |           |       |              |   |
+         +-------+          |        +----+      |       +-------+------+---+
+         |       |          |        |    |      |               |        
+     OFdStream   +-------+--+--------+ IFdStream |               |        
+                         |                       |          OFoldStreambuf 
+                      Process                    |                |        
+                                                 |                |        
+                                                 |          OFoldStream   
+                                 Exception(cont) |
+                                       |         |
+                                       +----+----+
+                                            |     
+                                      +-----+-----+
+                                      |           |
+                                   DigestBuf    HMacBuf
+
+
+
+0                     Align                     StringLine   Exception(cont)
+                        |                           |            |
+                        |                           +------------+
+                   TableSupport                     |
+                        |                          Cidr
+                        +----------+
+                        |          |
+   String (cont)    TableBase  TableLines
+        |               |
+        +----+     +----+----+
+        |    |     |         |
+        |    +-----+         |
+        |          |         |
+        |        Table    TableBuf
+        |
+        |
+        |   Stat(cont) Pattern(cont)  X2a(cont)
+        |       |           |            |     
+        +-------+-----------+-----+------+
+                                  |
+                                  |
+                                 CGI
+
+

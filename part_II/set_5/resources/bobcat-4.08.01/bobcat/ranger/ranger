@@ -1,0 +1,37 @@
+#ifndef INCLUDED_BOBCAT_RANGER_
+#define INCLUDED_BOBCAT_RANGER_
+
+
+namespace FBB
+{
+
+template <typename Iter>
+class Ranger
+{
+    Iter d_begin;
+    Iter d_end;
+
+    public:
+        Ranger(Iter const &begin, Iter const &end);     // .f
+
+        Iter const &begin() const;                      // .f
+        Iter const &end() const;                        // .f
+};
+
+#include "ranger.f"
+#include "begin.f"
+#include "end.f"
+
+    // Free functions
+
+#include "ranger1.f"        // ranger(Iter &&begin, Iter &&end)
+#include "ranger2.f"        // ranger(Data *begin, Data *end)
+#include "ranger3.f"        // ranger(Iter &&begin, size_t count)
+#include "ranger4.f"        // ranger(Data *begin, size_t count)
+
+} // FBB
+
+#endif
+
+
+

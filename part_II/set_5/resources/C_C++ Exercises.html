@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven04.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l5"></a>
+<h1>Chapter 5: Exercises set five: Containers. Deadline: Jan 11, 2018</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 32.</strong>
+        <br>
+        Purpose of this exercise: learn the implications of types of inheritance 
+<p>
+What's wrong here:
+        </p><pre>
+    class CSVLines: private std::vector&lt;std::vector&lt;std::string&gt;&gt;
+    {
+        typedef std::vector&lt;std::string&gt; StrVector;
+    
+        public:
+            CSVLines();
+    
+            void read();
+    
+            using std::vector&lt;StrVector&gt;::begin;
+            using std::vector&lt;StrVector&gt;::end;
+    };
+
+    void process(std::vector&lt;std::string&gt; &amp;strVect);
+    // uses strVect's begin and end members.
+
+    int main()
+    {
+        CSVLines csvLines;
+        csvLines.read();
+        for (auto &amp;next: csvLines)
+            process(next);
+    }
+        
+</pre>
+
+<p>
+How can you solve the issue? (<code>main</code> must be kept as-is, <code>process's</code>
+parameter may require a minimal modification; but your answer should primarily
+focus on <code>CSVLines'</code> design flaw.)
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 33.</strong>
+        <br>
+        Purpose of this exercise: learn to define an constructor accepting an
+<code>initializer_list</code>.
+<p>
+Consider the following class (partial interface)
+        </p><pre>
+    class Derived: private std::vector&lt;std::string&gt;
+    {
+        public:
+            // all standard constructors and operators go here
+    
+    };
+        
+</pre>
+
+    The class <code>Derived</code> is implemented in terms of a vector. Vectors can be
+initialized using <code>initializer_lists</code>. Add a constructor to <code>Derived</code> that
+accepts an <code>initializer_list</code>, which is then used to initialize its base
+class. 
+<p>
+In addition to the constructor's implementations your answer should also
+contain a small <code>main</code> program showing how the constructor can be used
+(also include the command you used to compile it, as well as the compiler's
+output).
+</p><p>
+In this case, since the amount of code is small, you may submit all code in
+one file.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 34.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to define an constructor accepting an
+<code>initializer_list</code> (part II).
+<p>
+Again consider the following class (partial interface)
+        </p><pre>
+    class Derived: private std::vector&lt;std::string&gt;
+    {
+        public:
+            // all standard constructors and operators go here
+    
+    };
+        
+</pre>
+
+    The class <code>Derived</code> is implemented in terms of a vector. Vectors can be
+initialized using <code>initializer_lists</code>. 
+<p>
+As in the previous exercise, define a constructor to <code>Derived</code> that accepts
+an <code>initializer_list</code>, which is then used to initialize its base class.
+</p><p>
+Although the constructor's <code>initializer_list</code> is usually defined using
+<code>std::string</code> (which you probably did in the previous exercise), it's also
+possible to <em>completely</em> avoid using <code>std::string</code> except for defining the
+type of <code>Derived's</code> base class.
+</p><p>
+Define/declare a constructor that uses the alternative <code>initializer_list</code>
+declaration.
+</p><p>
+In addition to the constructors' implementations your answer should also
+contain a small <code>main</code> program showing how the constructor can be used
+(also include the command you used to compile it, as well as the compiler's
+output).
+</p><p>
+In this case, since the amount of code is small, you may submit all code in
+one file. 
+</p><p>
+Optionally, include the previous exercise's code here. If you do, provide the
+constructor defined for this exercise with an additional <code>int</code> parameter:
+that parameter is only used to disambiguate the two constructors.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 35.</strong>
+        <br>
+            Purpose: learn to use containers to solve complex tasks.
+<p>
+Construct a program that prints a sorted list of all different words
+appearing at its standard input. In this exercise, use a liberal definition of
+a `word': a word is defined as any series of characters not containing white
+space (i.e., you can simply extract <code>std::string</code> values from <code>std::cin</code>)
+to get the `words'.
+</p><p>
+Hint: This is an <em>extremely simple</em> exercise. It doesn't require you to call
+<code>qsort()</code> or a comparable function.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 36.</strong>
+        <br>
+            Purpose: learn to select the right container for the task at hand.
+<p>
+The same exercise as the previous one, but now report each word
+together with the number of times it was encountered in the input. Again,
+this is an <em>extremely</em> simple exercise.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 37.</strong>
+        <br>
+        Purpose: learn to shed excess capacity from a vector.
+<p>
+Store all <em>unique</em> words that were found in a file (see the exercise before
+the previous one) in a <em>vector</em>.
+</p><p>
+What are the vector's size and capacity? Next add one additional word to the
+vector. What are the vector's new size and capacity?  Shed its excess
+capacity, and show that you succeeded in doing that by displaying the size and
+capacity once again.
+</p><p>
+Now define a class containing a <code>vector&lt;string&gt;</code> data member.  Store all
+unique words of a file in that data member.  Then also add one additional word
+to the data member. 
+</p><p>
+Then by only using members that are standard available/expected of
+classes, show how you can shed excess capacity of your class's vector data
+member. Note that <code>shrink_to_fit</code> will probably work, but that's the snag:
+it's a request the implementor may or may not fully grant.
+</p><p>
+Hint: make sure you don't define, e.g., a member <code>shedData()</code>, but a member
+<code>swap(MyClass &amp;other)</code> may be considered a `standard' member, and so it
+might be defined. Since the class doesn't allocate memory, copy and move
+constructors and/or operator assignment operators are available by default,
+and do not have to be defined explicitly.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 38.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to fine-tune the <code>unordered_multimap::count</code>
+member. 
+<p>
+The <code>multimap, unordered_multimap, multiset</code>, and <code>unordered_multiset</code>
+containers offer members <code>count</code> telling you how many entries there are in
+these containers.
+</p><p>
+For the non-multi variants of these containers this member also tells you how
+many unique keys there are because every value is associated with exactly one
+key. But that's not true for the multi-variants. 
+</p><p>
+In this exercise concentrate on the <code>unordered_multimap</code> and show how you
+can determine the number of unique keys in an <code>unordered_multimap</code>. Show
+this by completing the following program:
+        </p><pre>
+    #include &lt;unordered_map&gt;
+    #include &lt;string&gt;
+    #include &lt;iostream&gt;
+    
+    using namespace std;
+
+    int main(int argc, char **argv)
+    {
+        unordered_multimap&lt;string, string&gt; container;
+        
+        // fill the container with data (no need to implement this)
+
+        size_t nUniqueKeys = ... YOUR CODE HERE ...
+
+        cout &lt;&lt; "There are " &lt;&lt; nUniqueKeys &lt;&lt; " in the container\n";
+    }
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 39.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: introducing signals and learn how to 
+prevent ^C from ending a program.
+<p>
+Signals are <em>asynchronous</em> events. You never know at what point in
+the execution of your program a signal arrives, and then what?
+</p><p>
+Example: assume a program runs a flow control loop like this:
+        </p><pre>
+    void Class::run()
+    {
+        while (d_continue)
+            handleTasks();
+        cleanup();
+    }
+        
+</pre>
+
+    then if the program should recognize a termination signal a typical signal
+handler looks like this:
+        <pre>
+    void signalHandler(int signal)
+    {
+        // perform required actions
+    }
+        
+</pre>
+
+    Since the signalHandler is called asynchronically, there is no context
+available, and the usual way of communicating between objects and signal
+handlers is via static variables, like this:
+        <pre>
+   // declared as static bool s_continue;
+   bool Class::s_continue = true;
+
+   void Class::run()
+   {
+       while (s_continue)
+           handleTasks();
+       cleanup();
+   }
+
+   // declared as static void signalHander(int signal);
+   void Class::signalHandler(int signal)
+   {
+       s_continue = false;
+   }
+        
+</pre>
+
+<p>
+The class <code>Signal</code> developed in this exercise allows the signal handler
+to operate in the context of a class. The advantage of this is that static
+data members are no longer required and that the signal may be used to control
+data members of individual objects.
+</p><p>
+The signal is now handled by an object, whose class must define a  memâ��
+ber
+    </p><pre>
+    void signalHandler(size_t signum) override;
+    
+</pre>
+
+and  this  function  is  responsible  for handling the received signal.
+Since it is a member function it may affect its  objectâ��s  local  variâ��
+ables  and  it may call its objectâ��s member functions. Static data memâ��
+bers are not required anymore (see below for an example).
+<p>
+Note that, as the signal may arrive at unpredicable times data  members
+that  can  be  modified  by  signalHandler should be declared using the
+volatile modifier.
+</p><p>
+Hint: The function <code>sigaction</code> is slightly more complex than the old
+function <code>signal</code>. To use it,
+    </p><ul>
+    <li> 
+the <strong>signal</strong>(2) function is an old way to handle signals (cf. <strong>signal</strong>(7))
+sent to programs. <strong>Signal</strong>(2) is deprecated, and <strong>sigaction</strong>(2) should be
+used instead (for an example: see <strong>mprotect</strong>(2)). To use <code>sigaction</code>:
+    </li><li> define a <code>struct sigaction</code> which is initialized with your
+signal-handling function;
+
+    </li><li> install the signalhandler using <code>sigaction</code>, providing it with a
+final argument 0;
+    </li><li> Code example:
+        <pre>
+    struct sigaction sa; 
+    sa.sa_handler = myhandler;
+    sigemptyset(&amp;sa.sa_mask);
+    sa.sa_flags = SA_RESTART; 
+    sigaction(SIGTERM, &amp;sa, 0)
+        
+</pre>
+
+    </li></ul>
+<p>
+Starting point is an abstract base class <code>SignalHandler</code>. This class has a
+simple  interface:
+    </p><pre>
+class SignalHandler
+{
+    friend class Signal;
+
+    public:
+        virtual ~SignalHandler();
+    private:
+        virtual void signalHandler(size_t signum) = 0;
+};
+    
+</pre>
+
+<p>
+The meat of this exercise is the class <code>Signal</code>. It is designed as a
+singleton, and you should make sure that when the program terminates the
+dynamically allocated <code>Signal</code> object is properly destroyed.
+</p><p>
+<code>Signal</code> offers the members
+    </p><ul>
+    <li> <code>void add(size_t signum, SignalHandler &amp;object)</code><br>
+       <code>SignalHandler object</code> is activated on arrival of signal <code>signum</code>.
+        If multiple objects must be called then multiple <code>add</code> calls can be
+        provided, in which case their <code>SignalHandler::signalHandler</code> members
+        are called in the same sequence as the <code>add</code> calls that were used to
+        install the objects. If one of the earlier signalHandler members
+        terminates the program then later signalHandler members are not
+        activated anymore. If <code>add</code> is called by, e.g., an objectâ��s
+        constructor, then its destructor should call <code>Signal::remove</code> to
+        prevent the objectâ��s signal handler from being called after its
+        destruction.
+<p>
+</p></li><li> <code>void remove(size_t signum, SignalHandler &amp;object)</code><br>
+       <code>SignalHandler object</code> for signal <code>signum</code> is removed from the
+        Signal <code>object</code>. It is the responsibility of <code>object</code> to
+        deregister itself from Signal just before <code>object</code> goes out of
+        scope. <code>Object</code>s can only deregister themselves if theyâ��ve
+        previously registered themselves using <code>add</code>.
+<p>
+</p></li><li> <code>void ignore(size_t signum)</code><br>
+       Any previously installed <code>SignalHandler object</code> is no longer
+        activated on arrival of signal signum.  In addition, if possible,
+        signal signum is completely ignored (some signals cannot be caught,
+        blocked, of ignored, like SIGKILL and SIGSTOP (cf.  <strong>signal</strong>(7))).
+<p>
+</p></li><li> <code>void reset(size_t signum)</code><br>
+       Any previously installed <code>SignalHandler object</code> is no longer
+        activated on arrival of signal <code>signum</code>. In addition, the default
+        action the program takes on arrival of signal signum is reinstalled
+        (cf. <strong>signal</strong>(7)). 
+    </li></ul>
+<p>
+Design the class <code>Signal's</code> interface, which should already clearly show how
+the information passed to its members is handled.
+</p><p>
+In addition fully implement the class <code>SignalHandler</code>.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 40.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: gain more experience in implementing a Singleton
+<p>
+Implement all members that are related to the Singleton characteristic of the
+class <code>Signal</code>
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 41.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to handle asynchroneous events in a local
+context. 
+<p>
+Implement all remaining members of the class <code>Signal</code>. Also implement a
+class <code>SignalDemo</code> which is a <code>SignalHandler</code>. It should have a member
+<code>run</code> that performs a loop until the program's signalled to stop, at which
+time the loop should end (instead of, e.g., throwing an exception).
+Each second it shows the prompt:
+    </p><pre>
+    Please send a SIGINT (2) or SIGTERM (15) signal to process &lt;pid&gt;
+    
+</pre>
+
+    where <code>&lt;pid&gt;</code> is the process's process-id (cf. <strong>getpid</strong>(2)).
+<p>
+Use <strong>kill</strong>(1) to send signals 2 or 15. When receiving one of these signals
+that should be written to <code>cout</code>, but if signal 15 is received, <code>run's</code>
+loop must end.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven04.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

@@ -11,3 +11,5 @@ A base class is used to access a derived class functionality. This makes things
 very complicated and besides is unnecessary. The good solution is to simply use 
 the derived class. After all, the derived class has all the functionality that 
 the base class offers and even more. 
+
+We included a dir 20/all_code for compilation purposes

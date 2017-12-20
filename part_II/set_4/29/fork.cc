@@ -3,13 +3,13 @@
 void Fork::fork()
 {
     if ((d_pid = ::fork()) < 0)
-        exit(1);
+        throw Exception{} << "Fork::fork(): " << errnodescr;
 
     if (d_pid == 0)
     {
         childProcess();
-        exit(1);
-    }
+        throw Exception(1); // We should not come here,
+    }                       // as childProcess should exit
 
     parentProcess();
 }

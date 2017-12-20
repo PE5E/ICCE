@@ -1,0 +1,12 @@
+#include "exception.h"
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <unistd.h>
+#include <cerrno>
+#include <cstring>
+
+using namespace std;
+using namespace FBB;

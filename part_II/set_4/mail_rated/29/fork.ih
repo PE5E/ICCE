@@ -1,0 +1,12 @@
+#include "fork.h"
+#include "exception/exception.h"
+    // From Frank B. Brokken's Bobcat library, retrieved from
+    // https://github.com/fbb-git/bobcat/tree/master/bobcat/exception
+    // on 20-12-2017.
+
+#include <sys/wait.h>
+#include <unistd.h>
+#include <cstdlib>
+
+using namespace std;
+using namespace FBB;

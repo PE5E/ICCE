@@ -10,13 +10,18 @@ void countAndPrintOrderedInput()
 
 	cout << "All distinct words that were entered are alphabetically:" << "\n";
 
-	size_t count = 0;
+	auto begin = inputSet.begin(),
+	     end   = inputSet.end();
 
-	for (auto begin = inputSet.begin(), end = inputSet.end();
-	        begin != end;
-	        begin = next(begin, count))
+	size_t count;
+
+	for (size_t idx = begin; idx < end; idx += count)
 	{
 		count = inputSet.count(*begin);
-		cout << count << " time(s): " << *begin << '\n';
+		cout << count << ": " << *begin << '\n';
+//		cerr << count << '\n';
+//		cerr << begin << '\n';
+//    	begin += count;
+//		cerr << begin << '\n';
 	}
 }

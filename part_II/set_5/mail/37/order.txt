@@ -4,7 +4,7 @@ fileintovector.cc
 printsizeandcapacity.cc
 unique.cc
 stringvector/stringvector.h
-stringvector/strinvector.ih
+stringvector/stringvector.ih
 stringvector/fileintovector.cc
 stringvector/printsizeandcapacity.cc
 stringvector/stringvector1.cc

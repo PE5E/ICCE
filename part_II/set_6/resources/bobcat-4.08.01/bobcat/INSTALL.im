@@ -1,0 +1,80 @@
+// About compiling the bobcat library on BSD/MacOSX:
+//
+// According to Karel Kubat (karel at e dash tunity dot com) the bobcat
+// library won't compile under BSD/MacOSX if the Linux options to create
+// the dynamic library are used. Instead of 
+//      -shared -Wl,-z,def,-soname,
+// Karel suggests to use:
+//      -dynamiclib -Wl,-single_module
+//
+// Also, he suggests to use the name libbobcat.dylib instead of
+// libbobcat.so.1 
+//
+// In the directory ./contrib the script c-conf is found which is provided
+// by Karel and which might be useful to construct the libraries under
+// BSD/MacOSX systems. Don't contact me if you experience any problems
+// with Karel's script. Instead, contact Karel directly.
+//===========================================================================
+
+    // The name of the C++ compiler
+#define CXX         "g++"
+
+    // Specify compiler options that should be used.
+    // This is overruled by the environment variable CXXFLAGS
+    // The options "-isystem tmp" must always be used, are set in
+    // icmake/library and should not be altered.
+#define CXXFLAGS    "--std=c++14 -O2 -Wall -fdiagnostics-color=never"
+
+    // Classes requiring the -pthread compiler option
+#define PTHREAD     "sharedmutex sharedblock sharedmemory sharedsegment " \
+                    "process processdata semaphore "
+
+    // Specify linker options that should be used when creating the shared
+    // library:
+#define LDFLAGS    ""
+
+    // The following /bin/cp options are used to keep, rather than follow
+    // symbolic references. If your installation doesn't support these flags,
+    // then change them into available ones.
+    //   -P, --no-dereference
+    //            never follow symbolic links in SOURCE
+    //   --preserve[=ATTR_LIST]
+    //          preserve   the   specified   attributes   (default:  
+    //          mode,ownership,timestamps), if possible  additional  
+    //          attributes:  context, links, all
+    //   -d     same as --no-dereference --preserve=links
+#define CPOPTS  "-d"
+
+
+// INTERNAL USE ONLY:
+#define BUILD_SHARED
+
+
+// COMPONENTS TO INSTALL
+// =====================
+
+    // For an operational non-Debian installation, you probably must be
+    // `root'.
+
+    // If necessary, adapt the #defines below to your situation.
+    // The provided locations are used by Debian Linux.
+
+    // With 'build install' you can dynamically specify a location to prepend
+    // to the locations configured here, and select which components you want 
+    // to install
+
+// ONLY USE ABSOLUTE DIRECTORY NAMES:
+
+    // DOC is the directory in which development- related documentation is
+    //     stored (various README files, examples, html-man-pages)
+#define DOC     "/usr/share/doc/libbobcat4-dev"
+
+    // HDR is the directory in which the header files are stored
+#define HDR     "/usr/include/bobcat"
+
+    // LIB is the directory in which the bobcat libraries will be stored
+#define LIB     "/usr/lib"
+
+    // MAN is the directory in which the manual pages are stored
+    // They are stored below MAN in subdirectories man3 and man7
+#define MAN     "/usr/share/man"

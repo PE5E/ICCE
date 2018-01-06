@@ -1,0 +1,183 @@
+#ifndef INCLUDED_BOBCAT_SYSLOGSTREAM_
+#define INCLUDED_BOBCAT_SYSLOGSTREAM_
+
+//  options (default: none):
+//
+//     LOG_CONS
+//            write directly to system console  if  there  is  an
+//            error while sending to system logger
+//
+//     LOG_NDELAY
+//            open the connection immediately (normally, the con-
+//            nection is opened when the first message is logged)
+//
+//     LOG_PERROR
+//            print to stderr as well
+//
+//     LOG_PID
+//            include PID with each message
+//
+//
+//  facility
+//      type of program doing the logging. LOG_USER is used as default:
+//
+//     LOG_AUTHPRIV
+//            security/authorization messages (private)
+//
+//     LOG_CRON
+//            clock daemon (cron and at)
+//
+//     LOG_DAEMON
+//            other system daemons
+//
+//     LOG_KERN
+//            kernel messages
+//
+//     LOG_LOCAL0 through LOG_LOCAL7
+//            reserved for local use
+//
+//     LOG_LPR
+//            line printer subsystem
+//
+//     LOG_MAIL
+//            mail subsystem
+//
+//     LOG_NEWS
+//            USENET news subsystem
+//
+//     LOG_SYSLOG
+//            messages generated internally by syslogd
+//
+//     LOG_USER(default)
+//            generic user-level messages
+//
+//     LOG_UUCP
+//            UUCP subsystem
+//
+// level (priority):
+//
+//      LOG_NOTICE is used by default.
+//      This determines the importance of the message.  The levels
+//      are, in order of decreasing importance:
+//
+//     LOG_EMERG
+//            system is unusable
+//
+//     LOG_ALERT
+//            action must be taken immediately
+//
+//     LOG_CRIT
+//            critical conditions
+//
+//     LOG_ERR
+//            error conditions
+//
+//     LOG_WARNING
+//            warning conditions
+//
+//     LOG_NOTICE   (Used as DEFAULT)
+//            normal, but significant, condition
+//
+//     LOG_INFO
+//            informational message
+//
+//     LOG_DEBUG
+//            debug-level message
+
+#include <bobcat/syslogbuf>
+
+#include <ostream>
+#include <syslog.h>
+                        
+namespace FBB
+{
+
+class SyslogStream: private Syslogbuf, public std::ostream
+{
+    public:
+        explicit SyslogStream(std::string const &ident = "",
+            Priority priority = NOTICE, Facility facility = USER,
+            int option = 0);
+
+        explicit SyslogStream(char const *ident,
+            Priority priority = NOTICE, Facility facility = USER,
+            int option = 0);
+
+        Priority priority()   const;                            // .f
+        Priority defaultPriority()   const;                     // .f
+        Priority setPriority(Priority priority);                // .f
+        Priority setDefaultPriority(Priority priority);         // .f
+
+        void open(std::string const &ident,                     // .f
+            Priority priority = NOTICE, Facility facility = USER,
+            int option = 0);
+        void close();                                           // .f
+
+        static  Priority stoP(std::string const &name, 
+                                                Priority priority = NOTICE);
+        static  Facility stoF(std::string const &name, 
+                                                Facility facility = USER);
+
+        static int setMask(Priority p1, PriorityType upTo);     // 1.f
+        static int setMask(Priority p1);                        // 2.f
+
+        template <typename ...Priorities>
+        static int setMask(Priority p1, Priorities ...ps);      // 3.f
+
+// MANIPULATORS:
+        static std::ostream &emerg(std::ostream &str);          // .f
+        static std::ostream &alert(std::ostream &str);          // .f
+        static std::ostream &crit(std::ostream &str);           // .f
+        static std::ostream &err(std::ostream &str);            // .f
+        static std::ostream &warning(std::ostream &str);        // .f
+        static std::ostream &notice(std::ostream &str);         // .f
+        static std::ostream &info(std::ostream &str);           // .f
+        static std::ostream &debug(std::ostream &str);          // .f
+        static std::ostream &strerrno(std::ostream &str);       // .f
+
+    private:
+        static std::ostream &setPriority(std::ostream &str, 
+                                        Priority priority);
+
+        static int maskValue(Priority p1);                          // 1.f
+
+        template <typename ...Priorities>
+        static int maskValue(Priority p1, Priorities ...ps);        // 2.f
+
+        static int setMask(int maskValue, PriorityType upTo);
+};
+
+#include "alert.f"
+#include "close.f"
+#include "crit.f"
+#include "debug.f"
+#include "defaultpriority.f"
+#include "emerg.f"
+#include "err.f"
+#include "info.f"
+#include "notice.f"
+#include "open.f"
+#include "priority.f"
+#include "setdefaultpriority.f"
+#include "setmask1.f"
+#include "setmask2.f"
+#include "setmask3.f"
+#include "setpriority.f"
+#include "warning.f"
+
+// The following private inline members, must remain here as they are used by
+// the setMask member template
+
+#include "maskvalue1.f"
+#include "maskvalue2.f"
+#include "setmask4.f"
+
+} // FBB
+
+#endif
+
+
+
+
+
+

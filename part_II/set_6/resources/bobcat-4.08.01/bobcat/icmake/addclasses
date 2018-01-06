@@ -1,0 +1,13 @@
+void addClasses(string filename)
+{
+    list class;
+    string elem;
+
+    while (listlen(class = fgets(filename, class)))
+    {
+        elem = strtok(class[0], " \t\n")[0];
+        if (elem != "#")
+            g_classes += (list)elem;
+    }
+}
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+g++ -o client client.cc -lbobcat 
+
+# g++ -o client client.cc -L../tmp -lclientsocket -lbobcat 
+# g++ -I../../tmp -o client client.cc -L../../tmp/lib -lbobcat 

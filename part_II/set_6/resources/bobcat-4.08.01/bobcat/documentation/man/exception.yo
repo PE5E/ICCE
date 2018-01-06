@@ -1,0 +1,202 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Exception)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_-x.tar.gz)
+                    (Error handler)
+
+manpagename(FBB::Exception)(std::exception objects acception stream insertions)
+
+manpagesynopsis()
+    bf(#include <bobcat/exception>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+       bf(FBB::Exception) objects derived from tt(std::exception), but accept
+stream insertions. Their intended use consists of throwing an anonymous
+object, into which the text of the tt(std::exception::what) 
+message has been inserted.
+
+    tt(Exception) exceptions are thrown by several Bobcat classes. These
+classes are tt(
+Arg, 
+ArgConfig,
+BigInt,
+Cgi,
+Cidr,
+ClientSocket,
+CmdFinderBase,
+ConfigFile,
+DateTime,
+DecryptBuf,
+DigestBuf,
+EncryptBuf,
+Fork,
+GetHostent,
+Glob,
+HMacBuf,
+Hostname,
+LocalClientSocket,
+LocalServerSocket,
+LocalSocketBase,
+Log,
+MailHeaders,
+Mbuf,
+Milter,
+Mstream,
+OFoldStreambuf,
+OneKey,
+Pattern,
+Pipe,
+Process,
+Redirector,
+Selector,
+ServerSocket,
+Signal,
+SocketBase,
+Stat,
+TempStream,
+User,
+Xpointer)
+
+
+manpagesection(NAMESPACE)
+    bf(FBB)nl()
+    All constructors, members, operators and manipulators, mentioned in this
+man-page, are defined in the namespace bf(FBB).
+
+manpagesection(INHERITS FROM)
+    bf(std::exception)
+
+manpagesection(ENUMERATION)
+    The enumeration tt(Protection) is used by the member tt(protection)
+described below. The enumeration has two values:
+    itemization(
+    itt(ANY): an existing file may have any set of protection bits;
+    itt(EQUAL): an existing file mut have exactly the set of protection bits
+        as specified when calling tt(Exception::protection).
+    )
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(Exception())
+   The default constructor (assigns 0 to tt(FBB::g_errno), see the next
+    constructor). 
+
+    itb(Exception(int errnoValue)) 
+   This constructor stores the provided tt(errnoValue) value in a thread-local
+    variable tt(int FBB::g_errno). Before Bobcat 4.04.00 tt(errnoValue) was
+    only stored in the global tt(::errno) variable (it still is), but as this
+    variable is also used by many other functions, tt(errno's) value may have
+    changed by the time the exception is caught. The tt(thread_local int
+    FBB::g_errno) variable does not have that drawback.
+
+    When tt(g_errno) must be declared without including  tt(bobcat/exception)
+    then do
+        verb(
+    namespace FBB
+    {
+        extern thread_local int g_errno;
+    }
+        )
+    )
+
+    Move and copy constructors are available.
+
+manpagesection(MEMBER FUNCTIONS)
+     All members of bf(std::exception) are
+available, as bf(FBB::Exception) inherits from this class.
+    itemization(
+    itb(char const *what() const noexcept(true) override) 
+    Returns the text that was inserted into the bf(FBB::Exception) object.
+    )
+
+manpagesection(OVERLOADED OPERATORS)
+    itemization(
+    itb(Exception &&operator<<(Exception &&in, Type const &t))
+    A function template implementing the overloaded insertion operator. It
+can be used to insert values of any type that can also be inserted into an
+tt(ostringstream) object.
+    )
+    The overloaded assignment and move assignment operators are  available.
+
+manpagesection(STATIC MEMBERS)
+
+    The following convenience functions can be used for controlled opening of
+stream-type objects, like tt(std::ofstream) and tt(std::ifstream). These
+stream-type objects must support tt(open) and tt(close) members, like those
+provided by tt(std::ifstream) and tt(std::ofstream). 
+
+If the stream  was already open it is first closed.
+
+If opening fails an tt(FBB::Exception) exception is thrown containing a
+short message stating that the named stream could not be opened. 
+
+    itemization(
+    itb(static void open(StreamType &stream, std::string const &name))
+        Opens the stream object, using its default tt(open) member.
+
+    itb(static void open(int errnoValue, 
+                         StreamType &stream, std::string const &name))
+       Opens the stream object, using its default tt(open) member. If opening
+        the stream fails, then the thrown bf(FBB::Exception) assigns
+tt(errnoValue) to tt(::errno).
+
+    itb(static void open(StreamType &stream, std::string const &name,
+                                    std::ios::openmode mode))
+       Opens the stream object, using its tt(open) member, passing tt(mode) to
+        tt(open).
+
+    itb(static void open(int errnoValue, StreamType &stream,
+                        std::string const &name, std::ios::openmode mode))
+       Opens the stream object, using its tt(open) member, passing tt(mode) to
+        tt(open). If opening the stream fails, then the thrown
+        bf(FBB::Exception) assigns tt(errnoValue) to tt(::errno).
+
+    itb(static size_t protection(std::string const &path, size_t protect, 
+                          Protection type = EQUAL))
+       Returns the protection bits (cf. bf(open)(2)) of tt(path). The
+        tt(protect) parameter is used to specify the requested protection
+        bits. This value is usually specified as an octal value. If the
+        specified value exceeds 0777 an exception is thrown. The third
+        parameter is only used in combination with already existing files. If
+        specified as tt(ANY) the file's actual permission bits are not
+        compared with tt(protect); if specified as tt(EQUAL) the file's
+        permission bits must be identical to tt(protect), or an exception is
+        thrown. If tt(path) does not yet exist a file tt(path) with permission
+        tt(protect) is created. This member returns tt(path)'s permission
+        bits. 
+
+        If tt(path) is created by tt(protection), then opening a stream for
+        tt(path) does not change tt(path)'s protection. 
+    )
+
+manpagesection(MANIPULATOR)
+
+    The following manipulator (which is em(not) part of the
+bf(FBB::Exception), class, but em(is) defined in the bf(FBB) namespace) can be
+inserted into the bf(FBB::Exception) object:
+    itemization(
+    itb(FBB::errnodescr) 
+        The descriptive text associated with the current tt(errno) value is
+inserted into the bf(FBB::Exception) object (it can also be used to insert the
+descriptive text in a tt(std::ostream) object). No text is inserted if
+tt(errno) equals zero. This manipulator is thread-safe (but tt(errno) may be
+modified when tt(errno) holds an invalid value).
+    )
+
+manpagesection(EXAMPLE)
+        verb(
+    if (exceptionalCondition)
+        throw FBB::Exception(1) << "Exceptional condition occurred";
+        )
+
+manpagefiles()
+    em(bobcat/exception) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

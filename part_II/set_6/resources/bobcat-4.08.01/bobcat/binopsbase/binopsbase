@@ -1,0 +1,46 @@
+#ifndef INCLUDED_BINOPSFREE_
+#define INCLUDED_BINOPSFREE_
+
+#include <utility>
+#include <istream>
+#include <ostream>
+
+namespace FBB
+{
+
+template <typename Derived>
+class BinopsBase
+{
+    template <typename Der>
+    friend std::ostream &operator<<(std::ostream &out, 
+                                    BinopsBase<Der> const &rhs);
+
+    template <typename Der>
+    friend std::istream &operator>>(std::istream &in, BinopsBase<Der> &rhs);
+    
+    void eWrap(std::istream &in);
+    void iWrap(std::ostream &out) const;
+};
+
+#include "der.f"
+
+#include "mul.f"
+#include "div.f"
+#include "mod.f"
+#include "add.f"
+#include "sub.f"
+#include "shl1.f"
+#include "shr1.f"
+#include "and.f"
+#include "or.f"
+#include "xor.f"
+
+#include "extract.f"
+#include "insert.f"
+
+} // FBB
+
+#endif
+
+
+

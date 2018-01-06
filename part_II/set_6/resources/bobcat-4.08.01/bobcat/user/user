@@ -1,0 +1,49 @@
+#ifndef INCLUDED_BOBCAT_USER
+#define INCLUDED_BOBCAT_USER
+
+#include <string>
+
+namespace FBB
+{
+class User
+{
+    std::string d_name;
+    std::string d_password;
+    std::string d_realname;
+    std::string d_homedir;
+    std::string d_shell;
+    size_t d_uid;
+    size_t d_gid;
+
+    public:
+        User();
+        User(User &&tmp);
+
+        User &operator=(User &&tmp);
+
+        void verify() const;        // kept for bacward compatibility
+
+        size_t eGroupid() const;
+        size_t eUserid() const;
+        size_t groupid() const;                                     // .f
+        bool inGroup(size_t gid, bool useEffective = true) const;
+        size_t userid() const;                                      // .f
+        bool inGroup(size_t gid) const;
+        std::string const &homedir() const;                         // .f
+        std::string const &name() const;                            // .f
+        std::string const &password() const;                        // .f
+        std::string const &realname() const;                        // .f
+        std::string const &shell() const;                           // .f
+};
+
+#include "groupid.f"
+#include "homedir.f"
+#include "name.f"
+#include "password.f"
+#include "realname.f"
+#include "shell.f"
+#include "userid.f"
+
+} // FBB
+
+#endif

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+g++ -o server server.cc -lbobcat 
+
+# g++ -o server server.cc -L../tmp -lserversocket -lbobcat 
+# g++ -I../../tmp -o server server.cc -L../../tmp/lib -lbobcat 

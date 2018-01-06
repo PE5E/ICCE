@@ -1,0 +1,75 @@
+#ifndef INCLUDED_BOBCAT_HOSTENT_
+#define INCLUDED_BOBCAT_HOSTENT_
+
+#include <netdb.h>
+#include <string>
+
+namespace FBB
+{
+
+class Hostent: private hostent
+{
+    union PTR
+    {
+        char const * const *p2;
+        char const *p1;
+    };
+
+    size_t d_nAliases;
+    size_t d_nAddresses;
+            
+    public:
+        Hostent();
+        Hostent(Hostent const &other);                      // hostent1.f
+        Hostent(Hostent &&tmp);
+        explicit Hostent(hostent const *other);
+
+        ~Hostent();                                         // destructor.f
+
+        Hostent &operator=(Hostent const &other);
+        Hostent &operator=(Hostent &&tmp);                  // opis.f
+
+        char const *alias(size_t nr) const;                 // .f
+        char const *binaryAddress(size_t nr) const;         // .f length bytes!
+        char const * const *beginAlias() const;             // .f
+
+        std::string dottedDecimalAddress(size_t nr) const;
+
+        char const * const *endAlias() const;               // .f
+        char const *hostname() const;                       // .f
+        size_t nAliases() const;                            // .f
+        size_t nAddresses() const;                          // .f
+        size_t addressLength() const;                       // .f
+        size_t addressType() const;                         // .f
+
+        void swap(Hostent &other);
+
+    private:
+        static char *xstrdup(char const *src);
+
+        void copy(hostent const *other, size_t n_aliases, 
+                                         size_t n_addresses);
+        void destroy();
+                                            // the count functions also count
+                                            // the final 0-values.
+        size_t countAliases(char const * const *alias) const;
+        size_t countAddresses(char const * const *addresses, 
+                                            size_t length) const;
+};
+
+#include "addresslength.f"
+#include "addresstype.f"
+#include "alias.f"
+#include "beginalias.f"
+#include "binaryaddress.f"
+#include "destructor.f"
+#include "endalias.f"
+#include "hostent1.f"
+#include "hostname.f"
+#include "naddresses.f"
+#include "naliases.f"
+#include "opis.f"
+
+}   // FBB
+
+#endif

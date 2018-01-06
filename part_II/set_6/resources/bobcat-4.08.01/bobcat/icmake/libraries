@@ -1,0 +1,197 @@
+void catFile(string destination, string source)
+{
+    list record;
+    string line;
+
+    while (1)
+    {
+        record = fgets(source, record);     // get a line from source
+        if (!record)                        // all done: leave.
+            break;
+
+        line = record[0] + "\n";            // get the line's contents
+
+        if 
+        (
+            strfind(line, "#include \"") == 0 && strfind(line, ".f\"") != -1
+        )  // saw #include
+            catFile(destination, strtok(line, "\"")[1]);    // then include .f
+        else                                    // or write the line
+            fprintf(destination, line);         // to the dest.
+    }
+}
+
+void buildHeader(string destination, string class, list iFiles)
+{
+    echo(OFF);
+    run("rm -f " + g_cwd + g_tmphdr + class);
+    echo(ON);
+    printf("Header ", g_tmphdr, class, "\n");   // show the name of the header
+                                                // to construct
+    catFile(destination, class);
+}
+
+void _iFiles(string class)
+{
+    int idx;
+    string destination;
+    list iFiles;
+    int recreate = 0;
+
+    destination = g_cwd + g_tmphdr + class;     
+
+    chdir(class);
+                                        // the destination file name
+
+    iFiles = makelist("*.f");           // create list of all f-files
+
+    if (class newer destination)
+        recreate = 1;
+    else
+    {
+        for (idx = listlen(iFiles); idx--; )
+        {
+            if (iFiles[idx] newer destination)
+            {
+                recreate = 1;
+                break;
+            }
+        }
+    }
+
+    if (recreate)
+        buildHeader(destination, class, iFiles);
+
+    chdir(g_cwd);
+}    
+    
+void _cpHeaders()
+{
+    int idx;
+    
+    for (idx = g_nClasses; idx--; )
+        _iFiles(g_classes[idx]);
+}
+
+int g_gch = 1;
+    
+void _precompileHeaders()
+{
+    int idx;
+    string class;
+    string classIH;
+    string compiler;
+
+    if (!g_gch)
+        return;
+
+    compiler = g_cxx + " " + g_copt + " -isystem " + g_cwd + "tmp";
+
+    for (idx = g_nClasses; idx--; )
+    {
+        class = g_classes[idx];
+        classIH = class + ".ih";
+
+        chdir(class);
+        
+        if (classIH younger class + ".ih.gch")
+            run(compiler + " -x c++-header " + classIH);
+        chdir(g_cwd);
+    }
+}
+
+void static_library(string library)
+{
+    if (listlen(makelist("*/oa/*.o")))
+    {
+        printf("\n"
+               "Creating static library ", library, "\n");
+
+        run("ar cr " + library + " */oa/*.o");
+        run("ranlib " + library);
+        run("rm */oa/*.o");
+    }
+}
+
+void _shared_library(string libso, string libsoshared, 
+                    int strip)
+{
+    string libsomajor;
+    string gxx;
+
+    gxx = g_cxx + " " + g_copt;
+    
+    if (listlen(makelist("*/os/*.o")))
+    {
+        printf("\n"
+               "Creating shared library ", libso, "\n");
+
+        libsomajor  = libso + "." + element(0, strtok(g_version, "."));
+
+        run(gxx +  
+                    " " + setOpt(LDFLAGS, "LDFLAGS") +
+                    " -shared -Wl,--as-needed,"
+                    "-z,defs,-soname," + 
+                    libsomajor +
+                    " -o " + g_tmplibso + "/" + libsoshared +
+                    " */os/*.o " +
+                    g_sharedLibReq);
+    
+        chdir(g_tmplibso);
+    
+        if (strip)
+            run("strip --strip-unneeded " + libsoshared);
+
+        run("chmod -x " + libsoshared);
+        
+        run("ln -sf " + libsoshared + " " + libsomajor);
+
+        chdir(g_cwd + g_tmpliba);
+
+        run("ln -sf " + libsomajor  + " " + libso);
+    
+        chdir(g_cwd);
+        run("rm -f */os/*");
+    }
+}
+
+void libraries(int keepPch, string libname, int all, int strip, int select)
+{
+    string libso;
+    string libsoshared;
+    string staticLib;
+
+    staticLib = g_tmpliba + "/lib" LIBRARY ".a";
+
+    addClasses("CLASSES");
+
+    special(1, all, select);
+
+    md(g_tmpliba + " " + g_tmphdr + " " + g_tmplibso);
+
+    _cpHeaders();
+
+    _precompileHeaders();
+
+    g_copt += " -isystem tmp";
+
+    library("oa", staticLib);               // compile for static lib.
+    static_library(staticLib);              // build static library
+
+#ifdef BUILD_SHARED
+    libso = "lib" LIBRARY ".so";
+    libsoshared = libso + "." + g_version;
+
+    g_copt += " -fPIC";
+                                          // adds option for shared lib
+
+    library("os", g_tmplibso + "/" + libsoshared);  // compile the shared lib
+
+    _shared_library(libso, libsoshared, strip);
+#endif
+
+    if (!keepPch)
+        run("rm -rf */*.ih.gch");
+
+    exit(0);
+}

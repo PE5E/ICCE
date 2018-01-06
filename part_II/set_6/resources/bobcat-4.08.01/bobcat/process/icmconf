@@ -1,0 +1,5 @@
+#define LIBRARY             "process"
+#define THREAD              "-pthread"
+
+#include "../icmconf"
+

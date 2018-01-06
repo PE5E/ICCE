@@ -1,0 +1,35 @@
+#ifndef INCLUDED_BOBCAT_LOCALSOCKETBASE_
+#define INCLUDED_BOBCAT_LOCALSOCKETBASE_
+
+#include <sys/un.h>
+#include <string>
+#include <sys/socket.h>
+
+namespace FBB
+{
+
+class LocalSocketBase
+{
+    size_t              d_length;
+    int                 d_socket;
+    struct sockaddr_un  d_address;
+
+    protected:
+        LocalSocketBase();                                      // 1
+        explicit LocalSocketBase(std::string const &name);      // 1.f
+
+        void open(std::string const &name);
+        int socket() const;                                     // .f
+        size_t size() const;                                    // .f
+        sockaddr const *sockaddrPtr() const;                    // .f
+};
+
+#include "localsocketbase1.f"
+
+#include "size.f"
+#include "sockaddrptr.f"
+#include "socket.f"
+
+} // FBB
+
+#endif

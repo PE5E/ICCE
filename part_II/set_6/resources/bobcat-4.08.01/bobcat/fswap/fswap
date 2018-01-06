@@ -1,0 +1,39 @@
+#ifndef INCLUDED_BOBCAT_FSWAP_
+#define INCLUDED_BOBCAT_FSWAP_
+
+#include <cstring>
+#include <algorithm>
+#include <stdexcept>
+
+namespace FBB
+{
+
+#include "swapmode.f"               // specific swap modes
+
+#include "fswapfun.decl.f"          // dclare fswap() functions with default
+                                    // arguments
+
+#include "fswappod.f"               // swap plain old data
+
+#include "fswaptype.f"              // how to swap using specific swapmodes
+                                    // (stdswap(member), swapmember(member))
+
+#include "fswapbase.f"              // utility functions for FSwap classes
+
+#include "fswap.decl.f"             // class FSwap declaration
+#include "fswap.end.f"              // end-specialization (no SwapModes)
+#include "fswap.std.f"              // do std::swap for the head of the list
+#include "fswap.std.explicit.f"     // do std::swap by default, but explicit
+                                    // swap for the head of the list
+#include "fswap.member.f"           // do .swap() for the head of the list
+#include "fswap.member.explicit.f"  // do .swap() by default, but explicit
+                                    // swap for the head of the list
+
+#include "fswap1.f"                 // fswap's full implementation
+#include "fswap2.f"                 // the shortcut w/o 1st address
+#include "fswap3.f"                 // the direct memory swap
+#include "fswap6.f"                 // the overload swapping pointers
+
+}   // namespace FBB
+
+#endif

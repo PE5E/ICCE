@@ -1,0 +1,106 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(binopsbase)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_-x.tar.gz)
+                    (Binary Operators)
+
+manpagename(BinopsBase)(Class template offering class-type binary operators)
+
+manpagesynopsis()
+    bf(#include <bobcat/binopsbase>)nl()
+
+manpagedescription()
+    Classes may overload binary operators. A class named tt(Derived) may
+overload binary operators to suit its own needs. It could, e.g., allow two
+tt(Derived) class objects to be added together, or it could define a
+shift-operation given a tt(size_t) right-hand side (rhs) argument.
+
+The available binary operators are *, /, %, +, -, <<, >>, &, |, and ^ (in this
+man-page they are generically indicated as the `tt(@)' operator). In addition,
+overloaded tt(operator<<) and tt(operator>>) for stream insertion and
+extraction are frequently defined.
+
+If a class tt(Derived) supports copy and/or move construction and if it offers
+a swap member (tt(void Derived::swap(Derived &rhs))), and is publicly derived
+from tt(FBB::BinopsBase<Derived>) then once tt(Derived) defines a member
+        verb(
+    void Class::operator@=(Rhs const &rhs) &&
+        ) 
+    defining the compound tt(@)-operator for anonymous, temporary tt(Derived)
+objects and a tt(Rhs) type for its right-hand side operand the following
+operators are also available:
+        verb(
+    Derived &operator@=(Rhs const &rhs) &
+
+    Derived operator@(Derived &&lhs, Rhs const &rhs);
+    Derived operator@(Derived const &lhs, Rhs const &rhs);
+        )
+
+    A similar procedure applies to the insertion and extraction
+operators. Insertion and extraction operators become available once
+tt(BinopsBase<Derived>) is declared a friend class of tt(Derived).  To make
+the insertion operator available a private member
+        verb(
+    void Derived::insert(std::ostream &out) const
+        )
+    must then also be defined, inserting the calling object into
+tt(out). Analogously, to make the extraction operator available a private
+member
+        verb(
+    void Derived::extract(std::istream &in)
+        ) 
+    must be defined extrating the calling object from tt(in).
+
+manpagesection(INHERITS FROM)
+
+    --
+
+manpagesection(OVERLOADED OPERATORS)
+
+    For each defined tt(Derived &&operator@=(Rhs const &rhs) &&), defined in
+the class tt(Derived) the following operators are automatically also available:
+        verb(
+    Derived operator@(Derived &&lhs, Rhs const &rhs);
+    Derived operator@(Derived const &lhs, Rhs const &rhs);
+        )
+and
+        verb(
+    Derived &operator@=(Rhs const &rhs) &;
+        )
+
+    The insertion operator becomew available once
+        verb(
+    void Derived::insert(std::ostream &out) const
+        )
+    (inserting the calling object into tt(out)) has been defined. Analogously,
+the extraction operator becomes available after defining a private member
+        verb(
+    void Derived::extract(std::istream &in)
+        ) 
+    (extracting the calling object from tt(in)).
+    
+manpagesection(FRIEND DECLARATION)
+
+    To make the insertion and/or extraction operators available the class
+tt(Derived) must also declare
+        verb(
+    friend FBB::BinopsBase<Derived>;
+        )
+
+manpagesection(EXAMPLE)
+    verbinclude(../../binopsbase/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/binopsbase) - defines the binary operator function templates
+
+manpageseealso()
+    bf(bobcat/binops)(3),
+    bf(bobcat)(7)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)
+
+
+

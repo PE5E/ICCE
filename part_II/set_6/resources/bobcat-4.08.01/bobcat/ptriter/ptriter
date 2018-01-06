@@ -1,0 +1,42 @@
+#ifndef INCLUDED_BOBCAT_PTRITER_
+#define INCLUDED_BOBCAT_PTRITER_
+
+#include <iterator>
+
+namespace FBB
+{
+template <typename Iterator>
+class PtrIter: public std::iterator<std::input_iterator_tag, 
+                                    decltype(&*Iterator())>
+{
+    Iterator d_iter;
+
+    public:
+        typedef decltype(&*Iterator()) PtrType;
+
+        PtrIter(Iterator const &iter);                                  // 1.f
+        PtrIter(PtrIter &&tmp)          = default;
+        PtrIter(PtrIter const &other)   = default;
+
+        PtrType operator*() const;                              //    opstar.f
+    
+        PtrIter &operator++();                                      // opinc.f
+    
+        bool operator==(PtrIter const &other) const;                //  opeq.f
+        bool operator!=(PtrIter const &other) const;                // opneq.f
+};
+
+#include "ptriter1.f"
+
+#include "opeq.f"
+#include "opinc.f"
+#include "opneq.f"
+#include "opstar.f"
+
+    // Free functions
+
+#include "ptriter.f"
+
+
+} // FBB        
+#endif

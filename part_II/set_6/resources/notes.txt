@@ -1,0 +1,136 @@
+STL
+    allocators : memory alloc
+    the default is usually good 
+
+    18.1 predefiend function objects
+    #include <functional>
+        
+    example: sort
+    sort(stringVec.begin(), stringVec.end(), greater<string>());
+                                                ^
+                                  this constructor creates instance of
+                                  the 'greater' class
+        --> sort calls operator() member of 'greater' to compare strings
+        --> operator() calls '>' of string
+
+    example: case insensitive sort
+        - the default string < is case-sensitive
+        --> create class 'CaseInsensitive', which compares strings
+        
+        #include <iostream>
+        #include <string>
+        #include <cstring>
+        #include <algorithm>
+        using namespace std;
+
+        class CaseInsensitive
+        {
+            public:
+                bool operator()(string const &left, string const &right) const
+                {
+                    return strcasecmp(left.c_str(), right.c_str()) < 0;
+                }
+        };
+        int main(int argc, char **argv)
+        {
+            sort(argv, argv + argc, CaseInsensitive{});
+            for (int idx = 0; idx < argc; ++idx)
+                cout << argv[idx] << " ";
+            cout << "\n";
+        }
+   
+    - function objects often predefined
+    
+    18.2 arthmetic function objects
+        - plus
+        - minus
+        - multiplies
+        - divides
+        - modulus
+        - negate
+        - accumulate        <------ 'sum'
+        - transform         <------ // apply unitary operator
+    
+    18.1.2 relational function objects
+        - equal_to
+        - not_equal_to
+        - greater
+        - greater_equal
+        - less
+        - less_equal
+    
+    18.1.3 logical function objects
+        - logical_and
+        - logical_or
+        - logical_not 
+    
+    18.1.4 the 'std::not_fn' negator
+        
+    int main()
+    {
+        int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    }
+    
+    cout <<
+            count_if(arr, arr + size(arr),
+                [&](int value)
+                {
+                    return (value & 1 == 0);
+                }
+            ) << '\n'; 
+    
+    yeah.
+
+    18.2 iterators
+    " iterators are objects behaving like pointers"
+        - ==, != available
+        - *iter is object, iter-> reaches members of object
+        - ++iter, iter++
+        - pointer arithmetic
+        - 0-iterator is like 0-pointer
+        
+    STL containers usually def 'iterator' type,
+        begin, end, rbegin, rend
+    
+    - iterator ranges are left inclusive
+        [) means right pointer BEYOND @_@'
+    
+    - const_iterator types for const container
+    
+    18.2.2 insert iterators
+    if a target container of unknown size is required, use an inserter
+    
+    back_inserter(container)                             // call push_back
+    front_interter(container)                            // call push_front
+    inserter(container, destination.begin())             // call insert
+
+    18.2.3 Iterators for 'istream' objects
+    istream_iterator<Type> identifier(istream &in)
+
+    #include <iostream>
+    #include <iterator>
+    #include <string>
+    #include <vector>
+    #include <algorithm>
+    using namespace std;
+
+    int main()
+    {
+        vector<string> cs;
+        
+        copy(istream_iterator<string>(cin), 
+             istream_iterator<string>(), 
+             back_inserter(vs) );
+
+        for 
+        ( 
+            vector<string>::const_iterator begin = vs.begin(), 
+            end = vs.end();
+            begin != end;
+            ++ begin;
+        )
+            cout << *begin << ' ';
+        cout << '\n';
+    }
+        
+    18.2.3.1 Iterators for 'istreambuf' objects

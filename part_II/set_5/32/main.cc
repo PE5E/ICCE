@@ -4,32 +4,41 @@
 
 using namespace std;
 
-
-class CSVLines: protected std::vector<std::vector<std::string>>
+class CSVLines
 {
-    typedef std::vector<std::string> StrVector;
+    using StrVector = std::vector<std::string>;    // much cooler than typedef 
+    std::vector<StrVector> d_data;
 
     public:
         CSVLines();
 
         void read();
 
-        using std::vector<StrVector>::begin;
-        using std::vector<StrVector>::end;
+        auto begin();
+        auto end();
 };
 
 CSVLines::CSVLines()
 {}
+
 inline void CSVLines::read()
 {}
 
+inline auto CSVLines::begin() 
+{
+    return d_data.begin();
+}
+
+inline auto CSVLines::end()
+{
+    return d_data.end();
+}
 
 void process(std::vector<std::string> &strVect)
 // uses strVect's begin and end members.
 {
     cout << "Process\n";
 }
-
 
 int main()
 {

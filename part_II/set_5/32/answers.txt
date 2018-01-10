@@ -1,10 +1,9 @@
 1. What's wrong here.
-- CSVLines inherit private van vector. En daarna wordt "using" gebruikt om de 
-    members public te maken. Dit is niet toegestaan. Dit mag enkel bij protected
-    members en dus niet in dit geval.
+    We are inheriting while this isnt needed. 
+
 
 How can you solve the issue?
-- een oplossing is om CSVLines protected te laten inheriten van vector.
-    Dus vervang het woord private in de eerste regel door protected.
+    Don't inherit.
+
 
 

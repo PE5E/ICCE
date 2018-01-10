@@ -1,0 +1,5 @@
+The reason why std::istream &operator>>(std::istream &istr,std::string &str);
+doesn’t work is because when operator++ is used on the istream iterator<string>
+the std::istream &operator>>(std::istream &istr, std::string &str); is called
+which only extracts one word from the stdin. line extracts a whole line from the
+stdin.

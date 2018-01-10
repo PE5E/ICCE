@@ -1,0 +1,7 @@
+#include <iostream>
+#include <vector>
+#include <cstring>              //memcpy
+#include <set>
+#include "stringvector.h"
+
+using namespace std;

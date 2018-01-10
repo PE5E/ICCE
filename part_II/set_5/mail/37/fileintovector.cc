@@ -2,14 +2,13 @@
 
 vector<string> fileIntoVector(ifstream &file)
 {
-	vector<string> strVector;
+        set<string> strSet;
 	string word;
 
 	while (file >> word)
 	{
-		if (unique(word, strVector))
-			strVector.push_back(word);
-	}
+            strSet.insert(word);
+        }
 
-	return strVector;
+        return vector<string>(strSet.begin(), strSet.end());
 }

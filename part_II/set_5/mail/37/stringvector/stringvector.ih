@@ -1,7 +1,7 @@
-#include "stringvector.h"
 #include <iostream>
-#include <fstream>
 #include <vector>
-#include <cstring> //memcpy
+#include <cstring>              //memcpy
+#include <set>
+#include "stringvector.h"
 
 using namespace std;

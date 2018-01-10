@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <set>
 #include "stringvector/stringvector.h"
 
 using namespace std;
 
 vector<string> fileIntoVector(ifstream &file);
 void printSizeAndCapacity(vector<string> const &strVector);
-bool unique(string const &word, vector<string> const &strVector);

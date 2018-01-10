@@ -1,11 +1,15 @@
 #include "stringvector.ih"
 
-void StringVector::fileIntoVector(ifstream &inputFile)
+void StringVector::fileIntoVector(ifstream &file)
 {
-	string word;
-	while (inputFile >> word)
-	{
-		if (unique(word, d_strVector))
-			d_strVector.push_back(word);
-	}
+    set<string> strSet;
+    string word;
+
+    while (file >> word)
+    {
+        strSet.insert(word);
+    }
+
+    d_strVector = vector<string>(strSet.begin(), strSet.end());
+    return;
 }

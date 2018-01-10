@@ -6,7 +6,7 @@ using namespace std;
 
 class CSVLines
 {
-    using StrVector = std::vector<std::string>;    // 8)
+    using StrVector = std::vector<std::string>;    // some hipster shit 8)
     std::vector<StrVector> d_data;
 
     public:

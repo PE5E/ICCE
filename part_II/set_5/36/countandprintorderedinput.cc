@@ -2,26 +2,13 @@
 
 void countAndPrintOrderedInput()
 {
-	multiset<string> inputSet;
-	string inputWord;
+	map<string, int> wordcount;
+	
+	string word;
 
-	while (cin >> inputWord)
-		inputSet.insert(inputWord);
+	while (cin >> word)
+		++wordcount[word];	
 
-	cout << "All distinct words that were entered are alphabetically:" << "\n";
-
-	auto begin = inputSet.begin(),
-	     end   = inputSet.end();
-
-	size_t count;
-
-	for (size_t idx = begin; idx < end; idx += count)
-	{
-		count = inputSet.count(*begin);
-		cout << count << ": " << *begin << '\n';
-//		cerr << count << '\n';
-//		cerr << begin << '\n';
-//    	begin += count;
-//		cerr << begin << '\n';
-	}
+	for (auto it = wordcount.begin(); it != wordcount.end(); ++it)
+		cout << it->first << ":\t" << it->second << '\n';
 }

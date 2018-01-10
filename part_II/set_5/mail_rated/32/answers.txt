@@ -1,0 +1,9 @@
+1. What's wrong here.
+    We are inheriting while this isnt needed. 
+
+
+How can you solve the issue?
+    Don't inherit.
+
+
+

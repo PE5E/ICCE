@@ -1,0 +1,4 @@
+#include <iterator>     // istream_iterator, back_inserter
+#include <algorithm>
+#include <string>
+#include "vstring.hh"

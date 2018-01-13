@@ -1,0 +1,16 @@
+
+Bij deze opdracht kan ook de unique_copy gebruikt worden. Echter dit gaat in 
+tegen de opdracht omschrijving die zegt eerst de file inhoud te kopieren naar
+data en data2 en daarna pas te vragen om unique-ness.
+
+Vraag:
+In plaats van for_each is
+sinds C++11 is het volgende beschikbaar:
+
+for(Element& e : collection)
+{
+   foo(e);
+}
+
+Worden we geacht dit te gebruiken?
+En waarom of niet?

@@ -1,0 +1,7 @@
+vstring/vstring.hh
+vstring/vstring.ih
+main.cc
+vowels.cc
+vstring/count.cc
+vstring/countchar.cc
+vstring/vstring.cc

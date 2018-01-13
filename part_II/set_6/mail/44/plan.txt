@@ -1,0 +1,18 @@
+Where to use lambda functions?
+
+class Vstring: public std::vector<std::string>
+{
+    public:
+        typedef std::map<char, size_t> CharMap; // dict
+    
+        Vstring(std::istream &in);      // constructor
+
+        size_t count(CharMap &cmap, bool (*accept)(char, CharMap&));
+                   // ^             ^
+                   // map of chars  // evaluates to true for == char
+    private:
+        static size_t countChar(std::string const &str, CharMap &cmap,
+                                bool (*accept)(char, CharMap &));
+
+};
+

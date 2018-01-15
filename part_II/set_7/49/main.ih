@@ -1,8 +1,13 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <iomanip>
+#include <time.h> // difftime
+#include <vector>
 
 using namespace std;
+using namespace chrono;
 
 extern bool busy;
 void dots();
+void primes(size_t noPrimes);

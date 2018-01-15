@@ -1,0 +1,8 @@
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+using namespace std;
+
+extern bool busy;
+void dots();

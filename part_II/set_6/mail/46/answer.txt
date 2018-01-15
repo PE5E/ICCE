@@ -1,0 +1,16 @@
+for_each applies a function to a a sequence defined by two iterators. The return
+value of the function is ignored and nothing is returned. copy copies a sequence
+defined by two iterators two another iterator, returning the next adress in the
+output object. 
+
+Example of something for which for_each should be used:
+    To edit values of a container in place. For example, multiply each element
+    by 2.
+Example of something for which copy should be used:
+    Suppose you want to do multiple copy operations of unknown size. The copy
+algorithm allows you to chain the copy commands on the output of the previous
+(which moves the output iterator position).
+
+Actually, anything that can be done by Copy can be probably be 
+done by the right 'doctored'
+function in the for_each call - but this will be ugly.

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven06.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l7"></a>
+<h1>Chapter 7: Exercises set seven: Multi-threading I. Deadline: Jan 25, 2018</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 49.</strong>
+        <br>
+        Purpose of this exercise: learn to apply basic multi-threading
+<p>
+The sieve of Eratosthenes offers one way to find prime numbers. In this
+exercise we'll use this sieve to execute a time intensive process while
+another thread tells us that the program's busy.
+</p><p>
+Our program expects one argument: the number of primes we want the program to
+compute. 
+</p><p>
+Eratosthenes' sieve can be implemented like this (a basic, not too efficient
+implementation, but we don't care: the exercise is about threads, not about
+finding primes):
+    </p><ul>
+    <li> Start with a vector of <code>size_t</code> values containing 2: our first
+        prime number, and use <code>size_t next</code>, initialized to 3, as the next
+        value to inspect.
+    </li><li> While the size of the vector is smaller than the number of primes to
+        find perform these steps:
+        <ul>
+        <li> if <code>next</code> is not divisible by the values in the primes-vector,
+            then add <code>next</code> to the primes-vector
+        </li><li> increment <code>next</code>
+        </li></ul>
+    </li></ul>
+<p>
+While the program is busy finding primes, a separate thread displays dots (one
+dot every second) to <code>cerr</code> until prime-finding has finished. Then display
+all primes to <code>cout</code>, followed by the prime-finding starting time, the
+prime-finding ending time, and the number of seconds it took the program to
+find the primes. So, your program
+could produce output like this:
+    </p><pre>
+    tmp/bin/binary 20000
+    ...
+    2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 
+    (etc)
+    224711 224717 224729 224737 
+
+    Starting time: Mon Jan  8 11:15:25 2018
+    Ending time:   Mon Jan  8 11:15:28 2018
+    Computation of 20000 primes took 3 seconds
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 50.</strong>
+        <br>
+        Purpose of this exercise: learn to perform time conversions
+<p>
+To convert coarse time specifications (e.g., <code>hours{13}</code> to a fine-grained
+time specifications (e.g., to minutes) is easy: show how you can do this
+conversion using available <code>chrono</code> facilities.
+</p><p>
+The opposite is slightly more complex: to convert, e.g., seconds to hours you
+need to divide by a conversion factor. Of course, the conversion factor should
+not use magic numbers, but should use conversion factors that are obtained
+using available <code>chrono</code> facilities. Using a time unit like <code>hours{1}</code> is
+OK, however.
+</p><p>
+Your program should expect two numbers: the first number represents hours,
+which must be converted to minutes; the second number represents seconds,
+which must be converted to minutes.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 51.</strong>
+        <br>
+        Purpose of this exercise: learn to use the chrono/clock facilities
+<p>
+Using the <code>now</code> function (available in <code>chrono</code>, display the 
+current local and universal coordinated time (use <code>gmtime</code> for that).
+</p><p>
+Your program should also receive an argument: an integral number to which an
+s, m, h (for seconds, minutes, hours) is appended. Add (or subtract) the
+specified time (from <code>now</code>), and display the resulting time.
+</p><p>
+Use <code>put_time</code> to display the resulting times.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 52.</strong>
+        <br>
+        Purpose of this exercise: learn to define a thread with objects that aren't
+functors. 
+<p>
+Assume we have the following class:
+        </p><pre>
+    class Handler
+    {
+        public:
+            void shift(std::ostream &amp;out, string const &amp;text);
+    };
+        
+</pre>
+
+<p>
+Its <code>shift</code> member writes <code>text</code> as lines to <code>out</code>, each time shifting
+the first letter to the last position, until all of text's letters have
+appeared once in text's front position. So, with the word <code>mouse</code> we get
+    </p><pre>
+    mouse
+    ousem
+    usemo
+    semou
+    emous
+        
+</pre>
+
+<p>
+As <code>Handler</code> does not have a <code>void operator()</code> member, a <code>Handler</code>
+object by itself cannot be passed to a <code>thread</code> constructor.
+</p><p>
+Design a program that expects the name of an output file and a text. Open
+the output file, and run a thread calling the Handler's <code>shift</code> member.
+</p><p>
+Do this in two different ways (sequentially): first by defining a
+<code>Handler</code> object in <code>main</code> and then passing it to a thread, and second, by
+running a thread that itself defines a <code>Handler</code> object.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 53.</strong>
+        <br>
+        Purpose of this exercise: learn to design a simple producer/consumer program.
+<p>
+When a <code>queue</code> is used in a multi-threaded program a mutex is required to
+synchronize its access. Although it's possible to surround calls to queue
+members with a mutex lock, this makes the programmer responsible for the
+synchronization. It would be nice if the mutex could be embedded in the
+queue's members themselves. 
+</p><p>
+This isn't simple: see the Annotations for a description of why the <code>pop</code>
+member can't return the queue's front-element. 
+</p><p>
+Consider a class <code>Storage</code>: it contains a queue, into which strings can be
+pushed and popped by two different threads. 
+</p><p>
+The most important element to consider are <code>push</code> and <code>pop</code> and
+<code>front</code>. While designing your class <code>Storage</code> you may have to alter the
+signatures of one or more of the members of your class, as compared to
+<code>std::queue</code>. By itself, <code>Storage</code> should define a <code>std::queue</code> data
+member, so don't implement the queueing part yourself. If you modify a
+signature <em>clearly</em> explain why you decided to do so.
+</p><p>
+One thread is provided by the <code>main</code> function itself: it reads lines from
+cin (lines you enter), and pushes the lines into the queue.
+</p><p>
+A separate thread obtains the lines from the queue and writes the lines to a
+file. The name of the file is passed to the thread.
+</p><p>
+The separate thread uses polling to find out whether something is available:
+it sleeps for a second, then checks whether a line is available, and if so,
+removes it from the thread.
+</p><p>
+Complications to solve:
+    </p><ul>
+    <li> Simultaneously writing and reading the queue must be prevented;
+<p>
+</p></li><li> Consider also what may happen if one thread adds element to the
+        queue, and another thread removes elements from the queue. To the
+        latter the queue may seem empty, but that might be because the former
+        hasn't yet entered elements into the queue. So an empty queue may
+        mean: we're done adding elements or as yet we haven't been able to
+        push new elements into the queue. How would you distinguish between
+        these two cases?
+<p>
+The separate thread must be informed when the main program has no
+        more lines to insert into the queue. Merely ending <code>main</code> is not the
+        right thing to do (why not?). A better solution is to provide the
+        class <code>Storage</code> with a member <code>empty()</code>, returning true once the
+        queue is empty and a data member <code>d_finished</code> is set to <code>true</code> by
+        a member <code>finished</code>.
+</p><p>
+</p></li><li> Both the main program and the thread must have access to <code>Storage</code>,
+        but the <code>Storage</code> object should be defined in <code>main</code>.
+    </li></ul>
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 54.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: extend the previous program so that it uses 
+multiple clients.
+<p>
+Extend the previous clients in such a way that an array of threads is
+defined. The number of threads is determined from the number of file names
+that are passed to <code>main</code>. Each thread should write to its own file (it is
+assumed that all file names are different). 
+</p><p>
+The objects that ran as threads must have a member <code>size</code> returning the
+number of lines that thread has captured. The objects' <code>size</code> members must
+be called for the first until the last thread, only after all threads have
+finished, and have joined <code>main</code>. 
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 55.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to design a small multi-threaded program,
+passing reusable objects to threads.
+<p>
+Design a class <code>TaskThreads</code> whose constructor receives the program's
+arguments. 
+</p><p>
+Its <code>run</code> member either runs tasks in parallel or sequentially.
+</p><p>
+The program's first argument is the name of a file to process. If a second
+argument (any argument) is provided tasks are performed sequentially,
+otherwise they are performed in parallel.
+</p><p>
+In addition to <code>TaskThreads</code> design a class <code>Task</code>.  When using
+multithreading <em>only</em> <code>Task</code> objects are passed to threads. Therefore,
+each object must be usable as a thread-function.
+</p><p>
+Task objects <em>must</em> be initialized in the <code>TaskThreads</code> header file as
+an array of four <code>Task</code> objects:
+    </p><ul>
+    <li> One <code>Task</code> object counts the number of vowels (lower and uppercase);
+    </li><li> One <code>Task</code> object counts the number of digits;
+    </li><li> One <code>Task</code> object counts the number of hexadecimal digits;
+    </li><li> One <code>Task</code> object counts the number of printable characters that are
+        not spaces or alphanumeric characters (these are the punctuation
+        characters).
+    </li></ul>
+    In addition, the <code>TaskThreads</code> object
+must define an array of four <code>std::thread</code> objects in its header file.
+<p>
+The <code>Task</code> constructor expects a function allowing it to count a particular
+set of characters (hint: use existing <code>is...</code> functions where available, or
+design a dedicated function when not), and a (<code>char const *</code>) label
+describing the name of the task it should perform (e.g. merely <code>"vowels"</code>
+when the <code>Task</code> object counts vowels).
+</p><p>
+Caveats: 
+    </p><ul>
+    <li> as the name of the file to process is only available <em>after</em>
+initializing the <code>Task</code> object, find a way to tell the <code>Task</code> objects the
+name of the file they should process.
+    </li><li> when passing an object to <code>std::thread</code> it receives a copy of that
+object. That is not what you want
+    </li></ul>
+<p>
+Once the threads have completed, the <code>Task</code> objects <code>count</code> members return
+the number of times the characters encountered in the file to process,
+matching the configured selection function, is returned. E.g., an object
+<code>Task{isdigit, "digits"}</code> returns the number of digits that were found in
+the file.
+</p><p>
+At the end of the program display the counts for each of the four categories
+(also using their labels) and then display the the total time
+the program needed to complete its tasks (for that use the
+<code>TaskThreads::showTime</code> member).
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven06.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

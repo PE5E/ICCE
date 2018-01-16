@@ -40,4 +40,7 @@ int main()
 	copy(istream_iterator<line>(cin),
 		 istream_iterator<line>(),
 		 back_inserter(data));
+
+	for (auto i: data)
+		std::cout << i << '\n';
 }

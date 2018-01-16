@@ -235,6 +235,116 @@ finished, and have joined <code>main</code>.
 </p><hr>
         <strong>Exercise 55.</strong>
         <br>
+        (optional)<br>Purpose of this exercise: learn to sort out the mess that output may become in
+the face of threads.
+<p>
+Consider this main function, which uses threads:
+        </p><pre>
+    int main()
+    {
+        vector&lt;thread&gt; threads;
+        for (size_t ix = 0; ix != 100; ++ix)
+            threads.push_back(thread(f2));
+    
+        for (auto &amp;thread: threads)
+            thread.join();
+    }
+        
+</pre>
+
+<p>
+The threads are using these functions f1 and f2, which output to some kind of
+wrapper around an ostream:
+        </p><pre>
+    void f1()
+    {
+        TSosWrap{ std::cout } &lt;&lt; "one " &lt;&lt; "two " &lt;&lt; "three ";
+    }
+        
+    void f2()
+    {
+        TSosWrap tout{ std::cout };
+        tout &lt;&lt; "four "  &lt;&lt; "five " &lt;&lt; "six ";
+        f1();
+        tout &lt;&lt; '\n';
+    }
+        
+</pre>
+                                  
+<p>
+The wrapper, <code>TSosWrap</code>, uses a <code>PassOnStreamBuf</code>:
+        </p><pre>
+    class PassOnStreamBuf: public std::streambuf
+    {
+        std::ostream &amp;d_os;
+        public:
+            PassOnStreamBuf(std::ostream &amp;os);
+            PassOnStreamBuf(PassOnStreamBuf &amp;&amp;tmp) = default;
+
+            int overflow(int ch) override;
+    };
+
+    inline PassOnStreamBuf::PassOnStreamBuf(std::ostream &amp;os)
+    : 
+        d_os(os)
+    {}
+
+    inline int PassOnStreamBuf::overflow(int ch)
+    {
+        d_os.put(ch);
+        return ch;
+    }
+        
+</pre>
+
+<p>
+The wrapper itself is very simple:
+        </p><pre>
+    struct TSosWrap: private PassOnStreamBuf, public std::ostream
+    {
+        TSosWrap(std::ostream &amp;os);
+        TSosWrap(TSosWrap const &amp;other) = delete;
+        
+        TSosWrap &amp;operator=(TSosWrap const &amp;other) = delete;
+    };
+
+    inline TSosWrap::TSosWrap(std::ostream &amp;os)
+    : 
+        PassOnStreamBuf(os),
+        std::ostream(this)
+    {}
+        
+</pre>
+
+<p>
+In fact, it's too simple. When the program is run, the output is a mess,
+because the output from different <code>TSosWrap</code> objects will be mixed up.
+Modify <code>TSosWrap</code> so that output that belongs together shows up together. In
+this particular case that means: all output produced by <code>TSosWrap</code> objects
+cannot be clobbered by the output produced by other <code>TSosWrap</code> objects.
+</p><p>
+In particular, this applies to non-temporary <code>TSosWrap</code> objects: while
+existing, output produced by other <code>TSosWrap</code> objects will have to
+wait. When such a <code>TSosWrap</code> object's) lifetime ends other (waiting)
+<code>TSosWrap</code> objects may start producing output; if multiple <code>TSosWrap</code>
+objects are waiting then one will be given the opportunity to produce output,
+forcing the other objects to wait a little longer.
+</p><p>
+Caveat: notice that the function <code>f2</code> above defines a <code>TSosWrap</code> object
+protecting <code>cout</code>. While alive, <code>f1</code> is called which itself defines a
+<code>TSosWrap</code> object protecting <code>cout</code>. In this case <code>f1's TSosWrap</code> object
+must of course (why?) not wait producing output until <code>f1's TSosWrap</code> ceases
+to exist.
+</p><p>
+Note: after adding the <code>#includes</code> that are required for the above to
+compile, the modification requires less than twenty lines. Ten is doable if
+you don't count empty lines.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 56.</strong>
+        <br>
         (optional)<br>Purpose of this exercise: learn to design a small multi-threaded program,
 passing reusable objects to threads.
 <p>

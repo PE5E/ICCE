@@ -1,0 +1,94 @@
+threading: threads share data
+forking: each fork is a duplicate of the program with private data
+
+    threading       vs      forking
+    shared data             each fork has own data
+    easy communication      hard communication
+    easy on OS              lots of syscals
+    thread may break all    may be independent
+
+- time sensitive actions
+    - how to handle time?
+    tradition:
+        * time()
+        * sleep()
+        * select()
+    modernity: objects in 'chrono'
+        - fine-grained
+        - extensible
+        - std::chrono
+        - syntax
+            chrono::seconds(30)
+            chrono::microseconds(2500)
+            ... 
+        - arithmetic
+            milliseconds ms(2 * (seconds(3) + hours(2)) 
+    clocks
+        - chrono::ClockType
+            * ClockType::time_point
+        - chrono::system_clock
+            - now() returns local time as type_point
+            - addition: 
+                chrono::system_clock::now() + chrono::seconds(30);
+            - can be converted to time_t
+
+threads
+    main() defines threads
+        - as function
+        - as functor   // object with () operator "looks like function"
+    derive from pthread (compile & link), lpthread (linking only)
+    - std::thread
+        + default constructor
+        + move constructor
+        - only move assignment
+
+    void fun()
+    {
+        for (size_t idx = 0; idx != 5; ++idx)
+            cout << "hello world\n";
+    }
+    int main()
+    {
+        thread thr(fun);
+        cout << "thread started, main continuous\n";
+        thr.join();
+    }
+
+arugments for thread-functions
+    - values, pointers, refs, r_value refs
+    - default: by value.
+    - use std::ref(arg) to pass by reference
+
+eventually:
+    - should call thr.join() or thr.detach()
+    - join: main waits for subthread
+
+local context namespace:
+    std::this_thread
+
+global vars per thread
+    thread_local int t_value = 100;
+
+mutex (mutually exclusive)
+    synchronizing acces to shared data.
+    std::mutex
+++++++++ destructor does not unlock ++++++++
+    - always minimal scope
+
+to make things easier: guards
+    std::lock_guard automates locking, unlocking
+
+mutex qMutex;
+Queue jobQueue;
+Job nextJob()
+{
+    lock_guard<mutex> lg(qMutex);       // release lock when function ends
+    return retrieveJob();
+}
+
+
+polling: lock, check, unlock, wait
+wait time sucks
+
+better: notify if ready
+condition_variable

@@ -1,0 +1,44 @@
+Exercise 53
+
+zie pag 24 presentation voor meer uitleg
+
+Class Storage
+use mutex to synchronize access
+define data member d_queue 
+containes a queue
+    this queue strings can be pushed and popped 
+    by two different threads
+
+members:
+    push
+    pop
+    front
+
+members: empty(), finished()
+empty() returning true once the queue is empty 
+and a data member d_finished is set to true by a member finished. 
+
+Thread 1:
+main
+define Storage object
+reads lines from cin (lines you enter)
+pushes the lines into the queue
+
+Thread 2:
+obtains the lines from the queue
+writes the lines to a file
+The name of the file is passed to the thread
+uses polling to find out whether something is available: 
+it sleeps for a second, then checks whether a line is available, and if so, removes it from the thread. 
+
+ Complications to solve:
+
+- Simultaneously writing and reading the queue must be prevented;
+
+- Consider also what may happen if one thread adds element to the queue, and another thread removes elements from the queue. To the latter the queue may seem empty, but that might be because the former hasn't yet entered elements into the queue. So an empty queue may mean: we're done adding elements or as yet we haven't been able to push new elements into the queue. How would you distinguish between these two cases?
+
+- The separate thread must be informed when the main program has no more lines to insert into the queue. Merely ending main is not the right thing to do (why not?). A better solution is to provide the class Storage with a member empty(), returning true once the queue is empty and a data member d_finished is set to true by a member finished.
+
+- Both the main program and the thread must have access to Storage, but the Storage object should be defined in main. 
+
+

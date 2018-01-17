@@ -1,0 +1,19 @@
+exercise 53
+- Consider also what may happen if one thread adds element to the queue, and 
+another thread removes elements from the queue. To the latter the queue may 
+seem empty, but that might be because the former hasn't yet entered elements 
+into the queue. So an empty queue may mean: we're done adding elements or as 
+yet we haven't been able to push new elements into the queue. How would you 
+distinguish between these two cases?
+    use a finished variable and set it by the adder.
+
+- The separate thread must be informed when the main program has no more lines 
+to insert into the queue. Merely ending main is not the right thing to do (why 
+not?). 
+    Because If main ends then the second thread also ends. it might be that not
+    all lines are written to the file in the second thread. 
+
+- Both the main program and the thread must have access to Storage, but the 
+Storage object should be defined in main. 
+    This is solved by passing a pointer to the storage object to the function 
+    which runs the second thread.

@@ -13,4 +13,7 @@ algorithm allows you to chain the copy commands on the output of the previous
 
 Actually, anything that can be done by Copy can be probably be 
 done by the right 'doctored'
-function in the for_each call - but this will be ugly.
+function in the for_each call - but this will be ugly. If you really want to use
+copy to edit some object in place you can construct a custom class which has the
+right operations in the constructor of the class, which is presumably called by
+the copy generic algorithm. But this would be disgusting...

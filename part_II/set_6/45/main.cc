@@ -8,11 +8,11 @@ using namespace std;
 
 int main(int argc, char *argv[])
 { 
-    vector<string> data;                    // create and initializes object
-    vector<string> data2;                   // create and initializes object
+    vector<string> data;                    // create and initialize object
+    vector<string> data2;                   // create and initialize object
 
     ifstream inputFile(argv[1], ios::in);   // open first file
-    string line;                            // create and initializes object
+    string line;                            // create and initialize object
 
     while (getline(inputFile, line))        // fill data with contents of file1
         data.push_back(line);

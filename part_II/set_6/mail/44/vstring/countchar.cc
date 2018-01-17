@@ -4,15 +4,15 @@ size_t Vstring::countChar(std::string const &str,
                         CharMap &cmap,
                         bool (*accept)(char, CharMap &))
 {
-    size_t total = 0;
-    std::for_each(str.begin(),
-                    str.end(), 
-                    [&] (const char ch)
-                    {
-                       total += accept(ch, cmap);  // accept increments cmap
-                    }
-                    );
-    return total;
+    return std::accumulate(
+        str.begin(),
+        str.end(),
+        0,
+        [&cmap, accept](size_t previous, char current)
+        {
+           return  previous + accept(current, cmap);
+        }    
+    );
 }
 // Implement countChar, using a lambda function and a GA that's
 // suited for countChar's task: pass all characters of one string to the

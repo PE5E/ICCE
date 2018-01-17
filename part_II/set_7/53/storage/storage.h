@@ -20,36 +20,12 @@ class Storage
         bool        empty();
         void        finished(bool finish); // also possible: void finished()
                                     // but this way it is possible to re-open
+        bool finished();            // check if finished is set
 
     private:
-        bool finished();            // check if finished is set
+
 };
 
-inline void Storage::push(std::string input)
-{
-    std::lock_guard<mutex> lg(d_mutex);
-    this->push(input);
-    return;
-}
-
-inline void Storage::pop()
-{
-    std::lock_guard<mutex> lg(d_mutex);
-    this->pop();
-    return;
-}
-
-inline std::string Storage::front()
-{
-    std::lock_guard<mutex> lg(d_mutex);
-    return this->front();
-}
-
-inline bool Storage::empty()
-{
-    std::lock_guard<mutex> lg(d_mutex);
-    return d_queue.empty() && d_finished;
-}
 
 inline void Storage::finished(bool finish)
 {

@@ -41,6 +41,6 @@ Add the finished variable and set it by the adder.
 - The separate thread must be informed when the main program has no more lines to insert into the queue. Merely ending main is not the right thing to do (why not?). A better solution is to provide the class Storage with a member empty(), returning true once the queue is empty and a data member d_finished is set to true by a member finished.
 
 - Both the main program and the thread must have access to Storage, but the Storage object should be defined in main. 
-Pass the storage object by reference to second thread function.
+Pass the storage object by reference to second thread function. = pointer
 
 

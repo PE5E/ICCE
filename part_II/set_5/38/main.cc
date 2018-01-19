@@ -6,18 +6,13 @@ using namespace std;
 
 size_t myCodeHere(unordered_multimap<string, string> &container)
 {
-    string tmpStr;
     size_t nrUniKeys = 0;
-    auto it = container.begin();
 
-    while (it != container.end())
-    {
-        tmpStr = it->first;
-        if (container.count(tmpStr) == 1)
+    for (auto it = container.begin(), end = container.end();
+        it != end;
+        ++it)
+        if (container.count(it->first) == 1)
             ++nrUniKeys;
-
-        ++it;
-    }
 
     return nrUniKeys;
 }

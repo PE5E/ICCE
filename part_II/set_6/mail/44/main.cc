@@ -16,7 +16,7 @@ try
             {
                 std::cout << value.first << ": " << value.second << '\n';
             }
-            );
+        );
   }
  catch (...)
    {

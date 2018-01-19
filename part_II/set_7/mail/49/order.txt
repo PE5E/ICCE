@@ -1,5 +1,6 @@
 main.ih
-displayPrimes.cc
+main.cc
+displayprimes.cc
 dots.cc
 isprime.cc
-main.cc
+

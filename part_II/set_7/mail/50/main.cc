@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
               <<  mins.count() 
               << " seconds."
               << '\n';
+
     // seconds to minutes, integral
     std::chrono::seconds secs{atol(argv[2])};
     std::cout << argv[2] 
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
               << std::chrono::duration_cast<std::chrono::minutes>(secs).count() 
               << " minutes. "
               << '\n';
+
     // seconds to minutes, floating
     constexpr std::chrono::seconds spm{std::chrono::minutes{1}};
     std::chrono::duration<double, std::ratio<spm.count()>> fmins= secs;

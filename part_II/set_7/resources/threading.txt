@@ -1,0 +1,46 @@
+20.2 multi threading
+
+namespace std::this_thread 
+    functions uniquely associated with current thread
+    (free functions)
+        get_id
+        yield
+            suspend thread, allowing other threads
+        sleep_for
+        sleep_until
+
+20.2.2 std::thread
+- each std::thread object handles a seperate thread
+- construction
+    thread() 
+        create object, but do not execute (there is of yet nothing to exe)
+    thread(thread &&tmp) 
+        move constructor, moves ownership
+    explicit thread(Fun &&fun, Args &&...args)
+        function/functor thread
+        function args passed too
+        
+    
+        #include <iostream>
+        #include <thread>
+
+        using namespace std
+
+        struct NoMove
+        {
+            NoMove() = default;
+            NoMove(NoMove &&tmp) = delete;
+        };
+
+        struct MoveOK
+        {
+            int d_value = 10;
+            
+            MoveOK()               = default;
+            MoveOK(MoveOK const &) = default 
+            MoveOK(MoveOK && tmp)
+            {
+                d_value = 0;
+                cout << "MoveOK most cons.\n";
+            }
+        };

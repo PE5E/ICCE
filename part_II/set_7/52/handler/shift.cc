@@ -1,8 +1,16 @@
 #include "handler.ih"
 
-void Handler::shift(std::ostream &out, string const &text)
+void Handler::shift(std::ostream &out, std::string const &text)
 {
-    std::valarray<char> vala(text, text.size());
+    std::string letters = text; 
     for (size_t shift = 0; shift != text.size(); ++shift)
-        std::cout << vala.cshift(shift) << '\n';
+    {
+        out << letters << '\n';
+        rotate(
+            letters.begin(), 
+            letters.begin() + 1, 
+            letters.begin() + letters.size()
+        );
+    }
+    return;
 }

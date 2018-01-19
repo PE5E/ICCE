@@ -1,3 +1,6 @@
+#include <iosfwd>
+#include <string>
+
 class Handler
 {
     public:

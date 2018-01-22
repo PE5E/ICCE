@@ -1,0 +1,11 @@
+main.cc
+    exex naar apart bestand.
+
+    11: korter: ofstream file(outputfile);
+    14-25: fromQueue kan weg (?)
+
+    39: kan korter: while(cin >> input) 
+    42: dit is niet nodig geloof ik 
+
+    
+    

@@ -1,0 +1,16 @@
+storage/storage.h
+storage/storage.ih
+main.cc
+main.ih
+exec.cc
+storage/empty.cc
+storage/front.cc
+storage/pop.cc
+storage/push.cc
+storage/storage1.cc
+answers.txt
+
+
+
+
+

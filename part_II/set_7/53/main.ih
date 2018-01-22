@@ -1,0 +1,9 @@
+#include "storage/storage.h"
+#include <chrono>
+#include <fstream>
+#include <iostream>
+#include <thread>
+
+using namespace std;
+
+void exec(string outputfile, Storage *str);

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven07.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l8"></a>
+<h1>Chapter 8: Exercises set seven: Multi-threading II. Extended deadline: Feb 8,
+                                                                    2018</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 57.</strong>
+        <br>
+        Purpose of this exercise: learn to design and implement a Semaphore class
+<p>
+Design and implement the class Semaphore, offering the following facilities:
+    </p><ul>
+    <li> <code>Semaphore(size_t nAvailable)</code><br>
+       With a counting semaphore <code>nAvailable</code> defines, e.g., the number of
+        available locations in a storage area.  Locking/unlocking, supporting
+        facilities to notify other waiting threads is implemented via binary
+        semaphores, which are initialized to 1 or 0.  A semaphore containing
+        the value 0 blocks. I.e., its wait member waits until its value is
+        incremented by another thread, calling one of the semaphore's notify
+        members.
+<p>
+</p></li><li> <code>void notify()</code><br>
+       The internally maintained <code>d_nAvailable</code> value is incremented and one
+        waiting thread (cf. the wait members below) is notified, reactivating
+        that thread.
+<p>
+</p></li><li> <code>void notify_all()</code><br>
+       The internally maintained <code>d_nAvailable</code> value is incremented and all
+        waiting threads (cf. the <code>wait</code> member below) are notified. Only one
+        waiting thread will be able to obtain the semaphore's lock and to
+        reduce available, and that particular thread is thereupon reactivated.
+<p>
+</p></li><li> <code>size() const</code><br>
+       Without trying to lock the Semaphore object's mutex the current value
+        of the Semaphore's <code>d_nAvailable</code> value is returned.
+<p>
+</p></li><li> <code>void wait()</code><br>
+       This member blocks for as long as its internal variable
+        (<code>d_available</code>) equals zero.  When returning from <code>wait</code> the
+        current thread holds the lock of the <code>std::mutex</code> which is
+        maintained by the Semaphore object. The <code>notify</code> members are used to
+        increment <code>d_available</code> and to inform <code>wait</code> that it may return.
+        When multiple threads are waiting only one thread will stop waiting,
+        while the remaining threads will continue to wait for another
+        notification.
+    </li></ul>
+This class is used in subsequent exercises. If you do not complete this
+exercise then you may assume that <code>Semaphore</code> is available in those
+exercises. 
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 58.</strong>
+        <br>
+        Purpose of this exercise: become familiar with <code>packaged_task</code>.
+<p>
+Let's assume we have two matrices we would like to multiply. To multiply
+matrices the inner products (cf. <code>stl::inner_product</code> of the rows of the lhs
+matrix and the columns of the rhs matrix are computed, and the computed values
+are stored in the corresponding elements of the resulting matrix.
+</p><p>
+As 2-dimensional matrices are stored by rows, accessing the elements of
+columns is relatively hard, so let's assume the rhs matrix has been
+transposed: the rows of that matrix then represent the colums of the rhs
+matrix, and by computing the inner product of row x of matrix lhs and <em>row</em>
+y of the transposed rhs matrix we obtain the value of element <code>[x][y]</code> of
+the resulting matrix.
+</p><p>
+In this exercise simply define
+    </p><pre>
+    double lhs[4][5];
+    double rhsT[6][5];        // consider this the transposed rhs
+    
+</pre>
+
+<p>
+Fill these matrices with values (don't use the default available values as
+they may be NaNs, but other than that use whatever you like to fill the
+matrices with). 
+</p><p>
+Then, use <code>packaged_tasks</code> to compute the 4 x 6 = 24 inner products (hint:
+define <code>future&lt;double&gt; fut[4][6]</code>) in separate (detached) threads.
+</p><p>
+Finally, display the results in 4 rows of each 6 blank separated values, each
+row on a separate line.
+</p><p>
+This program doesn't require much code: all of its code may be defined in one
+source file.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 59.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: become familiar with <code>packaged_task</code> (2).
+<p>
+Same exercise as the previous one, but this time use a worker-pool of 8
+separate (detached) threads to execute the tasks of the packaged tasks.
+</p><p>
+Hints: use a counter to keep track of the number of elements that remain to be
+computed and let the main thread wait until it's notified that the computation
+has been completed, after which the computed matrix can be displayed.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 60.</strong>
+        <br>
+        Purpose of this exercise: learn to implement a multi-threaded algorithm (2)
+<p>
+The simple sort generic algorithm has two parameters: two iterators defining
+the range of elements to sort.
+</p><p>
+Design and implement a multi-threaded variant of qsort.
+</p><p>
+Here is quicksort's standard, recursive implementation:
+        </p><pre>
+    void qsort(int *beg, int *end)
+    {
+        if (end - beg &lt;= 1)
+            return;
+    
+        int lhs = *beg;
+        int *mid = partition(beg + 1, end, 
+            [&amp;](int arg)
+            {
+                return arg &lt; lhs;
+            }
+        );
+    
+        swap(*beg, *(mid - 1));
+    
+        qsort(beg, mid);
+        qsort(mid, end);
+    }
+        
+</pre>
+        
+    The multithreaded variant should use <code>async</code>. The <code>int *</code> parameters
+point to an array of <code>int</code> values. That's a very basic situation, which we
+will soon be able to generalize. 
+<p>
+To call this <code>qsort</code> on an array <code>int ia[]</code> of <code>size_t iaSize</code>
+elements do <code>qsort(ia, ia + iaSize).</code>
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 61.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to prevent overpopulation.
+<p>
+The multithreaded qsort function has a disadvantage: it runs the risk of
+producing overpopulation as the threads tend to explode exponentially: 
+most threads start two additiional threads.
+</p><p>
+Instead of creating additional threads another approach is possible. Consider
+the following raw outline of the qsort algorithm:
+        </p><pre>
+    qsort(begin, end)
+    {
+        mid = partition(begin, end);
+
+        qsort(begin, mid);
+        qsort(mid, end);
+    }
+        
+</pre>
+
+<p>
+In the multithreaded variant the recursive calls are implemented as
+threads, but they operate completely independently from each other. Our
+revised implementation will not do recursion and will not start new
+threads. Instead, we pre-define a number of worker threads, performing the
+following tasks:
+        </p><pre>
+    wait for a notification that the next range to partition might be 
+                                                                available
+    if it isn't, then done: notify the other threads and stop
+
+    it it is available:
+        retrieve its  begin and end
+        partition it: mid = partition(begin, end);
+        if the range begin..mid contains multiple elements (i.e., mid - begin
+            &gt; 1) then put begin, mid on the queue containing ranges waiting to
+            be processed  and notifiy other threads
+        if the range mid..end contains multiple elements (i.e., end - mid
+            &gt; 1) then put mid, end on the queue containing ranges waiting to
+            be processed and notifiy other threads
+        
+</pre>
+
+    Initially the queue is filled with begin, end, so all elements must be
+sorted, and the semaphore <code>nextRange</code> is initialized with the value 1.
+<p>
+The main problem with the above description is that the algorithm doesn't
+know when to stop. To handle this:
+        </p><ul>
+        <li> You cannot just check for an empty queue: once the first thread
+removes the queue's front element the queue is empty, and the next thread
+might conclude that it should stop. 
+        </li><li> Once all threads are waiting (or are about to wait), <em>and</em>
+the queue is empty then send a notification to all threads waiting on
+<code>nextRange</code>.
+        </li><li> The thread that receives the notification notices that the queue
+is empty: it should end its task and send a notification to all threads
+waiting on <code>nextRange</code>, so the other threads also can finish their work.
+        </li></ul>
+<p>
+Implement this version of qsort using a main thread and three additional
+sorting threads. Assuming an <code>int ia[]</code> array and its number of elements (in
+<code>iaSize</code> are available, your <code>main</code> function should look like this:
+        </p><pre>
+    int main()
+    {
+        nextRange.push(Pair{ia, ia + iaSize});  // initialize the queue
+    
+        thread t1(tsort);                       // start the threads
+        thread t2(tsort);
+        thread t3(tsort);
+    
+        t1.join();                              // clean up
+        t2.join();       
+        t3.join();       
+    
+        for (int val: ia)                       // show the sorted array
+            cout &lt;&lt; val &lt;&lt; ' ';
+        cout &lt;&lt; '\n';
+    }
+        
+</pre>
+
+<p>
+Our implementation defines a function <code>tsort</code>, calling a partition
+function <code>int *partition(Pair pair)</code>, and <code>Pair</code> is defined as a
+<code>struct</code> defining a default constructor and a construcor accepting two
+<code>int *</code> arguments (I could have used a <code>std::pair</code>, but I don't like its
+'first', 'second' field names).
+        </p><pre>
+    struct Pair
+    {
+        int *beg;
+        int *end;
+        Pair() = default;
+        Pair(int *b, int *e)
+        :
+            beg(b),
+            end(e)
+        {}
+    };
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 62.</strong>
+        <br>
+        Purpose of this program: learn to inspect one or more <code>futures</code> from inside
+a repeat-statement, even if the future has not yet been made ready.
+<p>
+Consider the situation where you have multiple threads. Each of these threads
+may do their job, but once a thread has completed, it must pass information to
+the program, and the program must end (thus automatically ending the running
+threads).
+</p><p>
+While the threads run, the main program may be doing something else. So, a
+prototypical thread function might look like this (assuming <code>namespace
+std</code>):
+        </p><pre>
+    string threadFun()
+    {
+        // do something which takes some time (maybe iteratively)
+        // At some point some error may be observed,
+        // and the details about the error are returned
+        // (here a std::string is used, but the return type could
+        // of course also be a struct)
+        // so at some point this function does:
+        return "some message";
+    }
+        
+</pre>
+
+<p>
+A simple variant of the thread function could be:
+        </p><pre>
+    string threadFun()
+    {
+        cerr &lt;&lt; "entry\n";
+    
+        this_thread::sleep_for(chrono::seconds(5));
+        cerr &lt;&lt; "first cerr\n";
+    
+        this_thread::sleep_for(chrono::seconds(5));
+        cerr &lt;&lt; "second cerr\n";
+    
+        return "end the program";
+    }
+        
+</pre>
+
+<p>
+The main function could inspect the values returned by the threads, but as it
+also has to do something useful while the threads are busy it would be nice if
+main could do its thing, and then briefly check whether a thread has returned
+information requiring the program to stop.
+</p><p>
+Alternatively, the program could do its thing in a separate thread, but that
+occupies a thread, which could also be used for the jobs we prefer to do in
+sparate threads. If inspecting whether these latter threads have messages
+hardly takes any time, then a setup like the following might be preferred:
+        </p><pre>
+    int main()
+    {
+        // start all threads
+
+        while (true)
+        {
+            // do the main-task
+
+            // inspect whether a thread indicates
+            // to end the program. If so, end it.
+        }
+    }
+        
+</pre>
+
+<p>
+In this exercise only one thread needs to be executed, running
+<code>threadFun</code>. 
+</p><p>
+The main task could be a simple:
+        </p><pre>
+    this_thread::sleep_for(chrono::seconds(1));
+    cerr &lt;&lt; "inspecting: " &lt;&lt; ++count &lt;&lt; '\n';
+        
+</pre>
+
+    (assuming <code>size_t count = 0</code>).
+<p>
+</p><ul>
+    <li> Implement and submit <code>main</code>; convince yourself that the program's
+output is:
+        <pre>
+    entry
+    inspecting: 1
+    inspecting: 2
+    inspecting: 3
+    inspecting: 4
+    first cerr
+    inspecting: 5
+    inspecting: 6
+    inspecting: 7
+    inspecting: 8
+    inspecting: 9
+    second cerr
+    inspecting: 10
+    done
+        
+</pre>
+
+    </li><li> Describe the required modifications if you run multiple threads.
+    </li></ul>
+<p>
+The amount of code is small: submitting one source file is OK.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 63.</strong>
+        <br>
+        Purpose of this exerise: learn to design an elaborate multi-threaded program
+<p>
+Consider a situation where you want to compile multiple source files. The
+source files to compile may be listed on a file, or they may be present in a
+directory and possibly its subdirectories. Other ways for determining which
+<strong>s</strong> to compile migh also exist.
+</p><p>
+How would you design a program that compiles these files concurrently, using
+all the cores your computer has? If a compilation fails, then running
+compilations may end and sources waiting to be compiled are not
+considered. Once a compilation fails only the error-output of that compilation
+must be shown. 
+</p><p>
+Your description should:
+    </p><ul>
+    <li> provide a clear, overall description of your program's flow;
+    </li><li> describe the main data stuctures your program maintains;
+    </li><li> describe how the various processes and access to the data structures;
+        are synchronized (think about mutexes, semaphores, ending the program,
+        handling error messages);
+    </li><li> show a class hierarchy of the essential classes used by your program;
+    </li></ul>
+<p>
+Your program should also offer an option allowing users to specify the number
+of compilation to use. The minimum number of compilation threads must be 1: if
+0 is specified, 1 is silently used. Another option specifies a 
+directory where temporary files are stored. This directory may not yet exist,
+and must be removed when the program ends.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 64.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise:   learn to implement an elaborate multi-threaded
+program (part I). 
+<p>
+Considering the exercise about the multi-threaded program: implement the
+classes preparing the compilation jobs. So this involves finding the sources
+to compile, and notifying the compiling-clients about the next available
+compilation job. This part concentrates on the `Producer' section.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 65.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise:   learn to implement an elaborate multi-threaded
+program (part III). 
+<p>
+Considering the exercise about the multi-threaded program: implement the
+classes actually performing a compilation. This involves calling the compiler
+(using the approriate compilation flags) and determining whether the
+compilation succeeeded or not. Here you also must pay attention to how error
+messages that may be generated by the compiler are handled.
+</p><p>
+Hint: write error messages to a temporary file; upon completion the
+result (<code>future</code>?) may contain information about the success of the
+compilation and the name of the temporary file.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 66.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise:   learn to implement an elaborate multi-threaded
+program (part IV). 
+<p>
+Complete the multicompile program, and show its working.
+</p><p>
+(Earlier we developed the classes <code>Arguments</code> and <code>Storage</code>. The singleton
+class <code>Options</code> wraps the <code>Arguments</code> facilities, and makes sure that the
+program doesn't have to think about what to do with a particular option. E.g.,
+by default maybe <code>thread::hardware_concurrency</code> is used, but this may be
+altered by a program option. <code>Optiion::instance().nThreads()</code> returns the
+actual number of threads that are actually used.)
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven07.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

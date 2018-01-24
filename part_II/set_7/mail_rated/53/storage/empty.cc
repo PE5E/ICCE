@@ -1,7 +1,7 @@
 #include "storage.ih"
 
-void Storage::push(std::string input)
+bool Storage::empty()
 {
     std::lock_guard<mutex> lg(d_mutex);
-    d_queue.push(input);
+    return d_queue.empty();
 }

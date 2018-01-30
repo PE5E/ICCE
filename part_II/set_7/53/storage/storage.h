@@ -14,9 +14,11 @@ class Storage
     
     public:
         void push(std::string input);
-        void pop();
-        bool front();               // fills d_returnStr if not empty
+
+        bool giveMeTheData();       // cute name huh?
+                                    // fills d_returnStr if not empty
                                     // else returns false
+
         bool empty();
         void finished(bool finish); // also possible: void finished()
                                     // but this way it is possible to re-open

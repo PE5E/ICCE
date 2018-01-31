@@ -9,10 +9,16 @@ int main(int argc, char *argv[])
 
     // pass to thread
     Handler handlerObject;
-    std::thread shifter(caller, handlerObject, outfile, text);
+    std::thread shifter(caller, 
+                        std::ref(handlerObject),
+                        std::ref(outfile), 
+                        std::ref(text));
     shifter.join();
     
     // defined by thread
-    std::thread indieShifter(indieCaller, outfile, text);
+    std::thread indieShifter(indieCaller, 
+                             std::ref(outfile), 
+                             std::ref(text));
+
     indieShifter.join();
 }

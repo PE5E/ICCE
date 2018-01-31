@@ -4,5 +4,5 @@
 #include <string>
 #include <thread>
 
-void caller(Handler handlerObject, std::string outfile, std::string text);
-void indieCaller(std::string outfile, std::string text);
+void caller(Handler &handlerObject, std::string &outfile, std::string &text);
+void indieCaller(std::string &outfile, std::string &text);

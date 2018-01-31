@@ -6,10 +6,9 @@ void exec(string outputfile, Storage *str)
     
     while (!str->finished())
     {
-        if (str->front())
+        if (str->giveMeTheData())
         {
             file << str->returnString() << '\n';  
-            str->pop();
         }
 
         this_thread::sleep_for(chrono::seconds(1));

@@ -17,7 +17,3 @@ not?).
 Storage object should be defined in main. 
     This is solved by passing a pointer to the storage object to the function 
     which runs the second thread.
-
-Changes after first attempt:
-front() now returns bool instead of a string. It returns false if d_queue is 
-empty. 

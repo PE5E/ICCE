@@ -6,7 +6,7 @@ int main()
 		6, 15, 2, 34, 1, 18, 20};
     quicksort(ia, ia + 20);
 	
-    for (size_t idx = 0; idx < 20; ++idx)
+    for (size_t idx = 0; idx != 20; ++idx)
         cout << ia[idx] << ' ';
 
     cout << '\n';

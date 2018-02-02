@@ -22,7 +22,7 @@
 </li></ul>
 <hr>
 <a name="l8"></a>
-<h1>Chapter 8: Exercises set seven: Multi-threading II. Extended deadline: Feb 8,
+<h1>Chapter 8: Exercises set eight: Multi-threading II. Extended deadline: Feb 15,
                                                                     2018</h1>
             <br><br>
 <p>
@@ -122,9 +122,21 @@ source file.
 Same exercise as the previous one, but this time use a worker-pool of 8
 separate (detached) threads to execute the tasks of the packaged tasks.
 </p><p>
-Hints: use a counter to keep track of the number of elements that remain to be
-computed and let the main thread wait until it's notified that the computation
-has been completed, after which the computed matrix can be displayed.
+Hints: 
+    </p><ul>
+    <li> pay close attention to the information in the Annotations about
+packaged tasks: they are prepared by one task, but executed by another.
+<p>
+</p></li><li> Since the worker-pool is detached you must find a way to end the
+detached threads lest the detached tasks keep running and thus your program
+won't end.<br>
+One way to realize this is to send the workers information that they can
+stop. For that the standard communication channel that's used to send the
+workers the information about which matrix element to compute can be used.
+    </li></ul>
+<p>
+Once the results of all computations are available, the computed matrix can be
+displayed. 
 </p><p>
 <br><br>
     

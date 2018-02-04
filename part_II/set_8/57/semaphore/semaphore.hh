@@ -1,10 +1,14 @@
 #ifndef __SEMAPHORE_HEADER
 #define __SEMAPHORE_HEADER
 
-#include <cstddef>                  // size_t
+#include <mutex>
+#include <condition_variable>
+
 class Semaphore
 {
-    bool *d_locks;
+    std::mutex              d_mutex;             // binary semaphore
+    size_t                  d_nAvailable;
+    std::condition_variable d_condition;
 
     public:
         Semaphore(size_t nAvailable);

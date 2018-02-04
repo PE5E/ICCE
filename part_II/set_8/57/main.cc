@@ -4,6 +4,9 @@
 int main(int argc, char **argv)
 try
   {
+      Semaphore sema(5);
+      sema.notify();
+      sema.size(); 
   }
  catch (...)
    {

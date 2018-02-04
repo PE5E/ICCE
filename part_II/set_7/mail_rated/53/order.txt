@@ -4,12 +4,7 @@ main.cc
 main.ih
 exec.cc
 storage/empty.cc
-storage/front.cc
-storage/pop.cc
+storage/givemethedata.cc
 storage/push.cc
 answers.txt
-
-
-
-
 

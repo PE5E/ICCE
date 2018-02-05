@@ -1,0 +1,3 @@
+#include "semaphore.hh"
+
+using namespace std;

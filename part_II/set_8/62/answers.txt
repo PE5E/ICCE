@@ -1,0 +1,6 @@
+Describe the required modifications if you run multiple threads.
+
+    If you run multiple threads....
+        * multiple threads need to be started
+        * multiple checks of future.wait_for() need to done
+i       * multiple .detach calls, one for each thread

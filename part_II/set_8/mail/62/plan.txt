@@ -1,8 +1,0 @@
---> inspecting futures
-
-   * multiple threads
-     if (thread completed)
-        pass info to program
-        end program
-    
-    

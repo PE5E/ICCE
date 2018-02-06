@@ -1,0 +1,19 @@
+2 matrices
+vermenigvuldigen met elkaar
+uitkomst in result matrix. (inner_product kan worden gebruikt)
+
+rijen zijn lastig in een matrix. Daarom is RHS (2e) matrix transposed.
+Dus rij x van lhs x rij y van rhs vormen resultaat.
+
+Matrices:
+double lhs[4][5];
+double rhsT[6][5];  
+Vul deze met waarden.
+
+Bereken resultaat: matrix result 4 x 6.
+Doe dit in aparte threads.
+hint: define future<double> fut[4][6]
+
+toon op scherm:
+4 rijen met 6 waarden, gescheiden door blanks (spaties)
+elke rij op aparte lijn.

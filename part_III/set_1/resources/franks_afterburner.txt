@@ -1,0 +1,110 @@
+Hi all,
+
+This morning the following question emerged:
+
+    `why can't function templates be partially specified' 
+
+
+Let's have a look at that. First a simple, one template parameter function
+template. I use the initially somewhat weird sounding name 'add': all
+functions below will be named 'add':
+
+    template<typename Type>
+    Type add(Type tp)                               // 1
+    {
+        return 2 * tp;
+    }
+
+This works for many types, but not for, e.g., strings. So we specialize
+(ignore the use of value types: that's not what this is all about):
+
+    template<>
+    string add<string>(string tp)                   // 2
+    {
+        return tp + tp;
+    }
+
+Now consider the situation where we have two template parameters. You need at
+least two to partially specialize: specializing a template having one template
+parameter automatically results in a full specialization, which is OK.
+
+    template <typename Type1, typename Type2>
+    Type1 add(Type1 tp1, Type2 tp2)                 // 3
+    {
+        return tp1 + tp2;
+    }
+
+This works fine for many types, but what if Type1 is a string, and Type2
+isn't? A partial specialization, if it existed, would look like this:
+
+    template <typename Type>
+    Type1 add<string, Type>(string tp1, Type tp2)   // A
+    {
+        return ... // whatever
+    }
+
+Look closely: we don't need that partial specialization. Here's the template
+doing exactly what our partial specialization would do:
+
+    template <typename Type>
+    Type1 add(string tp1, Type tp)                  // 4
+    {
+        return ... // whatever
+    }
+
+Hm... this might not work when Type2 is 'string', so for that case define a
+specialization:
+
+    template <>
+    Type1 add<string>(string tp1, string tp2)       // 5
+    {
+        return ... // whatever
+    }
+
+Let's see what we may encounter (* indicates a function template
+specialization, all other calls are handled by ordinary function templates):
+
+    add(3)              // calls   1: Type is deduced as 'int'
+    add("hi")           // calls * 2: Type is deduced as 'string'
+    add(4, 5)           // calls   3: Type1 and Type2 are 'int'
+    add(4, 5.6)         // calls   3: Type1 is 'int', Type2 is 'double'
+    add("one", 5);      // calls   4: Type1 is 'string', Type2 is 'int'
+    add("one", 6.5);    // calls   4: Type1 is 'string', Type2 is 'double'
+    add("one", "two");  // calls * 5: Type1 is 'string', Type2 is 'string'
+
+And just in case you thought I missed the `reversed partial specialization'
+reversing A's types:
+
+    template <typename Type>
+    Type1 add<Type, string>(Type tp1, string tp2)   // B
+    {
+        return ... // whatever
+    }
+
+That one's covered by this function template:
+
+    template <typename Type>
+    Type1 add(Type tp1, string tp2)                 // 6
+    {
+        return ... // whatever
+    }
+
+Morale:
+
+    we don't have partially specialized function templates because we don't
+    need them. 
+
+Recipe:
+
+    if you think you do, define it, and then omit the type-specialization
+    specification (the <...> phrase following the function name): that's how 6
+    was defined from B, and 4 was defined from A.
+
+-- 
+    Frank B. Brokken
+    Center for Information Technology, University of Groningen
+    (+31) 50 363 9281 
+    Public PGP key: http://pgp.surfnet.nl
+    Key Fingerprint: DF32 13DE B156 7732 E65E  3B4D 7DB2 A8BE EAE4 D8AA
+
+

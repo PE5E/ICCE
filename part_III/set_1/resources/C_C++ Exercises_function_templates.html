@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body bgcolor="#FFFFAA" text="#000077">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+</li></ul>
+<hr>
+<a name="l1"></a>
+<h1>Chapter 1: Exercises set one: Function Templates (Deadline Feb 22).</h1>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 1.</strong>
+            <br>
+            Purpose of this exercise: learn to convert an existing class to a class
+template. 
+<p>
+Take your pick: 
+    </p><ul>
+    <li>
+        In part I the class <code>Matrix</code> was introduced (cf. part I's exercises
+62, 67-70). Convert the class <code>Matrix</code> to a class template, where the
+eventual data type is specified as a template type parameter, but matrices of
+operands can be matrices of different data types. E.g., if <code>Matrix&lt;double&gt;
+lhs</code> and <code>Matrix&lt;int&gt; rhs</code> are available, then <code>lhs += rhs</code> must be
+allowed. With plain binary arithmetic operators (e.g. <code>lhs + rhs</code>),
+<code>lhs's</code> type determines the type of the resulting matrix.
+<p>
+You don't have to construct a full class. Your class should offer:
+        </p><ul>
+        <li> Standard constructors, overloaded assignment operators and
+            destructor; 
+        </li><li> Standard insertion and extraction operators;
+        </li><li> Addition and compound addition operators;
+        </li><li> (In)equality operators
+        </li><li> Index operators (as usual: 
+                available for const and non-const objects).
+        </li></ul>
+<p>
+</p></li><li>
+C++ offers in its standard library ordered and hashing-based associative
+containers (resp. <code>map</code> and <code>unordered_map</code>). Great tools, but in some
+situations overkill. Sorting is usually only required when your program
+prepares a human-readable output, and hashing has the overhead of computing
+hash values for keys.
+<p>
+An associative container <em>not</em> using sorting, and <em>not</em> using hashing but
+merely adding elements on a `first come, first serve' basis is a very useful
+and fast tool if the size of your data base is not so big that hashing becomes
+attractive, and if sorting isn't required. 
+</p><p>
+Design a class <code>LinearMap</code> that offers the same interface and semantics as
+<code>map</code> and <code>unordered_map</code> as described in the <strong>C++</strong> Annotations, but
+adds elements on a first-come first-serve (i.e., not ordered at all) basis.
+</p><p>
+Hint: Build your LinearMap using an existing container, making sure that you
+do not have to implement members that are already proviced by your existing
+container type, without making its full interface available.
+    </p></li></ul>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 2.</strong>
+            <br>
+            Purpose of this exercise: learn to design a member template
+<p>
+In part II the class Semaphore was extensively used (see the Annotations for
+details). In one of the exercises a <code>wait</code> member accepting a function had
+to be developed. In that exercise it was stated:
+</p><p>
+</p><p></p><hr><p>
+</p><p>
+A Semaphore's <code>wait</code> member returns once its internal counter is unequal to
+zero and the process using the Semaphore are obtained the Semaphore's lock.
+</p><p>
+Consider a Producer-Client paradigm. If the producer produces the names of
+source files to compile, then the program might want to stop once a
+compilation fails and the compiler returns errors, even though not all files
+to compile have been processed. The clients could share a variable <code>bool
+Client::s_continue</code>, and a static member <code>Client::stop()</code> could be used to
+set <code>s_continue</code> to false. Once a compilation returns errors, that client
+could set <code>s_continue</code> to false, show the error messages and inform the
+other clients that they can stop working. The other clients might still be
+busy doing their own work but once done, and <code>s_continue</code> is false, their
+function implementing the actions of their thread could simply return. But
+what happens in situations where clients are waiting for input? When input
+arrives slowly, then the clients may have to wait for a fairly long time
+before they notice that they should stop.
+</p><p>
+Alternatively, we can modify the <code>Semaphore::wait</code> member: by providing it
+with a function, function object, or lambda function argument, which receives
+the <code>Semaphore's</code> counter as a reference, the function that is passed to the
+<code>wait</code> member can be given access to <code>s_continue</code> and if <code>s_continue</code> is
+false it could, e.g., throw an exception, thus ending the <code>Client's</code> thread
+function.
+</p><p>
+</p><p></p><hr><p>
+</p><p>
+Assuming a class <code>Semaphore</code> is available, defining these data memebrs:
+        </p><pre>
+    mutable std::mutex d_mutex;
+    std::condition_variable d_condition;
+    size_t d_nAvailable;
+        
+</pre>
+
+ implement <code>Semaphore::wait</code> as a member template accepting a function
+(object) and the function's arguments as its argument. This <code>wait</code> member
+should return a <code>bool</code>, and it must block until it has obtained the
+Semaphore's mutex lock. Then, while its <code>d_available</code> value equals 0, it
+waits until being notified.  Once it has re-acquired the lock after being
+notified the provided function is called, receiving <code>wait</code>'s perfectly
+forwarded remaining arguments.  This member returns <code>false</code> if the called
+function returns <code>false</code>. It returns <code>true</code> if the function returns
+<code>true</code> and <code>d_available</code> was unequal zero (following the function's
+<code>true</code> return. 
+<p>
+In the original implementation a <code>std::function</code> had to be used to handle
+functions, function objects and lambda functions, but your implementation
+should not depend on <code>std::function</code>. The template type parameter that's
+used for this implementation should be able to handle functions, function
+objects and lambda functions, but should not be defined as a
+<code>std::function</code>. 
+</p><p>
+Submit the implementation of the <code>bool wait</code> member, and insert the
+function's declaration at the indicated position in the following (partial)
+interface:
+</p><p>
+</p><pre>
+    class Semaphore
+    {
+        ...
+        public:
+
+        // declare bool wait here
+
+        ...
+    };
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 3.</strong>
+            <br>
+            Purpose of this exercise: learn to use <code>back_inserter</code> with a home-made
+class
+<p>
+Consider the following class skeleton:
+</p><p>
+</p><pre>
+    class Data
+    {
+        typedef std::vector&lt;std::shared_ptr&lt;std::string&gt;&gt; DataVector;
+
+        DataVector d_data;
+
+        public:
+            // declare push_back here
+    };
+        
+</pre>
+
+    Objects of the class <code>Data</code> store pointer to lines in the vector
+<code>d_data</code>, and provide a <code>push_back</code> member to fill the object with lines
+of text.
+<p>
+Implement <code>push_back</code> and show how the <code>copy</code> generic algorithm can be
+used to fill a <code>Data</code> object with lines read from an <code>istream</code>. 
+</p><p>
+Submit the interface of the <code>class Data</code>, the implementation of
+<code>push_back</code> and a demo program showing its use in combination with the
+<code>copy</code> generic algorithm.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 4.</strong>
+            <br>
+            Purpose of this exercise: learn to convert an existing class into a class
+template.
+<p>
+Part II contained an exercise about a multi-threaded version of
+<code>qsort</code>. The multi-threaded version of <code>qsort</code> was introduced as follows:
+</p><p>
+</p><p></p><hr><p>
+</p><p>
+Consider the following raw outline of the qsort algorithm:
+        </p><pre>
+    qsort(begin, end)
+    {
+        mid = partition(begin, end);
+
+        qsort(begin, mid);
+        qsort(mid, end);
+    }
+        
+</pre>
+
+    In the multithreaded variant the recursive calls are implemented as
+threads, but they operate completely independently from each other. Our
+implementation will not do recursion and will not start new
+threads. Instead, we pre-define a number of worker threads, performing the
+following tasks:
+        <pre>
+    wait for a notification that the next range to partition might be 
+                                                                available
+    if it isn't, then done: notify the other threads and stop
+    it it is available:
+        retrieve it -&gt; begin, end
+        partition it: mid = partition(begin, end);
+        if the range begin..mid contains multiple elements (i.e., mid - begin
+            &gt; 1) then put begin, mid on the queue containing ranges waiting to
+            be processed  and notifiy other threads
+        if the range mid..end contains multiple elements (i.e., end - mid
+            &gt; 1) then put mid, end on the queue containing ranges waiting to
+            be processed and notifiy other threads
+        
+</pre>
+
+    Initially the queue is filled with begin, end, indicating the full range
+of elements to sort, and the semaphore <code>nextRange</code> is initialized with the
+value 1.
+<p>
+Implement this version of qsort using a main thread and three additional
+sorting threads. 
+</p><p>
+Assuming an <code>int ia[]</code> array and its number of elements (in
+<code>iaSize</code>) are available, your <code>main</code> function should look like this:
+        </p><pre>
+    int main()
+    {
+        nextRange.push(Pair{ia, ia + iaSize});  // initialize the queue
+    
+        thread t1(tsort);                       // start the threads
+        thread t2(tsort);
+        thread t3(tsort);
+    
+        t1.join();                              // clean up
+        t2.join();       
+        t3.join();       
+        t3.join();       
+    
+        for (int val: ia)                       // show the sorted array
+            cout &lt;&lt; val &lt;&lt; ' ';
+        cout &lt;&lt; '\n';
+    }
+        
+</pre>
+    
+<p></p><hr><p>
+</p><p>
+The version of <code>qsort</code> to be developed here implements this algorithm as a
+template. The above <code>main</code> function should then look like this:
+        </p><pre>
+    int main()
+    {
+        // define some sortable data structure, e.g., a vector:
+        vector&lt;SomeType&gt; data;
+
+                                                // tsort has the same
+                                                // signatures as STL's sort
+                                                // algorithm
+        tsort(data.begin(), data.end() [, optComparator]);
+
+        // display data's value using any available method
+    }
+        
+</pre>
+
+    Internally, <code>tsort</code> should pass its arguments to a class template
+<code>TSort</code> implementing the multithreaded qsort method using three sorting
+threads (comparable to the three threads used in the above (first) 
+<code>main</code> function). All the required functionality for the sorting process
+should be embedded in the class <code>TSort</code>.
+<p>
+(At this point our implementation of the non-templated implementation 
+cannot yet be made available, as the deadline of that exercises has not yet
+been reached).
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 5.</strong>
+            <br>
+            Purpose of this exercise: learn to design static polymorphic classes
+<p>
+Design a static polymorphic base class supporting insertion. The class has no
+public members, but an <code>operator&lt;&lt;</code> function should be declared as its
+friend, calling the base class's member <code>insertInto(std::ostream &amp;)</code>. This
+latter member, in turn, calls <code>insertInto</code> as defined by any classes derived
+from <code>Base</code>. 
+</p><p>
+To get you on the right track, the function <code>operator&lt;&lt;</code> is defined like
+this:
+        </p><pre>
+    template &lt;typename Derived&gt;
+    std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, Base&lt;Derived&gt; const &amp;base)
+    {
+        return base.insertInto(out);
+    }
+        
+</pre>
+
+<p>
+Derive classes <code>IntValue</code> and <code>DoubleValue</code> from <code>Base</code>, and show how
+you can insert the values stored in these classes, defining <code>insertInto</code> as
+their private members, and calling <code>operator&lt;&lt;</code> for objects of these classes
+in <code>main</code>.
+</p><p>
+Submit the implementation of <code>Base, IntValue, DoubleValue</code> and a small
+<code>main</code> function showing how you used the developed statically polymorphic
+classes. 
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 6.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to create a generic constructor for a virtual
+base class
+<p>
+Consider the situation where a abstract base class (ABC) defines a purely
+abstract member <code>void run()</code>. The ABC could look like this:
+        </p><pre>
+    class ABC
+    {
+        public:
+            virtual ~ABC();
+
+            void interface();       // calls run
+
+        private:
+            virtual void run() = 0;
+    };
+        
+</pre>
+
+<p>
+Another class (e.g., <code>class Process</code>) has a constructor defining  a
+reference to a temporary <code>ABC</code>. Its members may call the <code>ABC's interface</code>
+function, and thus the function <code>run</code>, as implemented in classes derived
+from <code>ABC</code>. 
+</p><p>
+The <code>class Process</code> could look like this:
+        </p><pre>
+    class Process
+    {
+        ABC &amp;&amp;d_abc;
+
+        public:
+            Process(ABC &amp;&amp;abc);
+            void execute();         // calls d_abc.interface()
+    };
+        
+</pre>
+
+<p>
+Assume classes <code>Derived1</code> and <code>Derived2</code> are derived from
+<code>ABC</code>. <code>Derived1's</code> constructor defines a <code>std::ostream &amp;</code> parameter,
+<code>Derived2's</code> constructor a <code>std::istream &amp;</code> and a <code>std::ostream &amp;</code>
+parameter. 
+</p><p>
+Part 1:
+</p><p>
+How would you define <code>Process</code> in <code>main</code>? If <code>main</code> is called with one
+argument <code>Derived1</code> should be passed to <code>Process's</code> constructor (passing
+cerr) to <code>Derived1</code>; otherwise <code>Derived2</code> should be passed (passing
+<code>cin</code> and <code>cout</code> to <code>Derived2</code>.
+</p><p>
+In <code>main</code> you get something like this:
+        </p><pre>
+    int main(int argc, char **argv)
+    {
+        Process process{
+                    argc == 1 ? Derived1{ cerr } : Derived2{ cin, cout }
+                };
+        // etc.
+    }
+        
+</pre>
+
+    The problem with the above piece of code is that it doesn't flawlessly
+compile. Solve that problem without altering <code>main's</code> design.
+<p>
+Part 2:
+</p><p>
+To solve the problem in a generic way (i.e., usable for any class derived from
+<code>ABC</code>) the class <code>ABC</code> could define a static member <code>make</code>, which not
+only can be used for any derived class, but also for any set of parameters
+that might ever be required by those derived classes.
+</p><p>
+Using this member template the above function <code>main</code> would then look like
+this:
+        </p><pre>
+    int main(int argc, char **argv)
+    {
+        Process process{
+                    argc == 1 ? 
+                    ABC::make&lt;Derived1&gt;(cerr) : 
+                    ABC::make&lt;Derived2&gt;(cin, cout)
+                };
+        // etc.
+    }
+        
+</pre>
+
+    Define the member template <code>ABC::make</code> so that it can be used as shown.
+Also show its declaration in the class <code>ABC</code>.
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 7.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to design static polymorphic classes using
+                          multiple layers of inheritance.
+<p>
+This exercise may earn you 2 points.
+</p><p>
+Starting from the statically polymorphic class setup described in the previous
+exercise, derive a class <code>LabelledInt</code> from <code>IntValue</code>. <code>LabelledInt</code>
+expects a piece of text (the label) and an <code>int</code> value (stored in its
+<code>IntValue</code> base class). 
+</p><p>
+When a <code>LabelledInt</code> object is inserted into an <code>ostream</code> using
+<code>operator&lt;&lt;</code> developed in the previous exercise, it should print the label,
+followed by the int-value (of course, you need to allow access to
+<code>IntValue's int</code> value from <code>LabelledInt</code>: just define a simple accessor
+for this).
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 8.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to add iterators to a class.
+<p>
+Consider the following class:
+        </p><pre>
+    template &lt;typename Data&gt;
+    class Storage
+    {
+        std::vector&lt;Data *&gt; d_storage;
+
+        public:
+            // the usual stuff goes here
+
+    };
+        
+</pre>
+
+    The `usual stuff' are members allowing you to initialize a <code>Storage</code>,
+add <code>Data</code> objects to it, maybe remove elements, request elements,
+etc. etc., all of which are not required for this exercise. The essential part
+here is that the elements of <code>d_storage</code> should point to newly allocated
+<code>Data</code> values, allocated by <code>Storage</code>, using <code>Data</code> arguments that are
+passed to the various member functions.
+<p>
+For this exercise provide <code>Storage</code> with <code>Storage&lt;Data&gt;::iterator
+begin(), Storage&lt;Data&gt;::iterator end(), Storage&lt;Data&gt;::reverse_iterator
+begin()</code>, and <code>Storage&lt;Data&gt;::reverse_iterator rend()</code> members: submit their
+implementations and the implementations of the <code>iterator</code> and
+<code>reverse_iterator</code> classes.
+</p><p>
+The provided implementation should allow you to do this:
+        </p><pre>
+    int main()
+    {
+        Storage&lt;std::string&gt; storage;
+
+        sort(storage.begin(), storage.end());
+        sort(storage.rbegin(), storage.rend());
+    }
+        
+</pre>
+
+    where <code>sort</code> is the sorting function provided by the STL.
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 9.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to widen the use of range-based for-loops.
+<p>
+In this exercise develop the <code>RBFL</code> (Range Based For Loop) class template,
+and the <code>rbfl</code> function template.
+</p><p>
+The <code>RBFL</code> class template defines ranges that can be used with range-based
+for-loops. The standard range-based for-loop requires for its
+range-specificiation an array or an iterator range as offered by, e.g.,
+containers (through their <code>begin</code> and <code>end</code> members.  Ranges defined by a
+pair of pointers or by a subrange defined by iterator expressions cannot
+currently be used in combination with range-based for-loops.
+</p><p>
+<code>RBFL</code> extends the applicability of range-based  for-loops  by  turning
+pairs of pointers, an initial pointer and a pointer count, or a pair of
+iterators into a range that can be used by range-based for-loops.
+</p><p>
+<code>RBFL</code> is a class template requiring one template type parameter:
+<code>Iterator</code>, an iterator or pointer type reaching the data when dereferenced.
+</p><p>
+<code>RBFL</code>'s  users don't have to specify <code>RBFL</code>'s template type, as the 
+function template <code>rbfl</code> returns the appropriate <code>RBFL</code> object.
+</p><p>
+The <code>rbfl</code> function template may be called as follows:
+    </p><ul>
+       <li> <code>rbfl(Iterator const &amp;begin, Iterator const &amp;end)</code>:
+              this function template returns a <code>RBFL</code> object for the
+              (sub)range defined by two (reverse) iterators;
+<p>
+</p></li><li> <code>rbfl(Iterator const &amp;begin, size_t count)</code>:
+              this function template returns a <code>RBFL</code> object for the
+              (sub)range  defined  by  the  (reverse) iterator range 
+                <code>begin</code> and <code>begin + count</code>;
+<p>
+</p></li><li> <code>RBFL&lt;Data *&gt; rbfl(Data *begin, Data *end)</code>:
+              this function template returns a <code>RBFL</code> object for the
+              (sub)range defined by the two pointers <code>begin</code> and <code>end</code>;
+<p>
+</p></li><li> <code>RBFL&lt;Data *&gt; rbfl(Data *begin, size_t count)</code>:
+              this function template returns a <code>RBFL</code> object for the
+              (sub)range defined by the two pointers 
+                <code>begin</code> and <code>begin + count</code>.
+        </li></ul>
+<p>
+The <code>RBFL</code> class template itself offers but one constructor:
+        </p><pre>
+    RBFL(Iterator const &amp;begin, Iterator const &amp;end)
+        
+</pre>
+
+<p>
+Submit the class template, the function templates, and a small demo function
+showing how the four <code>rbfl</code> functions could be used.
+</p><p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+</li></ul>
+<hr>
+
+
+</body></html>

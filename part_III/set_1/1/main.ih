@@ -1,0 +1,10 @@
+#include <iostream>
+#include "add.hh"
+#include "pointerunion.hh"
+
+using namespace std;
+
+void second();
+
+template <typename Type>
+Type add(Type const &lhs, Type const &rhs);

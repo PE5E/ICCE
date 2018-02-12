@@ -1,0 +1,13 @@
+2 source files zijn niet genoeg.
+er is immers ook een internal header file en ook een header file voor de 
+template (add.c). Verder wordt er gebruik gemaakt van pointerunion om het
+adres van de functie weer te geven.
+Dus in totaal moeten er 5 files ingeleverd worden.
+
+- main.cc
+- main.ih
+- add.hh
+- pointerunion.hh
+- second.cc
+
+

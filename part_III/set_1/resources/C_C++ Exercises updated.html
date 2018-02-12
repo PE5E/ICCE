@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body bgcolor="#FFFFAA" text="#000077">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+</li></ul>
+<hr>
+<a name="l1"></a>
+<h1>Chapter 1: Exercises set one: Function Templates (Deadline Feb 22).</h1>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 1.</strong>
+            <br>
+            Purpose: show that templates don't result in `code bloat'
+<p>
+Show in a small example that template functions
+instantiated for the same type, but in different source files will eventually
+be linked as a single function in the final executable program. One of the
+ways you can do this is to show the addresses of the instantiated functions. 
+</p><p>
+Hint: use a <em>union</em> to convert a pointer to a function to a (void) 
+data-pointer which can be used to print the function's address.
+</p><p>
+Submit the two source files which can be compiled and linked to a program
+illustrating the objective of this exercise.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 2.</strong>
+            <br>
+            Purpose of this exercise: learn to embed a function template in a function 
+                          template
+<p>
+Do you think writing <code>static_cast&lt;int&gt;(value)</code> is a lot of work?  That's
+probably good, because casts should be avoided where possible, and otherwise
+clearly visible. But well, sometimes you'd like to bend the rules a bit, don't
+you?
+</p><p>
+Here's your big chance:
+</p><p>
+Design a function template <code>as</code> that can be used like the
+<code>static_cast</code>. It should itself use <code>static_cast</code> to perform the cast.
+</p><p>
+Make sure your function template's instantiation does not actually result in a
+function call.
+</p><p>
+Your function template should be usable like this:
+        </p><pre>
+    int main()
+    {
+        int chVal = 'X';
+    
+        cout &lt;&lt; as&lt;char&gt;(chVal) &lt;&lt; '\n';
+    }
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 3.</strong>
+            <br>
+            Purpose of this exercise: learn to construct a generic index operator
+<p>
+Consider the situation where a class offers an index operator. Internally it
+maintains a vector of values (which may be strings or numeric values) and its
+index operator returns the vector's element corresponding to the index. The
+basic setup of such a class could be designed like this:
+        </p><pre>
+    class Storage
+    {
+        std::vector&lt;size_t&gt; d_data;
+
+        public:
+            Storage() = default;
+            Storage(std::initializer_list&lt;size_t&gt; const &amp;list);
+
+            size_t operator[](size_t idx) const;
+            size_t &amp;operator[](size_t idx);
+    };
+        
+</pre>
+
+    While designing a program in which we plan to use <code>Storage</code> two enum
+classes are defined:
+        <pre>
+    enum class TcpUdp
+    {
+        SECONDS = 1,
+        MU_SECONDS,              
+    
+        PROTOCOL,       // tcp/udp
+        SRC,
+        DST,
+        SPORT,
+        DPORT,
+        SENTPACKETS,
+        SENTBYTES,
+        RECVDPACKETS,
+        RECVDBYTES,
+        nFields,
+    };
+        
+    enum class Icmp
+    {
+        SECONDS   =   1,
+        MU_SECONDS,              
+    
+        SRC,
+        DST,
+        ID,
+        SENTPACKETS,
+        SENTBYTES,
+        RECVDPACKETS,
+        RECVDBYTES,
+        nFields,
+    };
+        
+</pre>
+
+    As these are enum classes their values cannot be used as indices of the
+<code>Storage</code> index operator. Instead, casting the enum value to a <code>size_t</code> is
+necessary. E.g.,
+        <pre>
+    Storage storage;
+
+    cout &lt;&lt; storage[static_cast&lt;size_t&gt;(Icmp::ID)] &lt;&lt; '\n';
+        
+</pre>
+
+    Of course, the cast can be avoided by overloading the index operator with
+a variant accepting <code>Icmp</code> enum values and a variant that accepts <code>TcpUdp</code>
+enum value, but that's hard to maintain: another overload would be required
+for every additional type.
+<p>
+Modify the basic setup of the class <code>Storage</code> (in particular: its index
+operator) so that a maintenance-free generic solution is provided. When using
+the index operator casts should no longer be necessary. E.g., the following
+example should compile without errors or warnings:
+        </p><pre>
+    Storage storage;
+
+    cout &lt;&lt; storage[Icmp::ID]           &lt;&lt; '\n' &lt;&lt;
+            storage[TcpUdp::PROTOCOL]   &lt;&lt; '\n' &lt;&lt;
+            storage[12]                 &lt;&lt; '\n' &lt;&lt;
+            storage['a']                &lt;&lt; '\n' &lt;&lt;
+            storage[12.5]               &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 4.</strong>
+            <br>
+            Purpose of this exercise: learn to design and use a function template.
+<p>
+Earlier (in part II, generic algorithms) we encountered the class
+<code>Exception</code>, allowing you to insert text, and optionally, by defining an
+appropriate insertion operator, values and/or objects of other types.
+</p><p>
+That approach suffers from several disadvantages: 
+    </p><ul>
+    <li> Insertion operators for standard types could easily be multiply
+        defined; 
+    </li><li> It's a lot of work to define yet another overloaded insertion
+        operator for each separate type you want to insert;
+    </li><li> An ugly public backdoor to <code>d_what</code> was necessary to allow the
+        various insertion operators to update <code>d_what's</code> contents.
+    </li><li> As a consequeece, <code>d_what</code> needed a <code>mutable</code> modifier.
+    </li></ul>
+<p>
+Fortunately, you don't have to live with all these disadvantages: we can
+easily ask the compiler to do the hard work for us. Since it's our best friend
+it'll happily comply.
+</p><p>
+Modify the <code>Exception</code> class previously developed so that you
+only need to define <em>one</em> insertion operator, which can be used for all
+types that support insertions into <code>std::ostream</code> objects, and in addition
+drop <code>d_what's mutable</code> modifier and remove the public backdoor <code>str</code> from
+<code>Exception's</code> interface.
+</p><p>
+You should be able to use your <code>Exception</code> class as follows:
+        </p><pre>
+    int main(int argc, char **argv)
+    try
+    {
+        throw Exception{} &lt;&lt; "insert anything that's "
+                "ostream-insertable: " &lt;&lt; "strings"s &lt;&lt; ", values " &lt;&lt;
+                argc &lt;&lt; " etc., etc.";
+    }
+    catch (exception const &amp;ex)
+    {
+        cout &lt;&lt; ex.what() &lt;&lt; '\n';
+    }
+        
+</pre>
+
+<p>
+Submit the modified class (header and implementation)
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 5.</strong>
+            <br>
+            Purpose of this exercise: learn to design a generic function template
+<p>
+Remember <code>std::async</code>? After its optional initial <code>std::launch</code> flag this
+function expects a functor or function to which several (possibly none)
+arguments are passed which are specified as additional arguments to
+<code>async</code>. This feature is not restricted to <code>async</code>, but we can do this
+ourselves as well.
+</p><p>
+In this exercise design a function <code>forwarder</code> that as its first argument
+accepts any function or functor, followed by any number of arguments. Inside
+<code>forwarder</code> these arguments are then passed on (forwarded) 
+to the function (object).
+</p><p>
+Here is an example of how <code>main</code> might use <code>forwarder</code>:
+        </p><pre>
+    void fun(int first, int second);
+    void fun2(Demo &amp;&amp;dem1, Demo &amp;&amp;dem2);
+                                            // increments each argument:
+    void incrementer(int &amp;one, int &amp;two, int &amp;three);
+
+    int main()
+    {
+        forwarder(fun, 1, 3);       // should show 'fun(1, 3)' to cout
+    
+                                    // fun2 expects two rvalue references 
+        forwarder(fun2, Demo{}, Demo{});
+    
+        forwarder(plus&lt;string&gt;(), "hello ", "world");
+    
+        vector&lt;int&gt; first;
+        forwarder(                  // receives a lambda function
+            [](vector&lt;int&gt; &amp;first, vector&lt;int&gt; const &amp;second, 
+                                    vector&lt;int&gt; const &amp;third)
+            {
+                // modify first's elements using second's and third's
+                // elements
+            }, first, vector&lt;int&gt;{}, vector&lt;int&gt;{}
+        );
+    
+        int x = 0;
+        forwarder(incrementer, x, x, x);
+        cout &lt;&lt; x &lt;&lt; '\n';          // should show '3'
+    }
+        
+</pre>
+
+<p>
+Submit <code>forwarder</code>. 
+</p><p>
+Also, assume that we overloaded <code>fun</code> like this:
+        </p><pre>
+    void fun(Demo &amp;&amp;dem1, Demo &amp;&amp;dem2);
+        
+</pre>
+
+    Show how you could pass <code>fun</code> to <code>forwarder</code> receiving, 
+respectively, two <code>int</code> arguments and two <code>Demo</code> rvalues
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 6.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to avoid having to use plain blocks in
+combination with <code>lock_guard</code>.
+<p>
+With multi-threaded programs we frequently use mutexes to prevent shared data
+from being used simultaneously by multiple threads. Often a <code>lock_guard</code> is
+used to handle such a mutex. A surrounding compound statement ensures that the
+lock_guard frees the mutex once the shared data have been handled. Typically,
+the code looks like this:
+        </p><pre>
+    .... earlier statements
+    {
+        lock_guard&lt;mutex&gt; lg(someMutex);
+        // handling the shared data
+    }
+    ... further statements
+        
+</pre>
+
+    Instead of using a surrounding compound statement a function call might be
+attractive. In the above example we would like to be able to use something
+like this:
+        <pre>
+    .... earlier statements
+    guard(someMutex, 
+            [&amp;]()
+            {
+                // handling the shared data
+            }
+    );
+    ... further statements
+        
+</pre>
+
+    In this case we have a function (<code>guard</code>) receiving a reference to the
+appropriate mutex, and a lambda function implementing handling the shared
+data. It should also be possible to pass a named function or a functor instead
+of a lambda function. The functions/functors that are passed to the guard
+function themselves must not expect any arguments.
+<p>
+Inside the <code>guard</code> function a <code>lock_guard</code> should be active.
+</p><p>
+Hint: by defining the <code>guard</code> function as an inline function an extra
+function call can usually be avoided.
+</p><p>
+Implement the <code>guard</code> function so that it can be used in this and comparable
+situations.
+</p><p>
+Submit your <code>guard</code> function and the adapted implementation of the
+multi-threaded qsort function (cf. part II, multithreading exercises).
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 7.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: gain some experience with the function selection
+mechanism. 
+<p>
+Consider the following source:
+</p><p>
+</p><pre>#include &lt;iostream&gt;
+
+using namespace std;
+
+template &lt;typename Type&gt;
+inline Type const &amp;max(Type const &amp;left, Type const &amp;right)
+{
+    return left &gt; right ? left : right;
+}
+
+
+int main()
+{
+    cout &lt;&lt; ::max(3.5, 4) &lt;&lt; endl;
+}
+</pre>
+
+<p>
+</p><ul>
+    <li> Why is the scope resolution operator required when calling <code>max()</code>?
+    </li><li> When compiling this function the compiler complains with a message
+like: 
+    <pre>max.cc:13: error: no matching function for call to 'max(double, int)'
+    
+</pre>
+
+    Why doesn't the compiler generate a <code>max(double, double)</code> function in
+this case?
+    </li><li> Assume we add a function 
+    <pre>double max(double const &amp;left, double const &amp;right)
+</pre>
+
+    to the source. Explain why this solves the problem.
+    </li><li> Assume we would then call <code>::max('a', 12)</code>. Which <code>max()</code> 
+function is then used and why?
+    </li><li> Remove the additional <code>max</code> function. Without using casts or
+otherwise changing the argument list of the function call <code>max(3.5, 4)</code>,
+how can we get the compiler to compile the source properly?
+    </li><li> Specify a general characteristic of the answer to the previous
+question (i.e., can the approach always be used or are there certain
+limitations?). 
+    </li></ul>
+    
+<p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+</li></ul>
+<hr>
+
+
+</body></html>

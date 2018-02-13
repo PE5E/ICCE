@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven02.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven04.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l3"></a>
+<h1>Chapter 3: Exercises set three: Inheritance. Deadline: Dec. 14</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 20.</strong>
+        <br>
+        Purpose of this exercise: learn the implications of using friends.
+<p>
+When implementing binary operators some of these operators might be
+implemented in separate classes. Assume we have a class <code>Addition</code>
+implementing the binary addition operations, and a class <code>Subtraction</code>
+implementing the binary subtraction operations.
+</p><p>
+Furthermore, <code>Addition</code> and <code>Subtraction</code> are base classes of a class
+<code>Binops</code>. 
+</p><p>
+A class <code>Operations</code> implements the (private) functions
+        </p><pre>
+    void add(Operations const &amp;rhs);
+    void sub(Operations const &amp;rhs);
+        
+</pre>
+
+    and inherits from the class <code>Binops</code>. Furthermore, <code>Operations</code>
+declares <code>Binops</code> a friend class. 
+<p>
+Clearly, a member like <code>Addition::operator+=(Operations const &amp;rhs)</code>
+must call <code>Operations' add</code> member, but that member is private, and
+<code>Operations</code> does not declare <code>Addition</code> as a friend class. 
+</p><p>
+</p><ul>
+    <li> Describe (short!) how you solve this problem
+    </li><li> There is a fundamental (albeit solvable) problem with this
+        design. What is this problem?
+    </li><li> Provide the class interfaces of <code>Binops, Addition</code> and
+        <code>Subtraction</code>. 
+    </li></ul>
+<p>
+Note: you are not supposed to modify <code>Operations</code>. You may assume it
+offers a default constructor (declared as <code>Operations() = default</code>, and the
+abovementioned two members <code>add</code> and <code>sub</code>.
+</p><p>
+<br><strong>Answer:</strong><br>
+    See ex. 23.
+</p><p>
+Semantic explanation of and thoughts behind these exercises:
+</p><p>
+By now polymorphism has been covered, and so its concepts can be used
+below. 
+</p><p>
+Had <code>Addition</code> and <code>Subtraction</code> been polymorphic base classes then
+they could define virtual members like <code>add</code> and <code>sub</code>, which would then
+be overridden (i.e., implemented) by derived classes. This allows us to
+concentrate completely on addition in the class <code>Addition</code> and on
+subtraction in the class <code>Subtraction</code>.
+</p><p>
+The classes implementing arithmetic operators, not knowing
+whether the eventually derived class actually supports specific operations may 
+provide default implementations of their virtual members, throwing, e.g.,
+<code>std::logic_error</code> exceptions.
+</p><p>
+In most situations it's of course nice if both operations are
+available. Multiple inheritance is then called for, but it's awkward having to
+derive every class from all of these base classes. Here there are only two
+base classes defining operations, but of course many more operators are
+available.
+</p><p>
+To avoid having to list all these base classes the class <code>Binops</code> is
+defined: it inherits from all available classes implementing binary
+operators. 
+</p><p>
+By deriving a class <code>Operations</code> from <code>Binops</code> all binary operators are
+suddenly available, but using them might result in exceptions being thrown: 
+we now have a class that in theory is capable of performing any operation we
+like. The ones that actually become available are those that fit the semantic
+meaning of <code>Operations</code>. Think about basic types: if it represents an
+<code>int</code> then all operators are available; if it represents a <code>double</code> then
+the bit-wise operators are not available, and using them now automatically
+generates an exception, which requires no further action by <code>Operation's</code>
+designer. If <code>Operations</code> should support addition, then its <code>add</code> function
+should be implemented, and that's all.
+</p><p>
+Let this sink in, to realize how flexible this design is.
+</p><p>
+Unfortunately, at this point we cannot yet use polymorphism. So in these
+exercises we try to mimic its facilities. That's not easily realized. Here is
+how it can be done:
+</p><p>
+</p><ul>
+<li> First, we need the classes providing the basic operators: e.g.,
+    <code>Addition</code> provivdes <code>operator+</code> and <code>operator+=</code>.
+<p>
+</p></li><li> Those classes cannot call the finally derived classes' members: they have
+    no idea what class that is.
+<p>
+</p></li><li> But we use a similar setup as with the polymorphic approach: we postpone
+    solving our problems, and define an intermediate class <code>Binops</code>,
+    deferring finding a solution to that class. In line with the private
+    nature of virtual members we define private members like <code>addWrap</code> and
+    <code>subWrap</code> making the <code>Addition</code> and <code>Subtraction</code> classes its
+    friend. 
+<p>
+</p></li><li> Now the base arithmetic classes can call members like <code>addWrap</code> and
+    <code>subWrap</code>. In order to do that, objects of the arithmetic classes
+    (which, because of the inheritance are <em>also</em> <code>Binops</code> class objects)
+    can call the wrapping functions after statically casting them to
+    <code>Binops</code> objects.
+<p>
+</p></li><li> To add more arithmetic facilities simply define additional arithmetic
+    classes, defining the matching arithmetic operators, and calling matching
+    <code>...Wrap</code> members of <code>Binops</code>, and declaring those additional classes
+    as <code>Binops'</code> friend.
+<p>
+</p></li><li> The ugly part so far is that although the inheritance tree is strictly
+    linear (so far, so good), the implementation tree is more complex: the
+    aritmetic operators need to call <code>Binops</code> members, so when implementing
+    <code>operator+=</code> it must know about <code>Binops::addWrap</code>: in order to test
+    <code>Addition, Binops</code> must (partially) be available. In order to test
+    <code>Binops, Operations</code> must (partially) be available. That's a partial
+    cyclic dependency which in this case cannot easily be avoided.
+<p>
+</p></li><li> Finally, the class <code>Operations</code> implements the actual arithmic
+    operations. It declares <code>Binops</code> its friend, allowing,
+    e.g. <code>Binops::addWrap</code> to call <code>Operations::add</code>. Again, since
+    <code>Binops</code> is <code>Operations'</code> friend, <code>Binops::addWrap</code> can call
+    <code>Operations::add</code> after casting the <code>Binops</code> object to an
+    <code>Operations &amp;</code>.
+</li></ul>
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 21.</strong>
+        <br>
+        Purpose of this exercise: learn to implement a class hierarchy using friends
+in the final derived class.
+<p>
+(See the previous exercise)
+</p><p>
+Implement the classes <code>Addition, Subtraction, Binops</code>.
+</p><p>
+The free binary operators that are associated with the 
+classes <code>Addition</code> and <code>Subtraction</code> do not have to be implemented for
+this exercise; only the compound assignment operators need to be implented.
+</p><p>
+<br><strong>Answer:</strong><br>
+    See ex. 23.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 22.</strong>
+        <br>
+        Purpose of this exercise: learn to use a class hierarchy using friends
+in the final derived class.
+<p>
+(See the previous two exercises)
+</p><p>
+Implement the free binary operators of the classes <code>Addition</code> and
+<code>Subtraction</code> and implement the <code>add</code> and <code>sub</code> members of
+<code>Operations</code>. These members merely have to insert a confirmation into
+<code>cout</code> when they are being called (e.g., <code>Operations::add</code> inserts
+<code>"addition"</code>.
+</p><p>
+Submit your implementations and show that a program calling all binary
+operators (free and compound) work as intended.
+</p><p>
+<br><strong>Answer:</strong><br>
+    See ex. 23.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 23.</strong>
+        <br>
+        Purpose of this exercise: learn to use a class hierarchy using friends
+in the final derived class.
+<p>
+(See the previous three exercises)
+</p><p>
+Create a <code>main</code> function which is an interactive basic calculator, showing
+that all binary operators (free and compound) work as intended.
+</p><p>
+Briefly describe the steps that must be performed to add another operator
+(like multiplication) to the calculator (i.e., to the class <code>Operations</code>).
+</p><p>
+<br><strong>Answer:</strong><br>
+    Here is the <code>main</code> function, defining and using <code>Operations</code> objects:
+        </p><pre>#include "main.ih"
+
+int main(int argc, char **argv)
+{
+    Operations o1;
+    Operations o2;
+
+    o1 += o2;
+    Operations{} += o1;
+
+    Operations o3{o1 + o2};
+    Operations o4{Operations{} + o2};
+
+    
+}
+</pre>
+
+<p>
+The class <code>Operation</code> is:
+        </p><pre>#ifndef INCLUDED_OPERATIONS_
+#define INCLUDED_OPERATIONS_
+
+#include &lt;iostream&gt;
+#include "../binops/binops.h"
+
+class Operations: public Binops
+{
+    friend Binops;
+
+    private:
+        void add(Operations const &amp;rhs);
+        void sub(Operations const &amp;rhs);
+};
+        
+inline void Operations::add(Operations const &amp;rhs)
+{
+    std::cout &lt;&lt; "Addition\n";
+}
+
+inline void Operations::sub(Operations const &amp;rhs)
+{
+    std::cout &lt;&lt; "Subtraction\n";
+}
+
+#endif
+</pre>
+
+<p>
+It derives from <code>Binops</code>. <code>Binops</code> forwards calls of <code>Operations'</code>
+members using wrapper functions, which can be called by its friends:
+<code>Addition</code> and <code>Subtraction</code>:
+</p><p>
+</p><pre>#ifndef INCLUDED_BINOPS_
+#define INCLUDED_BINOPS_
+
+#include "../addition/addition.h"
+#include "../subtraction/subtraction.h"
+
+class Operations;
+
+class Binops: public Addition, public Subtraction
+{
+    friend Addition;
+    friend Subtraction;
+
+    private:
+        void addWrap(Operations const &amp;rhs);
+        void subWrap(Operations const &amp;rhs);
+
+};
+        
+#endif
+</pre>
+
+<p>
+The implementation of <code>addWrap</code> uses the fact that the <code>Binops</code> object,
+since it's a base class of <code>Operations</code>, is also an <code>Operations</code>, and so a
+static cast can be used:
+</p><p>
+</p><pre>#include "binops.ih"
+
+void Binops::addWrap(Operations const &amp;rhs)
+{
+    static_cast&lt;Operations &amp;&gt;(*this).add(rhs);
+}
+
+</pre>
+
+<p>
+The member <code>addSub</code> is implemented analogously.
+</p><p>
+The class <code>Addition</code>'s interface merely has to declare the existence of
+<code>Operations</code>, and therefore there is no circular class dependency (i.e., not
+at the interface level). Here is <code>Addition's</code> interface:
+</p><p>
+</p><pre>#ifndef INCLUDED_ADDITION_
+#define INCLUDED_ADDITION_
+
+class Operations;
+class Binops;
+
+class Addition
+{
+    public:
+        Operations &amp;operator+=(Operations const &amp;rhs) &amp;;
+        Operations operator+=(Operations const &amp;rhs) &amp;&amp;;    // or return
+                                                            // Operations &amp;&amp;
+
+}; 
+
+Operations operator+(Operations const &amp;lhs, Operations const &amp;rhs);
+Operations operator+(Operations &amp;&amp;lhs, Operations const &amp;rhs);
+
+#endif
+</pre>
+
+<p>
+Note that all of functions are declared as functions expecting and returning
+<code>Operations</code>. At the interface level that's OK, since here we only need to
+know that <code>Operations</code> is an existing type.
+</p><p>
+As <code>Addition</code> defines <code>operator+=</code>, the implementation of the 
+binary operators is standard. But it has to be provided by <code>Addition</code>, since
+only in <code>Addition</code> the required <code>operator+=</code> become available. Here are
+the familiar free operators:
+</p><p>
+</p><pre>#include "addition.ih"
+
+Operations operator+(Operations const &amp;lhs, Operations const &amp;rhs)
+{
+    Operations tmp(lhs);
+    tmp += rhs;
+    return tmp;
+}
+</pre>
+
+        <pre>#include "addition.ih"
+
+Operations operator+(Operations &amp;&amp;lhs, Operations const &amp;rhs)
+{
+    move(lhs) += rhs;
+    return move(lhs);
+}
+</pre>
+
+<p>
+Since, because of the used inheritance structure, an <code>Addition</code> is a
+<code>Binops</code> is an <code>Operations</code>, an <code>Addition</code> object can statically be cast
+to either class. Casting to <code>Operations</code> is required to return the
+<code>Addition</code> object from the compund addition functions, casting to <code>Binops</code>
+is required to gain access to <code>Binop's addWrap</code> member. Here are the
+implementations of the compound addition members:
+</p><p>
+</p><pre>#include "addition.ih"
+
+Operations &amp;Addition::operator+=(Operations const &amp;rhs) &amp;
+{
+        // The following is OK, but doesn't help:
+    //Operations &amp;op = static_cast&lt;Operations &amp;&gt;(*this);
+    //op.add(rhs);  // WC: add is private
+
+    // And therefore, this doesn't work either (same reason)
+    //static_cast&lt;Operations &amp;&gt;(*this).add(rhs);
+
+    static_cast&lt;Binops &amp;&gt;(*this).addWrap(rhs);
+    return static_cast&lt;Operations &amp;&gt;(*this);
+}
+        
+</pre>
+
+        <pre>#include "addition.ih"
+
+Operations Addition::operator+=(Operations const &amp;rhs) &amp;&amp;
+{
+    static_cast&lt;Binops &amp;&amp;&gt;(std::move(*this)).addWrap(rhs);
+    return std::move(static_cast&lt;Operations &amp;&gt;(*this));
+}
+      
+</pre>
+
+<p>
+The class <code>Subtraction</code> is implemented analogously.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 24.</strong>
+        <br>
+        Purpose of this exercise: learn to initialize <code>string</code> objects with <code>new</code>
+(<code>std::string</code> is used in this example, but other classes could also be used
+in analogous implementations.
+<p>
+Objects of the class <code>string</code> can be initialized in various ways.  Implement
+a function <code>string *factory(string const &amp;str, size_t count)</code> returning the
+result of a new-expression in which <code>`count' string</code> objects are allocated,
+and which were at construction time initialized with <code>str</code>.
+</p><p>
+Caveat: the initialization <em>must</em> be performed at the <code>new</code> expression, so
+allocate first, followed by e.g., copy assignments or placement new actions
+should not be used.
+</p><p>
+<br><strong>Answer:</strong><br>
+    In this case, use the fact that a class that inherits from a base class is
+also a base class object. The <code>factory</code> function therefore defines a nested
+<code>struct Inner</code>, derived from <code>std::string</code>. Its default constructor
+initializes its base class with an available (static) string that received the
+factory's 1st argument as its value, just before returning.
+</p><p>
+Note: implementations that use static data that are modified by functions
+require minor modifications in multi-threaded programs where different threads
+may synchroneously call those functions. We'll postpone solving that subtlety
+until we reach the final topics of this part of the course.
+</p><p>
+Here's the implementation:
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+string *factory(string const &amp;iniText, size_t count)
+{
+//    static string const &amp;name = filename;     // won't work: static 
+//    static string const *name = &amp;filename;    // initializations are
+                                                // performed only once.
+
+    static string const *name;                  // Note that the name cannot
+    name = &amp;iniText;                            // be initialized (happens
+                                                // only once). Instead, a 
+                                                // explicit assignment by
+                                                // factory is required 
+
+    struct Inner: public string                 // a support struct, uses 
+    {                                           //  'name'
+        Inner()
+        :
+            string(*name)
+        {}
+    };
+
+    return new Inner[count];
+}
+
+int main()
+{
+    string *sp = factory("hello world", 10);
+
+    cout &lt;&lt; sp[0] &lt;&lt; ", " &lt;&lt; sp[4] &lt;&lt; ", " &lt;&lt; sp[9] &lt;&lt; '\n';
+
+    delete[] sp;
+
+    sp = factory("Something else", 12);
+
+    cout &lt;&lt; sp[0] &lt;&lt; ", " &lt;&lt; sp[4] &lt;&lt; ", " &lt;&lt; sp[9] &lt;&lt; '\n';
+
+    delete[] sp;
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven02.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven04.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

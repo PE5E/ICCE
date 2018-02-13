@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven02.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l1"></a>
+<h1>Chapter 1: Set one: Introduction. Deadline: September 21</h1>
+            <br><br>
+<p>
+
+<strong>PRELIMINARIES</strong>
+</p><p>
+</p><ul>
+    <li> It is assumed that you have access to a recent <em>GNU g++</em>
+compiler. See the general course page (<a href="https://www.icce.rug.nl/edu/1/www.icce.rug.nl/edu">www.icce.rug.nl/edu</a>) for
+information about current and acceptable versions.
+<p>
+See also the  <a href="http://www.icce.rug.nl/edu/1/setup.shtml">setup page</a>.
+</p><p>
+</p></li><li> Closely follow the <a href="https://www.icce.rug.nl/edu/1/hints.shtml">hints and tips</a>. They are updated
+almost every week, and not adhering to the suggestions we present present
+there needlessly reduces your ratings.
+<p>
+</p></li><li> Completed exercises should be dropped in the CARDBOARD BOX, in
+Jurjen's room showing the text <strong>Exercises C/C++ INBOX</strong>. 
+<p>
+</p><blockquote>
+    <strong>Submit all exercises on A4-sized paper, printed in the normal
+(portrait) way, and use a fixed, non-proportional font (e.g., courier).</strong>
+    </blockquote>
+<p>
+<strong>NOTE WELL:</strong>
+ If your lines of code are too long for the paper's width then <em>don't</em> let
+the printer do the line-wrapping for you, as that screws up the layout (or
+worse: lines may be cut off at the paper's right margin). Instead, format long
+lines yourself, making sure they come out nicely. Sources are rated the way
+they are received, and if we see sources that won't compile then their
+exercise is rated as 0.
+</p><p>
+</p></li><li> You may also submit exercises electronically. See
+<a href="https://www.icce.rug.nl/edu/1/cpp">https://www.icce.rug.nl/edu/1/cpp</a>, in particular
+<a href="https://www.icce.rug.nl/edu/1/cpp/submitinfo.txt">https://www.icce.rug.nl/edu/1/cpp/submitinfo.txt</a> for details.
+<p>
+</p></li><li> Rated exercises are returned in the <strong>Exercises C/C++ OUTBOX</strong>, at
+the secretaries office immediately to your left when entering the Smitsborg.
+<p>
+</p></li><li> When output needs to be presented as part of an exercise, use
+<em>redirection</em> at the operating system level to send the output to file:
+        <pre>
+    program &gt; out
+        
+</pre>
+
+    The program's output is now written on the file <code>out</code> which can be
+edited and printed.
+<p>
+</p></li><li> Sets of exercises have deadlines. Deadlines are <em>strictly enforced</em>
+and normally are reached at the end (i.e., 11:00) of the second lecture
+following the lecture to which they apply. Exercisess submitted beyond the
+deadline are ignored.
+<p>
+</p></li><li> When submitting exercises, <strong>Always briefly summarize the question
+before presenting your answer</strong>. If a question has several itemized
+sub-questions, use the itemized format in your answer as well (summarize the
+question per item, which is then followed by your answer).
+<p>
+</p></li><li> You earn points (usually 1 point) for each correctly completed
+exercise, or a lower number of points (down to half a point) when an exercise
+is not considered fully OK.
+<p>
+</p></li><li> Exercises for which you did not receive the maximum ratings may be
+resubmitted <strong>ONCE</strong>, but only <em>before their deadlines</em>. <em>Never</em> 
+resubmit exercises that received their maximum possible ratings.
+<p>
+</p></li><li> For all exercises: submit all sources you wrote to complete the
+exercise, unless indicated otherwise.
+<p>
+</p></li><li> <strong>Mind the layout!</strong>
+<p>
+</p></li><li> You're free (and encouraged) to submit optional exercises (marked
+`(optional)'). Their weight in the exercise-count equals their rating. E.g.,
+if the rating equals <code>'?'</code> (half a point) then 0.5 is added to the number of
+answered exercises. Therefore, submitting optional exercises <em>never</em> lowers
+your percentage, as
+    <pre>
+            (x + d) / (y + d) &gt;= x / y
+    
+</pre>
+
+    if d and x are non-negative, and x &lt; y. 
+<p>
+</p></li><li> If you intend to complete a lightweight version of the course, then
+percentages are computed for each <em>series</em> of exercises. When you're ending
+the course (having completed at least one part) your (lightweight) percentage
+is computed as the average of all percentages of all sets of all completed
+parts.
+<p>
+If you're doing a lightweight variant of this course, then you obtain a score
+of 100% for a set of exercises if you completed 1 exercise of the 2-point
+variant; 2 exercisea of the 3-point variant; and 3 exercisea of the 4-point
+variant.
+</p><p>
+</p></li><li> To qualify for a 100% score for the `heavyweight' course, you must at
+least have correctly completed 5 exercises per set. 
+<p>
+<strong>NOTE WELL:</strong> Once you've correctly completed 5 exercises (optional and
+non-optional alike) of a set, <em>all</em> eercises of that set suddenly are
+considered optional, and receive counting-weights equal to their
+ratings. Thus, you are encouraged to complete the `officially' optional
+exercises (which tend to be more complex than the non-optional exercises),
+without also being required to complete all officially non-optional exercises.
+</p><p>
+</p></li><li> You are free to postpone your choice of course-variant until the
+final talks. The particular choice you make will be explicitly mentioned in
+the final grading report sent to your study administration.
+<p>
+</p></li><li> You have two <em>wild cards</em>: twice during each part of this course
+you can try to improve the rating you received for a <em>set</em> of exercises by
+making an appointment with Frank or Jurjen to talk about the set and discuss
+the problems you experienced and why your results were unsatisfactory.
+<p>
+Before you can use a wild card you <em>must</em> have submitted a realistic attempt
+to complete the exercises (i.e., you must have submitted at least 60% of that
+set's exercises) and the appointment (not necessarily the talk itself)
+<em>must</em> be made in the week following the set's deadline.
+</p><p>
+</p></li><li> Answers to exercises are provided at the exercises once their
+deadlines have been reached. Even if you didn't submit all exercises,
+<em>study</em> their answers as they may show you how problems can be
+solved. Frequently the results of earlier exercises are used for later
+exercises and having studied answers to exercises makes it easier to find
+solutions to later exercises.
+<p>
+</p></li><li> If an exercise is formulated such that it requires results from
+another exercise, you may assume that those results <em>are</em> available and
+<em>are working properly</em>. Submitting sources is of course not required if an
+exercise explicitly says so. Otherwise you should always submit all the
+sources you wrote for that exercise.
+<p>
+</p></li></ul>
+<p>
+<strong>ASSIGNMENTS</strong>
+</p><p>
+You may find the first set of assignments fairly easy to complete (although
+the optional ones might contain some surprises). Don't let this fool you into
+thinking that that's the way it'll remain. Rather: grab the easy points to
+provide you with a head start! 
+</p><p>
+Remember: any combination of 5 successfully completed exercises results in a
+100% score; completing more exercises stabilizes that percentage.
+</p><p>
+</p><hr>
+        <strong>Exercise 1.</strong>
+        <br>
+        Purpose of this exercise: construct a famous program illustrating that you
+can use the compiler.
+<p>
+This is a simple, introductory exeercise to get you `up and running'. 
+Its main purpose is to show (also to yourself) that you have an operational
+compiler and that you're able to write the most famous of all C/C++ programs:
+</p><p>
+Construct a program printing the text 
+        </p><pre>
+    Hello World
+        
+</pre>
+
+    to the screen. The line must properly be terminated (use <code>\n</code>).
+<p>
+Name your source file 
+        </p><pre>
+    hello.cc
+        
+</pre>
+
+    Compile and link the program.
+<p>
+Construct the separate object file <code>hello.o</code>, and the executable program 
+<code>hello.exe</code> (Windows) or  <code>hello</code> (Unix). Provide short, informative
+descriptions of what these two files are.
+</p><p>
+Submit:
+    </p><ul>
+    <li>  the listing (of course, see the introductory text above this
+exercise) of your program;
+    </li><li> The commands you entered to compile and link the program;
+    </li><li> The short descriptions of object file and executable;
+    </li><li> The program's output;
+    </li><li> The size in bytes (not kBytes!) of:
+        <ul>
+            <li> the source file;
+            </li><li> the object file;
+            </li><li> the executable program (<em>strip</em> it first, using the <code>-s</code>
+    switch when creating the executable);
+            </li><li> the file <code>iostream</code>
+        </li></ul>
+    </li></ul>
+<p>
+Note that the size of the files depends on the used operating system and
+compiler.
+</p><p>
+For the file  <code>iostream</code> it's important to find its location. Even the
+way to find files like <code>iostream</code> depends on operating system and compiler.
+</p><p>
+On my <strong>Linux</strong> system the standard <strong>C</strong> headers are found in 
+directory <code>/usr/include</code>, while the standard <strong>C++</strong> headers are below
+<code>/usr/include/c++</code>. In there the file <code>iostream</code> is found. 
+</p><p>
+Alternatively, the <code>locate</code> program can be used: the command
+        </p><pre>
+    locate iostream
+        
+</pre>
+
+    will tell you where the <code>iostream</code> files are. I count about 200 hits....
+However,
+        <pre>
+    locate iostream | grep '\biostream$'
+        
+</pre>
+
+    reduces this to four, among which  <code>/usr/include/c++/4.1.3/iostream</code>: 
+bingo! 
+<p>
+Under Windows 
+        </p><pre>
+    Find -&gt; Files or Folders
+        
+</pre>
+ 
+    allows you to find a certain file. Alternatively (and preferably), use
+        <pre>
+    find / -name iostream
+        
+</pre>
+
+    when you're using Linux.
+<p>
+<br><strong>Answer:</strong><br></p><pre>
+#include &lt;iostream&gt;
+
+int main()
+{
+    std::cout &lt;&lt; "Hello world\n";
+    return 0;
+}    
+
+/*
+    hello.cc:   Source file of the C++ program
+    hello.o:    Object file: compiled code, not linked to library functions
+                    like printf()
+    hello[.exe] Executable program
+
+    On my system there exists:
+        /usr/include/g++-v3/iostream
+    The location of this file and the sizes of the files might vary over 
+    different systems.
+    
+    Output:     Hello world 
+
+    Compiled using: 
+
+                g++ -c -Wall hello.cc
+                g++ -o hello hello.o
+*/
+
+</pre>
+
+<p>
+Depending on what you wrotee into your source file and what compiler you used
+your answer may differ from the values shown below.
+</p><p>
+The size in bytes of 
+    </p><ul>
+        <li> the source file:   587 bytes 
+        </li><li> the object file:   1900 bytes
+        </li><li> the executable program:    7846, stripped: 4000 bytes.
+        </li><li> the file <code>iostream</code>: 2962 bytes
+    </li></ul>
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 2.</strong>
+        <br>
+            Purpose of this exercise:
+understand several core concepts that are frequently used when constructing
+<strong>C++</strong> programs.
+<p>
+Give short (1-2 sentences) answers to the following questions
+    </p><ul>
+    <li> In <strong>C++</strong>, what's the difference between a declaration and a
+definition?
+    </li><li> What are  header files used for?
+    </li><li> When a compiler creates a program, in what part of the construction
+process does it use  header files and in what part libraries? (Try to answer
+the question why the compiler uses header files and libraries.)
+    </li><li> Is a library an object module? Provide an explanation, not just
+<em>yes</em> or <em>no</em>.
+    </li><li> Why is an object module obtained after compiling a source
+containing <code>int main()</code> not an executable program?
+    </li></ul>
+<p>
+Note: when answering this exercise, if you feel the need for using terminology
+like `independently relocatable code', (we're not suggesting you should!) then
+that's nice, but please in that case, also explain what you mean by that.
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><ul>
+    <li> A declaration is used to inform the compiler that an entity
+(variable, object, function) exists; a definition tells the compiler to
+actually set aside some memory for the defined entity.
+    </li><li> A header file contains declarations. A well-designed header file
+<em>never</em> contains definitions.
+    </li><li> Header files are used in the compilation phase of a program. Once
+compiled, the declared entities must actually become available. One way to do
+this is to obtain them from libraries. Libraries are used in the linking phase
+of a program. So-called `dynamic link libraries' are also used when the
+program is run, to obtain the required entities when they are actually needed.
+    </li><li> A library is not an object module, but it contains one or more object
+modules. It's therefore a kind of archive. Object modules are usually combined
+together to form an executable program. Object modules can also be stored in a
+library. When the binary program is created by the `linker' it combines object
+modules and may use libraries to obtain all entities declared by the object
+modules from object modules found in the libraries.
+    </li><li> An object module contains executable code and several tables
+containing references to code used by the executable code. An object module is
+at best some kind of `incomplete program'. In an executable program all
+required entities are available. One of these required entities is the
+`run-time support system' (RSS), responsible for satisfying all requirements
+(e.g., setting up a <em>stack</em>; making sure there's enough memory to run the
+program) of the program. Once these requirements are fullfilled, the RSS will
+call the <code>main()</code> function to execute the programmer-defined part of the
+program.
+    </li></ul>
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 3.</strong>
+        <br>
+        Purpose of this exercise: learn to use Raw String Literals
+<p>
+The following example shows how several NTBs, and some character constants
+are inserted into the output stream.
+</p><p>
+Remove the NTBs and transform them into one Raw String
+Literals (RSLs) (assume <code>iostream</code> has been included).
+</p><p>
+</p><pre>
+    std::cout &lt;&lt; "^\\s+Encryption key:(\\w+)"        &lt;&lt; '\n' &lt;&lt; 
+                 "^\\s+Quality=(\\d+)"               &lt;&lt; '\n' &lt;&lt;
+                 "^\\s+E?SSID:\"([[:print:]]+)\""    &lt;&lt; '\n' &lt;&lt;
+                 "^\\s+ssid=\"([[:print:]]+)\""      &lt;&lt; '\n';
+
+</pre>
+
+<p>
+Submit your implementation as a working <strong>C++</strong> program. Also submit the
+output it produces.
+</p><p>
+Hints: 
+    </p><ul>
+    <li> use the insertion operator only once.
+    </li><li> as outlined in the hints and tips: define raw string literals outside
+of your <code>main</code> function body, and use the raw string's variable name in the
+<code>cout</code> statement.
+    </li><li> when solving the exercise you'll notice that you won't be able to use
+the <code>R"(...)"</code> form of the RSLs. Formulate (submit) a rule telling you when
+this form can and cannot be used.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+</p><p>
+</p><ul>
+<p>
+</p><li> Consider abandoning indentation when using multi-line RSLs, as shown
+below. The raw string's label '1' is used to avoid interpretation of )"
+in the string text itself as the end of the RSL.
+<p>
+</p><pre>
+#include &lt;iostream&gt;
+
+char const code[] =
+R"1(^\s+Encryption key:(\w+)
+\s+Quality=(\d+)
+^\s+E?SSID:"([[:print:]]+)"
+^\s+ssid="([[:print:]]+)"
+)1";
+
+int main()
+{
+    std::cout &lt;&lt; code;
+}
+
+</pre>
+
+<p>
+</p></li><li> The form <code>R"(...)"</code> can only be used if the contents of the string does
+not contain the character combination <code>)"</code>, as this would prematurely
+end the RSL. In those situations a label must be used, like
+<code>R"label(...)label"</code>, where <code>)label"</code> is a sequence of characters
+not encounterd earlier in the string contents itself.
+</li></ul>
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 4.</strong>
+        <br>
+            Purpose of this exercise:
+recognize and use `escape sequences'.
+<p>
+What are `escape sequences'? What standard `escape sequences' are
+defined in <strong>C++</strong>? What are their meanings? 
+</p><p>
+What happens if another character is written as an escape sequence?
+</p><p>
+<br><strong>Answer:</strong><br>
+    Escape sequences are character constants starting with a backslash (<code>\</code>)
+followed by a letter. Predefined escape sequences mean something else than the
+literal characters that are appended to the backslashes. 
+</p><p>
+Other characters, when prefixed by a backslash, keep their original meanings
+(albeit that the compiler will generate a warning, even without using
+<code>-Wall</code>). All warnings should be removed so such a pseudo-escape sequence
+should never be used.
+</p><p>
+See the <strong>C</strong> book for an overview of escape sequences. 
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 5.</strong>
+        <br>
+        Purpose of this exercise: get some experience in using various operators
+<p>
+Is an unsigned value odd or even? In this exercise define a <code>main</code> function,
+reading an unsigned integral value from <code>cin</code> (use the extraction operator:
+<code>cin &gt;&gt; value</code>).
+</p><p>
+Then, provide six <code>cout</code> statements of the form
+    </p><pre>
+    cout &lt;&lt; (expression ? "odd" : "even") &lt;&lt; '\n';
+    
+</pre>
+
+    (optionally you may swap the <code>odd</code> and <code>even</code> NTBSs.) Here, 
+<code>expression</code> is a <strong>C++</strong> expression to determine whether the variable that
+was just extracted from <code>cin</code> is either odd or even.
+<p>
+Notes:
+    </p><ul>
+    <li> except for the <code>==</code> and the ternary operator, operators may be used
+only once. So, if an expression uses the <code>^</code> operator, it may not be used
+again in any of the other expressions;
+    </li><li> with each statement provide a short semantic comment explaining why
+the expression correctly performs its task;
+    </li><li> Assuming your layout is OK, then you must provide at least three
+expressions for a <code>?</code>-rating, and at least five expressions for a
+<code>1</code>-rating.
+    </li><li> You only may define one (<code>size_t value</code>) variable.
+    </li><li> Hint: use <code>using namespace std;</code> before <code>main's</code> definition so
+you can avoid writing the <code>std::</code> namespace designators.
+    </li></ul>
+<p>
+Submit your program.
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+    size_t value;
+
+    cin &gt;&gt; value;
+
+                            // odd if the least significant bit (lsb) was set
+    cout &lt;&lt; (value &amp; 1 ? "odd" : "even") &lt;&lt; '\n';
+
+                            // same idea: set the lsb. If already set then
+                            // odd.
+    cout &lt;&lt; ((value | 1) == value ? "odd" : "even") &lt;&lt; '\n';
+
+                            // when odd, the lsb is lost when multiplying by 2
+                            // after dividing by 2
+    cout &lt;&lt; (value / 2 * 2 == value ? "even" : "odd") &lt;&lt; '\n';
+
+                            // same, but using shifts instead of 
+                            // multiplication operators
+    cout &lt;&lt; (value &gt;&gt; 1 &lt;&lt; 1 == value ? "even" : "odd") &lt;&lt; '\n';
+
+                            // odd if division by 2 has a remainder of 1
+    cout &lt;&lt; (value % 2 ? "odd" : "even") &lt;&lt; '\n';
+
+                            // toggle the lsb. If odd: 1 -&gt; 0, and so the
+                            // resulting value equals value - 1. If even: 0 -&gt;
+                            // 1 which is a completely different value than
+                            // value - 1
+    cout &lt;&lt; ((value ^ 1) == value - 1 ? "odd" : "even") &lt;&lt; '\n';
+}
+
+
+    
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 6.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: familiarize yourself with the `dark corners'
+<p>
+Part 1: 
+</p><p>
+<strong>C++</strong> has many operators, but some of them are little known. One of these is
+the so-called `goes to' operator, which can be used in situations where a
+<code>size_t</code> or <code>int</code> variable is used repeatedly until it decays to a certain
+value. 
+</p><p>
+Few people seem to know this operator exist, which is one of the reasons why
+it is commonly thought of as belonging to the language's `dark corners'. In
+fact it has a long history, going back to the <strong>C</strong> language. It goes like
+this:
+        </p><pre>
+    size_t decay = 10;
+
+    while (decay --&gt; 0)     // the `goes to' operator: decay `goes to' 0
+    {                       //  decay decays to 0 in steps
+        // statements, e.g.,
+        cout &lt;&lt; decay &lt;&lt; ' ';
+    }
+
+    cout &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+Why do you think  the <em>goes to</em> operator is part of the language's `dark
+corners'? There is virtually no basic text book on either <strong>C</strong> or <strong>C++</strong> in
+which the <em>goes to</em> operator is discussed. Does this mean that most authors
+are unaware of this operator or should it be avoided? Provide your thoughts
+about the <em>goes to</em> operator.
+</p><p>
+Part 2:
+</p><p>
+Explain why the following statement does not (except for some borderline
+cases) display the cubic root of the value stored in the variable <code>x</code>:
+        </p><pre>
+    size_t x;
+    
+    cin &gt;&gt; x;               // extract a value for x
+
+                            // compute x's cubic root.
+    cout &lt;&lt; ' ' &lt;&lt; pow(static_cast&lt;double&gt;(x), 1/3) &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+    Part 1: this is a little joke. In fact it's a contraction of two
+operators: <code>--</code> and <code>&gt;</code>. Using proper layout we get
+        </p><pre>
+    while (decay-- &gt; 0)
+        
+</pre>
+
+<p>
+Part 2: Before the static cast the division 1/3 is performed. These are
+two integral values and with an integral division any remainder is
+truncated. So 1/3 = 0.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 7.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to use bit-wise operators
+<p>
+Write a program that reads an unsigned value from the standard input
+stream. You may assume the value is unequal zero. It should print
+    </p><pre>
+    the value x is an exact power of two
+    
+</pre>
+
+    (where <code>x</code> is the entered value) if x is an exact power of two and
+    <pre>
+    the value x is not an exact power of two
+    
+</pre>
+
+    if x is not an exact power of two.
+<p>
+Except for defining your variable and extracting the value from <code>cin</code>, your
+program should have only one <code>cout</code> statement.
+</p><p>
+Hint: think about how values are represented in integral valued variables,
+and what happens if you, e.g., increment or decrement a variable
+</p><p>
+Submit your program.
+</p><p>
+<br><strong>Answer:</strong><br>
+    When a value is an exact power of two only one of its bits has been
+set. Subtracting 1 results in a value in which only all lower order bits are
+set. When a value isn't an exact power of two, then due to its extra bits
+subtracting 1 will at least leave its most significant bit unaltered. So if
+the original value and the original value minus 1 share no bits you have an
+exact power of two. Here's program:
+</p><p>
+</p><pre>#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+    size_t value;
+
+    cin &gt;&gt; value;
+
+    cout &lt;&lt; "the value " &lt;&lt; value &lt;&lt; " is" &lt;&lt; 
+                (value &amp; (value - 1) ? " not " : " ") &lt;&lt;
+                "an exact power of two\n";
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 8.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to think about what happens `behind the
+scenes'
+<p>
+Consider the following statement (see the <strong>pow</strong>(3) man-page for details
+about the <code>pow</code> function):
+        </p><pre>
+    cout &lt;&lt; (1e20 == pow(10, 20) ? "equal" : "not equal") &lt;&lt; '\n' &lt;&lt;
+            static_cast&lt;size_t&gt;(1e20) &lt;&lt; '\n' &lt;&lt;
+            static_cast&lt;size_t&gt;(pow(10, 20)) &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+When this statement is executed in a <code>main</code> function, the output is (on a 64
+bits computer)
+        </p><pre>
+    equal
+    18446744073709551615
+    0
+        
+</pre>
+
+<p>
+This output is remarkable, as <code>1e20</code> and <code>pow(10, 20)</code> clearly are
+equal. What might be the reason why the two static casts, clearly receiving
+equal arguments, produce such remarkably different results, and what does the
+value 18446744073709551615 represent?    
+</p><p>
+<br><strong>Answer:</strong><br>
+    In fact, any value might have been encountered. According to the C++
+standard (section 7.10) conversions from floating point values to integral
+values result in undefined values if the floating point value exceeds the
+range of values of the integral type.
+</p><p>
+So, consider type <code>char</code>, ranging from -128 through 127. A double value
+of 85.998 is within <code>char's</code> range, and the converted <code>char</code> value equals
+85 (note: no rounding, the fraction is ignored). Likewise, -85.998 results in
+-85. But if the double equals 255 or -8000 the converted <code>char</code> value is
+undefined, meaning it can be any value.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 9.</strong>
+        <br>
+        (optional)<br>This is not an exercise. 
+<p>
+You receive a point for this exercise if you submit answers to the first set
+of exercises during the first week following the first lecture.
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven02.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

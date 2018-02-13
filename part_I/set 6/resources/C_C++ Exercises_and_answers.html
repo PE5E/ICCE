@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven05.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven07.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l6"></a>
+<h1>Chapter 6: Exercises set six: Pointers Part 2. Deadline: October 26</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 42.</strong>
+        <br>
+        Purpose of this exercise: Familiarize yourself with the various new/delete
+variants.
+<p>
+What are the variants of new/delete? For each of the variants provide a
+(short!) example in which the used new/delete is appropriate and provide a
+short explanation why it is appropriately used.
+</p><p>
+<br><strong>Answer:</strong><br>
+    In the examples <code>string</code> is used as a data type. It can be any other
+        class type or any built-in type.
+</p><p>
+</p><ul>
+    <li> <code>string *sp = new string("hello world")</code> - allocates and initializes a
+        string, returning the address of the allocated string.  Appropriately
+        used in situations where you want to move around pointers rather than
+        (references to) objects. Doesn't happen that often.
+<p>
+</p></li><li> <code>string *sp = new string[size]</code> - allocates a series (<code>size</code>)
+        strings, returning the address of the first string.  Appropriately
+        used when arrays of values or objects are needed but the size of the
+        array isn't known compile-time.
+<p>
+</p></li><li> <code>void *vp = operator new(size)</code> - allocates raw memory. A <code>void *</code>
+        is returned, which can be static cast to a pointer to the data type
+        you actually want to use (e.g., string *sp = static_cast&lt;operator
+        new(size * sizeof(string))). Appropriately used in combination with
+        placement new, to pre-allocate the raw memory upon which placement new
+        should operate (e.g. <code>new (20 * sizeof(string))</code>).
+<p>
+</p></li><li> <code>string *sp = new(address) string("hello")</code> - (placement new)
+        initializes a string at <code>address</code>. The address of the initialized
+        string is returned.  Appropriately used in situations where large
+        chunks of memory (i.e., the memory's capacity) have been set aside for
+        later use, and part of it must be initialized with a new object.
+<p>
+</p></li><li> <code>string *sp = new(address) string[size]</code> - (placement new for arrays)
+        initializes <code>size strings</code> at <code>address</code>. The address of the
+        array's first element is returned.  Appropriately used in situations
+        where large chunks of memory (i.e., the memory's capacity) have been
+        set aside for later use, and part of it must be initialized with an
+        array of objects.
+    </li></ul>
+<p>
+With every <code>new</code> variant an appropriate use of <code>delete</code> is needed.
+        The examples below also illustrates their appropriate uses.  Following
+        the order used for the <code>new</code> variants, and using <code>sp</code> and <code>vp</code>
+        as defined, we have:
+</p><p>
+</p><ul>
+    <li> <code>delete sp</code> - deletes the memory previously allocated with <code>string
+        *sp = new string("hello world")</code>. 
+<p>
+</p></li><li> <code>delete[] sp</code> - deletes all <code>string</code> objects to where <code>sp</code> points,
+        and then deletes the dynamically allocated array previously containing
+        the <code>string</code> objects.
+<p>
+</p></li><li> <code>operator delete(vp)</code> - deletes the raw memory previously allocated by
+        <code>operator new</code>.
+<p>
+</p></li><li> For <code>sp = new (address) string[size]</code> no <code>delete</code> call is
+        needed. From the point of view of <code>sp</code> there is no dynamically
+        allocated memory. Only the strings must be destroyed, which is realized
+        by explicit destructor calls:
+            <pre>
+        for (string *last = sp + size; sp != last; ++sp)
+            last-&gt;~string();
+            
+</pre>
+
+        or, using indices:
+            <pre>
+        for (size_t idx = 0; idx != size; ++idx)
+            sp[idx].~string();
+            
+</pre>
+
+    </li></ul>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 43.</strong>
+        <br>
+        
+<p>
+Purpose: learn to implement destructors for classes requiring them.
+</p><p>
+Earlier, the class <code>Strings</code> was introduced. Since the class allocates its
+own memory its objects cause memory leaks once they go out of scope.
+</p><p>
+Prevent the  memory leak: objects going out of scope should always
+automatically delete all the memory they've allocated for themselves.
+</p><p>
+Note: this modification of the <code>Strings</code> class doesn't make it full-proof,
+yet. We'll handle that shortly.
+</p><p>
+Only submit the modified header file and the member(s) you added to
+<code>Strings</code> to ensure that a <code>Strings</code> object does not cause a memory leak
+when it goes out of scope.
+</p><p>
+<br><strong>Answer:</strong><br>
+</p><p>
+Here is the new class iterface and the implementation of its destructor:
+</p><p>
+</p><pre>#ifndef INCLUDED_STRINGS_
+#define INCLUDED_STRINGS_
+
+#include &lt;iosfwd&gt;
+
+class Strings
+{
+    size_t d_size = 0;
+    std::string *d_str = 0;
+
+    public:
+        Strings()   = default;
+
+        Strings(int argc, char **argv);
+        Strings(char **environLike);
+
+        ~Strings();
+
+        size_t size() const;
+        std::string const &amp;at(size_t idx) const;    // for const-objects
+        std::string &amp;at(size_t idx);                // for non-const objects
+
+        void add(std::string const &amp;next);          // add another element
+
+    private:
+        std::string &amp;safeAt(size_t idx) const;      // private backdoor
+        std::string *storageArea();
+        void destroy();                 
+};
+
+inline size_t Strings::size() const         // potentially dangerous practice:
+{                                           // inline accessors
+    return d_size;
+}
+
+inline std::string const &amp;Strings::at(size_t idx) const
+{
+    return safeAt(idx);
+}
+
+inline std::string &amp;Strings::at(size_t idx)
+{
+    return safeAt(idx);
+}
+
+        
+#endif
+
+</pre>
+
+<p>
+</p><pre>#include "strings.ih"
+
+Strings::~Strings()
+{
+    destroy();
+}
+</pre>
+
+<p>
+In this class the <code>destroy</code> function is somewhat over the top, but
+in other situations, where the class needs to renew more complex organized
+dynamic memory it is a useful member to implement:
+        </p><pre>#include "strings.ih"
+
+void Strings::destroy()
+{
+    delete[] d_str;
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 44.</strong>
+        <br>
+        Purpose: learn to use double pointers.
+<p>
+The class <code>Strings</code> clearly uses a highly inefficent algorithm for adding
+another string, as it has to copy its full data structure for every newly
+added string.
+</p><p>
+Can we do better? Yes. First of all, a double pointer only needs to extend the
+array of pointers. Existing strings, once allocated, can be reused. Second,
+the array of pointers doesn't have to be copied at every new string. The
+class could use a doubling rule: each time the array is full,
+allocate enough room to store twice the number of strings. 
+</p><p>
+When doubling, the additional pointers don't have to be initialized. We can
+postpone initialization until it's actually required. It's probably a good
+idea to make the initial capacity equal to 1, allowing you to implement a
+simple doubling algorithm. Alternatively, you could extend in fixed block
+sizes (e.g., allowing the object to store 100 additional strings).
+</p><p>
+Modify the existing class <code>Strings</code> so that a double pointer is used. The
+class now needs a third data member: <code>d_capacity</code>, informing the object
+about the number of pointers that are in fact available.
+</p><p>
+Make sure the destructor and <code>destroy</code> functions are modified accordingly.
+</p><p>
+The class should also be provided with <code>capacity</code>, <code>reserve</code> and
+<code>resize</code> facilities. These serve two distinct purposes. Take a look at the
+<code>std::string</code> class for an example, and copy the behaviour it exhibits.
+</p><p>
+When resizing to a larger amount of <code>std::string</code> objects
+the new <code>std::string</code> elements should be initialized using the default
+constructor. When resizing to a smaller amount, delete the strings
+affected by the resizing operation. When reserving to a smaller amount, do
+nothing, except maybe deleting the strings affected by the
+reserve-operation. The <code>d_capacity</code> member itself should not be affected.
+</p><p>
+In this exercise you may assume that enlarging the capacity is always
+possible, so no checks for legal capacity values are required.
+</p><p>
+Hint: define a support function <code>rawPointers</code> that is provided with the
+number of pointers to strings to allocate and that returns a pointer to that
+number of pointers to strings.
+</p><p>
+Submit the modified class <code>Strings</code>, using double pointers. 
+</p><p>
+Note that the <code>main</code> function used for the demo of the original
+<code>Strings</code> class can be reused without any modifications at all.
+</p><p>
+<br><strong>Answer:</strong><br>
+</p><p>
+Here is our implementation of the class <code>Strings</code>:
+    <a href="https://www.icce.rug.nl/edu/1/pointers2/answers/doubleptrs.tgz">pointers2/answers/doubleptrs.tgz</a>
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 45.</strong>
+        <br>
+        Purpose: learn to use the placement new operator.
+<p>
+The class <code>Strings</code> using a double pointer clearly offers an improvement
+over the basic form, allocating an array.
+</p><p>
+What about a third way to handle allocation? The <em>placement new</em> operator
+allows us to allocate blocks of (raw) memory, installing our data in it on
+request.
+</p><p>
+The class can still use a doubling rule: each time the array is full, 
+enough room is allocated to store twice the number of strings. This time, raw
+memory to allocate the strings in, not pointers to strings.
+</p><p>
+When doubling, the room for extra strings doesn't have to be initialized. We
+can postpone initialization until it's actually required. Again set the
+initial capacity equal to 1, allowing you to implement a simple doubling
+algorithm.
+</p><p>
+Modify the class <code>Strings</code> so that the placement new operator is used. All
+the previous class <code>Strings</code>' facilities (including those of the class using
+double pointers, so <code>capacity, reserve</code> and <code>resize</code> should still be
+available.
+</p><p>
+Make sure the destructor and <code>destroy</code> functions are modified accordingly.
+</p><p>
+Hint: define a support function <code>rawStrings</code> that is provided with the
+number of raw strings to allocate and that returns a pointer to that storage
+area.
+</p><p>
+<br><strong>Answer:</strong><br>
+</p><p>
+Here is my new implementation of the class <code>Strings</code>:
+    <a href="https://www.icce.rug.nl/edu/1/pointers2/answers/placement.tgz">pointers2/answers/placement.tgz</a>
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 46.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to select an efficient implementation
+<p>
+In the previous exercises the <code>Strings</code> class was implemented using double
+pointers and an implementation using placement new was developed. Together
+with the original implementation of the <code>Strings</code> class we now have three
+different implementations.  
+</p><p>
+Here is a <code>main</code> function that can be used to perform a `stress test' of 
+a <code>Strings</code> object:
+</p><p>
+</p><pre>
+    extern char **environ;
+    
+    int main()
+    {
+        for (size_t iter = 0; iter != 1000; ++iter)
+        {
+            Strings env(environ);
+    
+            for (size_t rept = 0; rept != 100; ++rept)
+            {
+                for (char **ptr = environ; *ptr; ++ptr)
+                    env.add(*ptr);
+            }
+        }
+    }
+        
+</pre>
+
+<p>
+Use this program in combination with each of the three <code>Strings</code>
+implementations (so you create three programs). Then start each of the
+programs as argument of the <strong>time</strong>(1) program (e.g., execute <code>time
+stresstest</code>) and decide which implementation to prefer
+based on the execution times. 
+</p><p>
+Submit the output of the <code>time</code> program for each of the three programs, and
+submit your conclusion about which implementation to prefer.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Somewhat to my surprise, my computer shows the smallest execution time for
+the program using the placement new operator.
+</p><p>
+My 2015 times for
+        </p><pre>
+    plain strings: 122.735u 0.072s 2:02.86 99.9%   0+0k 0+8io 0pf+0w
+    double ptrs:     1.012u 0.004s 0:01.01 100.0%  0+0k 0+0io 0pf+0w
+    placement new:   0.804u 0.008s 0:00.81 98.7%   0+0k 0+0io 0pf+0w
+        
+</pre>
+
+<p>
+Remarkably, the placement new operator is faster than the double pointer
+implementation: on my computer it requires 79.45 % of the double pointer
+program's time.  
+</p><p>
+By now I've another, somewhat faster, computer. It shows timings like
+</p><p>
+</p><pre>
+    plain strings:  takes too much time (approx. 8 minutes), aborted.
+
+    double ptrs:    0.580u 0.052s 0:00.63 100.0%    0+0k 0+0io 0pf+0w
+                    0.584u 0.052s 0:00.63 100.0%    0+0k 0+0io 0pf+0w
+                    0.592u 0.048s 0:00.64 98.4% 0+0k 0+0io 0pf+0w
+
+    placement new:  0.616u 0.060s 0:00.67 100.0%    0+0k 0+0io 0pf+0w
+                    0.568u 0.104s 0:00.67 98.5% 0+0k 0+0io 0pf+0w
+                    0.612u 0.068s 0:00.68 98.5% 0+0k 0+0io 0pf+0w
+        
+</pre>
+
+<p>
+I looks like the double pointer implementation by now is marginally faster
+than the placement new implementation. Your timings may of course vary.
+</p><p>
+The implementations of the  double pointer and placement
+new implementations are provided with exercises 47 and 48.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 47.</strong>
+        <br>
+        Purpose of this exercise: learn to convert a switch to using pointers to
+functions. 
+<p>
+In exercise 29 we developed the CPU class, simulating a basic CPU. In the
+implementation of that class several switches were used. Redesign the class in
+such a way that the switches are each replaced by a single expression
+statement (using pointers to functions). Submit the modified header and
+modified functions.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Three switches were used in the initial CPU program. To convert these to
+an implementation using pointers tp functions realize that all CPU objects use
+the same switches. So they can be defined as static data members.
+</p><p>
+Also, when using a switch to execute commands (like <code>mov, add,</code> etc.),
+let all of these members return <code>false</code>, and introduce a new member
+<code>stop</code>, returning <code>false</code>. This way you can use a simple <code>while</code>
+statements, that ends when <code>stop</code> is called. Here is the new header file:
+</p><p>
+</p><pre>    #ifndef INCLUDED_CPU_
+    #define INCLUDED_CPU_
+
+    #include "../tokenizer/tokenizer.h"
+
+    class Memory;
+
+    class CPU
+    {
+        enum 
+        {
+            NREGISTERS = 5,         // a..e at indices 0..4, respectively
+            LAST_REGISTER = NREGISTERS - 1
+        };
+
+        struct Operand
+        {
+            OperandType type;
+            int value;
+        };
+
+        Memory &amp;d_memory;
+        Tokenizer d_tokenizer;
+
+        int d_register[NREGISTERS];
+
+        static bool (CPU::*s_opcode[])();
+        static int (CPU::*s_dereference[])(int value) const;
+        static void (CPU::*s_store[])(int lhs, int rhs);
+
+        public:
+            CPU(Memory &amp;memory);
+            void start();
+
+        private:
+            bool error();           // show 'syntax error', and prepare for the 
+                                    // next input line
+                                    // return a value or a register's or 
+                                    // memory location's value
+            int dereference(Operand const &amp;value);
+
+            bool rvalue(Operand &amp;lhs);  // retrieve an rvalue operand
+            bool lvalue(Operand &amp;lhs);  // retrieve an lvalue operand
+
+                                    // determine 2 operands, lhs must be an lvalue
+            bool operands(Operand &amp;lhs, Operand &amp;rhs);
+
+            bool twoOperands(Operand &amp;lhs, int &amp;lhsValue, int &amp;rhsValue);
+
+                                    // store a value in register or memory
+            void store(Operand const &amp;lhs, int value);
+            bool mov();             // assign a value
+            bool add();             // add values
+            bool sub();             // subtract values
+            bool mul();             // multiply values
+            bool div();             // divide values (remainder: last reg.)
+                                    // div a b computes a /= b, last reg: %
+            bool neg();             // negate a value
+            bool dsp();             // display a value
+            bool stop();            // returns false
+
+            int immediateValue(int value) const;
+            int memoryValue(int value) const;
+            int registerValue(int value) const;
+
+            void memoryStore(int lhs, int rhs);
+            void registerStore(int lhs, int rhs);
+
+    };
+
+    #endif
+
+</pre>
+
+<p>
+The static arrays are defined in a separate data file (<code>data.cc</code>):
+    </p><pre>    #include "cpu.ih"
+
+    bool (CPU::*CPU::s_opcode[])() =
+    {
+        &amp;CPU::error,    // ERR
+        &amp;CPU::mov,      // MOV
+        &amp;CPU::add,      // ADD
+        &amp;CPU::sub,      // SUB
+        &amp;CPU::mul,      // MUL
+        &amp;CPU::div,      // DIV
+        &amp;CPU::neg,      // NEG
+        &amp;CPU::dsp,      // DSP
+        &amp;CPU::stop,     // STOP
+    };
+
+    int (CPU::*CPU::s_dereference[])(int value) const =
+    {
+        0,                      // SYNTAX (not used)
+        &amp;CPU::immediateValue,   // VALUE
+        &amp;CPU::registerValue,    // REGISTER
+        &amp;CPU::memoryValue,      // MEMORY
+    };
+
+    void (CPU::*CPU::s_store[])(int lhs, int rhs) =
+    {
+        0,                      // SYNTAX (not used)
+        0,                      // VALUE (not uses)
+        &amp;CPU::registerStore,    // REGISTER
+        &amp;CPU::memoryStore,      // MEMORY
+    };
+
+</pre>
+
+<p>
+The members using the arrays of pointers to functions are:
+    </p><pre>#include "cpu.ih"
+
+void CPU::store(Operand const &amp;lhs, int value)
+{
+    (this-&gt;*s_store[static_cast&lt;int&gt;(lhs.type)])(lhs.value, value);
+}
+</pre>
+
+<p>
+</p><pre>#include "cpu.ih"
+
+int CPU::dereference(Operand const &amp;value)
+{
+    return (this-&gt;*s_dereference[static_cast&lt;int&gt;(value.type)])(value.value);
+}
+</pre>
+
+<p>
+</p><pre>#include "cpu.ih"
+
+void CPU::start()
+{
+    while ((this-&gt;*s_opcode[ static_cast&lt;int&gt;(d_tokenizer.opcode()) ])())
+        d_tokenizer.reset();
+}
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 48.</strong>
+        <br>
+        Purpose of this exercise: learn to design and implement a non-trivial class
+<p>
+In this exercise you learn to design and implement the class <code>CSV</code>, handling
+comma separated values (CSVs). Although the full specification of CSVs is
+found in <a href="https://www.ietf.org/rfc/rfc4180.txt">RFC 4180 (section 2)</a>, in
+this exercise we'll implement only the basics of CSVs.
+</p><p>
+According to RFC 4180 lines contain comma separated values: comma separated
+values on one line are processed together, as a series of values. The final
+comma separated value on a line is not ended by a comma.
+</p><p>
+You may assume that the individual CSVs do not contain
+commas, do not extend over multiple lines, and are not surrounded by double
+quotes. Although this differs from the official specification, it's considered
+acceptable in the current context. But comma separated values may be
+empty: the following line defines three empty comma separated values:
+        </p><pre>
+,,
+        
+</pre>
+
+    The first empty value starts at the beginning of the line, and continues
+up to the first comma; the second empty value starts beyond the first comma
+and continues up to the second comma; the third empty value starts beyond the
+second comma, and continues up to the end of the line. If the line ends in
+blank space characters then the third value isn't empty, but contains those
+blank space characters.
+<p>
+Of course, there's always a situation where the separator isn't a comma, but
+e.g., a semicolon. For that the constructor has a 2nd parameter <code>fieldSep</code>
+which by default equals <code>','</code>. Its 1st parameter is <code>field</code>, by default 0,
+specifying the number of CSVs on a line. If 0 then the number of CSVs on the 
+first line determines the number of fields.
+</p><p>
+The class supports the following members:
+    </p><ul>
+    <li> <code>void clear(size_t nFields = 0)</code>
+       The internally stored data are erased. By default, the required number
+        of CSV fields is reset to 0, but can be set to a specific value by
+        specifying a value for its <code>nFields</code> parameter.
+<p>
+</p></li><li> <code>std::string const *const *const *data()</code>
+       A pointer to the lines of CSVs is returned. Each line is stored as an
+        array of pointers to the strings containing the actual CSVs. Each of
+        these arrays holds the same number of pointers to strings (see the
+        members <code>nFields</code> and <code>size</code> below). Note that a <em>triple</em>
+        pointer is returned. To access an individual CSV use the requested
+        line index, then the requested field index. Then dereference that
+        pointer to obtain the CSV.
+<p>
+</p></li><li> <code>std::string const &amp;lastLine()</code>
+       A reference to the last line that was successfully extracted from the
+        input stream by the <code>read1</code> member is returned. So once the lines
+        containing the comma separated values have been processed, the next
+        line on the input stream is obtained from this member.
+<p>
+</p></li><li> <code>size_t nFields()</code>
+       After successfully calling <code>read1</code> for the first time this member
+        returns the required number of comma separated values that must be
+        encountered on subsequent input lines.
+<p>
+</p></li><li> <code>size_t read(std::istream &amp;in, size_t nLines = 0)</code>
+       By default, all lines of <code>in</code> are read and are processed by the
+        <code>read1</code> member. By specifying a non-zero value for the <code>nLines</code>
+        parameter the specified number of lines is read from <code>in</code>.  Reading
+        stops once <code>in's</code> status is not <code>good</code>. When <code>nLines</code> is
+        specified as zero, then reading continues until all CSV lines have
+        been processed. The number of successfully processed lines is
+        returned.
+<p>
+</p></li><li> <code>bool read1(std::istream &amp;in)</code>
+       One line is read from <code>in</code> and is parsed for its CSVs. If parsing
+        fails, <code>false</code> is returned. After successfully calling
+        <code>read1</code> for the first time all subsequent lines read by <code>read1</code>
+        must have the same number of comma separated values as encountered
+        when calling <code>read1</code> for the first time..
+<p>
+</p></li><li> <code>std::string ***release()</code>
+       A pointer to the lines of CSVs is returned. See the member <code>data</code> for
+        details about the returned triple pointer. After calling <code>release</code> 
+        the internally stored triple pointer has been reset to its initial
+        value.  Note that this member does not reset the
+        number of expected fields for subsequently processed CSV-lines. If
+        that's what you want, call <code>clear</code> after calling <code>release</code>.
+<p>
+</p></li><li> <code>size_t size()</code>
+       The number of CSV lines that's currently stored in the CSV object is
+        returned. 
+    </li></ul>
+<p>
+Note that in the overview of member functions <code>const</code> attributes have
+not been used: it's up to you to determine which members should be
+const. 
+</p><p>
+Hints: 
+    </p><ul>
+    <li> use an initial capacity of 1, and double the number of elements that
+can be stored once the capacity is exhausted. Since in general you're going to
+allocate memory to represent multiple lines of CSVs, realize that the initial
+capacity's memory must also refer to an array, and not merely to a single
+pointer.
+<p>
+</p></li><li> to transfer a block of memory the function <strong>memcpy</strong>(3) may be
+used. Be sure to multiply the number of elements by their size.
+<p>
+</p></li><li> of course, once the first line of CSVs has been read or when
+<code>nFields</code> has been specified, the number of fields is known, and the
+required memory for subsequent lines of CSVs can thereupon immediately be
+allocated. A similar consideration applies to the number of lines.
+<p>
+</p></li><li> at CSV's level of specification the CSVs themselves should not be
+handled: handling the CSVs themselves is at another level of aggregation than
+what's expected of the class CSV. Therefore, retrieving individual CSV values
+is embedded in a separate class (<code>CSVextractor</code>), which is then used by the
+class CSV (also see the next exercises).
+    </li></ul>
+<p>
+Design and submit the class CSV's interface, and submit a drawing clearly
+showing how the CSVs are reached using <code>data()'s</code> return value.
+</p><p>
+<br><strong>Answer:</strong><br>
+    The sources of our implementation (including the sources of the next three
+optional exercises) are found in <a href="https://www.icce.rug.nl/edu/1/pointers2/answers/csv.tgz">this archive</a>.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 49.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to implement a non-trivial class
+<p>
+(See the CSV exercise) Implement the members of the class CSV.
+</p><p>
+At this point, based on the description of the class CSV, you know that
+handling the CSV fields is the responsibility of the class CSVextractor. When
+implementing CSV, avoid thinking about how CSVextractor should be
+implemented. Rather, when you need to process a line's CSV fields, assume a
+matching member exists, and call that member in your CSV implementation.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 50.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to design a support class
+<p>
+(See the CSV exercise) Design and implement the class CSVextractor. 
+</p><p>
+This is a support class for CSV, and so its public members are used by
+CSV. Those members should have names that are comparable to the names used by
+CSV. Avoid big functions: always ask yourself what a function's purpose is,
+and then implement that in such a way that the function's implementation
+closely follows its semantic description.
+</p><p>
+Submit the class's interface and implementation.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 51.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to use a non-trivial class
+<p>
+Implement a <code>main</code> function in which <code>cin</code> is read, all CSV
+values of all lines are shown, prefixed by their line and CSV indices, and
+finally showing the first line that didn't contain the required number of
+CSVs.
+</p><p>
+Your test-input should also contain some empty CSV fields.
+</p><p>
+When designing a class a small <em>driver</em> program can (should) be constructed
+showing that all members of your class are correctly working. For this
+exercise also design and submit a driver program for the class
+<code>CSVextractor</code>. 
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven05.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven07.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

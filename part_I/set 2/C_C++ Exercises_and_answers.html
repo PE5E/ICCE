@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven01.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven03.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l2"></a>
+<h1>Chapter 2: Set two: Flow Control. Deadline: September 28</h1>
+            <br><br>
+<p>
+General Advice: Various <em>standard C/C++</em>  functions exist that may be used
+when solving exercises.
+</p><p>
+For such (standard) functions, the following simple rules apply:
+    </p><ul>
+    <li> If an exercise explicitly tells you to use a particular function,
+that function must (of course) be used to complete the exercise.
+    </li><li> For several tasks standard functions are available. Starting next
+week we'll be able to define our own functions. However, when standard
+functions exist you should <em>not</em> develop a comparable function
+yourself. Don't reinvent the wheel. Visit our <a href="https://www.icce.rug.nl/edu/1/manpages">manpages</a> overview for an
+overview and description of functions that are useful for this course (now or
+at some future moment in time).
+    </li></ul>
+<p>
+Some suggestions:
+    </p><ul>
+    <li> String-operations should be performed using <code>std::string</code>
+objects; 
+<p>
+<em>Caveat:</em> in the Annotations (&lt;= 10.8.1) one string-object constructor is
+currently not mentioned:
+        </p><pre>
+string(std::initializer_list&lt;char&gt; chars);
+        
+</pre>
+
+    This constructor allows you to define a string object by specifying its
+(separate) characters, like <code>string hi{ 'h', 'i' };</code>. However, there's also
+a constructor <code>string(size_t count, char ch)</code>, constructing a string object
+consisting of <code>count ch</code> characters. Be careful <em>not</em> to use the curly
+braces constructor when you intend to use this latter constructor, as the
+compiler will use the <code>initializer_list</code> constructor instead. So:
+        <pre>
+    string oops{ 1, 'x' };  // ERROR: defines oops as a string having 2 chars: 
+                            // ascii 1 and 'x'
+
+    string ok(1, 'x');      // OK: ok is a string having 1 character: 'x'
+        
+</pre>
+
+<p>
+</p></li><li> Functions whose names start with <em>is...()</em>, should be used to find
+the category a certain character value belongs to. E.g., letters, digits,
+punctuation marks, white space;
+<p>
+</p></li><li> For <em>input and output</em> <code>iostream</code> objects must be used. For
+now, use <code>cin</code> for input, and <code>cout</code> for output. Do <em>not</em> use the
+<strong>C</strong>-functions <code>printf, scanf</code> or their relatives.
+    </li></ul>
+<p>
+To find out which (standard) functions exist, consult books, or use
+on-line manuals. On <em>Unix</em> systems you can use the man-pages or the
+info-reader. Other systems offer comparable documentation sources. Many
+man-pages are available at the course's restricted section: <a href="https://www.icce.rug.nl/edu/1/manpages">manpages</a>. If
+a function is not mentioned there, it's unlikely that you need it for this
+course.
+</p><p>
+Experience shows that all reference information is already available on
+your computer; buying reference books therefore is something of the past.
+Very good references can also be found on-line (e.g.,
+<a href="http://en.cppreference.com/w/">cppreference</a>). Sooner or later you 
+develop a mental picture of available functions, and you only occasionally
+have to refer to their man-pages.
+</p><p>
+Be careful that you're not developing a brain-dead searching habit. Don't
+go to these references before you've studied the subject matter. <em>First</em>
+study the Annotations, <em>then</em> resort to references, if necessary.
+</p><p>
+The more up-to-date your mental picture is, the better and faster you can
+develop programs, as you will be able to use existing software, developed and
+debugged by others (be)for(e) you.  This philosophy is present in <strong>C++</strong> even
+stronger than in <strong>C</strong>, so get used to it quickly.
+</p><p>
+</p><ul>
+    <li> In programs developed during this part of the course, erroneous
+<em>input</em> need not be considered, unless the exercise explicitly asks you to
+do so. So, if a program expects a number, your code does not have to <em>check</em>
+for numeric input.
+<p>
+We know the position we take here is dangerous, as <em>many</em> sources of
+errors in programs result from unchecked input and arguments. Although
+programs <em>should</em> rigorously check their input, doing so in the
+realm of our exercises often hides the actual purpose of the exercises.  Hence
+we ordinarily do without, knowing that error handling will be covered later
+in this course.
+</p><p>
+</p></li><li> Programs needed to solve the exercises are usually fairly small. If
+you think a lot of code is required to solve a particular exercise, <em>think
+again</em>: you're probably doing something wrong.
+<p>
+</p></li><li> When writing programs reading text files you may assume that the last
+line is properly terminated by a newline character, unless explicitly
+indicated otherwise.
+<p>
+</p></li><li> Often we use objects from the so-called standard namespace (e.g.,
+<code>std::cout</code>, <code>std::string</code>). If your source files contain a line
+        <pre>
+    using namespace std;
+        
+</pre>
+
+    just before the actual source code starts, then the <code>std::</code> prefixes may
+be <em>omitted</em> when referring to entities from that namespace. 
+    </li></ul>
+<p>
+</p><hr>
+        <strong>Exercise 10.</strong>
+        <br>
+        Purpose of this exercise: create a program producing a multiplication table
+<p>
+Remember primary school? You had to learn by heart the multiplication
+tables. In this little program we're going to do that again, but diffeently.
+</p><p>
+Design a program that is called from the command-line with one argument: a
+numeric positive integral value for which the program should display the
+multiplication table. 
+</p><p>
+You may assume that the argument that's passed to the program is indeed a
+positive integral value.
+</p><p>
+For example, starting the program as <code>a.out 7</code> must produce:
+    </p><pre>
+    1 * 7 = 7
+    2 * 7 = 14
+    3 * 7 = 21
+    4 * 7 = 28
+    5 * 7 = 35
+    6 * 7 = 42
+    7 * 7 = 49
+    8 * 7 = 56
+    9 * 7 = 63
+    10 * 7 = 70
+    
+</pre>
+
+<p>
+Hints: make sure you localize. Also, avoid IRE.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Notes:
+    </p><ul>
+    <li> The <code>stoul</code> function (see the <code>Strings</code> chapter in the
+Annotations) is used to convert a textual representation of the table's factor
+to a numeric value.
+    </li><li> An (almost) canonical <code>for</code> statmement is used. The <code>for</code> stmnt
+should be used since the number of iterations is known, but multiplication
+tables use natural numbers, rather than indices, so the increment part is done
+at the beginning, and not in the standard inc-section at the end.
+    </li></ul>
+    <pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+        // in general, prefer the canonical form. In this case, 
+        // add 1 to indices (0 to 10) to modify the canonical form so it
+        // iterates from 0 + 1 to 10 + 1, because multiplication tables are
+        // commonly using the world of numbers.
+
+                                   // using the canonical form for numbers
+    for (size_t factor = 1, value = stoul(argv[1]); factor != 11; ++factor)
+        cout &lt;&lt; factor &lt;&lt; " * " &lt;&lt; value &lt;&lt; " = " &lt;&lt; factor * value &lt;&lt; '\n';
+}
+
+            
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 11.</strong>
+        <br>
+        Purpose of this exercise: learn to apply a standard type in a non-standard
+way.
+<p>
+Design a program showing all combinations of all the program's command
+line arguments (not using the program name itself). Each combination should be
+displayed on a numbered line. The first line should be empty (none of the
+arguments are shown), the last one should show all the program's arguments.
+</p><p>
+Hints: 
+    </p><ul>
+    <li> this exercise is extremely simple: think about how values are stored
+        in the bits of an integral-typed variable like an <code>int</code>.
+    </li><li> Localize as much as possible.
+    </li><li> Be aware of IRE!
+    </li><li> In case you're tempted: floating point values are nowhere necessary.
+    </li><li> A bit premature: to skip the program name do <code>++argv</code>
+            as 1st statement in <code>main</code>.
+    </li></ul>
+<p>
+Example:
+        </p><pre>
+    a.out if then else
+    1: 
+    2: if 
+    3: then 
+    4: if then 
+    5: else 
+    6: if else 
+    7: then else 
+    8: if then else 
+        
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+        </p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    ++argv;                             // skip the program name
+    
+    for 
+    (
+        size_t combination = 0,         // first combination: nothing
+               nArgs = argc - 1,        // correction for the progname/int
+               max = 1 &lt;&lt; nArgs;        // number of combinations
+
+            combination &lt; max;          // terminating condition
+
+                ++combination           // next combination
+    )
+    {
+        cout &lt;&lt; (combination + 1) &lt;&lt; ": ";  // display a line number
+
+                                            // visit all arguments
+        for (size_t index = 0; index &lt; nArgs; ++index)
+        {
+                                            // is bit `index - 1' set ?
+            if (combination &amp; 1 &lt;&lt; index)  
+                cout &lt;&lt; argv[index] &lt;&lt; ' '; // then display the argument
+        }
+
+        cout &lt;&lt; '\n';                       // terminate the line
+    }
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 12.</strong>
+        <br>
+        Purpose of this exercise: learn to design an interactive program.
+<p>
+Below high-level languages the world of assembly language is encountered. What
+does an assembly language look like? 
+</p><p>
+One essential element is that all instructions are very simple, like <code>mul x,
+y</code> to multiply two values together, but not <code>stoul(text)</code> to convert a piece
+of text to a number.
+</p><p>
+In this program we develop an extremely basic interactive program, somewhat
+mimicking assembly language. Its instructions are:
+        </p><pre>
+    sto x       -- save (store) the value x in the program's variable
+                    (there is only one variable, initially 0)
+    add x       -- add x to the program's variable
+    sub x       -- subtract x from the program's variable
+    mul x       -- multiply the program's variable by x
+    div x       -- divide the program's variable by x
+    ret         -- return: end the program
+        
+</pre>
+
+    All values are integral numbers (no need to test for this), but division
+by 0 must be prevented, so 'div' must inspect x's value before the division is
+performed. If <code>x == 0</code> then an error message must be issued, after which the
+program continues. On the other hand, the program must check whether the
+received instruction is a known instruction. A command like
+        <pre>
+    store 5
+        
+</pre>
+
+    therefore must be recognized as an unknown instruction, and the program
+should display
+        <pre>
+    No instruction `store'
+        
+</pre>
+
+    followed by the next prompt.
+<p>
+After each successful step the latest value of the variable is displayed.
+A prompt (<code>&gt;</code>) is displayed when the program is ready to accept input
+(empty lines are OK, but do not result in new prompts). 
+</p><p>
+Hints:
+    </p><ul>
+    <li> This is an interactive program, and so a <code>while</code> might be the
+        indicated repetition statement;
+    </li><li> Because there are alternatives based on the same variable
+        (expression), use a switch, rather than an if-else ladder to find
+        which instruction is requested;
+    </li><li> `Turn things around': if you decide at the top of the <code>while</code>,
+        rather than at the end of the <code>switch</code>, what you should do, your
+        program becomes smaller resulting in a flow that's easy to grasp;
+    </li><li> Mind the layout, and use (semantic) end-of-line comment to briefly
+        indicate what the purpose of core statements are. Do not hesitate to
+        insert empty lines to separate semantically different parts of your
+        program.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// see below for an alternative approach
+
+using namespace std;
+
+int main()
+{
+                            // the next variables are needed at the top of 
+                            // the switch, but are modified hereafter.
+                            // therefore they are not be further localized.
+    string instruction;
+    int variable = 0;       // the variable must be outside of the 'while'
+                            // stmnt, since it's used again and again.
+
+    string mnemonics{"add mul div sto sub"};
+
+    while (true)            // interactive programs don't know how
+    {                       // many lines to process, so use 'while'
+        cout &lt;&lt; "&gt; ";           // prompt
+
+        cin &gt;&gt; instruction;         // get the next instruction
+
+        if (instruction == "ret")   // end at 'ret'
+            return 0;
+
+            // only accept instructions with defined mnemonics
+        if (
+            mnemonics.find(instruction) == string::npos // not found
+            ||  
+            instruction.length() != 3                   // or wrong size
+        )
+        {
+            cout &lt;&lt; "No instruction `" &lt;&lt; instruction &lt;&lt; "'\n";
+            getline(cin, instruction);                  // skip remainder
+                                                        // of the input line
+            continue;
+        }
+
+            // all instructions but 'ret' require arguments. Use that to
+            // obtain the argument before processing the instruction
+
+        int arg;
+        cin &gt;&gt; arg;
+
+            // inspect the instruction's last char. to select the 
+            // requested operation
+        switch (instruction.back())
+        {
+            case 't':               // ret
+            return 0;               // done
+
+            case 'o':               // sto
+                variable = arg;
+            break;                  // break takes us to displaying the   
+                                    // result so far
+
+            case 'd':               // add
+                variable += arg;
+            break;
+
+            case 'b':               // sub
+                variable -= arg;
+            break;
+
+            case 'l':               // mul
+                variable *= arg;
+            break;
+
+            case 'v':               // div
+                if (arg != 0)
+                {
+                    variable /= arg;
+                    break;
+                }
+                cout &lt;&lt; "division by 0 not defined\n";
+            continue;               // continue belongs to the while: back to
+                                    // the top of the while-loop
+        }
+        cout &lt;&lt; "   " &lt;&lt; variable &lt;&lt; '\n';
+    }
+}
+
+/*
+    One of the solutions we received didn't have to check for the correct
+    instruction size, and didn't have to inspect the 3rd character: it 
+    would also work with commands that aren't unique in their third letters.
+
+    Approach: separately compute the base 36 values of the commands. For this
+    you can use, e.g., stoul("sto", 0, 36) when computing the base 36 value of
+    the command "sto". 
+
+    These values can be collected in an enum, like so:
+
+    enum
+    {
+        ADD = 13441,        // base 36 value of "add"
+        ...
+        STO = 37356,        // base 36 value of "sto"
+    };
+
+
+    Then extract the command and compute its base 36 value to determine what
+    to do. E.g.,
+
+    cin &gt;&gt; instruction;
+
+    if (instruction == "ret")
+        return 0;
+
+    // get the argument
+
+    switch (stoul(instruction, 0, 36))
+    {
+        case ADD:
+            ...
+        break;
+
+        ...
+
+        default:
+            cout &lt;&lt; "Instruction " &lt;&lt; instruction &lt;&lt; " not supported\n";
+        break;
+    }
+
+
+    Beautiful!!
+        
+*/
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 13.</strong>
+        <br>
+            Purpose of this exercise: contrast a correct way to read a file with an
+incorrect way.
+<p>
+Create a simple program displaying the number of lines it reads from its
+standard input. If the command-line argument <code>ok</code> is provided it should use
+the correct (standard) form for reading files. 
+</p><p>
+If the command line argument <code>ok</code> is not provided, it should prematurely
+test whether lines were successfully read (consequently, it will print a
+value which is one too large). 
+</p><p>
+The program can easily be tested by entering a couple of lines using your
+keyboard, terminating the input using ctrl-D.
+</p><p>
+Note: the correct form <em>must</em> use an eternal loop, the incorrect form
+<em>must</em> use a form in which <code>EOF</code> is tested before (instead of after)
+reading the file.
+</p><p>
+<br><strong>Answer:</strong><br></p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    unsigned count = 0;
+
+    string line;
+    if (argc &gt; 1 &amp;&amp; string(argv[1]) == "ok")
+    {
+        while (true)
+        {
+            getline(cin, line);
+            if (not cin)
+                break;
+            ++count;
+        }
+    }
+    else
+    {
+        while (cin)
+        {
+            getline(cin, line);
+            ++count;
+        }
+    }            
+    cout &lt;&lt; "Number of lines: " &lt;&lt; count &lt;&lt; '\n';
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 14.</strong>
+        <br>
+        Purpose of this exercise: introduce and learn to write a simple filter.
+<p>
+A <em>filter</em> is a program reading its information from the standard input,
+writing its output to the standard output. Many filters exist, e.g.,
+<strong>sed</strong>(1), <strong>cat</strong>(1), <strong>(g)awk</strong>(1), <strong>gpg</strong>(1), to name a few.
+</p><p>
+In this exercise develop a filter that removes empty lines existing at the
+beginning of <code>cin</code> and at the end of <code>cin</code>. A line is not empty if it
+contains at least one non-blank character.  If an empty line contains blank
+characters then those characters can be ignored when writing that empty line
+to the standard output stream.
+</p><p>
+The venom of this exercise is (literally) in its tail: how do you know whether
+a bunch of empty lines are indeed at the end? 
+</p><p>
+Caveats: we <em>haven't</em> covered arrays of undetermined sizes yet, so you can't
+store lines in an array, and you're <em>not</em> supposed to adopt the
+Perl approach, where you first read in the full file, and then process
+what you've got. Using a <code>std::string</code> variable is OK, but that variable may
+never contain more than one line read from the standard input.
+</p><p>
+<br><strong>Answer:</strong><br>
+    The key to the solution is to count: when encountering empty lines, count
+them. If a non-empty line appears thereafter, simply print `<code>nEmpty</code>' empty
+lines first, and reset <code>nEmpty</code> to 0.
+</p><p>
+</p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main()
+{
+    string line;
+
+    while (true)        // find the first non-empty line
+    {
+        if (!getline(cin, line))
+            return 0;   // All lines were empty
+			
+        if (line.find_first_not_of(" \t") != string::npos)  // non-empty line
+            break;
+    }
+    cout &lt;&lt; line &lt;&lt; '\n';               // display the 1st non-empty line
+
+
+    size_t nEmpty = 0;                  // empty line counter
+
+    while (getline(cin, line))          // process the rest of the file
+    {
+                                        // count empty lines
+        if (line.find_first_not_of(" \t") == string::npos)  
+        {
+            ++nEmpty;
+            continue;
+        }
+
+            // display the waiting line, preceded by the required # of empty 
+            // lines (a for-loop to print the empty lines isn't necessary, 
+            // but is accepted)
+        cout &lt;&lt; string(nEmpty, '\n') &lt;&lt; line &lt;&lt; '\n';
+
+        nEmpty = 0;                     // reset the empty line counter
+    }
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 15.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to think about inserting values
+<p>
+It looks so easy: inserting a value into <code>cout</code> using the octal, decimal or
+hexadecimal number system. But can you do it yourself?
+</p><p>
+This exercise focueses on inserting numbers in a certain number system.
+</p><p>
+Number systems beyond 9 use letters for representing values. Let's allow all
+number systems from binary to a number system using base (radix) 36: 10 digits
+plus 26 (lower case) letters.
+</p><p>
+Write a program that expects two (decimal) numbers on the command line. The
+first one is the radix used for displaying the second number.
+</p><p>
+Examples:
+        </p><pre>
+    $ number 5 34
+    34, displayed using radix 5 is: 114
+    $ number 21 34
+    34, displayed using radix 21 is: 1d
+    $ number 16 57005
+    57005, displayed using radix 16 is: dead
+    $ number 30 0
+    0, displayed using radix 30 is: 0
+        
+</pre>
+
+<p>
+Hints and caveats:
+    </p><ul>
+    <li> For those who have previous programming experience: no functions!
+    </li><li> To determine the <em>last</em> digit of a <code>value</code> in a number system
+        using <code>radix</code> compute <code>value % radix</code>. The last but one digit uses
+        the same computation, but then on the value <code>value / radix</code>.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    Here is our program:
+        </p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    string accumulate;                      // stores the converted number
+    
+    size_t radix = stoul(argv[1]);          // get the radix and the value
+    size_t value = stoul(argv[2]);          // to display in that radix
+    do
+    {
+        size_t ch = value % radix;          // get the last digit
+        value /= radix;                     // cut off the last digit
+
+        ch += ch &lt; 10 ? '0' : 'a' - 10;     // convert ch to a
+                                            // char-representation 
+
+        accumulate.insert(0, 1, ch);        // insert the digit before other
+                                            // digit 
+    }
+    while (value);                          // done when value has decayed to 
+                                            // 0
+
+    cout &lt;&lt; argv[2] &lt;&lt; ", displayed using radix " &lt;&lt; argv[1] &lt;&lt; " is: " &lt;&lt; 
+            accumulate &lt;&lt; '\n';
+}
+
+
+
+
+
+
+</pre>
+
+<p>
+Note that this is also an interesting case where a <em>do-while</em> loop
+should be used, as the loop must at least be executed once.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 16.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to implement a well-known utility program
+<p>
+The program <strong>wc</strong>(1) is a well-known utility counting bytes, words or lines
+in a file.
+</p><p>
+In this exercise you're developing your own verion of <code>wc</code>. Your program
+reads its standard input stream (<code>std::cin</code>) and depending on its
+command-line argument it 
+    </p><ul>
+    <li> displays the number of bytes in cin if the argument starts with 'b';
+    </li><li> displays the number of words in cin if the argument starts with 'w';
+    </li><li> displays the number of lines in cin if the argument starts with 'l';
+    </li><li> displays an error message if the argument starts with another
+        character. You may assume that at least 1 argument was provided.
+    </li></ul>
+<p>
+Counting the number of bytes is easy. Use <code>cin.get()</code> (see the Annotations,
+chapter 6, for a description of this function).
+</p><p>
+Counting words is a bit more complicated. Fortunately, extracting <code>string</code>
+objects from <code>cin</code> does the job.
+</p><p>
+Counting lines also isn't trivial. For now, the function <code>getline</code> returns
+<code>true</code> unless there's no info on <code>cin</code> available anymore. When returning
+<code>true</code> <code>cin.eof()</code> may be inspected to see if a trailing newline character
+was actually encountered.
+</p><p>
+</p><ul>
+    <li> Implement your <code>wc</code> program. Let it operate on itself, and show
+that your program and the existing <strong>wc</strong>(1) program produce identical
+outputs. Submit your program and this output.
+    </li><li> CAVEAT: If you do <code>echo -n 'hello world' | wc -l</code> the standard
+<code>wc</code> program (and <em>your</em> program!) returns 0. Explain.
+    </li></ul>
+    Example: our program (and <strong>wc</strong>(1) shows the following output:
+    <pre>
+    a.out b &lt; wc.cc ; wc -c &lt; wc.cc
+    991 bytes
+    991
+    
+    a.out w &lt; wc.cc ; wc -w &lt; wc.cc
+    112 words
+    112
+        
+    a.out l &lt; wc.cc ; wc -l &lt; wc.cc
+    47 lines
+    47
+    
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+    <code>echo -n 'hello world' | wc -l</code> returns 0 because there's no newline
+character trailing the input line. But some info was available, so <code>true</code> is
+returned.  But then <code>cin.eof()</code> also returns <code>true</code>, ending the
+line-counting. 
+</p><p>
+</p><pre>#include &lt;iostream&gt;
+#include &lt;cctype&gt;
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    size_t count = 0;               // used below
+    int mode = argv[1][0];
+
+    string item;                    // lines or words
+
+    switch (mode)
+    {
+        case 'b':
+            while (cin.get() != EOF)    // read the chars
+                ++count;
+        break;
+        
+        case 'l':
+            while (getline(cin, item))  // read the lines
+                count += cin.good();
+        break;
+            
+        case 'w':
+            while (cin &gt;&gt; item)         // read blank-separated words
+                ++count;
+        break;
+
+        default:
+            cout &lt;&lt; "mode `" &lt;&lt; argv[1] &lt;&lt; "' not implemented\n";
+        return 1;
+    }
+
+    cout &lt;&lt; count &lt;&lt; ' ' &lt;&lt;             // final result
+            (
+                mode == 'b' ? "bytes" :
+                mode == 'l' ? "lines" :
+                              "words"
+            ) &lt;&lt; '\n';
+}
+                
+
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 17.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: think about flow control issues
+<p>
+Consider the following piece of code (the function <code>swap</code> swaps the contents
+of its two character-variable arguments, the function <code>capitalize</code>
+capitalizes the NTBS it receives as its argument). It may be assumed
+that these functions always properly do their work, and that all required
+declarations and headers were properly provided.
+</p><p>
+</p><pre>
+    int main(int argc, char *argv[])
+    {
+        int nr;
+        int idx;
+        bool next;
+        string reverse;
+
+        cout &lt;&lt; argv[0] &lt;&lt; "'s arguments:\n";
+    
+        for (idx = 0; idx &lt; argc; ++idx)
+            cout &lt;&lt; argv[idx] &lt;&lt; endl;
+
+        do
+        {
+            cout &lt;&lt; "Enter the number of a command line argument to "
+                    "capitalize (or -1 to quit) ";
+            cin &gt;&gt; nr;
+            if (nr == -1)
+                next = false;
+            else
+                capitalize(argv[nr]);
+        }
+        while (next);
+
+        reverse = argv[0];
+
+        for (int idx = 0; idx &lt; reverse.length() / 2; ++idx)
+            swap(reverse[idx], reverse[reverse.length() - 1 - idx]);
+
+        cout &lt;&lt; reverse &lt;&lt; endl;
+    }
+        
+</pre>
+
+<p>
+Answer the following questions (<em>be concise</em>, but always motivate your
+answers):
+    </p><ul>
+    <li> Considering the source text, what do you think the author of the
+program had in mind when he/she wrote the program?
+    </li><li> What is your opinion of the shown program? 
+    </li><li> Do you see ways to improve it? Be specific, and provide the improved
+code. 
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    </p><ul>
+    <li> Considering the source text, what do you think the author of the
+program had in mind when he/she wrote the program?
+<p>
+Apparently the program should allow the user to capitalize some of the
+command line arguments, followed by a reversed display of the program's
+name. Initially the program displays the program's name and (supposedly) the
+program's arguments.
+</p><p>
+</p></li><li> What is your opinion of the shown program? 
+<p>
+The program doesn't necessarily do what it advertises. Initially the
+program's name is shown, followed by -again- the program's name, although the
+suggestion is given that the program's actual <em>arguments</em> are
+displayed. Assuming that the program has arguments. But it might as wel have
+none, in which case the line about the program's arguments comes out a bit
+silly. A `command line argument' is somewhat ambiguous. Literally it means the
+program's name as well as its arguments, and it is not clear what's the
+intention here. Rather remarkably, the program doesn't seem to do anything
+useful with the the capitalized arguments as only the (revered) program name
+itself is displayed.
+</p><p>
+</p></li><li> Do you see ways to improve it? Be specific.
+<p>
+</p><ul>
+    <li> The variables can be localized. <code>nr</code> is used only on the do-loop;
+<code>idx</code> should be defined as a loop control variable in the first <code>for</code>
+statement; <code>next</code> could be omitted altogether by rewriting the do-loop, but
+if used it has an initially undefined value;
+<code>reverse</code> is only used at the end and should be defined where it gets it
+<code>argv[0]</code> value.
+    </li><li> The types of the <code>for</code>-loop control variables should be <code>size_t</code>
+as their values are never negative.
+    </li><li> Since the program supposedly does something with arguments, consider
+ending it when no arguments are provided
+    </li><li> The <code>for</code> statements should use their canonical forms. 
+    </li><li> In the do-loop <code>nr</code>'s value isn't checked. An array bound excess
+may be the result. 
+    </li><li> The do-loop's flow should be reconsidered. <code>Next</code> is SF, and the
+loop could better be written as a endless <code>while</code>:
+        <pre>
+    while (true)
+    {
+        ...
+        if (nr == -1)
+            break;
+        ...
+    }
+        
+</pre>
+
+    </li><li> the second <code>for</code> statement repeatedly computes <code>reverse.length()
+/ 2</code> although this never changes. Compute it once in the initialization phase
+of the <code>for</code> stmnt. The same holds true for the computation of
+<code>reverse.length() - 1</code>. 
+    </li><li> However, it's silly to use <code>swap</code>. Here are two alternatives:
+        <pre>
+    for (
+        auto begin = reverse.rbegin(), end = reverse.rend(); 
+            begin != end;
+                ++begin
+    )
+        cout &lt;&lt; *begin;
+    cout &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+or, simply:
+        </p><pre>
+    cout &lt;&lt; string(reverse.rbegin(), reverse.rend()) &lt;&lt; '\n';
+        
+</pre>
+
+    </li></ul>
+    </li><li> The <code>endl</code>s should be replaced by <code>'\n'</code>s.
+</li></ul>
+<p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven01.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven03.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

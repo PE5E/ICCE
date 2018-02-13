@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven05.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven07.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l6"></a>
+<h1>Chapter 6: Exercises set six: STL and Generic Algorithms. Deadline: Jan. 18,
+                                                                      2018</h1>
+            <br><br>
+<p>
+In the following exercises, use generic algorithms where possible
+(unless otherwise indicated). 
+</p><p>
+For those of you who use emacs: <a href="https://www.icce.rug.nl/edu/2/generic/lambda.emacs">here</a> you find an
+emacs function definition creating an empty frame for a lambda
+function. Following the function definition you find a keybinding: it
+associates Esc L (so you do: Esc shift-l) with the function. If you install it
+in your <code>~/.emacs</code> file and start editing a source like this:
+        </p><pre>
+    for_each(data.begin(), data.end(),
+                                       ^ &lt;- your cursor is now over the caret
+        
+</pre>
+
+    then pressing Esc L results in:
+        <pre>
+    for_each(data.begin(), data.end(), 
+        [&amp;]()
+        {   ^ &lt;- the cursor is now directly under the closing parenthesis
+            
+        }
+    );
+        
+</pre>
+
+<p>
+</p><hr>
+        <strong>Exercise 42.</strong>
+        <br>
+        Purpose of this exercise: learn to extract lines using generic algorithms
+into a container holding <code>string</code> objects,  although <code>operator&gt;&gt;()</code>
+extracts  strings.
+<p>
+Read lines from the standard input into a vector of
+strings.  The function <code>main</code> should merely define the <code>vector&lt;string&gt;</code>
+vector and call the <code>copy</code> generic algorithm. This exercise targets
+the following problems:
+    </p><ul>
+    <li> How can a <em>line of text</em> be read from a stream using a generic
+algorithm, rather than individual strings (realize that <code>cin &gt;&gt; str</code>
+extracts a white-space separated series of characters, not a line)
+    </li><li> How does the <code>copy</code> generic algorithm work.
+    </li></ul>
+    Hints: 
+    <ul>
+    <li> overload the extraction operator, but realize that the standard
+        namespace is off-limits to us: you may not define anything inside the
+        standard namespace.
+    </li><li> think inheritance
+    </li></ul>
+<p>
+</p><ul>
+    <li> Submit the exercise in one source (it's a rather small program, about
+20 spaciously written lines, not counting the inclusions of the required
+headers).
+    </li><li> It's possible that without the hint you would have tried to implement
+the function
+        <pre>
+    std::istream &amp;operator&gt;&gt;(std::istream &amp;istr, std::string &amp;str);
+        
+</pre>
+
+    However, when this function is linked to your program, the program would
+not extract lines, but individual words. Explain why that happens.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;iterator&gt;
+
+struct xstring: public std::string
+{};
+
+std::istream &amp;operator&gt;&gt;(std::istream &amp;istr, xstring &amp;str)
+{
+    return getline(istr, str);
+}
+
+// This won't work, see the discussion below.
+// 
+// std::istream &amp;operator&gt;&gt;(std::istream &amp;istr, std::string &amp;str)
+// {
+//     return getline(istr, str);
+// }
+
+using namespace std;
+
+int main()
+{
+    vector&lt;string&gt; vs;
+
+            // perform operator&gt;&gt; on xstrings, so lines are extracted.
+            // since an xstring is-a string its std::string part can be added 
+            // to vs. 
+    copy(istream_iterator&lt;xstring&gt;(cin), istream_iterator&lt;xstring&gt;(), 
+        back_inserter(vs));
+
+    copy(vs.begin(), vs.end(), ostream_iterator&lt;string&gt;(cout, "\n"));
+}
+
+
+
+
+</pre>
+
+<p>
+By defining
+        </p><pre>
+    std::istream &amp;operator&gt;&gt;(std::istream &amp;istr, std::string &amp;str);
+        
+</pre>
+
+    a namespace-less function is defined. However, the generic algorithms are
+defined in the std namespace, and they explicitly call elements from that
+namespace if possible. So, when confronted with an extraction operator for
+strings the <code>copy</code> algorithm may choose between <code>std::operator&gt;&gt;</code> and your
+<code>::operator&gt;&gt;</code>. Since the former requires less transformations (no namespace
+transformation for the function itself is required) it selects the standard
+function.
+<p>
+Sometimes solutions are seen in which <code>std::operator&gt;&gt;</code> is overloaded. This
+solution <em>does</em> work, but is incorrect.
+</p><p>
+<strong>Why does it work?</strong>
+</p><p>
+Clearly a <code>std::operator&gt;&gt;</code> already exists. However, the
+<code>std::string::operator&gt;&gt;</code> function is implemented as a template function,
+and when the compiler is able to choose between two functions having identical
+prototypes, one of them being a template function and one non-template
+function, it always selects the non-template function (principle of less
+effort).
+</p><p>
+Therefore, existing template functions can be overloaded by functions having
+exactly the same parameter lists. This topic is discussed in more detail when
+templates themselves are discussed, later in this course.
+</p><p>
+<strong>Why is it incorrect?</strong>
+</p><p>
+Because <code>namespace std</code> is off-limits to you, unless it's your job to
+maintain the std namespace. So defining <code>std::operator&gt;&gt;</code> is not a viable
+option.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 43.</strong>
+        <br>
+        Purpose of this exercise: learn to use promotion with generic algorithms and
+predefined function objects when manipulating basic data types. 
+<p>
+Use <code>sort</code> to sort the command line's arguments twice, once ascending, once
+descending without storing them in a <code>vector</code>.
+</p><p>
+Use <em>only</em> features from the STL. Your program should call <code>sort</code> and
+<code>copy</code> twice. These calls and newline insertions into <code>cout</code> should be the
+only statements in <code>main</code>.
+</p><p>
+The program should define no variables.
+</p><p>
+<br><strong>Answer:</strong><br>
+        </p><pre>#include &lt;algorithm&gt;
+#include &lt;iterator&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main(int argc, char **argv)
+{
+    sort(argv, argv + argc, less&lt;string&gt;());
+    copy(argv, argv + argc, ostream_iterator&lt;char *&gt;(cout, " "));
+    cout &lt;&lt; '\n';
+
+    sort(argv, argv + argc, greater&lt;string&gt;());
+    copy(argv, argv + argc, ostream_iterator&lt;char *&gt;(cout, " "));
+    cout &lt;&lt; '\n';
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 44.</strong>
+        <br>
+        Purpose of this exercise: learn to recognize a situation where lambda
+functions may be used.
+<p>
+Lambda functions are mainly used with the <code>for_each, find_if, count_if</code> and
+comparable generic algorithms (GAs). In general they can be used for those GAs
+that accept function objects.
+</p><p>
+We start this exercise by introducing a class <code>Vstring</code> derived from the
+<code>std::vector&lt;std::string&gt;</code> container. Its basic setup is as follows:
+        </p><pre>
+    class Vstring: public std::vector&lt;std::string&gt;
+    {
+        public:
+            typedef std::map&lt;char, size_t&gt; CharMap;
+    
+            Vstring(std::istream &amp;in);
+            
+            size_t count(CharMap &amp;cmap, bool (*accept)(char, CharMap &amp;));
+
+        private:
+            static size_t countChar(std::string const &amp;str, CharMap &amp;cmap,
+                                    bool (*accept)(char, CharMap &amp;));
+    };
+        
+</pre>
+
+    Its main functionality consists of its member <code>count</code> counting the
+number of characters in all <code>Vstring</code>'s strings for which its <code>accept</code>
+function, passed as its second parameter, returns true. 
+<p>
+Thus, by providing a (free) <code>accept</code> function users can determine what
+type of characters are counted.
+</p><p>
+Furthermore, a map of <code>char</code> (index) by <code>size_t</code> (value) counts the
+frequencies of individual characters for which <code>accept</code> returns true. 
+</p><p>
+An example of such an accept function is the following, which can be used to
+count vowels:
+        </p><pre>
+    bool vowels(char c, Vstring::CharMap &amp;cmap)
+    {
+        if (string("aeiuoAEIOU").find(c) != string::npos)
+        {
+            ++cmap[c];
+            return true;
+        }
+        return false;
+    }
+        
+</pre>
+
+<p>
+</p><ul>
+    <li> Use the <code>copy</code> GA to initialize the <code>Vstring</code> object with all
+strings that are extracted from its <code>istream</code> stream parameter. E.g., when
+the constructed program is called <code>a.out</code> the following should store three
+strings:
+                <pre>echo one two three | a.out
+</pre>
+
+<p>
+</p></li><li> Implement <code>count</code> using <code>for_each</code> and a lambda function. It
+must visit each of the strings stored in <code>Vstring</code>, returning the total
+number of accepted characters, storing the frequencies of accepted characters
+in its <code>cmap</code> parameter. It may be assumed that <code>cmap</code> initially refers to
+an empty map.
+<p>
+</p></li><li> Implement <code>countChar</code>, using a lambda function and a GA that's
+suited for <code>countChar</code>'s task: pass all characters of one string to the
+<code>accept</code> function, adding the total number of accepted characters of that
+string to the over-all total. 
+<p>
+</p></li><li> The <code>main</code> function can be implemented based on the following
+setup: 
+        <pre>
+    int main()
+    {
+        Vstring vstring(cin);
+        Vstring::CharMap vmap;
+    
+        cout &lt;&lt; "Vowels: " &lt;&lt; vstring.count(vmap, vowels) &lt;&lt; '\n';
+    
+        // Display all elements of vmap
+    }
+        
+</pre>
+
+    To display all elements of <code>vmap</code> use an appropriate GA (and lambda
+function) executing the following <code>cout</code> statement, where <code>value</code> is a
+reference to a value of the <code>decltype(*vmap.begin())</code> type.
+        <pre>
+    cout &lt;&lt; value.first &lt;&lt; ": " &lt;&lt; value.second &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+</p></li><li> Make sure that context (closure) variables are passed to the lambda
+function in the appropriate way. Usually as references, but don't use
+references when that's pointless.
+<p>
+</p></li><li> 
+    Construct the program and show its output when processing 
+    <a href="https://www.icce.rug.nl/edu/2/generic/lambda.txt">this plain text</a> version of this exercise.  For
+your information: it contains 819 vowels.
+<p>
+</p></li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    Here is the general setup of the <code>Vstring</code> class. Note that <code>Vstring</code>
+is derived from the <code>vector</code> container:
+        </p><pre>#ifndef _INCLUDED_VSTRING_
+#define _INCLUDED_VSTRING_
+
+#include &lt;iosfwd&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+class Vstring: public std::vector&lt;std::string&gt;
+{
+    public:
+        typedef std::map&lt;char, size_t&gt; CharMap;
+
+        Vstring(std::istream &amp;in);
+        
+        size_t count(CharMap &amp;cmap, bool (*accept)(char, CharMap &amp;));
+
+    private:
+        static size_t countChar(std::string const &amp;str, CharMap &amp;cmap,
+                                bool (*accept)(char, CharMap &amp;));
+};
+
+#endif
+
+
+
+
+
+</pre>
+
+<p>
+Use the <code>copy</code> GA to initialize the <code>Vstring</code> object with all
+strings extracted from its <code>istream</code> parameter:
+        </p><pre>#include "vstring.ih"
+
+Vstring::Vstring(istream &amp;in)
+{
+    copy(istream_iterator&lt;string&gt;(in), istream_iterator&lt;string&gt;(),
+        back_inserter(*this));
+}
+</pre>
+
+<p>
+Implement <code>count</code> using <code>for_each</code>:
+        </p><pre>#include "vstring.ih"
+
+size_t Vstring::count(CharMap &amp;cmap, bool (*accept)(char, CharMap &amp;))
+{
+    size_t sum = 0;
+
+    for_each(
+        begin(), end(), 
+        [&amp;, accept](string const &amp;str)
+        {
+            sum += countChar(str, cmap, accept);
+        }
+    );
+
+    return sum;
+}
+</pre>
+
+<p>
+Implement <code>countChar</code>, using a GA that's suited for <code>countChar</code>'s
+task:
+        </p><pre>#include "vstring.ih"
+
+size_t Vstring::countChar(std::string const &amp;str, CharMap &amp;cmap,
+                          bool (*accept)(char, CharMap &amp;))
+{
+    return count_if(
+                str.begin(), str.end(), 
+                [&amp;, accept](char ch)
+                {
+                    return (*accept)(ch, cmap);
+                }
+            );
+}
+</pre>
+
+<p>
+Here's the program illustrating how  all elements of the <code>vmap</code> array
+can be displayed:
+        </p><pre>#include "main.ih"
+
+bool vowels(char c, Vstring::CharMap &amp;cmap)
+{
+    if (string("aeiuoAEIOU").find(c) != string::npos)
+    {
+        ++cmap[c];
+        return true;
+    }
+    return false;
+}
+   
+int main()
+try
+{
+    Vstring vstring(cin);
+    Vstring::CharMap vmap;
+
+    cout &lt;&lt; "Vowels: " &lt;&lt; vstring.count(vmap, vowels) &lt;&lt; '\n';
+
+    for_each(
+        vmap.begin(), vmap.end(), 
+        [](Vstring::CharMap::value_type &amp;value)
+        {
+            cout &lt;&lt; value.first &lt;&lt; ": " &lt;&lt; value.second &lt;&lt; '\n';
+        }
+    );
+}
+catch (...)
+{
+    return 1;
+}
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 45.</strong>
+        <br>
+        Purpose of this exercise: learn to use generic algorithms to remove elements
+from a vector.
+<p>
+Write a program expecting two arguments. Both arguments are names of
+files containing words (e.g., one word per line).
+</p><p>
+Read all words in the first file into a vector (e.g., <code>data</code>). Read all
+words in the second file into another vector (e.g., <code>data2</code>). Make sure you
+define only one <code>ifstream</code>.
+</p><p>
+If <code>data</code> contains the word <code>extra</code> (it may occur multiple times), remove
+the word(s) `<code>extra</code>' from <code>data</code>.
+</p><p>
+Subsequently add all the words in <code>data2</code> to <code>data</code>, making sure that
+eventually all words in <code>data</code> are unique (i.e., occur only once), and that
+<code>data</code> contains just enough room to store its unique words.
+</p><p>
+Finally, write all the words in <code>data</code> to <code>cout</code>, one word per line.
+</p><p>
+Provide each statement in your main function with a comment indicating what
+you're doing at that statement.
+</p><p>
+You may assume that the program receives the names of two existing files,
+which can be read and which are correctly formatted.
+</p><p>
+Use generic algorithms unless you have a directly available simpler
+alternative (e.g., using a range-based for loop, or existing member
+functions).
+</p><p>
+Make sure you only include required headers, and define the full program in
+<code>main</code>.
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>
+#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+#include &lt;iterator&gt;
+
+using namespace std;
+
+int main(int argc, char **argv)
+{
+        // Read all the words in two files into two vectors, using 1 ifstream
+
+    ifstream in(argv[1]);          
+    vector&lt;string&gt; data;
+                                                // fill the data vector
+    copy(istream_iterator&lt;string&gt;(in), istream_iterator&lt;string&gt;(),
+         back_inserter(data));
+
+    in.close();
+    in.open(argv[2]);          
+    vector&lt;string&gt; extra;
+                                                // fill the extra vector
+    copy(istream_iterator&lt;string&gt;(in), istream_iterator&lt;string&gt;(),
+         back_inserter(extra));
+
+    // - - - -
+
+                                        // remove the words 'extra' from data
+    data.resize(remove(data.begin(), data.end(), "extra") - data.begin());  
+
+                                        // add the words in 'extra'
+    data.insert(data.end(), extra.begin(), extra.end());
+
+    
+    sort(data.begin(), data.end());             // to use unique, the 
+                                                // data must have been sorted
+
+                                                // keep all unique words
+    data.resize(unique(data.begin(), data.end()) - data.begin());
+
+    vector&lt;string&gt;(data).swap(data);            // remove excess capacity
+
+    cout &lt;&lt; data.size() &lt;&lt; ' ' &lt;&lt; data.capacity() &lt;&lt; '\n';
+
+    for (auto &amp;str: data)                       // copy + ostream_iterator
+        cout &lt;&lt; str &lt;&lt; '\n';                    // also OK, this is shorter
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 46.</strong>
+        <br>
+        Purpose of this exercise: learn to distinguish two frequently used generic
+algorithms
+<p>
+Explain the difference between the <code>copy</code> and <code>for_each</code> generic
+algorithms. 
+</p><p>
+Also provide an example of each illustrating their difference (i.e., provide
+two examples, one in which <code>for_each</code> must be used and <code>copy</code> can't be
+used, and an example in which <code>copy</code> must be used and <code>for_each</code> can't be
+used.)
+</p><p>
+<br><strong>Answer:</strong><br>
+    The <code>for_each</code> algorithm iterates over all its elements, passing a
+reference to a function. The function therefore receives a reference to the
+actual elements under consideration. The <code>copy</code> algorithm creates a copy of
+the elements using the assignment operator of the used data type and passes
+the copy to some output iterator. The original elements are thus not passed to
+the destination iterator.
+</p><p>
+The <code>for_each</code> algorithm could be used in cases where no assignment
+operator or copy operation is available:
+        </p><pre>
+    struct NoAss    // i.e., no assignment
+    {
+        NoAss &amp;operator=(NoAss const &amp;rhs) = delete;
+    };
+    
+    NoAss elements[10];
+    
+    int main()
+    {
+        for_each(elements, elements + 10, 
+            [&amp;](NoAss &amp;el)
+            {}
+        );
+        // copy (elements, elements + 10, elements);    // WC
+    }
+        
+</pre>
+
+<p>
+It's difficult to find an example in which the <code>copy</code> algorithm <em>must</em>
+be used, and the <code>for_each</code> algorithm can't be used. But there are
+situations where using a <code>for_each</code> algorithm becomes needlessly
+complex. E.g., when an output iterator is available, <code>copy</code> is definitely
+preferred. In the example <code>for_each</code> is used in combination with an
+<code>ostream_iterator</code>: the corresponding implementation using <code>copy</code> clearly
+is less complex:
+        </p><pre>
+    string elements[10];
+    
+    int main()
+    {
+        ostream_iterator&lt;string&gt; out(cout, " y");
+    
+        for_each(elements, elements + 10, 
+            [&amp;](string &amp;el)
+            {
+                *out++ = el;
+            }
+        );
+    
+        copy(elements, elements + 10, ostream_iterator&lt;string&gt;(cout, " x"));
+    }
+        
+</pre>
+    
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 47.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to sort fields in POD or comparable
+structs/classes. 
+<p>
+When exams are rated results may become available in a file having the
+following organization:
+    </p><pre>
+    First name(s) Last name student-nr exam-grade
+    
+</pre>
+
+E.g., (note that the lines are not ordered in a particular way)
+    <pre>
+          R.L.  Nae     2931951      6.0
+          Lars Apol     2101650      8.5
+Razvan Andrei Pronk     1914651      7.5
+   Emanuel  Holdijk     2533878      9.0
+      Tom Koelewijn     3757436      6.0
+       Anco Gietema     1624154      7.5
+    
+</pre>
+
+    Write a program that reads data organized as shown (provide the name of
+the file to read as the program's first argument), using a function <code>read</code>.
+<p>
+Define a function <code>writeNames</code> writing to an <code>ostream</code> that shows the
+alphabetically sorted (case insensitively (cf. <strong>strcasecmp</strong>(3)) by last
+name) student records, and define a third function <code>writeNrs</code>) (also
+writing to an <code>ostream</code>) showing the student data sorted by student number,
+omitting the students' names.
+</p><p>
+You should define a struct or class <code>Student</code> containing the information
+of the students. Storing the students' data in a vector. Once stored in the
+vector, sort the data by last names. To sort by student number, use another
+vector of indices into the data vector, and sort that vector so that its
+elements hold the indices in the data vector in such a way that its subsequent
+elements refer to the elements of the data vector sorted by student number. In
+other words: the data vector is directly sorted by last name; the second
+vector is used to indirectly sort the data vector by student number.
+</p><p>
+Hints: Provide the <code>Student</code> struct/class with a data member <code>d_name</code>
+containing the full name, and <code>d_lastName</code> containing the student's last
+name. 
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 48.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to apply inheritance to create a flexible
+Exception class.
+<p>
+The <code>std::exception</code> class and its derivatives (e.g., <code>std::logic_error</code>)
+are useful if you have a prepared error message (e.g., a <code>string</code> or <code>char
+const *</code>. However, frequently error messages contain some contextual
+info, in which case you must resort to something like this:
+        </p><pre>
+    if (horribleCondition)
+    {
+        ostringstream err;
+        err &lt;&lt; "this is error " &lt;&lt; ++errCount &lt;&lt; ": " &lt;&lt; msg;
+        throw std::runtime_exception(err.str());
+    }
+        
+</pre>
+
+<p>
+Instead of having to use a compound statement for exceptions like the
+above, it would be nice to have an <code>Exception</code> class allowing you to to
+things like:
+        </p><pre>
+    if (horribleCondition)
+        throw Exception() &lt;&lt; "this is error " &lt;&lt; ++errCount &lt;&lt; ": " &lt;&lt; msg;
+        
+</pre>
+
+<p>
+Define a <code>class Exception</code> whose objects are <code>std::exception</code> objects,
+allowing you to insert specific types, like <code>char const *, std::string</code> and
+<code>char</code> values. Thus, it must be possible to catch the exception generated in
+the above example by a <code>catch</code> clause like this:
+        </p><pre>
+    catch (std::exception const &amp;exc)
+    {
+        cout &lt;&lt; exc.what() &lt;&lt; '\n';
+    }
+        
+</pre>
+
+    here, the text inserted into the <code>Exception</code>
+object is (as usual) retrieved by the member <code>what()</code>.
+<p>
+Hint:
+    </p><ul>
+    <li> Provide <code>what</code> with a <code>noexcept(true)</code>
+        specification (e.g., 
+            <code>char const *what() const noexcept(true) override</code>);
+    </li></ul>
+<p>
+Question: assume you didn't design <code>Exception</code>, but want to use it in your
+programs. You receive the <code>Exception</code> class software, allowing you to insert
+<code>char const *, std::string,</code> and <code>char</code> values into an <code>Exception</code>
+object. But in your program you'd like to be able to do
+        </p><pre>
+    throw Exception{} &lt;&lt; "Pi in 4 decimals is " &lt;&lt; 3.1415 &lt;&lt; '\n';
+        
+</pre>
+
+How do you solve this problem?
+<p>
+<br><strong>Answer:</strong><br>
+    The trick is to derive from <code>std::exception</code>, and to provide the class
+with the appropriate insertion operators. Since the <code>Exception</code> object is
+always an anonymous object (constructed in the <code>throw Exception() &lt;&lt; ...</code>
+statement), the insertion operators expect rvalue references and return rvalue
+references to allow `chaining' of the insertion operators. Different from
+earlier suggestions you see here an example where functions actually return
+rvalue references.
+</p><p>
+Here is the implementation of the <code>Exception</code> class:
+</p><p>
+</p><pre>#ifndef INCLUDED_EXCEPTION_
+#define INCLUDED_EXCEPTION_
+
+#include &lt;string&gt;
+#include &lt;exception&gt;
+
+class Exception: public std::exception
+{
+    // Exceptions must have nothrow copy ctor, which string doesn't
+    mutable std::string d_what;         // mutable is required to implement
+                                        // the operator&lt;&lt; functions, which 
+                                        // rely on access to d_what
+
+    public:
+        Exception() = default;
+
+        // Consider declaring/implementing:
+        //
+        // Exception(Exception &amp;&amp;tmp);
+        //
+        // as this will force users to use the class as intended: it disables
+        // the CC, and a CC isn't required when throwing exceptions.
+
+        // When defining a destructor of classes derived from std::exception
+        // you need to define it with noexcept(true) as the base class does 
+        // so:
+        //
+        // ~Exception() noexcept(true) override;
+        //
+        // However, this class Exception doesn't need a destructor.
+
+        std::string &amp;str() const;
+
+        char const *what() const noexcept(true) override;   
+};
+
+inline std::string &amp;Exception::str() const
+{
+    return d_what;
+}
+
+inline Exception &amp;&amp;operator&lt;&lt;(Exception &amp;&amp;in, char const *txt)
+{
+    in.str() += txt;
+    return std::move(in);
+}
+
+inline Exception &amp;&amp;operator&lt;&lt;(Exception &amp;&amp;in, char ch)
+{
+    in.str() += ch;
+    return std::move(in);
+}
+
+inline Exception &amp;&amp;operator&lt;&lt;(Exception &amp;&amp;in, std::string const &amp;str)
+{
+    in.str() += str;
+    return std::move(in);
+}
+
+        
+#endif
+
+
+
+
+</pre>
+
+<pre>#include "exception.ih"
+
+char const *Exception::what() const noexcept(true)
+{
+    return d_what.c_str();
+}
+</pre>
+
+<p>
+To solve the missing insertion facility you can implement the specifically
+required insertion operator outside of the class Exception.
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven05.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven07.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven04.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven06.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l5"></a>
+<h1>Chapter 5: Exercises set five: Pointers Part 1. Deadline: October 19</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 34.</strong>
+        <br>
+            Purpose: acquire some familiarization with the pointer concept.
+<p>
+Describe in your own words (use Dutch if you're Dutch). Be concise: just
+    mention the, in your opinion, essential difference(s).
+</p><p>
+</p><ol>
+    <li> what differences exist between pointer variables and arrays;
+    </li><li> what differences exist between pointer variables and reference
+         variables;
+    </li><li> how element <code>[3][2]</code> is reached (maybe make a drawing?)
+            <pre>
+        a: for the variable `tt(int array[20][30])'
+        b: for the variable `tt(int *pointer[20])'.
+            
+</pre>
+
+        Your drawing should clearly show how the memory accessed by 
+        <code>array</code> and <code>pointer</code> is (differently) organized;
+    </li><li> what is meant by `pointer arithmetic';
+    </li><li> explain why accessing an element in an array using only a pointer
+        variable is to be preferred over using an index expression. By
+        implication: why are repetitions iterating over a series of elements
+        using a pointer-type loop control variable preferred over repetitions
+        in which the loop control variable is, e.g., a <code>size_t</code> type
+        variable?
+    </li></ol>
+<p>
+<br><strong>Answer:</strong><br>
+    </p><ol>
+    <li> Differences between pointer variables and arrays:
+        <ul>
+        <li> Pointer: variable, array: address (a mere value)
+        </li><li> Pointer: lvalue    array: rvalue
+        </li></ul>
+    </li><li> Differences between pointer variables and references:
+        <ul>
+        <li> Pointer: variable, may be reassigned; Reference: fixed
+                association to the variable/object it refers to.
+        </li><li> Asignment to the pointer: changes the location to where the
+            pointer points, assignment to the reference: changes the
+            variable/object it refers to.
+        </li></ul>
+    </li><li> How element <code>[3][2]</code> is reached
+            <pre>
+        a: for the variable `int array[20][30]'
+                from the address `array', find the offset of its fourth row (3
+                * 30 ints farther), then add the offset of an int 2 ints
+                farther. 
+
+        b: for the variable `int *pointer[20]'
+                take the value of its 4th element (offset 3), add to that
+                value the offset of an int 2 ints farther.
+            
+</pre>
+
+        Also, make clear in a drawing or diagram how the memory accessed by 
+        <code>array</code> and <code>pointer</code> is organized.
+            <pre>
+    array:
+        int[0][0], int[0][1] .. int [0][29], int[1][0], ... int[19][29]
+
+    pointer:
+       0 [int * ]--&gt; [ 30 consecutive ints, somewhere in memory ]
+       1 [int * ]--&gt;
+         ...
+      19 [int * ]--&gt; [ 30 consecutive ints, somewhere in memory unrelated to
+                          the locations of the other vectors of 30 ints]
+                
+</pre>
+
+<p>
+</p></li><li> What is meant by `pointer arithmetic'<br> Adding a number (positive,
+        negative) to a pointer reaches the element than number of data
+        elements to which the pointer points farther.<br> Subtracting two
+        pointers (to identical data types) returns the number of data elements
+        between the two pointers, counting from the second to (not including)
+        the first pointer.
+    </li></ol>
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 35.</strong>
+        <br>
+            Purpose: learn to use equivalent pointer-expressions for
+array-expressions. 
+<p>
+Complete the table below, by entering the empty fields of the `pointers'
+    and `semantics' columns. 
+</p><p>
+As shown in the first line, the index-expressions should be rewritten
+    without using the index-operator <code>[]</code>. In all cases you have to use
+    pointer notations. 
+</p><p>
+The `semantics' column should (concisely!) describe what the rewritten
+    statement does.
+</p><p>
+Assume that all elements have properly been initialized. When writing the
+    pointer expressions you may assume that the variables are properly defined
+    and initialized pointer variables.
+</p><p>
+Submit the completed table. The first line (<code>int x[8]</code>) is an example
+    line, and may be omitted.
+</p><p>
+Hints: simplify your expressions as much as possible. Avoid SF
+    parentheses. Some expressions to rewrite are not accepted by the
+    compiler, but even then the expressions can be rewritten using pointer
+    notations.
+</p><p>
+</p><pre>
+-----------------------------------------------------------------
+  definition:         rewrite:        pointers:    semantics:
+-----------------------------------------------------------------
+  int x[8];           x[4]            *(x + 4)    x + 4 points to the 
+                                                  location of the 4th
+                                                  int beyond x. That
+                                                  element is reached
+                                                  using the dereference
+                                                  operator (*)
+
+  int x[8];           x[3] = x[2];
+
+  char *argv[8];      cout &lt;&lt; argv[2];
+
+  int x[8];           &amp;x[10] - &amp;x[3];
+
+  char *argv[8];      argv[0]++;
+
+  char *argv[8];      argv++[0];
+
+  char *argv[8];      ++argv[0];
+
+  char **argv;        ++argv[0][2];
+-----------------------------------------------------------------
+        
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+        </p><pre>
+ definition:      rewrite:           pointers:               semantics:
+
+ int x[8]         x[3] = x[2];       *(x + 3) = *(x + 2)     x + 3 (int steps) is dereferenced 
+                                                             and receives the value of 
+                                                             dereference x + 2 (int steps)
+
+ char *argv[]     cout &lt;&lt; argv[2];   cout &lt;&lt; *(argv + 2)     to argv's value 2 char * stepsizes
+                                                             are added. That pointer is dereferenced
+                                                             resulting in a char *, which is inserted
+                                                             into cout.
+
+ int x[];         &amp;x[10] - &amp;x[3];    7                       Two addresses are subtracted. Pointer
+                                                             arithmetic yields the # elements from
+                                                             element 3 to 10.
+
+ char *argv[];    argv[0]++;         (*argv)++               argv is dereferenced yielding the 1st 
+                                                             char pointer. That pointer is used,
+                                                             but its incremented as a side effect
+
+ char *argv[];    argv++[0];         *argv++                 argv is dereferenced yielding the 1st 
+                                                             char pointer. arg'v value is incremented
+                                                             so that it now points to the location
+                                                             one char * farther than to where argv
+                                                             originally pointed.
+
+ char *argv[];    ++argv[0];         ++*argv                 argv is dereferenced, yielding a char *
+                                                             variable. That pointer value is 
+                                                             incremented
+
+ char **argv;     ++argv[0][2];      ++*(*argv + 2)          argv is dereferenced, yielding a char *
+                                                             to that pointer's value 2 is added, 
+                                                             yielding the location of the 3rd 
+                                                             character of *argv's string. That 
+                                                             location is dereferenced, yielding
+                                                             a character variable, which is 
+                                                             incremented. E.g., if *argv points to
+                                                             "hello world", then following the 
+                                                             expression it contains "hemlo world"
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 36.</strong>
+        <br>
+        Purpose of this exercise: learn to define an array of undetermined size
+<p>
+In the scripting language Perl it's rather usual to completely read all
+information before starting processing the information. 
+</p><p>
+Can we do that, too? Yes we can, albeit that it is a practice that's frowned
+upon if it isn't really necessary. For a not-too-big input file it's doable. 
+</p><p>
+Define a class <code>Strings</code> that can either be initialized with an <code>argc,
+argv</code> pair of arguments, with an <code>environ</code> type of argument, or with an
+input stream. As yet, we haven't covered streams, but you may define a 
+    </p><pre>
+    Strings(std::istream &amp;in)
+    
+</pre>
+
+    constructor, which may be passed <code>std::cin</code> as argument. This
+constructor will then process all lines in the provided <code>istream</code>. If your
+code does not use <code>cin</code> (or <code>cout</code>), but merely uses the facilities
+offered by <code>cin</code> (like <code>getline</code> or the extractor operator) then you don't
+have to include <code>iostream</code>, but you should include <code>istream</code>.
+<p>
+The <code>argv</code> parameter is an array of pointers to <strong>C</strong>-strings, and so is
+<code>environ</code>. 
+</p><p>
+The class itself defines a data member <code>d_size</code> holding the number of
+strings that are stored in the object, and a data member (<code>d_str</code>), a single
+(rather than double) pointer, that is used to store the <code>char *</code> values (or
+the lines read from an <code>istream</code>.
+</p><p>
+Caveat: each element or line must be stored in a separate <code>std::string</code>
+object, so do not concatenate all received elements in one big string pointed
+at by <code>d_str</code>.
+</p><p>
+For this exercise, construct the class header file and implement (and submit)
+all (4) constructors. If you complete the full class (see the next exercise)
+then submit the full class header with this exercise.
+</p><p>
+Hint: When a new string is added to the object and you don't know in advance
+how many strings eventually will be stored, then add the strings one at a
+time. Do this as follows in a member function <code>add</code>. There should be just
+one member <code>add</code>, which must be able to add either a <code>std::string</code> or a
+NTBS (called `the next string' in the following itemization) to the
+<code>Strings</code> object. This member should perform the following tasks:
+    </p><ul>
+    <li> copy the currently stored strings to a new storage area
+    </li><li> add the next string to the new storage area
+    </li><li> destroy the information pointed at by <code>d_str</code>
+    </li><li> update <code>d_str</code> and <code>d_size</code> so that they refer to the new storage
+        area.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    Our implementation can be downloaded from:
+</p><p>
+<a href="https://www.icce.rug.nl/edu/1/pointers1/answers/strings.tgz">pointers1/answers/strings.tgz</a>
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 37.</strong>
+        <br>
+        Purpose of this exercise: learn to add/extend the user interface of a class,
+and learn to use the class in a program.
+<p>
+Provide the class <code>Strings</code> (see previous exercise) with the following
+members. Some members are merely accessors and if you feel it's safe they can
+be implemented as inline members.
+</p><p>
+Add members
+    </p><ul>
+    <li> <code>size</code>, returning the number of strings that are stored in the
+        object;
+    </li><li> <code>data</code>, returning a pointer to the strings that are stored in the
+        <code>Strings</code> object.
+    </li><li> <code>at</code>, returning a reference to a non-modifiable string, given its
+        index;
+    </li><li> <code>at</code>, returning a reference to a modifiable string, given its index;
+    </li><li> <code>release</code>, returning a struct having a field <code>string *</code>
+        pointing to the same location as <code>d_str</code> (before calling
+        <code>release</code>), and a field <code>size_t</code> containing the number of
+        stored strings (before calling <code>release</code>). After calling <code>release</code>
+        the <code>Strings</code> object is in the same state as after calling the
+        default constructor (as a side-note: <code>release</code> passes the
+        responsibility for handling the information, previously owned by the
+        <code>Strings</code> object, to <code>release's</code> caller).
+    </li></ul>
+<p>
+Hint: when <code>at</code> is called with an illegal (i.e., too big) index, then
+        return an empty string (not the best solution, but a reasonable one,
+        considering the topics covered so far).
+</p><p>
+Also, use a backdoor, so that you don't have to duplicate the bodies
+        of the two <code>at</code> functions.
+</p><p>
+In what situation will the first <code>at</code> member be used and in what situation
+the second?
+</p><p>
+Note: this class should never be used `for real' as it results in
+memory leaks. We'll handle that problem in the near future.
+</p><p>
+In addition to the <code>Strings</code> implementation, submit a program
+        implementing the empty-lines filter program (cf. ex. 14), using a
+        <code>Strings</code> object. So what again did this filter do? It must read all
+        lines from <code>cin</code> and then print all lines except for the leading and
+        trailing blank lines. So define in <code>main</code> a <code>Filter</code> object, and
+        call its <code>display</code> member.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Our implementation can be downloaded from:
+</p><p>
+<a href="https://www.icce.rug.nl/edu/1/pointers1/answers/strings.tgz">pointers1/answers/strings.tgz</a>
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 38.</strong>
+        <br>
+        Purpose of this exercise: learn to manipulate complex objects without much
+effort.
+<p>
+Define a function <code>stringsSwap</code> swapping the contents of two <code>Strings</code>
+objects. After having called <code>stringsSwap</code> for two <code>Strings</code> objects
+<code>objectA</code> and <code>objectB</code>, objectA) should have <code>objectB</code>'s contents and
+vice versa.
+</p><p>
+Hint: this is a <em>very simple</em> exercise if you think a little bit `out of the
+box': don't just concentrate too much on this exercise's literal text....
+</p><p>
+A cryptic hint: what you have isn't always everything you have.
+</p><p>
+Caveat: this exercise is about <code>Strings</code> objects, not <code>std::string</code>
+objects. 
+</p><p>
+<br><strong>Answer:</strong><br>
+    So why do you have to think `out of the box'? Here's why and how to
+implement the swapping facility.
+</p><p>
+Think out of the box: don't just quickly define a blunt <code>Strings</code>
+swapping function. Instead think a little while and you'll realize that you'll
+have to implement the swapping facility as a member of <code>Strings</code>: you'll
+have to extend the class's interface.
+</p><p>
+A member function can directly access <code>Strings</code>' data members resulting in a
+remarkably simple implementation. Here is the example defining a
+<code>Strings::swap</code> member:
+        </p><pre>
+    #include "strings.ih"
+    
+    void Strings::swap(Strings &amp;other)
+    {
+        string *tmp = d_str;
+        d_str = other.d_str;
+        other.d_str = tmp;
+    
+        size_t size = d_size;
+        d_size = other.d_size;
+        other.d_size = size;
+    }
+        
+</pre>
+
+<p>
+The following solution (or any of its variants), however, is questionable:
+        </p><pre>
+    void stringsSwap(Strings &amp;first, Strings &amp;second)
+    {
+        Strings tmp(first);
+        first = second;
+        second = tmp;
+    }
+        
+</pre>
+
+    It is questionable because you're outside of the class <code>Strings</code> and
+thus may not assume anything about its inner organization. E.g., <code>Strings</code>
+objects could at some later release have a pointer pointing to themselves,
+e.g., <code>Strings *d_self</code>. Now the above <code>stringsSwap</code> function doesn't swap
+anymore; instead it breaks the integrity of the <code>Strings</code> objects. To see
+why, consider two <code>Strings</code> objects. We have, before the swap:
+    <pre>
+    Strings first:
+        d_self: points to first
+
+    Strings second:
+        d_self: points to second
+    
+</pre>
+
+    Now we're swapping first and second, using the above function. So the
+result becomes:
+    <pre>
+    Strings first:
+        d_self: points to second
+
+    Strings second:
+        d_self: points to first
+    
+</pre>
+
+        and the <code>stringsSwap</code> function breaks the semantics of <code>d_self</code>.
+<p>
+As a consequence, swapping functions should be member functions of
+classes. In order to swap <code>Strings</code> objects a member <code>void
+Strings::swap(Strings &amp;other)</code> must be defined: swapping is the
+responsibility of the class designer who can (and should) correctly implement
+swapping.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 39.</strong>
+        <br>
+        (optional)<br>    Purpose: Construct and use a pointer to a multi (2) dimensional matrix.
+<p>
+In <code>main</code>, define the array <code>int square[10][10]</code> (Note that the
+dimensions of the array (10 rows, 10 columns) are known. This knowledge may be
+used when completing this exercise).
+</p><p>
+Next, define and initialize a pointer <code>row</code>, pointing to the rows of this
+array. Note that <code>row[0]</code> should therefore point to the first of
+<code>square</code>'s <em>rows</em> and <code>row[9]</code> should point to the last of <code>square</code>'s
+<em>rows</em>, not its <code>int</code> elements. 
+</p><p>
+Pass this pointer to a function <code>inv_identity</code> initializing the <em>full</em>
+array <code>square</code> to ones, except for the elements on the main diagonal (i.e.,
+<code>square[0][0], square[1][1], square[2][2]</code>, etc., which should be set to 0).
+</p><p>
+Implement <code>main</code> and make sure that <code>inv_identity</code> only receives one
+argument: the pointer <code>row</code>. Also implement the function <code>inv_identity</code>. 
+</p><p>
+With respect to <code>inv_identity</code>: this function should contain two nested
+<code>for</code> loops. The (only) variables defined in the function are (1) its
+parameter, (2) a pointer variable in the initialization section of the first
+<code>for</code> statement and (3) two pointer variables in the initialization section
+of the second (nested) <code>for</code> statement.
+</p><p>
+The nested <code>for</code> statement should itself contain one nested assignment
+statement. So, <code>inv_identity</code> must be constructed according to the following
+mold:
+        </p><pre>
+    void identity( 1 pointer-type parameter comes here )
+    {
+        for ( 1 pointer is defined here ; ... ; ...)
+        {
+            for ( 2 pointers are defined here ; ... ; ...)
+                1 assignement statement comes here
+        }
+    }
+        
+</pre>
+
+<p>
+Submit the two functions <code>main</code> and <code>inv_identity</code> implementing the
+program of this exercise.
+    <br><strong>Answer:</strong><br>
+    Note the parameter of the following <code>inv_identity</code> function: it can't be
+just <code>int *ptr</code>, but it needs the row-dimension in its definition:
+        </p><pre>
+    void identity(int (*rows)[10])
+    {
+        for (int (*row)[10] = rows + 10; row-- != rows; )
+        {
+            for 
+            (
+                int *col = *row, *last = *row + 10; 
+                    col != last;
+                        ++col
+            )
+                *col =  !(row - rows == col - *row);
+        }
+    }
+
+    int main()
+    {
+        int square[10][10];
+        int (*row)[10] = square;
+
+        cout &lt;&lt; "check: this must be 1: " &lt;&lt; (row[1] == square[1]) &lt;&lt; '\n';
+
+        identity(row);      // or: identity(square)
+    
+        for (int i = 0; i &lt; 10; ++i)
+        {
+            for (int j = 0; j &lt; 10; ++j)
+                cout &lt;&lt; square[i][j] &lt;&lt; " ";
+            cout &lt;&lt; '\n';
+        }
+    }
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 40.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to use pimpl.
+<p>
+There is a quite bit of background theory in this exercise. Study it before
+working on this exercise.
+</p><p>
+</p><p><strong>Introduction</strong></p>
+<p>
+Consider a class <code>Person</code> containing data of a person. Initially the design
+of the class concentrated on storing name, address, and telephone
+number. Keeping things simple, the class could start like this:
+        </p><pre>   
+    class Person
+    {
+        std::string d_name;
+        std::string d_address;
+        std::string d_phone;
+        
+        public:
+            ...
+            bool read(std::istream &amp;in);
+            void display() const;
+            ...
+    };
+        
+</pre>
+
+    Programs (e.g., a <code>main</code> function) could now use <code>Person</code> objects:
+        <pre>
+    int main()
+    {
+        Person person;
+        size_t count = 0;
+
+        while (person.read())
+        {
+            cout &lt;&lt; "Person " &lt;&lt; ++count &lt;&lt; ": ";
+            person.display();
+        }
+    }
+        
+</pre>
+
+    The implementation of the class <code>Person</code> and functions like
+<code>readPerson</code> are made available in some library (e.g., <code>libperson.a</code>) and
+everybody can happily use <code>Person</code> and all additional functionality by
+linking programs to the <code>libperson.a</code> library.
+<p>
+</p><p><strong>What's wrong with this design?</strong></p>
+<p>
+The problem is that originally the designers of <code>Person</code> thought they had it
+all right, but time passes, and now almost everybody has a cellphone and an
+e-mail address. So the class designers publishes an update, and
+<code>libperson.a</code> version 2 is released. Now <code>Person</code> also offers facilities
+for storing/retrieving cellphone numbers and e-mail addresses, and the updated
+class <code>Person</code> starts like this:
+        </p><pre>
+    class Person
+    {
+        std::string d_name;
+        std::string d_address;
+        std::string d_phone;
+        std::string d_cellphone;
+        std::string d_eMailAddress;
+        
+        public:
+            ...
+    };
+        
+</pre>
+
+    Users of the class <code>Person</code> have their own libraries (using <code>Person</code>
+objects (e.g. libmylib.a)) , and <code>main.o</code> is also available. The joy and fun
+of using libraries is that we don't have to recompile everything time and
+again. And this time a new program can simply be created by linking the
+existing software to the new library:
+        <pre>
+    g++ -o personhandler main.o -lmylib -lperson
+        
+</pre>
+
+<p>
+This, however, results in a big disappointment: the new program crashes
+(or at least shows incoherent and unexpected results).
+</p><p>
+The unexpected results are caused by the new release breaking the class's 
+<a href="http://en.wikipedia.org/wiki/Application_binary_interface">Application Binary Interface</a> (ABI), not to
+be confused with the class's <a href="http://en.wikipedia.org/wiki/Application_programming_interface">Application Programming Interface</a> (API)
+</p><p>
+When the ABI breaks, existing software (e.g., object modules, or programs
+using <a href="http://en.wikipedia.org/wiki/Library_%28computing%29#Shared_libraries">shared libraries</a>)
+ can no longer directly be used anymore when a new release of a library is
+published. When the API breaks, existing software can no longer be compiled
+anymore (e.g., the member <code>Person::read</code> is replaced by
+<code>Person::extract</code>). 
+</p><p>
+Good library design requires that both API and ABI breakages are prevented.
+</p><p>
+</p><p><strong>The Pimpl approach</strong></p>
+<p>
+ABI breakages can be prevented by using a <em>pimpl</em> design. <em>Pimpl</em> meaning
+`pointer to the implementation'. Using the pimpl design the class's public
+interface (defined in some class <code>class MyClass</code>, like <code>class Person</code>) is
+separated from the class's data and private interface (defined in <code>class
+MyClassImp</code>, like <code>class PersonImp</code>). Users never access <code>PersonImp</code>
+directly. Instead, all communication is routed through the class offering the
+public interface (<code>MyClass</code>, e.g., <code>Person</code>).
+</p><p>
+The class interface only has one data member: <code>MyClassImp *d_pimpl</code>; all
+its members call identically named members in the class <code>MyClassImp</code>, and
+its constructors initialize the <code>d_pimpl</code> data member to a newly allocated
+<code>MyClassImp</code> object. The <code>...Imp</code> class implements all the real work. It
+may define private members implementing subtasks, it may define as many data
+members it needs, and its public interface offers the same members as the main
+class does.
+</p><p>
+At any time the <code>...Imp</code> class may be modified: new members may be added,
+existing members may be renamed or redefined, data members may be added,
+reordered, or removed: nothing will break either the main class's ABI or API.
+</p><p>
+The main class's public interface may only be extended: new members may be
+added. Changing the signatures of exising members breaks the class's API. No
+new data members may be added to the main class, as this will break the
+class's ABI. 
+</p><p>
+</p><p><strong>Assignment</strong></p>
+<p>
+ <a href="https://www.icce.rug.nl/edu/1/pointers1/data.tgz">Here</a> 
+    you find  a basic implementation of the class
+<code>Data</code> and a program using a <code>Data</code> object. It can be used to complete
+this exercise. 
+    </p><ul>
+    <li> create a library <code>libdata.a</code> and use the provided main function
+defining a local <code>Data</code> object. Compile <code>main.cc</code> to an object file. Link
+<code>main.o</code> against <code>libdata.a</code> and show that the program runs OK (let the
+program read <code>data.in</code> by redirecting the standard input stream; submit the
+commands used to create the library, to compile <code>main.cc</code>, and to link
+<code>main.o</code> against the library. Use separate commands for compiling
+<code>main.cc</code> and linking <code>main.o</code>).
+    </li><li> create a new version of the library, after uncommenting the
+definition of <code>d_text</code> in <code>data/data.h</code> and its use in
+<code>data/read.cc</code>. Link the new library to the <em>existing</em> <code>main.o</code> and show
+that the program no longer runs OK.
+    </li><li> Convert the original class to a class using a pointer to the
+implementation. Redo the first two steps, and show that both programs run
+OK. 
+    </li></ul>
+    You earn two points for completing this exercise.
+<p>
+<br><strong>Answer:</strong><br>
+    See the answer section of the next exercise
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 41.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: improve your understanding of the pimpl approach
+<p>
+Answer the following questions:
+    </p><ul>
+    <li> Why breaks the program after creating the new library in step 2 of
+the previous exercise?
+    </li><li> Why doesn't the program break anymore when using a pointer to the
+implementation? 
+    </li><li> Assume you design a class which is published in a library which is
+made available to the world. You're pretty sure your class is absolutely right
+and complete, so there's no need for using the pimpl approach. But shit
+happens, and three years later you realize that you actually do need to define
+two additional data members in your class. How can these additional data
+members be added to your class without breaking the ABI? (Your answer should
+offer a generic approach you can use allowing you to avoid ABI breakages for
+any class you design, which do not use the pimpl approach).
+    </li></ul>
+    You earn two points for completing this exercise.
+<p>
+<br><strong>Answer:</strong><br>
+    Notes:
+    </p><ul>
+    <li> The original <code>data.h</code> and <code>data.ih</code> header files should be
+cleaned up: the <code>string</code> and <code>iostream</code> headers should no longer be
+included. <code>Data.h</code> itself only needs to declare `<code>class DataImp;</code>'.
+    </li><li> When changing <code>DataImp</code> after constructing the initial program,
+realize that all sources of both <code>Data</code> and <code>DataImp</code> must be recompiled:
+ABI breaks are prevented, as the already existing <code>main.o</code> file must <em>not</em>
+be recompiled.
+    </li><li> There is no nice solution to this problem. If your class already
+contains a pointer, it can be changed to a pimpl, and all new members can be
+harbored in a <code>ClassPimpl</code> class. In practice, if your class contains at
+least two data members (or one data member which has at least the size of a
+pointer [note that an <code>int</code> doesn't qualify, but a <code>long long</code> does]), one
+can be <em>cast</em> to a pimpl, embedding the cast in a private member <code>pimpl</code>
+like this:
+        <pre>    #ifndef INCLUDED_DATA_
+    #define INCLUDED_DATA_
+
+    class DataImp;          // header file not needed
+
+    class Data
+    {
+        long long d_value;
+
+        public:
+            Data();
+            bool read();
+            void display() const; 
+
+        private:
+            DataImp *pimpl() const;
+    };
+
+    inline DataImp *Data::pimpl() const
+    {
+        return reinterpret_cast&lt;DataImp *&gt;(d_value);
+    }
+
+    #endif
+
+</pre>
+
+<p>
+The constructor could initialize the data member like this:
+        </p><pre>    #include "data.ih"
+
+    Data::Data()
+    {
+            // first, force the interpretation of d_value's address as the address
+            // of a pointer to a DataImp 
+        DataImp **dip = reinterpret_cast&lt;DataImp **&gt;(&amp;d_value);
+
+            // then assign to that `pointer', the address of a new DataImp
+            // (so the new DataImp's address is stored at d_value)
+        *dip = new DataImp;
+    }
+
+</pre>
+
+<p>
+To call a member in the <code>DataImp</code> class use invocations like this:
+        </p><pre>    #include "data.ih"
+
+    bool Data::read()
+    {   
+        return pimpl()-&gt;read();
+    }
+
+</pre>
+
+<p>
+</p></li></ul>
+<p>
+The new implementation of <code>Data</code> and the implementation of <code>DataImp</code>
+are found <a href="https://www.icce.rug.nl/edu/1/pointers1/answers/pimpl.tgz">here</a>.
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven04.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven06.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

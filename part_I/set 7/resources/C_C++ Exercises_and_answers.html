@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven06.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven08.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l7"></a>
+<h1>Chapter 7: Exercises set seven: Basic Input/Output. Deadline: November 2</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 52.</strong>
+        <br>
+        Purpose of this exercise: learn to create a `one-size-fits-all' function
+<p>
+Consider the following <code>main</code> function:
+        </p><pre>
+int main()
+{
+    fun();
+    fun("with functions");
+    fun(1, 2, 3);
+}
+        
+</pre>
+
+    This function does not compile, <code>fun</code> hasn't been declared.
+<p>
+Add one function <em>declaration</em> to the above source text so that <code>main</code>
+<em>can</em> be compiled. Submit the modified source.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Use a function with the ellipsis as parameter, since that's the
+`universal' parameter list. This source file compiles flawlessly:
+        </p><pre>
+void fun(...);
+
+int main()
+{
+    fun();
+    fun("with functions");
+    fun(1, 2, 3);
+}
+        
+</pre>
+
+    One problem remains (but that's not part of the exercise): inside <code>fun</code>
+you have no idea how <code>fun</code> was called, and so you can't access its
+arguments. That problem will be solved later in this course.
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 53.</strong>
+        <br>
+        Purpose: learn to understand the behavior of istreams.
+<p>
+Consider the following little program:
+        </p><pre>#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main(int argc, char **argv)
+{
+    if (argc &gt; 3)
+    {
+        cout &lt;&lt; "Require two numerical unsigned inputs" &lt;&lt; '\n';
+        return 1;
+    }
+     
+    istringstream istr(argv[1]);
+    size_t no1 = 0;
+    istr &gt;&gt; no1;
+  
+    cout &lt;&lt; "extracted first number: " &lt;&lt; no1 &lt;&lt; '\n';
+
+    istr.str(argv[2]);
+    size_t no2 = 0;
+    istr &gt;&gt; no2;
+  
+    cout &lt;&lt; "extracted second number: " &lt;&lt; no2 &lt;&lt; '\n';
+}
+
+</pre>
+
+<p>
+Run this program and provide two numeric arguments, e.g., <code>a.out 1
+2</code>. Explain why the output is not 
+        </p><pre>
+    extracted first number: 1
+    extracted second number: 2
+        
+</pre>
+
+    and provide the required repair (no need to sumbit all of the code, just
+provide the repair and some of the surrounding lines, so I can see where the
+repair fits in).
+<p>
+<br><strong>Answer:</strong><br>
+    When extracting the first number, extraction succeeds, but at the same
+time <code>istr.eof()</code> is true. Even though <code>istr</code>'s buffer is reassigned a
+value, this doesn't clear the flags. An explicit <code>istr.clear()</code> is needed to
+clear that flag, which will then allow <code>istr</code> to extract the second number.
+</p><p>
+The repair is:
+        </p><pre>
+    ...
+    istr &gt;&gt; no1;
+    cout &lt;&lt; "extracted first number: " &lt;&lt; no1 &lt;&lt; '\n';
+
+    istr.clear();           // put this somewhere between the two extractions
+    istr.str(argv[2]);
+    ...
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 54.</strong>
+        <br>
+        Purpose: learn to define a manipulator
+<p>
+Many situations exist where the current local time must be displayed. The <strong>C</strong>
+function <code>asctime</code> can be used for that, but its use isn't
+trivial. Moreover, <code>asctime</code> automatically appends a trailing newline to the
+returned time, which we may not want.
+</p><p>
+Define and submit a <em>manipulator</em> <code>now</code> inserting the current date and
+time as produced by <code>asctime</code> but without the trailing newline. To use it,
+your should be able to do:
+        </p><pre>
+    int main()
+    {
+        cout &lt;&lt; now &lt;&lt; '\n';
+    }
+        
+</pre>
+
+<p>
+Submit the implementation of the <code>now</code> manipulator and an example of its
+output. All code (including the above <code>main</code> function) may be submitted in
+one source file.
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+
+#include &lt;iomanip&gt;          // for put_time
+// #include &lt;string&gt;        // for the alternative code
+
+using namespace std;
+
+std::ostream &amp;now(std::ostream &amp;out)
+{
+    time_t seconds = time(0);
+
+    return out &lt;&lt; put_time(localtime(&amp;seconds), "%c");
+
+// Alternatively:
+//
+//    std::string timeText(asctime(localtime(&amp;seconds)));
+//
+//    timeText.pop_back();
+//
+//    return out &lt;&lt; timeText;
+}
+
+using namespace std;
+
+int main()
+{
+    cout &lt;&lt; now &lt;&lt; '\n';
+}
+</pre>
+
+<p>
+Alternatively, the function <code>std::put_time</code> function can be used
+(cf. <a href="http://en.cppreference.com/w/cpp/io/manip/put_time">http://en.cppreference.com/w/cpp/io/manip/put_time</a>).
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 55.</strong>
+        <br>
+        Purpose of this exercise: learn to prevent file clobbering by multiple
+programs accessing the same file.
+<p>
+Consider the situation where we have a program that processes some kind of
+database. The program is accessible to multiple users, and so two users may
+run the program at the same time.
+</p><p>
+User 1 opens the database and reads a record, intending to update it.
+At that point user 2 opens the same database, also intending to update that
+record. With luck only one of the updates will take effect, but more often the
+record will completely be clobbered, invalidating it for future users.
+</p><p>
+In this exercise we design a class <code>Lock</code> which can be used to prevent these
+kinds of problems. Using <code>Lock</code>, once user 1 starts the program the database
+is <em>locked</em>, and user 2's program will wait until user 1's program releases
+the lock. Thus clobbering is prevented.
+</p><p>
+The class <code>Lock</code> has two constructors: 
+    </p><ul>
+    <li> <code>Lock(std::string const &amp;path)</code>: this constructor writes a lock file
+(named <code>`path'.lck</code>) and uses that file for lock-adminstration. This assumes
+that the user may create a file in the same directory as <code>path</code>;
+<p>
+</p></li><li> <code>Lock(std::string const &amp;path, std::string lockDir)</code>: this constructor
+writes a lock file (named <code>`lockDir'/`basename path'.lck</code>) and uses that
+file for lock-adminstration. This assumes that the user may create a file in
+the directory `lockDir';
+    </li></ul>
+<p>
+Hints: use <code>dirname</code> and <code>basename</code>: both functions have identical
+prototypes: to use them, a single member (e.g. 
+        `<code>stringName</code>'), 
+    receiving either <code>dirname</code> or <code>basename</code> as its argument should
+suffice to obtain either a path's `basename' or `dirname'. Make sure that this
+member can be used without requiring an existing <code>Lock</code> object, so it can be
+used in the first constructor to call the 2nd.
+</p><p>
+Once a <code>Lock</code> object has been constructed, <code>path</code> is locked and remains
+locked until <code>Lock's</code> destructor releases the lock. This class
+illustrates that destructors are not only used for deleting allocated memory,
+but also to automatically perform administrative tasks, implied by the
+functionality of their classes. 
+</p><p>
+Note that locking is not absolute: only programs using the locking convention
+will benefit from the locking facilities. Another program, disregarding
+locking, may still perform uncontrolled modifications of <code>path</code>. However, in
+our example (users using locking-aware programs) this does not happen.
+</p><p>
+To lock a file the <code>.lck</code> file must be created if it doesn't yet exist. If
+it already exists, then it can be reused. The function <strong>access</strong>(2) can be
+used to check whether a file already does exist. If so, the file can be opened
+in <em>read-write</em> mode, for which the predefined mode <code>O_RDWR</code> is used. If
+not, the file is created empty, using the mode <code>O_CREAT | O_TRUNC | O_RDWR</code>
+(cf. <strong>access</strong>(2)). Use a member 
+        <code>lockPath</code> 
+    to obtain the name of the lock file from a file's pathname and the
+specification of the directory to contain the <code>.lck</code> file.
+</p><p>
+To lock a file the function <strong>flock</strong>(2) is used. Make sure that you use an
+<em>exlusive lock</em>. The function <code>flock</code> accesses the file through a <em>file
+descriptor</em>, rather than a file name. A file descriptor is an entry in an
+operating system's table containing information about all open files. Use a
+private member function <code>open</code> to open the lock file, returning its file
+descriptor. To obtain a file's file descriptor use <strong>open</strong>(2), and provide it
+with permission mode argument 0600 (note: this is an octal number, don't use
+600!)
+</p><p>
+Unlocking is easy: if a file was locked, it's also open. In that case, merely
+closing the file (cf. <strong>close</strong>(2)) is enough to release the lock. Make sure
+you don't call <code>close</code> if the <code>Lock</code> object couldn't lock the file.
+</p><p>
+At several points locking may fail: an error in a file name, permissions may
+not be sufficient, etc, etc. The class therefore also has a member <code>valid</code>
+returning <code>true</code> if locking was successful, and <code>false</code> otherwise.
+</p><p>
+Hints: The class <code>Lock</code> is a small class. It only needs the mentioned
+constructors, destructor, <code>open</code> and <code>valid</code> member functions, and the
+abovementioned support members. It's also small wrt memory footprint: it only
+needs to remember the lock file's file descriptor, which is an <code>int</code>.
+</p><p>
+Design and implement the class <code>Lock</code>. In addition, write a program that
+locks access to a file (specified as the program's first command-line
+argument): the program reads a line from its standard input, and appends it to
+the file specified at the program's argument. Start the program in two
+terminals, and make sure that the prompt <code>"? "</code> is only shown once the
+program has obtained the lock. After the prompt is shown, read the input line
+and append it to the file. Running three programs should also be possible.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Our implementation can be downloaded 
+        <a href="https://www.icce.rug.nl/edu/1/basicio/answers/lock.tgz">here</a>
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 56.</strong>
+        <br>
+        Purpose of this exercise: learn to use binary files. 
+<p>
+We had a server running a daemon, and the daemon didn't seem to start enough
+processes. Did it actually start them but did the kernel kill them
+immediately?  Or did it just not fork them in the first place? We didn't know.
+</p><p>
+Luckily, in Linux, process accounting can be enabled, like this:
+ </p><pre>
+    sudo accton path/to/pacctfile
+
+</pre>
+
+<p>
+With process accounting thus turned on, on exit of each process the kernel
+writes data about that process to the indicated file in the form of a
+<code>struct acct_v3</code>, which can be found in <code>/usr/include/linux/acct.h</code>, but
+only <em>if</em> that file is present. We give it here:
+    </p><pre>
+struct acct_v3
+{
+        char            ac_flag;                /* Flags */
+        char            ac_version;             /* Always set to ACCT_VERSION */
+        __u16           ac_tty;                 /* Control Terminal */
+        __u32           ac_exitcode;            /* Exitcode */
+        __u32           ac_uid;                 /* Real User ID */
+        __u32           ac_gid;                 /* Real Group ID */
+        __u32           ac_pid;                 /* Process ID */
+        __u32           ac_ppid;                /* Parent Process ID */
+        __u32           ac_btime;               /* Process Creation Time */
+        float           ac_etime;               /* Elapsed Time */
+        comp_t          ac_utime;               /* User Time */
+        comp_t          ac_stime;               /* System Time */
+        comp_t          ac_mem;                 /* Average Memory Usage */
+        comp_t          ac_io;                  /* Chars Transferred */
+        comp_t          ac_rw;                  /* Blocks Read or Written */
+        comp_t          ac_minflt;              /* Minor Pagefaults */
+        comp_t          ac_majflt;              /* Major Pagefaults */
+        comp_t          ac_swaps;               /* Number of Swaps */
+        char            ac_comm[ACCT_COMM];     /* Command Name */
+};
+    
+</pre>
+
+<p>
+The kernel developers, not being the types to waste space or time, decided to
+write the accounting data in binary form.  If a process is killed by the
+kernel, its exit code has the numeric value of the <em>signal</em> that was used to
+kill it.  The numbers of those signals are found in <code>signum.h</code>, which can be
+included using <code>#include &lt;csignal&gt;</code>, and is given here for convenience:
+    </p><pre>
+/* Signals.  */
+#define SIGHUP          1       /* Hangup (POSIX).  */
+#define SIGINT          2       /* Interrupt (ANSI).  */
+#define SIGQUIT         3       /* Quit (POSIX).  */
+#define SIGILL          4       /* Illegal instruction (ANSI).  */
+#define SIGTRAP         5       /* Trace trap (POSIX).  */
+#define SIGABRT         6       /* Abort (ANSI).  */
+#define SIGIOT          6       /* IOT trap (4.2 BSD).  */
+#define SIGBUS          7       /* BUS error (4.2 BSD).  */
+#define SIGFPE          8       /* Floating-point exception (ANSI).  */
+#define SIGKILL         9       /* Kill, unblockable (POSIX).  */
+#define SIGUSR1         10      /* User-defined signal 1 (POSIX).  */
+#define SIGSEGV         11      /* Segmentation violation (ANSI).  */
+#define SIGUSR2         12      /* User-defined signal 2 (POSIX).  */
+#define SIGPIPE         13      /* Broken pipe (POSIX).  */
+#define SIGALRM         14      /* Alarm clock (POSIX).  */
+#define SIGTERM         15      /* Termination (ANSI).  */
+#define SIGSTKFLT       16      /* Stack fault.  */
+#define SIGCLD          SIGCHLD /* Same as SIGCHLD (System V).  */
+#define SIGCHLD         17      /* Child status has changed (POSIX).  */
+#define SIGCONT         18      /* Continue (POSIX).  */
+#define SIGSTOP         19      /* Stop, unblockable (POSIX).  */
+#define SIGTSTP         20      /* Keyboard stop (POSIX).  */
+#define SIGTTIN         21      /* Background read from tty (POSIX).  */
+#define SIGTTOU         22      /* Background write to tty (POSIX).  */
+#define SIGURG          23      /* Urgent condition on socket (4.2 BSD).  */
+#define SIGXCPU         24      /* CPU limit exceeded (4.2 BSD).  */
+#define SIGXFSZ         25      /* File size limit exceeded (4.2 BSD).  */
+#define SIGVTALRM       26      /* Virtual alarm clock (4.2 BSD).  */
+#define SIGPROF         27      /* Profiling alarm clock (4.2 BSD).  */
+#define SIGWINCH        28      /* Window size change (4.3 BSD, Sun).  */
+#define SIGPOLL         SIGIO   /* Pollable event occurred (System V).  */
+#define SIGIO           29      /* I/O now possible (4.2 BSD).  */
+#define SIGPWR          30      /* Power failure restart (System V).  */
+#define SIGSYS          31      /* Bad system call.  */
+#define SIGUNUSED       31
+    
+</pre>
+
+<p>
+Assignment:
+    </p><ul>
+    <li> Write a program that by default reads <code>/var/log/account/pacct</code>, or
+        reads (an)other <strong>s</strong> if specified as command-line arguments.
+<p>
+For those of you who don't have their own process accounting to turn
+        on, a file 'pacct' is available <a href="https://www.icce.rug.nl/edu/1/basicio/pacct.bin">here</a>. <em>Be
+        careful:</em> this is a binary file, make sure you don't download it as a
+        text-file. Its sha256 hash value must be
+            </p><pre>
+        a7098bdcfffbf7beaa4f6c5cfc4d597e4f9ead0241a33cfd9a379b0e7f445c23
+            
+</pre>
+
+<p>
+</p></li><li> The program should output the names of all processes that didn't exit
+        properly (proper exit is indicated by an exit code of 0).
+<p>
+</p></li><li> It is OK to output one process name multiple times if it was run
+        multiple times.
+<p>
+</p></li><li> If the program is started with a '-a' option, it should output
+        information about *all* exited processes, incuding those that properly
+        exited.
+<p>
+</p></li><li> If the process was killed with <code>SIGKILL</code> or <code>SIGTERM</code>, mention
+        the name of the signal, instead of the number.
+    </li></ul>
+<p>
+Here is an example of the program's output:
+</p><p>
+</p><pre>
+    $ ./ec ./pacct
+    'gzip' 512
+    'gzip' 512
+    'dpkg-split' 256
+    'dpkg-split' 256
+    'update-alternat' 512
+    'update-alternat' TERM
+        
+</pre>
+
+<p>
+Optional question:
+</p><p>
+It would be nice to be able to request the program to `tail' the
+        accounting file. In that case it doesn't exit on end-of-file, but it
+        resumes reading as soon as new data becomes available. In C, you would
+        use facilities like <code>select, epoll</code> or <code>inotify</code>. Explain why it
+        is hard to obtain the same effect in standard <strong>C++</strong>.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Our implementation uses the <code>Arg</code> singleton (and friends) to handle the
+    command-line options (see the answers to the next exercises of this set). 
+</p><p>
+To create the program first build a library from the classes <code>arg,
+    argoption, arglongoption</code> and <code>optstructarray</code>. This library (e.g.
+    <code>libarg.a</code>) can also be used by future programs to handle command-line
+    options. Then compile all of the program's sources (the sources in the
+    project's directory and the directories <code>options</code> and <code>accounting</code> and
+    link these to the <code>libarg.a</code> library). 
+</p><p>
+<a href="https://www.icce.rug.nl/edu/1/basicio/answers/pacct.tgz">basicio/answers/pacct.tgz</a>
+</p><p>
+Why is it hard to `tail' the accounting file?
+</p><p>
+C functions offer a way to put the program to sleep until new data appears
+    at the input. This functionality is not available for streams. If we want
+    to tail the file using only streams, we have to busy-loop.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 57.</strong>
+        <br>
+        (optional)<br>Purpose of the exercise: experience some practical problems in using binary
+I/O.
+<p>
+You earn two points if your program was well written and works OK
+</p><p>
+Our genes are held in molecules of DNA. DNA is described at a high level in
+terms of base pairs, formed by nucleobases, of which the primary ones are
+Adenine (A), Thymine (T), Guanine (G) and Cytosine (C). Let's assume for a
+moment that there are only these four. (Uracil occurs in RNA, not DNA, and
+we simply disregard any other nucleobases.)
+</p><p>
+The human genome contains quite a few nucleobases, about three billion
+(short scale, 3E9). A human readable file with nucleobases represented by
+ascii chars (ACTGATTGA etc.) would take roughly 3GB. Zipping aside, we could
+reduce that a bit by writing binary files. A set of four possible characters
+means two bits per character, resulting in size reduction by a factor four.
+</p><p>
+Assignment:
+</p><p>
+Write a program that converts between either of two formats:
+    </p><ul>
+    <li> Human-readable nucleobase letters A, C, T and G, and nothing
+        else (except for maybe an optional final newline at the end of a
+        file).
+    </li><li> A binary (b) format of your own choice, with two bits per nucleobase
+        (and perhaps a little overhead). 
+    </li></ul>
+<p>
+Take the following into account:
+    </p><ul>
+    <li>  The file must take an in- and and output file name as arguments.
+    </li><li> If an option '-b' is present, it must write binary output, if not, it
+        must write human-readable.
+    </li><li> If the human readable file contains anything but A, C, T, and G,
+        return with nonzero status (either immediately or after operation).
+    </li><li> Since we use all possible bit patterns for nucleobases when in binary
+        mode, a human readable file could also be interpreted as binary. This
+        must not happen, and we cannot let the user be responsible for
+        preventing it. So the program must be able to conclude from the input
+        whether it is binary or human-readable.
+    </li><li> Let's say that an 'A' is represented in the binary format by two zero
+        bits. Then what is the difference between the sequences ACAA and ACA
+        when written in binary?
+<p>
+The program must also work around that. (Telomere extension is not
+        allowed.)
+    </p></li><li> A format that needs no seeking when it it written is better than one
+        that does need seeking.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+</p><p>
+At two bits per nucleobase and four nucleobases per byte, any bit pattern is
+in use, and so potentially any file would be valid input in binary mode.
+</p><p>
+This can be fixed using the common way (in UNIX) to distinguish a file format
+from the next: by writing some fixed length 'magic' at the beginning of the
+file.  If the file starts with this magic, it's recognized as being of the
+specified format.
+</p><p>
+The magic can be as complex as you want, but considering the context you can
+also apply the KISS principle: since the readable files only contain 'A', 'C',
+'G' and 'T' characters, any other character can be used as magic. In our
+implementation a <code>\b</code> (backspace) character is used. So, if the input file
+starts with a backspace character it is the binary file.
+</p><p>
+A human readable file may also use magic. But the restriction that only 'A',
+'C', 'G' and 'T' be present may itself serve as magic, as it clearly separates
+the text file from the binary file.
+</p><p>
+The binary format must be capable of containing a number of nucleobases that
+is not a multiple of four. In our implementation we use <em>padding</em>: following
+the last byte containing the encoded nucleobase characters the final byte
+contains the number of encoded nucleobase characters in the last but one
+byte. 
+</p><p>
+As an example: if your textual input file contains AC, and A is encoded as 0,
+C as 1, G as 2, and T as 3, then the binary file contains 3 bytes, having
+hexadecimal values 0a, 04, 02.
+</p><p>
+In our implementation the class <code>DNA</code> handles the conversions. It uses a
+pointer-to-member <code>d_get</code> which is either pointing at the function <code>int
+getText()</code>, returning the next byte of encoded characters, or pointing at the
+function <code>int getBinary()</code>, returning a nucleobase character (i.e., A, C, T,
+or G). When <code>(this-&gt;d_get)()</code> returns EOF the end of input has been reached. 
+</p><p>
+`Converting' from text to text or binary to binary is simple: no special
+actions are required, and the istream's buffer can simply be inserted into the
+ostream. 
+</p><p>
+To convert from text to binary blocks of at most 4 characters are read, which
+are then converted to binary coded values, stored in a single byte of the
+returned <code>int</code>. The number of characters read is stored in <code>d_idx</code>. Having
+returned the last data byte (which may involve fewer than 4 characters) EOF is
+returned; the number of characters read last is then still available in
+<code>d_idx</code>. 
+</p><p>
+To convert from binary to text the following algorithm is used:
+</p><p>
+Binary files are formatted like this:
+    </p><pre>
+    MAGIC                                   (1)
+    4 bit-patterns per byte                 (2)
+    1..4 bit pattern in last but 1 byte     (3)
+    # bit patterns in previous byte         (4)
+    
+</pre>
+
+<p>
+(2) may be absent. The format implies that there are at least 2 bytes beyond
+(1).
+</p><p>
+The data used for reading binary patterns uses these members:
+    </p><pre>
+    int d_idx       - the idx of the next coded ACTG value (initially 4)
+                        (int is used because of a comparison with
+                         d_byte[0]) 
+    char d_byte[3]; - the next max. 3 bytes to process
+    
+</pre>
+
+<p>
+Two support functions are used:
+    </p><pre>
+    int codedChar() returns the coded character for the binary coded value
+                    at d_byte[0]'s d_idx position, incrementing d_idx.
+
+    int getBinaryEnd() returns EOF if d_idx == d_byte[1], 
+                               otherwise codedChar()
+    
+</pre>
+
+<p>
+Initially (1) is skipped, and 2 bytes are read into <code>d_byte + 1</code>.  This must
+succeed (if not: the input file is corrupted).
+</p><p>
+Next, in a while loop <code>getBinary</code> is called (through <code>d_get</code>) until
+returning EOF 
+</p><p>
+<code>getBinary</code> performs the following actions:
+        </p><pre>
+    If d_idx == 4, 
+            d_idx is reset to 0 (= the next coded value to return),
+            d_byte[0..1] = d_byte[1..2], and 
+            byte[2] is read. 
+        If reading fails, get is reassigned to getBinaryEnd.
+        (this-&gt;*d_get)() is returned
+    else, codedChar() is returned.
+        
+</pre>
+
+<p>
+Explanation: if idx == 4 and reading succeeds, the recursive call results in
+<code>codedChar</code> being called, until 4 character have been converted. If reading
+fails, d_byte[1] holds the final byte and <code>getBinaryEnd</code> returns the
+remaining available characters.
+</p><p>
+Our implementation can be retrieved <a href="https://www.icce.rug.nl/edu/1/basicio/answers/actg.tgz">here</a>.
+</p><p>
+<strong>Multiple input files</strong>
+</p><p>
+A variant of the above program, capable of processing multiple input files can
+be retrieved <a href="https://www.icce.rug.nl/edu/1/basicio/answers/actgmulti.tgz">here</a>. In this archive a file
+README describes the logic that lies behind this program.
+</p><p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 58.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to display floating point numbers using
+modifiers.
+<p>
+Construct a small program that defines <code>double value = 12.04</code> and then,
+using <em>one</em> <code>cout</code> statement, display <code>value</code>, inserting its value into
+<code>cout</code> as follows, using
+    </p><ul>
+    <li> fields of 15 characters wide, 
+    </li><li> displaying <code>value</code> as follows, each on a new line:
+        <ul>
+        <li> without any special formatting (so just insert <code>value</code> in a
+            field of 15 characters wide)
+        </li><li> left aligned
+        </li><li> right aligned
+        </li><li> only the initial 3 digits of <code>value</code> (and the decimal dot, of
+            course) 
+        </li><li> using 4 numbers behind the decimal point 
+        </li><li> the original <code>value</code> once again, as in the first line, without
+            any special formatting
+        </li></ul>
+        In your program, the code realizing each of the above formats must
+        also be provided on separate lines (this not only nicely organizes
+        your statement, but also greatly helps us rating your exercise).
+    </li></ul>
+<p>
+<em>Caveat:</em> remember: your program may use only <em>one</em> <code>cout</code> statement!
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+
+int main()
+{
+    double value = 12.04;
+
+    cout &lt;&lt; setw(15) &lt;&lt; value &lt;&lt; '\n' 
+        &lt;&lt; setw(15) &lt;&lt; left &lt;&lt; value &lt;&lt; '\n' 
+        &lt;&lt; setw(15) &lt;&lt; right &lt;&lt; value &lt;&lt; '\n' 
+        &lt;&lt; setw(15) &lt;&lt; setprecision(3) &lt;&lt; showpoint &lt;&lt; value &lt;&lt; 
+                                            noshowpoint &lt;&lt; '\n' 
+        &lt;&lt; setw(15) &lt;&lt; fixed &lt;&lt; setprecision(4) &lt;&lt; value &lt;&lt; '\n' 
+        &lt;&lt; setw(15) &lt;&lt; resetiosflags(ios::fixed) &lt;&lt; value &lt;&lt; '\n' 
+    ;
+}
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 59.</strong>
+        <br>
+        Purpose: Introducing to the <code>Arg</code> singleton, wrapping the <code>getopt()</code>
+function. This exercise focuses on the construction of the <code>Arg</code> singleton
+header file.
+<p>
+Note: this and the next exercise result in a very useful class. It's worth the
+effort to give it a serious try.
+</p><p>
+One of the <em>functions</em> exercises was about using <strong>getopt</strong>(3) and
+<strong>getopt_long</strong>(3). In this exercise we'll use the results from that exercise
+to encapsulate option handling in a class <code>Arg</code>.
+</p><p>
+<strong>DESCRIPTION</strong>
+</p><p>
+Programs frequently use command-line arguments. Let's review that topic.
+</p><p>
+Program-options allow the programmer to tell the program what specific actions
+it should take. Options are used to select specific modes of operation.
+</p><p>
+A nice example of a program allowing the user to specify options is the
+program <strong>sort</strong>(1), see its manpage.
+</p><p>
+Some additional information about <code>getopt</code> and <code>getopt_long</code>:
+These functions use several global variables:
+    </p><ul>
+    <li> <code>opterr</code> indicates how <code>getopt</code> handles problem-cases, and should be
+set to 0. 
+    </li><li> <code>char *optarg</code> points to the argument provided with options that
+require arguments.
+<p>
+So, if our program is called as
+        </p><pre>
+    options -a -b 12 -d yes file1 file2
+        
+</pre>
+
+    then <code>getopt</code> at one point returns <code>'b'</code>, with <code>optarg</code> pointing to
+the text <code>"12"</code>. Once <code>getopt</code> returns -1, <code>optind</code> equals 3, and
+<code>argv</code> has been reordered so that its final elements contain, respectively,
+<code>file1</code> and <code>file2</code>.
+    </li></ul>
+<p>
+<strong>FACILITIES</strong>
+</p><p>
+The class <code>Arg</code> must  offer the following facilities:
+</p><p>
+</p><ul>
+    <li> <code>Arg &amp;initialize(char const *optstring, int argc, char **argv)</code><br>
+       Initializes the <strong>Arg</strong> singleton. Must be called only once.  For now:
+        calls <code>exit(1)</code> if called repeatedly. Returns a reference to the
+        singleton object, allowing code initializing <strong>Arg</strong> to use the
+        initialized object immediately.
+<p>
+Inside <code>Arg</code> make sure that the <code>optstring</code> used by <code>Arg</code> starts
+        with a colon (<code>:</code>). This allows you to distinguish between unknown
+        options and missing option arguments (cf: <strong>getopt</strong>(3)'s man-page's
+        description of <code>getopt's</code> return value).
+</p><p>
+</p></li><li> <code>Arg &amp;initialize(char const *optstring,
+                        LongOption const * const begin,
+                        LongOption const * const end,
+                        int argc, char **argv)</code><br>
+       Initializes the <strong>Arg</strong> singleton. Accepts two iterators of an array of
+        <strong>Arg::LongOption</strong> objects, holding long-options. Must be called only
+        once. For now: calls <code>exit(1)</code> if called repeatedly.  See the
+        description of <strong>Arg::LongOption</strong> below.  Returns a reference to the
+        singleton object, allowing code initializing <strong>Arg</strong> to use the
+        initialized object immediately.
+<p>
+<code>optstring</code> is defined as in the first overloaded version of
+        <code>initialize</code>. 
+</p><p>
+</p></li><li> <code>Arg &amp;instance()</code> <br>
+       Returns the instance of the <strong>Arg</strong> object, available after calling one
+        of the <code>Arg::initialize()</code> members.  For now: if called before
+        initialization, it should call <code>exit(1)</code>.
+<p>
+</p></li><li> <code>char const *argument(unsigned idx) const</code><br>
+       Returns argument <code>idx</code>, after having removed the options.  0 is
+        returned if the argument is not available.  The program name
+        (<code>argv[0]</code>) is NOT counted here: idx 0 refers to the first
+        <em>argument</em>, e.g., the program's <code>argv[1]</code>.
+<p>
+</p></li><li> <code>std::string const &amp;basename() const</code><br>
+       Returns the basename of the program (make sure you keep the member's
+        prototype as shown).
+<p>
+</p></li><li> <code>nArgs()</code><br>
+       Returns the number of non-option arguments (not counting the program
+        name).
+<p>
+</p></li><li> <code>nOptions()</code><br>
+       Returns the number of single-character options. If short options have
+        long option synonyms and long options were specified, then these long
+        option synonyms are counted as if they were specified as single
+        character options. If single character options (or their long option
+        synonyms) are multiply specified, then each specification is counted
+        as one option (so <code>-v -v</code> counts as two options).
+<p>
+</p></li><li> <code>unsigned option(int opt)</code><br>
+       Returns the number of times option <code>opt</code> was specified, 0 indicating
+        that the option was not given.
+<p>
+</p></li><li> <code>size_t option(std::string const &amp;options) const</code><br>
+       The number of times one of the options specified in the `option'
+        argument (or their long option synonyms) were present is returned.
+<p>
+</p></li><li> <code>size_t option(string *value, int option) const</code><br>
+       Returns the number of times the provided option (or its long option
+        synonym) was present. If the return value is non-zero then the value
+        of the first occurrence of this option is stored in <code>*value</code>, which
+        is left untouched if `option' was not present. 0 may be specified for
+        <strong>value</strong> if the option does not have a value or if the value should
+        not be stored.
+<p>
+</p></li><li> <code>size_t option(string *value, char const *longOption) const</code><br>
+       Returns the number of times the specified long option (not having a
+        single-character synonym) was present. Its value is then stored in
+        <code>*value</code>, which is left untouched if the long option was not
+        present. 0 may be specified for <strong>value</strong> if the option does not have
+        a value or if the value should not be stored.
+<p>
+</p></li><li> <code>size_t option(size_t idx, string *value, 
+                                        char const * longOption) const</code><br>
+       Returns the number of times the provided long option (not having a
+        single-character synonym) was present. If the return value is non-zero
+        then the value of the <code>idx</code>th occurrence (0-based offset) of this
+        long option is stored in <code>*value</code>, which is left untouched if the
+        long option was not present or if <code>idx</code> is or exceeds the number of
+        specifications of the provided long option. 0 may be specified for
+        <strong>value</strong> if the long option does not have a value or if the value
+        should not be stored.
+<p>
+</p></li><li> <code>bool versionHelp(void (*usage)(std::string const &amp;progname), 
+        char const *version, size_t minArgs, int helpFlag = 'h', 
+        int versionFlag = 'v') const</code><br>
+       If <code>versionFlag</code> was specified, and the <code>helpFlag</code> was not
+        specified the program's name (using <code>basename()</code>) and <code>version</code> is
+        displayed to <code>std::cout</code>. Otherwise, if the <code>helpFlag</code> was
+        provided or if there are fewer arguments than <code>minArgs</code> <code>usage()</code>
+        is called with argument <strong>basename()</strong>. If either  version-
+        or help information is shown <code>true</code> is returned (and your program
+        should end, returning 0 to the operating system).
+        <br>
+       Note that <code>versionhelp</code> compares <code>minArgs</code> against <code>nArgs</code>. If
+        <code>minArgs</code> should be compaired against the number of arguments up to
+        a possible `--' argument (i.e., <code>beyondDashes</code>' return value), then
+        add <code>nArgs() - beyondDashes()</code> to the <code>minArg</code> argument. E.g.,
+            <pre>
+    arg.versionHelp(usage, version, 2 + arg.nArgs() - arg.beyondDashes());
+            
+</pre>
+
+       The address of the <code>usage</code> function, the current version and the
+        minimum number of arguments must be specified. Default argument values
+        are provided for the option flags.
+<p>
+</p></li></ul>
+<p>
+In addition it defines an <code>enum Type</code> having the values <code>None, Required,</code>
+and <code>Optional</code>. These enum values can be used when specifying
+<code>longOptions</code>:
+</p><p>
+<strong>THE NESTED CLASS Arg::LongOption</strong>
+</p><p>
+Long options are defined using objects of the nested class
+<strong>Arg::LongOption</strong>. This class is defined inside the class <code>Arg</code> and 
+has these constructors:
+    </p><ul>
+    <li> <code>Arg::LongOption(char const *name, Arg::Type type = Arg::None)</code><br>
+       This constructor is used to define a long option for which no
+        corresponding short option is defined. The parameter <code>name</code> is the
+        name of the long option (without prefixing the <code>--</code> characters,
+        which <em>are</em> required when specifying the long option).
+    </li><li> <code>Arg::LongOption(char const *name, int optionChar)</code><br>
+       This constructor is used to define a long option for which a
+        corresponding short option is defined. The parameter <code>name</code> is the
+        name of the long option (without prefixing the <code>--</code> characters,
+        which <em>are</em> required when specifying the long option).
+    </li></ul>
+    In a program, long options may be specified as follows:
+    <ul>
+    <li> First, construct an array 
+        <pre>
+    Arg::LongOption longOptions[] = { c1, c2, ... cn }
+        
+</pre>
+
+    Where <code>c1, c2, ..., cn</code> are <strong>n</strong> constructions of anonymous
+            <strong>Arg::LongOption()</strong> objects.
+    </li><li> Next, pass <strong>longOptions, LongOptions + n</strong>
+                as 2nd and 3rd arguments to <code>Arg::initialize</code>
+    </li></ul>
+<p>
+<strong>EXAMPLE:</strong>
+</p><p>
+Here is an example showing how <code>Arg</code> can be used: options are specified in
+<code>main's</code> <em>anonymous</em> namespace, so <code>longOptions</code> do not pollute the
+global namespace:
+</p><p>
+</p><pre>
+    Arg::LongOption longOptions[] = 
+    {
+        Arg::LongOption{"debug"},
+        Arg::LongOption{"filenames", 'f'},
+        Arg::LongOption{"help", 'h'},
+        Arg::LongOption{"version", 'v'},
+    };
+    auto longEnd = longOptions + sizeof(longOptions) / sizeof(longOptions[0]);
+    // or, since C++17:
+    //   longEnd = longOptions + std::size(longOptions)
+
+
+    int main(int argc, char **argv)
+    try
+    {
+        Arg &amp;arg = Arg::initialize("df:hv", 
+                        longOptions, longEnd, argc, argv);
+    
+        // code using arg, etc.
+    }
+        
+</pre>
+    
+<p>
+<strong>ASSIGNMENT:</strong>
+</p><p>
+Submit the complete header file of the (singleton) class <code>Arg</code>. Your
+class interface should not just show the abovementioned members, but should
+also clearly show how you're realizing the integrity of the class's data. So,
+after calling an <code>intialize</code> member modification of <code>argv's</code> values may
+not affect the information maintained by the <code>Arg</code> object.
+</p><p>
+The <code>Arg</code> class may reorder the elements of <code>argv</code> (because that's
+what <code>getopt</code> is doing), but then it must store its own copies of any 
+remaining (i.e., after the options have been removed) arguments, as well as
+its own copy of the program-name.
+</p><p>
+Hint:
+    Store the options in a <code>string d_option</code>, and store any values that
+may be associated with them in a <code>string **d_arg</code> array. This way, when
+looking for a particular option, you can immediately use its index in the
+option string to obtain any value that may be associated with it from
+<code>d_arg</code>.
+</p><p>
+<br><strong>Answer:</strong><br>
+        </p><pre>#ifndef INCLUDED_ARG_
+#define INCLUDED_ARG_
+
+/*
+        Singleton Class built around getopt() and getopt_long() (3)
+*/
+
+
+#include &lt;string&gt;
+#include &lt;getopt.h&gt;
+
+// Formally, this class leaks memory, but only when the program ends.
+// There are cures against that, but we're not yet ready for that.
+// Since the leakage has no negative consequences (i.e., the leak isn't 
+// growing over time, we accept it for now.
+
+#include "../argoption/argoption.h"
+#include "../arglongoption/arglongoption.h"
+
+class Arg
+{
+    typedef struct option  OptStruct;
+
+    std::string d_base;
+
+    std::string *d_arg  = 0;
+    size_t d_nArgs      = 0;
+
+    ArgOption   d_option;
+    ArgLongOption d_longOption;
+
+    static Arg *s_arg;              // points to Singleton Arg
+
+    public:
+        enum Type
+        {
+            None        = 0,
+            Required    = 1,
+            Optional    = 2,
+            AsCharOption,           // see longoption2.cc
+        };
+
+        class LongOption
+        {
+            std::string d_name;
+            Type        d_type;
+            int         d_optionChar;
+            
+            public:        
+                LongOption(char const *name, Type type = Arg::None);
+                LongOption(char const *name, int optionChar);
+
+                std::string const &amp;name() const;            // in
+                int optionChar() const;                     // in
+                Type type() const;                          // in
+        };
+
+        static Arg &amp;initialize(char const *optstring, int argc, char **argv);
+
+        static Arg &amp;initialize(char const *optstring,
+                                LongOption const * const begin,
+                                LongOption const * const end,
+                                int argc, char **argv);
+
+        static Arg &amp;instance();        
+
+
+        std::string const &amp;basename() const;
+        size_t nArgs() const;
+        char const *argument(size_t idx) const;
+
+            // total number of specified short (and combined long) options
+        size_t nOptions() const;
+
+        size_t option(int option) const;                                // in
+        size_t option(std::string const &amp;optchars) const;               // 1
+        size_t option(std::string *value, int optChar) const;           // in
+
+        size_t option(std::string *value, char const *longOpt) const;   // in
+        size_t option(size_t idx, std::string *value,                   // in
+                                  char const *longOpt) const;
+
+
+        void versionHelp(void (*usage)(std::string const &amp;progname), 
+            char const *version, size_t minArgs, int helpFlag = 'h', 
+            int versionFlag = 'v') const;
+
+    private:
+        Arg(char const *optstring, int argc, char **argv);      // 1
+
+        Arg(char const *optstring,                              // 2
+            LongOption const * const begin,
+            LongOption const * const end,
+            int argc, char **argv);
+
+        void setBasename(std::string const &amp;argv0);
+        void copyArgs(char const * const*from, char const *const *to);
+        int longOptionChar(LongOption const &amp;longOption);
+
+        void fillLongOptions(OptStruct *optStruct,
+                          std::string const &amp;optString,
+                          LongOption const *const begin,
+                          LongOption const *const end);
+        void addLongOption(OptStruct *optStruct,
+                           std::string const &amp;optString,
+                           LongOption const &amp;longOption);
+        int setOptionType(std::string const &amp;optString,
+                          LongOption const &amp;longOption);
+};
+
+inline std::string const &amp;Arg::basename() const
+{
+    return d_base;
+}
+
+inline size_t Arg::nArgs() const
+{
+    return d_nArgs;
+}
+
+inline char const *Arg::argument(size_t idx) const
+{
+    return d_arg[idx].c_str();
+}
+
+inline size_t Arg::nOptions() const
+{
+    return d_option.size();
+}
+
+inline size_t Arg::option(int optChar) const
+{
+    return d_option.size(optChar);
+}
+
+inline size_t Arg::option(std::string *value, int optChar) const
+{
+    return d_option.size(value, optChar);
+}
+
+inline size_t Arg::option(std::string *value, char const *longOpt) const
+{
+    return option(0, value, longOpt);
+}
+
+inline size_t Arg::option(size_t idx, std::string *value, char const *longOpt)
+                                                                        const
+{
+    return d_longOption.size(idx, value, longOpt);
+}
+
+inline std::string const &amp;Arg::LongOption::name() const
+{
+    return d_name;
+}
+
+inline Arg::Type Arg::LongOption::type() const
+{
+    return d_type;
+}
+
+inline int Arg::LongOption::optionChar() const
+{
+    return d_optionChar;
+}
+
+#endif
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 60.</strong>
+        <br>
+        (optional)<br>Purpose: Complete the class <code>Arg</code> by implementing its members.
+<p>
+When correctly completed this exercise earns you 3 points: 1 point for
+correctly implementing its data organization, 2 points for the member
+implementations (some members can very well be implemented inline. Your
+implementation probably also benefits from some additional support member
+functions).
+</p><p>
+Put some energy in avoiding making the class <code>Arg</code> too complex.
+</p><p>
+<br><strong>Answer:</strong><br>
+    The archive containing the class's implementation and a small demo program
+can be downloaded <a href="https://www.icce.rug.nl/edu/1/pointers2/answers/arg.tgz">here</a>.
+</p><p>
+The class <code>Arg</code> quickly becomes too complex if it embeds all its
+tasks. The current implementation uses two support classes (<code>ArgOption</code> and
+<code>ArgLongOption</code>) and a nested class <code>LongOption</code> to handle fairly
+independent tasks. <code>ArgOption</code> handles single-letter options,
+<code>ArgLongOption</code> handles long options. 
+</p><p>
+The <code>main</code> function is a mere demo program. It defines a demo <code>usage</code>
+function merely to illustrate <code>Arg's versionhelp</code> member. Thus it violates
+the one-function-one-file design.
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/1/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven06.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/1/opgaven08.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

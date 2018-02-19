@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven01.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven03.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l2"></a>
+<h1>Chapter 2: Exercises set two: Exceptions. Deadline: Dec. 7</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 11.</strong>
+        <br>
+        Purpose: learn to appreciate catching references when throwing exceptions
+<p>
+Show that exception catchers catching objects result in additional copies
+of thrown objects, compared to exception catchers catching references to
+objects. Also show that when throwing objects or references copies of the
+(referred to) objects are thrown.
+</p><p>
+Also answer the question whether `<code>throw;</code>' results in throwing the
+currently available exception or a copy of that exception.
+</p><p>
+<br><strong>Answer:</strong><br>
+        </p><pre>#include &lt;iostream&gt;
+
+using namespace std;
+
+class Object
+{
+    public:
+        Object()
+        {
+            cout &lt;&lt; "Created new object\n";
+        }
+        Object(Object const &amp;other)
+        {
+            cout &lt;&lt; "Copied an object\n";
+        }
+        ~Object()
+        {
+            cout &lt;&lt; "Destroyed an object\n";
+        }
+};
+
+int main()
+try
+{
+    try
+    {
+        cout &lt;&lt; "About to throw an Object, caught by a catch(Object o) "
+                                                        "catcher\n";
+        Object obj;
+        throw obj;      // throwing this: Object{} results in copy elision
+                        // as the compiler knows that Object{} is temp.
+    }
+    catch(Object o)
+    {
+        cout &lt;&lt; "Caught the object, rethrowing it to a "
+                            "catch(Object &amp;) catcher\n";
+        throw;
+    }
+}
+catch (Object &amp;o)
+{
+    cout &lt;&lt; "Caught the rethrown object\n";
+}
+
+
+
+
+
+
+</pre>
+
+<p>
+When this program is run, it produces the following output, showing that
+    an additional copy is constructed when catching values, rather than
+    references:
+        </p><pre>
+    About to throw an Object, caught by a catch(Object o) catcher
+    Created new object
+    Copied an object
+    Caught the object, rethrowing it to a catch(Object &amp;) catcher
+    Destroyed an object
+    Caught the rethrown object
+    Destroyed an object
+        
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 12.</strong>
+        <br>
+        Purpose of this exercise: study the way delete[] works
+<p>
+Design a simple class <code>MaxFour</code> (only a constructor and destructor need to
+be implemented). Once four <code>MaxFour</code> objects have been constructed its
+constructor should throw an exception showing <code>max. number of objects
+reached</code>. 
+</p><p>
+Next write a small program in which an array of 10 <code>MaxFour</code> objects are to
+be constructed. Show how you can destroy the already allocated objects once
+you've caught the exception and explain why the solution is (so) simple.
+</p><p>
+<br><strong>Answer:</strong><br>
+    The class <code>MaxFour</code> uses a static member to count the number of
+allocated objects. If it would exceed 4 an exception is thrown. The destructor
+shows that the object is destroyed and how many are left. To show that 
+the memory in which the objects are initialized is properly destroyed, you
+have two options:
+    </p><ul>
+    <li> Overload <code>operator new[]</code> and <code>operator delete[]</code>, showing what's
+happening (<code>operator new</code> and <code>operator delete</code> could be overloaded as
+well, but that's not required for this exercise).
+    </li><li> Install the program <strong>valgrind</strong>(1)
+(cf. <a href="http://valgrind.org/">valgrind</a>) (<strong>valgrind</strong>(1) is available in
+many operating system distributions), and run your program as argument(s) to
+<strong>valgrind</strong>(1). Installing <strong>valgrind</strong>(1) is a good idea anyway,
+independently from this exercise, as it shows whether your program has any
+memory leaks. Using <strong>valgrind</strong>(1) on the program without using the
+overloaded operators <code>new[]</code> and <code>delete []</code> is shown below.
+    </li></ul>
+<p>
+Here is <code>MaxFour</code>, including overloaded <code>operator new[]</code> and
+<code>operator delete[]</code> (to reduce the size of the answer the program was
+implemented in one single file), using in-class implementations:
+        </p><pre>#include &lt;iostream&gt;
+using namespace std;
+
+class MaxFour
+{
+    static size_t s_count;
+
+    public:
+        MaxFour()
+        {
+            if (s_count == 4)
+                throw "Exception: max. 4 objects created";
+            ++s_count;
+        }
+
+        MaxFour(MaxFour const &amp;other) = delete;     // no CC, MC and op=
+
+        ~MaxFour()
+        {
+            cerr &lt;&lt; "destroyed object " &lt;&lt; s_count-- &lt;&lt; '\n';
+        }
+
+        void *operator new[](size_t size)
+        {
+            void *mem = ::operator new(size);
+            cerr &lt;&lt; "allocating a block of memory at " &lt;&lt; mem &lt;&lt; '\n';
+            return mem;
+        }
+
+        void operator delete[](void *mem)
+        {
+            cerr &lt;&lt; "returning the memory at " &lt;&lt; mem &lt;&lt; '\n';
+            ::operator delete[](mem);
+        }
+
+
+    private:
+};
+        
+size_t MaxFour::s_count = 0;
+
+
+int main(int argc, char **argv)
+try
+{
+    MaxFour *mf = new MaxFour[10];
+}
+catch (char const *txt)
+{
+    cerr &lt;&lt; txt &lt;&lt; '\n';
+}
+</pre>
+
+<p>
+This program shows:
+    </p><pre>
+    allocating a block of memory at 0x9573008
+    destroyed object 4
+    destroyed object 3
+    destroyed object 2
+    destroyed object 1
+    returning the memory at 0x9573008
+    Exception: max. 4 objects created
+    
+</pre>
+
+which illustrates that the block of memory in which the <code>MaxFour</code> objects
+would have been allocated is destroyed.
+<p>
+Running <strong>valgrind</strong> on the program without overload operators <code>new[]</code> and
+<code>delete []</code> (calling <code>valgrind a.out</code>) results in:
+</p><p>
+</p><pre>
+$ valgrind a.out 
+
+==27549== Memcheck, a memory error detector
+==27549== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==27549== Using Valgrind-3.10.0 and LibVEX; rerun with -h for copyright info
+==27549== Command: a.out
+==27549== 
+destroyed object 4
+destroyed object 3
+destroyed object 2
+destroyed object 1
+Exception: max. 4 objects created
+==27549== 
+==27549== HEAP SUMMARY:
+==27549==     in use at exit: 0 bytes in 0 blocks
+==27549==   total heap usage: 2 allocs, 2 frees, 114 bytes allocated
+==27549== 
+==27549== All heap blocks were freed -- no leaks are possible
+==27549== 
+==27549== For counts of detected and suppressed errors, rerun with: -v
+==27549== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+        
+</pre>
+
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 13.</strong>
+        <br>
+        Purpose of this exercise: learn to create an exception safe class
+<p>
+Earlier (part I, see also the exercises about allocation) we encountered the
+<code>Matrix</code>. The code of this class can also be downloaded
+<a href="https://www.icce.rug.nl/edu/2/overloading/matrix.tgz">here</a>.
+</p><p>
+The code of some members of the <code>Matrix</code> class might fail (some of them even
+use <strong>exit</strong>(3)). Identify those points, and make sure that the matrix becomes
+exception safe (or at least exception neutral).
+</p><p>
+For this exercise your may also look at the overloaded operators (see the
+`overloading' exercises). If you correctly handle those additional functions,
+then you receive a point for the next (optional) exercise.
+</p><p>
+<strong>Note:</strong> <code>operator[]</code> may fail due to an array bound excess. In line with
+the standard semantics of the index operator this is acceptable. 
+</p><p>
+However, there should <em>also</em> be a matching <code>at</code> function which should do
+array bound checking, throwing an exception if the index is out of bounds.
+</p><p>
+Make sure that the <code>at</code> function can be used like the index operator, so
+also for the 2nd index (this is somewhat complex: if this part is correctly
+implemented it earns you another point for the 2nd optional exercise following
+this one). Here is an example showing what happens when using the <code>at</code>
+members on a 5 x 3 matrix:
+        </p><pre>
+    cout &lt;&lt; "Element 3, 2 of mat: " &lt;&lt; mat[3][2] &lt;&lt; "\n"
+            "same, using at(): " &lt;&lt; mat.at(3).at(2) &lt;&lt; '\n';    
+
+    mat.at(3).at(2) = 12;
+
+    cout &lt;&lt; "Element 3, 2 of mat after assiging to 12: " &lt;&lt; mat[3][2] &lt;&lt; "\n"
+            "same, using at(): " &lt;&lt; mat.at(3).at(2) &lt;&lt; '\n';    
+
+    cout &lt;&lt; "Exception when exceeding row index:\n";
+    try
+    {
+        mat.at(30).at(2);
+    }
+    catch (exception const &amp;exc)
+    {
+        cout &lt;&lt; exc.what() &lt;&lt; '\n';
+    }
+
+    cout &lt;&lt; "Exception when exceeding col index:\n";
+    try
+    {
+        mat.at(3).at(20);
+    }
+    catch (exception const &amp;exc)
+    {
+        cout &lt;&lt; exc.what() &lt;&lt; '\n';
+    }
+
+    /* Generated output:
+
+        Element 3, 2 of mat: 8
+        same, using at(): 8
+        Element 3, 2 of mat after assiging to 12: 12
+        same, using at(): 12
+        Exception when exceeding row index:
+        Row index (30) exceeded. nRows = 5
+        Exception when exceeding col index:
+        Col index (20) exceeded. nCols = 3
+    */
+        
+</pre>
+
+    Hint: let the first <code>at</code> return a <code>Row</code> object, defined as nested
+class in Matrix, and define the 2nd <code>at</code> in <code>Row</code>.
+<p>
+A simpler (but non-standard) <code>at</code> implementation consists of an <code>at</code>
+function expecting two index arguments: one for the row, one for the
+column. If you skip the 2nd optional exercise, then the 1st optional exercise
+should offer a <code>at(rowIdx, colIdx)</code> function, checking the indices.
+</p><p>
+The resulting <code>Matrix</code> class must offer the exception guarantees: explain
+for each member function why this is true by adding a <strong>short</strong> explanatory
+comment at the top of each source file.
+</p><p>
+Note: this exercise, which may require you to define some additional
+members. Also, there are very few situations where your code actually has to
+create and throw exceptions; usually you only have to be able to properly
+handle exceptions thrown by, e.g., operator <code>new</code>.  Make sure that objects
+of the class you submit for this exercise can safely be used in programs.
+</p><p>
+<br><strong>Answer:</strong><br>
+</p><p>
+In <a href="https://www.icce.rug.nl/edu/2/exceptions/answers/matrix.tgz">this archive</a> you find the
+sources of the modified class.  
+</p><p>
+<br><br>
+     
+</p><hr>
+        <strong>Exercise 14.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to create an exception safe class
+<p>
+If you cover the <code>Matrix's</code> overloaded operators in the previous
+exercise (see the `overloading' exercises), making them exception safe, you
+earn 1 point for this exercise.
+</p><p>
+If you do, then submit this exercise as a single line of text: 
+        </p><pre>
+    See the previous exercise.
+        
+</pre>
+
+<p>
+<br><br>
+     
+</p><hr>
+        <strong>Exercise 15.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to create an exception safe class
+<p>
+If you correctly implement the single argument <code>at</code> members (see the main
+exercise about <code>Matrix</code> then you earn 1 point for this exercise.
+</p><p>
+If you do, then submit this exercise as a single line of text: 
+        </p><pre>
+    See the Matrix exercise.
+        
+</pre>
+
+<p>
+<br><br>
+     
+</p><hr>
+        <strong>Exercise 16.</strong>
+        <br>
+        Purpose of this exercise: learn how to end a program safely.
+<p>
+Assume you're program is being executed at a deeply nested level. At that
+point the program notices that further execution is pointless. Of course,
+calling <code>exit(1)</code> is no option.
+</p><p>
+How do you end a program in such a situation? Your solution must be `bullet
+proof' in that:
+    </p><ul>
+    <li> it ends the program by properly calling the destructors
+        of any local object between <code>main</code> and your current execution
+        level</li></ul>, 
+    <li> it must be simple, without any possibility of confusion,
+    </li><li> the program must stop.
+    )
+<p>
+Make sure you also submit a small demo illustrating your findings.
+</p><p>
+Note: there are at least two ways of doing this. One is blunt, the other (the
+one you should at least develop) is in theory not completely `bullet proof',
+but in practice it is.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Solution: 
+</p><p>
+The blunt solution consists of calling <code>std::terminate</code>. The problem with
+that, however, is that it doesn't handle the destruction of objects on the
+stack. In that sense it's little better than using <code>exit</code>, and should be
+avoided if you can.
+</p><p>
+The advocated solution consists of throwing an exception which is only caught
+in <code>main</code>'s function try-block. In order to prevent confusion define an enum
+which is not being used otherwise. E.g.,
+        </p><pre>
+    enum class Exit     // empty enum is OK, class is optional but advised
+    {};
+    
+    int fun()           // this function is called at a deeply nested level    
+    {
+        if (someCondition())
+            throw Exit();   // anonymous Exit value
+    }
+
+    int main()
+    try
+    {
+        // any code, eventually calling fun
+    }
+    catch (Exit)
+    {
+        return 1;
+    }
+    // any other exception may be caught here
+        
+</pre>
+
+<p>
+Note that there's no 100% guarantee that this works. If at some
+intermediate level you do something like this:
+        </p><pre>
+    void intermediate
+    try
+    {
+        // somewhere here throw Exit() happens
+    }
+    catch (...)
+    {
+        // ignoring every exception here
+    }
+        
+</pre>
+
+    then the <code>Exit</code> doesn't reach main's try-block. But this situation
+should not happen within library code providing hooks for  calling your own
+functions. In all other cases it'll be your own code and so it's your
+responsibility to avoid these kinds of sinkholes. A <code>throw;</code> in a <code>catch
+(...)</code> clause would of course solve the problem. Anyway, the essence is to
+create a specific enum which is not used elsewhere. By providing a catch
+clause for enum in <code>main</code> you can normally be sure that the enum is only
+caught there. 
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 17.</strong>
+        <br>
+        Purpose of this exercise: learn to understand how throw lists and noexept
+work.
+<p>
+As noted, throw lists and <code>noexept</code> are enforced by the compiler. It's not
+something that magically is enforced. But what is the compiler doing?
+</p><p>
+In this exercise design a little class <code>ShowExcepts</code> that has a constructor
+that accepts an <code>int</code> and a pointer to a function expecting no arguments and
+has a  <code>void</code> return type. The class has two functions:
+    </p><ul>
+    <li> <code>asAthrowList()</code>, that behaves like a function that specifies <code>throw
+        int, std::string</code>, but doesn't use a throw list;
+    </li><li> <code>asNoexcept()</code>, that calls the function passed to the object's
+        constructor, and behaves like a function that uses <code>noexcept</code>, but
+        doesn't use <code>noexcept</code>.
+    </li></ul>
+<p>
+Submit your class and a small program (and its output) showing that your code
+works as stated.
+</p><p>
+<br><strong>Answer:</strong><br>
+</p><p>
+</p><ul>
+    <li> <code>asAthrowList()</code>, that behaves like a function that specifies <code>throw
+        int, std::string</code>, but doesn't use a throw list;
+<p>
+The essence of this function is that it accepts the indicated
+exceptions and throws a <code>runtime_error</code>  if not:
+</p><p>
+</p><pre>
+    void asAthrowList()
+    try
+    {
+        ...
+    }
+    catch (int)
+    {
+        throw;
+    }
+    catch (std::string const &amp;)
+    {
+        throw;
+    }
+    catch (...)
+    {
+        throw runtime_error("throw list violation");
+    }
+        
+</pre>
+
+<p>
+</p></li><li> <code>asNoexcept()</code>, that call the function passed to the object's
+        constructor, and behaves like a function that uses <code>noexcept</code>, but
+        doesn't use <code>noexcept</code>.
+<p>
+This implementation is even simpler: any exception will terminate the
+program:
+    </p><pre>
+    void asNoexcept()
+    try
+    {
+        ...
+    }
+    catch(...)
+    {
+        terminate();
+    }
+        
+</pre>
+        
+    </li></ul>
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 18.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: Learn to identify points where exceptions may be
+thrown. 
+<p>
+Consider the following function and ask yourself at which points exceptions
+<em>may</em> be thrown. Assume that the function cleanly compiles and that <code>cout</code>
+does not throw exceptions.
+        </p><pre>
+    void fun()
+    {
+        X x;
+        cout &lt;&lt; x;
+        X *xp = new X(x);
+        cout &lt;&lt; (x + *xp);
+        delete xp;
+    }
+        
+</pre>
+ 
+    Hint: there are over 10 points in the above program where exceptions could
+be thrown.
+<p>
+Submit your answer as a numbered list stating the sequence number, the piece
+of code (the statement) that may throw an exception and a short (!)
+explanation why the exception might be thrown. Some statements may generate
+exceptions for multiple reasons: show each of them as a separate entry. Use
+the following format when submitting this exercise: statement you would write
+something like:
+        </p><pre>
+       statement   explanation
+  1.   ....
+  ...
+
+  5.   throw x;    A copy of object x is thrown
+                   Align comments requiring multiple
+                   lines of text.
+
+  6.   throw x;    Copying x may throw an exception
+  ....
+        
+</pre>
+
+    <br><strong>Answer:</strong><br>
+    Several alternatives are related to inheritance. When the answer to this
+exercise is submitted before inheritance was covered these alternatives are
+not expected to appear in your answers. Otherwise they are expected and
+rated. 
+        <pre>
+    1.  X x;                The default constructor may throw
+
+    2.  cout &lt;&lt; x;          The insertion operator may throw for X
+    3.  cout &lt;&lt; x;          X may be converted to some insertable type. 
+                            The conversion may throw
+    4.  cout &lt;&lt; x;          When X is converted to some insertable type Y: the
+                            insertion operator may throw for Y
+    5.  cout &lt;&lt; x;          X may be derived from some insertable type Y. 
+                            Inserting Y may throw
+    6.  cout &lt;&lt; x;          If value parameters were used: the
+                            copy construction may throw
+
+    7.  X *xp = new X(x);   X's copy constructor may throw
+    8.  X *xp = new X(x);   the standard new (if used) may throw
+    9.  X *xp = new X(x);   'X::operator new' may throw
+
+   10.  cout &lt;&lt; (x + *xp);  operator+ may throw for two X type objects
+   11.  cout &lt;&lt; (x + *xp);  operator+ may be defined for some convertible type
+                            from X for its lhs. This operator may throw
+   12.  cout &lt;&lt; (x + *xp);  In the above case: the conversion may throw
+   13.  cout &lt;&lt; (x + *xp);  operator+ may be defined for some convertible type
+                            from X for its rhs. This operator may throw
+   14.  cout &lt;&lt; (x + *xp);  In the above case: the conversion may throw
+   15.  cout &lt;&lt; (x + *xp);  with 9, 10 and 12: if value type parameters were
+                            used: the copy construction may throw
+   16.  cout &lt;&lt; (x + *xp);  operator+'s lhs may be defined for Y from 
+                            which X was derived. This operator may throw
+   17.  cout &lt;&lt; (x + *xp);  operator+'s rhs may be defined for Y from 
+                            which X was derived. This operator may throw
+   18.  cout &lt;&lt; (x + *xp);  operator+'s lhs and rhs may be defined for Y from 
+                            which X was derived. This operator may throw
+   19.  cout &lt;&lt; (x + *xp);  operator+'s lhs and/or rhs may be defined for Y 
+                            from which X was derived. If the above functions
+                            would define value parameters, Y's copy 
+                            constructors might throw.
+   20.  cout &lt;&lt; (x + *xp);  with 16..19: if value type parameters were
+                            used: the copy construction may throw
+
+    
+</pre>
+
+    Note that `<code>delete xp</code>' may not throw as per the <strong>C++</strong>
+standard. Formally it could throw but in that case it should formally also not
+be considered a piece of <strong>C++</strong> code.
+<p>
+The essential part of this exercise is that you realize that exceptions
+may occur in many situations, and that the reasons for exceptions may
+not always be immediately clear when looking at the individual statements. As
+a case in point: alternatives 10..20 all refer to the same statement, but each
+has its unique opportunity for throwing exceptions.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 19.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to allocate memory offering the strong
+guarantee.
+<p>
+Consider a <code>Strings</code> class using placement new to store <code>std::string</code>
+objects. It has data members <code>std::string *d_str, size_t d_size</code> and
+<code>size_t d_capacity</code>.
+</p><p>
+Implement a member <code>Strings &amp;Strings::add(std::string const *append, size_t
+count)</code> adding <code>count</code> strings pointed at by <code>append</code> to the strings
+maintained by the <code>Strings</code> object. Add a <em>small (!)</em> end-of-line comment
+to each statement in <code>add</code> describing why the statement was used. The
+comments should provide an explanation as to why the implementation offers the
+strong guarantee.
+</p><p>
+Capacity must be doubled when <code>d_size + count &gt;= d_capacity</code>, and <code>add</code>
+must throw an exception stating what went wrong if the addition
+cannot be completed. Firthermore, <code>add</code> must offer the strong guarantee.
+</p><p>
+Caveat: this is harder to accomplish than it appears to be at first sight. 
+</p><p>
+You may use an existing <code>Strings</code> class (e.g., as developed during part
+I). You may also use the following <code>Strings</code> interface, assuming that all
+members, except for <code>add</code> have already been implemented:
+        </p><pre>
+#include &lt;iosfwd&gt;
+
+class Strings
+{
+    std::string *d_str;
+    size_t d_size;
+    size_t d_capacity;        
+
+    public:
+        Strings();
+        Strings(Strings const &amp;other);
+        ~Strings();
+
+        Strings &amp;operator=(Strings const &amp;rhs);
+
+        Strings &amp;add(std::strings *append, size_t count);
+};
+        
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+    Here is the implementation of the member <code>add</code>:
+</p><p>
+</p><pre>#include "strings.ih"
+
+void Strings::add(string const *append, size_t count)
+{
+    size_t required = d_size + count;           // required for the strings
+    size_t capacity = safeCapacity(required);   // compute a safe capacity
+
+    auto ptr = requiredMem(capacity);       // make sure there's enough
+                                            // memory, initialize it for the 
+                                            // existing strings
+
+    install(ptr, append, count);            // install the strings to append
+
+    // now we're save: update data members
+
+    size_t idx = d_size;
+    d_size += count;
+
+    if (ptr == d_str)                       // and return if installed in
+        return;                             // available memory
+
+    d_capacity = capacity;                  // memory was enlarged
+
+                            //  swap the strings from d_str, deleting the 
+                            //  default strings originally at ptr
+    for (; idx--; )
+    {
+        ptr[idx].swap(d_str[idx]);          // install by swapping
+        d_str[idx].~string();               // delete the default constructed
+                                            // strings
+    }
+
+    operator delete(d_str);                 // return useless memory
+    d_str = ptr;                            // point to new memory
+}
+
+
+
+
+</pre>
+
+<p>
+and members used by it:
+</p><p>
+</p><pre>#include "strings.ih"
+
+size_t Strings::safeCapacity(size_t required) const
+{
+    size_t capacity = d_capacity;
+
+    while (capacity &lt; required)         // compute a large enought capacity
+        capacity &lt;&lt;= 1;
+
+    return capacity;                    // and return it.
+}
+</pre>
+
+        <pre>#include "strings.ih"
+
+string *Strings::requiredMem(size_t capacity)
+{
+    if (capacity == d_capacity)         // enough memory available
+        return d_str;                   // return its pointer
+
+    auto ptr = rawStrings(capacity);    // if this fails, nothing breaks.
+
+    try
+    {
+        new (ptr) string[d_size];       // placement new initializes the area
+                                        // for already existing strings
+    }
+    catch (...)
+    {
+        operator delete(ptr);           // return useless memory
+        throw;                          // rethrow the exception
+    }
+
+    return ptr;
+}
+</pre>
+
+        <pre>#include "strings.ih"
+
+void Strings::install(string *ptr, string const *append, size_t count)
+{
+    size_t idx = 0;
+    try
+    {
+        for (; idx != count; ++idx)         // install extra strings
+            new (ptr + d_size + idx) string{append[idx]};   // copy construct 
+                                            // the strings to append
+    }
+    catch (...)                             // copy construction may fail,
+    {                                       // but then some strings may
+        for (; idx--; )                     // already have been constructed
+            ptr[d_size + idx].~string();    // so destroy them
+
+        if (ptr != d_str)                   // new memory was allocated
+            operator delete(ptr);           // return useless memory
+
+        throw;                              // retrhrow the exception
+    }
+}
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven01.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven03.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</li></body></html>

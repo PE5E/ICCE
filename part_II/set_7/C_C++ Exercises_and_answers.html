@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body>
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven06.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven08.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l7"></a>
+<h1>Chapter 7: Exercises set seven: Multi-threading I. Deadline: Feb 8, 2018</h1>
+            <br><br>
+<p>
+</p><hr>
+        <strong>Exercise 49.</strong>
+        <br>
+        Purpose of this exercise: learn to apply basic multi-threading
+<p>
+The sieve of Eratosthenes offers one way to find prime numbers. In this
+exercise we'll use this sieve to execute a time intensive process while
+another thread tells us that the program's busy.
+</p><p>
+Our program expects one argument: the number of primes we want the program to
+compute. 
+</p><p>
+Eratosthenes' sieve can be implemented like this (a basic, not too efficient
+implementation, but we don't care: the exercise is about threads, not about
+finding primes):
+    </p><ul>
+    <li> Start with a vector of <code>size_t</code> values containing 2: our first
+        prime number, and use <code>size_t next</code>, initialized to 3, as the next
+        value to inspect.
+    </li><li> While the size of the vector is smaller than the number of primes to
+        find perform these steps:
+        <ul>
+        <li> if <code>next</code> is not divisible by the values in the primes-vector,
+            then add <code>next</code> to the primes-vector
+        </li><li> increment <code>next</code>
+        </li></ul>
+    </li></ul>
+<p>
+While the program is busy finding primes, a separate thread displays dots (one
+dot every second) to <code>cerr</code> until prime-finding has finished. Then display
+all primes to <code>cout</code>, followed by the prime-finding starting time, the
+prime-finding ending time, and the number of seconds it took the program to
+find the primes. So, your program
+could produce output like this:
+    </p><pre>
+    tmp/bin/binary 20000
+    ...
+    2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 
+    (etc)
+    224711 224717 224729 224737 
+
+    Starting time: Mon Jan  8 11:15:25 2018
+    Ending time:   Mon Jan  8 11:15:28 2018
+    Computation of 20000 primes took 3 seconds
+        
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+    Here's the main program:
+</p><p>
+</p><pre>#include "main.ih"
+
+bool g_go = true;
+
+int main(int argc, char **argv)
+{
+    thread thr{ dots };
+
+    vector&lt;size_t&gt; primes{ 2 };
+
+    time_t tIn{ time(0) };
+    eratosthenes(primes, stoul(argv[1]));
+    time_t tOut = time(0);
+
+    thr.join();
+
+    cout &lt;&lt; '\n';
+
+    for (size_t prime: primes)
+        cout &lt;&lt; prime &lt;&lt; ' ';
+
+    cout &lt;&lt; "\n"
+            "\n"
+            "Starting time: " &lt;&lt; 
+                    std::put_time(std::localtime(&amp;tIn), "%c") &lt;&lt; "\n"
+            "Ending time:   " &lt;&lt; 
+                    std::put_time(std::localtime(&amp;tOut), "%c") &lt;&lt; '\n' &lt;&lt;
+            "Computation of " &lt;&lt; argv[1] &lt;&lt; " primes took " &lt;&lt; 
+                (tOut - tIn) &lt;&lt; " seconds\n";
+}
+
+
+
+
+
+</pre>
+
+<p>
+The hard work:
+</p><p>
+</p><pre>#include "main.ih"
+
+void eratosthenes(vector&lt;size_t&gt; &amp;primes, size_t nPrimes)
+{
+    unsigned long long next = 3;
+        
+    while (primes.size() &lt; nPrimes)
+    {
+        bool gotPrime = true;
+
+        for (size_t prime: primes)
+        {
+            if (next % prime == 0)    // divisible by a prime: no prime
+            {
+                gotPrime = false;
+                break;
+            }
+        }
+
+        if (gotPrime)
+            primes.push_back(next);
+
+        ++next;
+    }
+
+    g_go = false;
+
+}
+</pre>
+
+<p>
+Writing dots is simple:
+</p><p>
+</p><pre>#include "main.ih"
+
+void dots()
+{
+    while (g_go)
+    {
+        cerr &lt;&lt; '.';
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+}    
+    
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 50.</strong>
+        <br>
+        Purpose of this exercise: learn to perform time conversions
+<p>
+To convert coarse time specifications (e.g., <code>hours{13}</code> to a fine-grained
+time specifications (e.g., to minutes) is easy: show how you can do this
+conversion using available <code>chrono</code> facilities.
+</p><p>
+The opposite is slightly more complex: to convert, e.g., seconds to hours you
+need to divide by a conversion factor. Of course, the conversion factor should
+not use magic numbers, but should use conversion factors that are obtained
+using available <code>chrono</code> facilities. Using a time unit like <code>hours{1}</code> is
+OK, however.
+</p><p>
+Your program should expect two numbers: the first number represents hours,
+which must be converted to minutes; the second number represents seconds,
+which must be converted to minutes.
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+#include &lt;string&gt;
+
+using namespace std;
+using namespace chrono;
+
+int main(int argc, char **argv)
+{
+    cout &lt;&lt; 
+        minutes{ 
+            hours{ stoul(argv[1]) }
+        }.count() &lt;&lt; '\n' &lt;&lt;
+
+        minutes{
+            seconds{ stoul(argv[2]) }.count() 
+            / 
+            seconds{ minutes{1} }.count()
+        }.count() &lt;&lt; 
+        '\n';
+
+}
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 51.</strong>
+        <br>
+        Purpose of this exercise: learn to use the chrono/clock facilities
+<p>
+Using the <code>now</code> function (available in <code>chrono</code>, display the 
+current local and universal coordinated time (use <code>gmtime</code> for that).
+</p><p>
+Your program should also receive an argument: an integral number to which an
+s, m, h (for seconds, minutes, hours) is appended. Add (or subtract) the
+specified time (from <code>now</code>), and display the resulting time.
+</p><p>
+Use <code>put_time</code> to display the resulting times.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Here is our implementation. Note the use of <code>auto</code> to avoid a long
+definition like <code>chrono::time_point&lt;chrono::system_clock&gt;</code> in a context
+where specifying the actual definition type doesn't add to the readability of
+the program:
+</p><p>
+</p><pre>#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+using namespace chrono;
+
+int main(int argc, char **argv)
+{
+    int shift = 0;
+
+    if (argc == 2)
+    {
+        shift = stol(argv[1]);          // shift may be negative
+
+        switch (string(argv[1]).back())
+        {
+            case 'm':
+                shift *= seconds(minutes(1)).count();
+            break;
+            case 'h':
+                shift *= seconds(hours(1)).count();
+            break;
+        }
+    }
+        
+    auto timePoint{ system_clock::now() + seconds(shift) };
+
+            // convert it to a std::time_t:
+    time_t time = system_clock::to_time_t(timePoint);
+    
+    cout &lt;&lt; put_time( gmtime(&amp;time), "%c") &lt;&lt; '\n' &lt;&lt;
+            put_time( localtime(&amp;time), "%c") &lt;&lt; '\n';
+}
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 52.</strong>
+        <br>
+        Purpose of this exercise: learn to define a thread with objects that aren't
+functors. 
+<p>
+Assume we have the following class:
+        </p><pre>
+    class Handler
+    {
+        public:
+            void shift(std::ostream &amp;out, string const &amp;text);
+    };
+        
+</pre>
+
+<p>
+Its <code>shift</code> member writes <code>text</code> as lines to <code>out</code>, each time shifting
+the first letter to the last position, until all of text's letters have
+appeared once in text's front position. So, with the word <code>mouse</code> we get
+    </p><pre>
+    mouse
+    ousem
+    usemo
+    semou
+    emous
+        
+</pre>
+
+<p>
+As <code>Handler</code> does not have a <code>void operator()</code> member, a <code>Handler</code>
+object by itself cannot be passed to a <code>thread</code> constructor.
+</p><p>
+Design a program that expects the name of an output file and a text. Open
+the output file, and run a thread calling the Handler's <code>shift</code> member.
+</p><p>
+Do this in two different ways (sequentially): first by defining a
+<code>Handler</code> object in <code>main</code> and then passing it to a thread, and second, by
+running a thread that itself defines a <code>Handler</code> object.
+</p><p>
+<br><strong>Answer:</strong><br>
+        Here is our implementation: in the first part the <code>Handler</code> object
+is passed as argument, together with the other arguments, to a free function;
+in the second part only the arguments are passed, and the function defines its
+own <code>Handler</code> object. 
+</p><p>
+If the function is defined as a <code>Handler</code> static member function it can
+access the handler's private data, which may be useful in real-life
+situations. 
+</p><p>
+</p><pre>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+
+using namespace std;
+
+class Handler
+{
+    public:
+        void shift(std::ostream &amp;out, string const &amp;text) const
+        {
+                // doing the actual shift-task is left to the reader :-)
+            cout &lt;&lt; "in-class for brevity: " &lt;&lt; text &lt;&lt; '\n';
+        }
+};
+
+void task1(Handler const &amp;handler, ostream &amp;out, string const &amp;txt)
+{   
+    handler.shift(out, txt);
+}
+
+void task2(ostream &amp;out, string const &amp;txt)
+{   
+    Handler{}.shift(out, txt);
+}
+
+int main()
+{
+    Handler handler;        // the handler object
+
+    
+    // solution 1: 
+    thread threadObj{ task1, ref(handler), ref(cout), "hello world" };
+    threadObj.join();
+
+    // solution 2:
+    threadObj = thread{ task2, ref(cout), "more text" };
+    threadObj.join();
+}
+
+
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 53.</strong>
+        <br>
+        Purpose of this exercise: learn to design a simple producer/consumer program.
+<p>
+When a <code>queue</code> is used in a multi-threaded program a mutex is required to
+synchronize its access. Although it's possible to surround calls to queue
+members with a mutex lock, this makes the programmer responsible for the
+synchronization. It would be nice if the mutex could be embedded in the
+queue's members themselves. 
+</p><p>
+This isn't simple: see the Annotations for a description of why the <code>pop</code>
+member can't return the queue's front-element. 
+</p><p>
+Consider a class <code>Storage</code>: it contains a queue, into which strings can be
+pushed and popped by two different threads. 
+</p><p>
+The most important element to consider are <code>push</code> and <code>pop</code> and
+<code>front</code>. While designing your class <code>Storage</code> you may have to alter the
+signatures of one or more of the members of your class, as compared to
+<code>std::queue</code>. By itself, <code>Storage</code> should define a <code>std::queue</code> data
+member, so don't implement the queueing part yourself. If you modify a
+signature <em>clearly</em> explain why you decided to do so.
+</p><p>
+One thread is provided by the <code>main</code> function itself: it reads lines from
+cin (lines you enter), and pushes the lines into the queue.
+</p><p>
+A separate thread obtains the lines from the queue and writes the lines to a
+file. The name of the file is passed to the thread.
+</p><p>
+The separate thread uses polling to find out whether something is available:
+it sleeps for a second, then checks whether a line is available, and if so,
+removes it from the queue.
+</p><p>
+Complications to solve:
+    </p><ul>
+    <li> Simultaneously writing and reading the queue must be prevented;
+<p>
+</p></li><li> Consider also what may happen if one thread adds element to the
+        queue, and another thread removes elements from the queue. To the
+        latter the queue may seem empty, but that might be because the former
+        hasn't yet entered elements into the queue. So an empty queue may
+        mean: we're done adding elements or as yet we haven't been able to
+        push new elements into the queue. How would you distinguish between
+        these two cases?
+<p>
+The separate thread must be informed when the main program has no
+        more lines to insert into the queue. Merely ending <code>main</code> is not the
+        right thing to do (why not?). A better solution is to provide the
+        class <code>Storage</code> with a member <code>empty()</code>, returning true once the
+        queue is empty and a data member <code>d_finished</code> is set to <code>true</code> by
+        a member <code>finished</code>.
+</p><p>
+</p></li><li> Both the main program and the thread must have access to <code>Storage</code>,
+        but the <code>Storage</code> object should be defined in <code>main</code>.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    Our considerations when implementing the class <code>Storage</code> are in the
+class's header file:
+        </p><pre>#ifndef INCLUDED_STORAGE_
+#define INCLUDED_STORAGE_
+
+#include &lt;queue&gt;
+#include &lt;string&gt;
+#include &lt;mutex&gt;
+
+class Storage
+{
+    std::mutex d_mutex;    
+    std::queue&lt;std::string&gt; d_queue;
+    std::string d_front;
+
+    bool d_empty = false;                   // indicates no more data will
+                                            // arrive 
+    public:
+                                            // push may remain: adding strings
+        void push(std::string const &amp;str);  // provides the strong guarantee
+        void push(std::string &amp;&amp;str);   
+
+        void pop();                         // pop may remain: popping from
+                                            // an empty queue is OK, and
+                                            // the mutex prevents corruption
+
+            // front() cannot just return the queue's front element, as that
+            // releases the lock. Moreover, the queue's front() member may not
+            // be called when the queue is empty, but the queue may become
+            // empty between requesting its empty-state or size and the
+            // subsequent front() call. To avoid surprises, a new member 
+            // fetch is proposed:
+
+            // For size the same argument holds as for front. size() now
+            // simply returns the queue's size as a non-authorative value:
+        size_t size() const;
+
+            // fetch returns a bool, indicating whether fetching its front
+            // element was possible. If so, the string parameter receives the
+            // front member
+            // alternatively a unique_ptr&lt;string&gt; could be returned:
+            // if its get-member returns 0 then the queue was empty.
+            // 
+            // (so: std::unique_ptr&lt;std::string&gt; fetch())
+            //
+        bool fetch(std::string &amp;dest);
+
+            // returns true if the queue is empty and its size is 0.
+        bool empty() const;
+            
+        void setEmpty();        // sets d_empty to true: cannot be undone.
+};
+
+inline bool Storage::empty() const
+{
+    return d_empty &amp;&amp; d_queue.empty();
+}
+
+inline void Storage::setEmpty()
+{
+    d_empty = true;
+}
+
+inline size_t Storage::size() const
+{
+    return d_queue.size();
+}
+
+#endif
+
+</pre>
+
+<p>
+Here is the member <code>fetch's</code> implementation (see also the next
+    exercise):
+        </p><pre>#include "storage.ih"
+
+bool Storage::fetch(string &amp;dest)
+{
+    lock_guard&lt;mutex&gt; lg{ d_mutex };
+
+    if (d_queue.empty())
+        return false;
+
+        // if this throws, nothing has been removed. 
+    dest = move(d_queue.front());
+
+        // once we reach this point we own the queue's front element and it
+        // can be removed
+    d_queue.pop();
+
+    return true;
+}
+</pre>
+
+<p>
+The `workhors' is the function <code>readLines</code>: it tries to read lines; if
+    no line is available, it tries again until the storage is empty:
+        </p><pre>#include "main.ih"
+
+void readLines(char const *outfile, Storage &amp;storage)
+{
+    ofstream out(outfile);      // assume this is OK
+
+    while (not storage.empty())
+    {
+        string line;
+
+        if (not storage.fetch(line))
+        {
+            this_thread::sleep_for(chrono::seconds(1));
+            continue;
+        }
+
+        out &lt;&lt; line &lt;&lt; '\n';
+    }
+}
+
+        
+        
+</pre>
+
+<p>
+The main function simply runs <code>readLines</code> in a separate thread, and then
+    pushes lines from <code>cin</code> onto the queue. Once all lines were read,
+    <code>storage</code> is informed so by calling <code>setEmpty</code>, after which the
+    <code>lineThread</code> joins the main thread, and the program ends:
+        </p><pre>#include "main.ih"
+
+int main(int argc, char **argv)
+{
+    if (argc == 1)
+    {
+        cout &lt;&lt; "Provide output file name(s) as arguments\n";
+        return 0;
+    }
+
+    Storage storage;
+
+    thread lineThread{ readLines, argv[1], ref(storage) };
+
+        // the producer:
+
+    string line;
+    while (getline(cin, line))
+        storage.push(line);
+
+    storage.setEmpty();
+
+        // ending the threads:
+
+    lineThread.join();                               // a single thread
+}
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><p>
+</p><hr>
+        <strong>Exercise 54.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: extend the previous program so that it uses 
+multiple clients.
+<p>
+Extend the previous clients in such a way that an array of threads is
+defined. The number of threads is determined from the number of file names
+that are passed to <code>main</code>. Each thread should write to its own file (it is
+assumed that all file names are different). 
+</p><p>
+The objects that ran as threads must have a member <code>size</code> returning the
+number of lines that thread has captured. The objects' <code>size</code> members must
+be called for the first until the last thread, only after all threads have
+finished, and have joined <code>main</code>. 
+</p><p>
+<br><strong>Answer:</strong><br>
+    The class <code>Storage</code>, defined in the previous exercise is used again.
+</p><p>
+A class <code>Task</code> handles elements from the queue. Because the <code>Task</code>
+objects' <code>size</code> members must be used, you cannot simply define
+<code>Task::operator()()</code>, since a running thread creates copies of functors that
+are running in threads. 
+</p><p>
+Instead, the class defines a static member <code>threadRun</code> that expects a
+<code>Task</code> reference. That function will then call <code>Task::run</code> to do the hard
+work, like <code>readLines</code> in the previous exercise. Here are the <code>Task's</code>
+header file and <code>run</code> implementation:
+        </p><pre>#ifndef INCLUDED_TASK_H_
+#define INCLUDED_TASK_H_
+
+#include &lt;string&gt;
+
+#include "../storage/storage.h"
+
+class Task
+{
+    Storage    &amp;d_storage;
+    std::string d_fname;
+    size_t      d_size = 0;
+
+    public:
+        Task(char const *fname, Storage &amp;storage);
+
+        size_t size() const;
+
+        static void threadRun(Task &amp;task);
+    
+    private:
+        void run();
+};
+   
+inline size_t Task::size() const
+{
+    return d_size;
+}
+
+// static
+inline void Task::threadRun(Task &amp;task)
+{
+    task.run();
+}
+
+#endif
+</pre>
+
+<p>
+</p><pre>#include "task.ih"
+
+void Task::run()
+{
+    ofstream out(d_fname);      // assume this is OK
+
+    while (not d_storage.empty())
+    {
+        string line;
+
+        if (not d_storage.fetch(line))
+        {
+            this_thread::sleep_for(chrono::seconds(1));
+            continue;
+        }
+
+        out &lt;&lt; line &lt;&lt; '\n';
+        ++d_size;
+    }
+}
+</pre>
+
+<p>
+The main function creates the objects (since there is no default constructor,
+the <code>tasks</code> vector cannot be defined with its final size, but <code>push_back</code>
+must be used). Once the <code>tasks</code> vector is available the threads are defined
+and stored in a <code>threads</code> vector. 
+</p><p>
+Once all lines from <code>cin</code> have been processed, the threads join the main
+program thread, and the <code>Task</code> objects' <code>size</code> member is used to display
+the number of lines swallowed by each of the <code>Task</code> objects. If you run
+the program several times you'll notice that at each run 
+different numbers of lines per <code>Task</code> object are reported:
+        </p><pre>#include "main.ih"
+
+int main(int argc, char **argv)
+{
+    if (argc == 1)
+    {
+        cout &lt;&lt; "Provide output file name(s) as arguments\n";
+        return 0;
+    }
+
+    Storage storage;
+
+    --argc;                                 // to use argv[0], matching 
+    ++argv;                                 // the vector's indices
+
+    vector&lt;Task&gt; tasks;
+    for (size_t idx = 0, end = argc; idx != end; ++idx)
+        tasks.push_back(Task{ argv[idx], ref(storage) });
+
+    vector&lt;thread&gt; threads;
+    for (size_t idx = 0, end = argc; idx != end; ++idx)
+        threads.push_back(thread{ Task::threadRun, ref(tasks[idx]) });
+   
+    // the producer:
+
+        string line;
+        while (getline(cin, line))
+            storage.push(line);
+    
+        storage.setEmpty();
+
+    // ending the threads:
+
+    for (size_t idx = 0, end = tasks.size(); idx != end; ++idx)
+    {
+        threads[idx].join();
+        cout &lt;&lt; argv[idx] &lt;&lt; ": " &lt;&lt; tasks[idx].size() &lt;&lt; " lines\n";
+    }
+}
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 55.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to sort out the mess that output may become in
+the face of threads.
+<p>
+Note: 2017-2018: this exercise's deadline is Feb 15, but it will be rated for
+the first multithreading set of exercises (set seven).
+</p><p>
+Consider this main function, which uses threads:
+        </p><pre>
+    int main()
+    {
+        vector&lt;thread&gt; threads;
+        for (size_t ix = 0; ix != 100; ++ix)
+            threads.push_back(thread(f2));
+    
+        for (auto &amp;thread: threads)
+            thread.join();
+    }
+        
+</pre>
+
+<p>
+The threads are using these functions f1 and f2, which output to some kind of
+wrapper around an ostream:
+        </p><pre>
+    void f1()
+    {
+        TSosWrap{ std::cout } &lt;&lt; "one " &lt;&lt; "two " &lt;&lt; "three ";
+    }
+        
+    void f2()
+    {
+        TSosWrap tout{ std::cout };
+        tout &lt;&lt; "four "  &lt;&lt; "five " &lt;&lt; "six ";
+        f1();
+        tout &lt;&lt; '\n';
+    }
+        
+</pre>
+                                  
+<p>
+The wrapper, <code>TSosWrap</code>, uses a <code>PassOnStreamBuf</code>:
+        </p><pre>
+    class PassOnStreamBuf: public std::streambuf
+    {
+        std::ostream &amp;d_os;
+        public:
+            PassOnStreamBuf(std::ostream &amp;os);
+            PassOnStreamBuf(PassOnStreamBuf &amp;&amp;tmp) = default;
+
+            int overflow(int ch) override;
+    };
+
+    inline PassOnStreamBuf::PassOnStreamBuf(std::ostream &amp;os)
+    : 
+        d_os(os)
+    {}
+
+    inline int PassOnStreamBuf::overflow(int ch)
+    {
+        d_os.put(ch);
+        return ch;
+    }
+        
+</pre>
+
+<p>
+The wrapper itself is very simple:
+        </p><pre>
+    struct TSosWrap: private PassOnStreamBuf, public std::ostream
+    {
+        TSosWrap(std::ostream &amp;os);
+        TSosWrap(TSosWrap const &amp;other) = delete;
+        
+        TSosWrap &amp;operator=(TSosWrap const &amp;other) = delete;
+    };
+
+    inline TSosWrap::TSosWrap(std::ostream &amp;os)
+    : 
+        PassOnStreamBuf(os),
+        std::ostream(this)
+    {}
+        
+</pre>
+
+<p>
+In fact, it's too simple. When the program is run, the output is a mess,
+because the output from different <code>TSosWrap</code> objects will be mixed up.
+Modify <code>TSosWrap</code> so that output that belongs together shows up together. In
+this particular case that means: all output produced by <code>TSosWrap</code> objects
+cannot be clobbered by the output produced by other <code>TSosWrap</code> objects.
+</p><p>
+In particular, this applies to non-temporary <code>TSosWrap</code> objects: while
+existing, output produced by other <code>TSosWrap</code> objects will have to
+wait. When such a <code>TSosWrap</code> object's) lifetime ends other (waiting)
+<code>TSosWrap</code> objects may start producing output; if multiple <code>TSosWrap</code>
+objects are waiting then one will be given the opportunity to produce output,
+forcing the other objects to wait a little longer.
+</p><p>
+Caveat: notice that the function <code>f2</code> above defines a <code>TSosWrap</code> object
+protecting <code>cout</code>. While alive, <code>f1</code> is called which itself defines a
+<code>TSosWrap</code> object protecting <code>cout</code>. In this case <code>f1's TSosWrap</code> object
+must of course (why?) not wait producing output until <code>f1's TSosWrap</code> ceases
+to exist.
+</p><p>
+Note: after adding the <code>#includes</code> that are required for the above to
+compile, the modification requires less than twenty lines. Ten is doable if
+you don't count empty lines.
+</p><p>
+<br><br>
+    
+</p><hr>
+        <strong>Exercise 56.</strong>
+        <br>
+        (optional)<br>Purpose of this exercise: learn to design a small multi-threaded program,
+passing reusable objects to threads.
+<p>
+Design a class <code>TaskThreads</code> whose constructor receives the program's
+arguments. 
+</p><p>
+Its <code>run</code> member either runs tasks in parallel or sequentially.
+</p><p>
+The program's first argument is the name of a file to process. If a second
+argument (any argument) is provided tasks are performed sequentially,
+otherwise they are performed in parallel.
+</p><p>
+In addition to <code>TaskThreads</code> design a class <code>Task</code>.  When using
+multithreading <em>only</em> <code>Task</code> objects are passed to threads. Therefore,
+each object must be usable as a thread-function.
+</p><p>
+Task objects <em>must</em> be initialized in the <code>TaskThreads</code> header file as
+an array of four <code>Task</code> objects:
+    </p><ul>
+    <li> One <code>Task</code> object counts the number of vowels (lower and uppercase);
+    </li><li> One <code>Task</code> object counts the number of digits;
+    </li><li> One <code>Task</code> object counts the number of hexadecimal digits;
+    </li><li> One <code>Task</code> object counts the number of printable characters that are
+        not spaces or alphanumeric characters (these are the punctuation
+        characters).
+    </li></ul>
+    In addition, the <code>TaskThreads</code> object
+must define an array of four <code>std::thread</code> objects in its header file.
+<p>
+The <code>Task</code> constructor expects a function allowing it to count a particular
+set of characters (hint: use existing <code>is...</code> functions where available, or
+design a dedicated function when not), and a (<code>char const *</code>) label
+describing the name of the task it should perform (e.g. merely <code>"vowels"</code>
+when the <code>Task</code> object counts vowels).
+</p><p>
+Caveats: 
+    </p><ul>
+    <li> as the name of the file to process is only available <em>after</em>
+initializing the <code>Task</code> object, find a way to tell the <code>Task</code> objects the
+name of the file they should process.
+    </li><li> when passing an object to <code>std::thread</code> it receives a copy of that
+object. That is not what you want
+    </li></ul>
+<p>
+Once the threads have completed, the <code>Task</code> objects <code>count</code> members return
+the number of times the characters encountered in the file to process,
+matching the configured selection function, is returned. E.g., an object
+<code>Task{isdigit, "digits"}</code> returns the number of digits that were found in
+the file.
+</p><p>
+At the end of the program display the counts for each of the four categories
+(also using their labels) and then display the the total time
+the program needed to complete its tasks (for that use the
+<code>TaskThreads::showTime</code> member).
+</p><p>
+<br><strong>Answer:</strong><br>
+</p><p>
+Our implementation can be downloaded
+<a href="https://www.icce.rug.nl/edu/2/multithreading/answers/counter.tgz">here</a>. 
+</p><p>
+Note that, as mentioned in the exercise, the <code>Tasks</code> objects are passed
+to threads, and in order to obtain the final results these objects need to be
+passed by reference. If the objects themselves are passed then copies are
+used, resulting in the local <code>Task</code> objects returning zero count values.
+</p><p>
+Also note that the <code>Task</code> objects were initialized in the header file,
+using an array: since it is known beforehand what these <code>Task</code> objects are
+they could be initialized in the header, instead of in, e.g., a constructor.
+</p><p>
+<br><br>
+    
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/2/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven06.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/2/opgaven08.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

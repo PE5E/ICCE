@@ -1,0 +1,8 @@
+#include "storage.ih"
+
+template <typename Type>
+size_t Storage::operator[](Type idx) const
+{
+    cout << "operator [] const called\n";
+    return d_data.at(static_cast<size_t>(idx));
+}

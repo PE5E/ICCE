@@ -1,0 +1,10 @@
+#include "exception.ih"
+template <typename T>
+inline Exception &&operator<<(Exception &&tmp, T const &value)
+{
+    std::ostringstream out;
+    out << value;
+    tmp.d_what += out.str();
+
+    return std::move(tmp);
+}

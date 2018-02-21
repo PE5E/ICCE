@@ -10,17 +10,21 @@ double lhs[4][5] {5, 9, 4, 65, 7, 20, 65, 49, 1, 45,
 double rhsT[6][5] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                    15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};  
 
-void innerProduct(promise<double> &ref, int row, int col)
+void innerProduct(future<double> &ref, int row, int col)
 {
     int sum = 0;
     for (int idx = 0; idx != 5; ++idx)
-        sum += lhs[row][idx] * rhsT[col][idx];
+        sum += lhs[row][idx] * rhsT[col][idx];  // Use inner_product
     ref.set_value(sum);
 }
 
 int main()
 {
-    promise<double> result[4][6];    
+    future<double> result[4][6];
+    packaged_task<void (future<double> &ref, int row, int col)> innerP;
+
+
+//    promise<double> result[4][6];    
 
     for (int row = 0; row != 4; ++row)
     {

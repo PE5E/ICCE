@@ -13,6 +13,5 @@ int main()
 {   
     char dub = 'a'; 
     cout << dub << '\n'
-         << as<int>(std::move(dub)) << '\n'
-         << as<string>("dlskfsldf") << '\n';
+         << as<int>(dub) << '\n';
 }

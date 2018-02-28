@@ -10,8 +10,7 @@ class IntValue: public Base<IntValue>
     public:
         IntValue(int value);
 
-        // friend std::ostream &operator<<(std::ostream &out,
-        //                                 Base<IntValue> const &base);
+        friend std::ostream &Base<IntValue>::insertInto(std::ostream &out) const;
 
     private:
         std::ostream &insertInto(std::ostream &out) const;

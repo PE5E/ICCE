@@ -10,14 +10,10 @@ class DoubleValue: public Base<DoubleValue>
     public:
         DoubleValue(double value);
 
-        // friend std::ostream &operator<< <>(std::ostream &out,
-        //                                Base<DoubleValue> const &base);
+        friend std::ostream &Base<DoubleValue>::insertInto(std::ostream &out) const;
 
     private:
         std::ostream &insertInto(std::ostream &out) const;
 };
-
-// template std::ostream &operator<< <DoubleValue>(std::ostream &out,
-//                                            Base<DoubleValue> const &base);
 
 #endif

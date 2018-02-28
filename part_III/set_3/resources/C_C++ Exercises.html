@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body bgcolor="#FFFFAA" text="#000077">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven02.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l3"></a>
+<h1>Chapter 3: Exercises set three: Advanced Templates (I) (Deadline: Mar 8.)</h1>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 16.</strong>
+            <br>
+            Purpose of this exercise: learn to compare types of template parameters.
+<p>
+Design a (meta) class template <code>Type</code> whose template type arguments consist
+of a series of types (at least one). The first type is the `needle' type,
+which must be located in the remaining `haystack' types. The template's value
+'located' must have the value <code>0</code> if the first type is not encountered in
+the remaining types and must be equal to the index of the first occurrence of
+`needle' (beyond `needle' itself) in the template's template argument types
+(so the first type in the `haystack' types has index value 1).
+</p><p>
+A program using <code>Type</code> could be:
+    </p><pre>
+    int main()
+    {
+        cout &lt;&lt;
+            Type&lt;int&gt;::located &lt;&lt; ' ' &lt;&lt; 
+            Type&lt;int, double&gt;::located &lt;&lt; ' ' &lt;&lt; 
+            Type&lt;int, int&gt;::located &lt;&lt; ' ' &lt;&lt; 
+            Type&lt;int, double, int&gt;::located &lt;&lt; ' ' &lt;&lt; 
+            Type&lt;int, double, int&gt;::located &lt;&lt; ' ' &lt;&lt; 
+            Type&lt;int, double, int, int, int&gt;::located &lt;&lt; 
+            '\n';
+    }
+        
+</pre>
+
+<p>
+This program must display:
+        </p><pre>
+    0 0 1 2 2 2
+        
+</pre>
+
+<p>
+Submit your implementation of the class template <code>Type</code> and show that it
+could be compiled producing the expected output when used in the
+abovementioned <code>main</code> function.
+</p><p>
+Hint: use a support meta class template <code>TypeIdx</code> to compute the required
+index value.
+</p><p>
+Caveat: your class(es) may <em>not</em> define any (static) variables.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 17.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to compare types of template parameters (part
+II).
+<p>
+This exercise may earn you two points.
+</p><p>
+It's the same exercise as the previous exercise, but in the previous exercise
+you most likely used a separate class to do the index computations.
+</p><p>
+In this exercise the support class <em>must</em> be a private, nested class (the
+support class may be a <code>struct</code>) of the class <code>Type</code>.
+</p><p>
+Submit your implementation of the class template <code>Type</code> and show that it
+could be compiled producing the expected output when used in the
+<code>main</code> function shown in the previous exercise.
+</p><p>
+You earn one point if your implementation meets the requirements of this
+exercise, and two points if the template parameter lists used for the nested
+<code>TypeIdx</code> class are as short as possible.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 18.</strong>
+            <br>
+            Purpose: learn to design a small template  meta program.
+<p>
+Design a template meta program displaying a <code>size_t</code> constant (like 12, 210
+and 33) as a binary value.
+</p><p>
+E.g., the following program should display <code>101</code> and on a second line
+<code>11011</code>:
+        </p><pre>
+    int main()
+    {
+        cout &lt;&lt; Bin&lt;5&gt;::value  &lt;&lt; '\n' &lt;&lt;
+                Bin&lt;27&gt;::value &lt;&lt; '\n';
+    }
+        
+</pre>
+
+<p>
+Your solution should not use divisions and modulo computations.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 19.</strong>
+            <br>
+            Purpose of this exercise: learn to used nested class templates using meta
+programming.
+<p>
+How to display an integral numeric constant  in any radix between 2 and 36?
+That is the topic of this exercise. The following program shows how this can
+be realized using the <code>Convert</code> class template:
+</p><p>
+</p><pre>
+    int main()
+    {
+        cout &lt;&lt; Convert&lt;57005, 8&gt;::CP{} &lt;&lt; '\n';    // displays '157255'
+        cout &lt;&lt; Convert&lt;57005, 16&gt;::CP{} &lt;&lt; '\n';   // displays 'dead'
+        cout &lt;&lt; Convert&lt;57005, 32&gt;::CP{} &lt;&lt; '\n';   // displays '1nld'
+    }
+        
+</pre>
+
+    The first argument is the integral constant  to convert, the second
+argument the radix to use.
+<p>
+A nice feature of <code>Convert</code> is that it uses <code>Chars</code> to store the
+characters, so the width of the destination variable (as with the binary
+number convertor) is irrelevant.
+</p><p>
+Design <code>Convert</code> so that it performs the proper conversions, as
+illustrated by the example program.
+</p><p>
+Hints:
+    </p><ul>
+    <li> Forward <code>Convert</code>'s arguments to <code>Display</code> which takes an
+additional non-type parameter, initially <code>false</code>, otherwise <code>true</code>
+indicating whether something has been printed at all. Realize that a
+specialization stopping the display as soon as the remainder of the division
+<code>value / radix</code> reaches zero would prevent <code>Convert&lt;0, 10&gt;</code> from producing
+any value. A <code>bool displayed</code> non-type parameter can be used to enforce the
+conversion of 0 to <code>'0'</code> in that case.
+    </li><li> The non-specialized definition of <code>Display</code> uses template meta
+programming recursion, <code>Merge</code>, and <code>OneChar</code> to break-down the first
+argument into digits.
+    </li></ul>
+<p>
+Submit the definitions of <code>Convert</code> and <code>Display</code>.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 20.</strong>
+            <br>
+            Purpose of this exercise: learn to extend existing classes with new
+facilities, implementing the extensions only once.
+<p>
+Classes can overload binary operators. A class named <code>Class</code> may
+overload these binary operators to suit its own needs, allowing, e.g., two
+<code>Class</code> type objects to be added after overloading <code>operator+</code>. Similar
+overloads can be used for other binary operators.
+</p><p>
+If a class supports copy and/or move construction and if it offers a swap
+member, then binary operators can all be implemented identically, except for
+the specific details associated with specific binary operators. E.g., if a
+class contains two <code>int</code> data members addition of objects of that class
+could simply be defined as adding the corresponding <code>int</code> members, while
+subtraction could be defined as subtracting the corresponding <code>int</code>
+members. Assuming the existence of a member <code>void Class::add(Class const
+&amp;rhs)</code> that defines the addition of a <code>Class rhs</code> object to the <code>*this</code>
+object, while merely providing the basic exception guarantee (i.e., no
+leakage), then the binary addition operators can be defined like this:
+        </p><pre>
+Class operator+(Class &amp;&amp;lhs, Class const &amp;rhs)
+{
+    lhs.add(rhs);
+    return std::move(lhs);
+}
+
+Class operator+(Class const &amp;lhs, Class const &amp;rhs)
+{
+    Class tmp(lhs);
+    tmp.add(rhs);
+    return tmp;
+}
+        
+</pre>
+
+    Likewise, <code>operator+=</code> can be defined for lvalue or rvalue <code>Class</code>
+objects using reference modifiers.
+<p>
+As binary operators can all be implemented alike, given the specific
+members implementing the implied operations, these operators can very well be
+provided using templates. 
+</p><p>
+By inheriting from the class template <code>BinopsBase</code> classes offering such
+specific functions can then automatically also offers the matching binary
+operators after including <code>binopsbase</code>, containing <code>BinopsBase's</code>
+definition. Since the binary function templates are not instantiated until
+used their definitions can be processed by the compiler even if a class
+implements only a subset of the available binary assignment operators.
+</p><p>
+In this set of exercises, to provide a class <code>Class</code> with binary (compound)
+operators, it must implement a member <code>void swap(Class &amp;other)</code>, and 
+the following members (in the class's private section):
+    </p><ul>
+    <li> <code>void mul(Class const &amp;rhs)</code>  - to provide operators <code>*</code> and <code>*=</code>
+    </li><li> <code>void add(Class const &amp;rhs)</code>  - to provide operators <code>+</code> and <code>+=</code>
+    </li></ul>
+    (once we're able to do this, then the remaining binary operators (like /,
+^, &lt;&lt;) etc. can of course be implemented analogously.)
+<p>
+The binary operators themselves are <em>not</em> implemented in <code>Class</code>, but are
+generically implemented in a class template 
+        </p><pre>
+    template &lt;typename Derived&gt;
+    BinopsBase&lt;Derived, int ...operators&gt;
+        
+</pre>
+
+    where <code>int ...operators</code> lists the specific set of binary operators that
+are requested for <code>Class</code>. E.g., to provide <code>Class</code> with multiplication,
+and addition its class interface should start like this:
+        <pre>
+    class Class: public BinopsBase&lt;Class, '*', '+'&gt;
+        
+</pre>
+
+    but if only addition should be overloaded <code>Class</code> would start like this:
+        <pre>
+    class Class: public BinopsBase&lt;Class, '+'&gt;
+        
+</pre>
+
+<p>
+If, as advised, the members implementing the required binary operations
+(i.e., <code>add, mul</code>) are declared in the class's private section then the
+class's interface should declare its base class as a friend. 
+        </p><pre>
+    class Class: public BinopsBase&lt;Class, '*', '+'&gt;
+    {
+        friend BinopsBase&lt;Class, '*', '+'&gt;;
+
+        public:
+            ...
+
+        private:
+            void mul(Class const &amp;rhs);
+            void add(Class const &amp;rhs);
+    };
+        
+</pre>
+
+<p>
+In this exercise define two classes <code>Adder</code> and <code>Arithmetic</code>. <code>Adder</code>
+has a <code>std::string</code> member and <code>Arithmetic</code> is a class template specifying
+the data type of the internally used data, which may either be <code>int</code> or
+<code>double</code>. Specifying any other type should result in a compilation
+error. The classes also have a member <code>value() const</code> returning the value of
+their objects' data member, as well as an <code>operator=</code> allowing you to assign
+a new value to their <code>d_data</code> data member. E.g., the skeleton of the class
+<code>Adder</code> looks something like this:
+        </p><pre>
+    class Adder: public BinopsBase&lt;Adder, '+'&gt;
+    {
+        friend class BinopsBase&lt;Adder, '+'&gt;;
+
+        std::string d_value;
+
+        public:
+            Adder &amp;operator=(std::string const &amp;rhs);
+            std::string const &amp;value() const;
+        private:
+            void add(Adder const &amp;rhs);
+    };
+        
+</pre>
+
+<p>
+Define and implement the class <code>Arithmetic</code> and implement <code>Adder::add</code>.
+</p><p>
+If you're <em>not</em> going to complete the next two exercises then also provide
+an initial implementation (and interface) of the class <code>BinopsBase</code>. 
+</p><p>
+This class template defines a class type parameter <code>Derived</code>, which will,
+when instantiated, be the name of its derived class. It also has a variadic
+series of (int) values, instantiated with the series of operator
+characters. 
+</p><p>
+It must declare (not implement) the binary operators (here: only <code>operator+</code>
+and <code>operator*</code>), expecting <code>Derived</code> arguments and returning <code>Derived</code>
+objects as friends (implementations not required). 
+</p><p>
+It must also declare and define <code>void addWrap</code> and <code>void mulWrap</code>,
+defining <code>Derived const &amp;</code> parameters and calling, respectively,
+<code>Derived::add</code> and <code>Derived::mul</code>.
+</p><p>
+If you're completing the next exercise, then <code>BinopsBase</code> doesn't have to be
+implemented here, but it will be implemented in the next exercise.
+</p><p>
+Note: in a real-life implementation all binary operators would be made
+available in <code>BinopsBase</code>. Although declared, only the ones that are
+actually used would be implemented. This allows us to create a class covering
+all binary operators, implementing them only once, so that the class
+<code>BinopsBase</code> can be used thereafter with any class which should offer binary
+operators. 
+</p><p>
+Remember that the binary operators are fee functions, where one overload
+defines a first parameter which is a <code>Type const &amp;lhs</code> and another overload
+defines a first parameter which is a <code>Type &amp;&amp;lhs</code>.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 21.</strong>
+            <br>
+            Purpose of this exercise: implement a generic class template that uses a
+variadic set of <code>int</code> arguments.
+<p>
+The class <code>BinopsBase</code> introduced in the previous exercise delegates its
+actual arithmetic operations to support classes <code>Add</code> and <code>Mul</code>.
+</p><p>
+Since <code>BinopsBase</code> receives a variadic series of requested operators (e.g.,
+<code>'+'</code>, or <code>'*'</code>, or <code>'+', '*'</code> or <code>'*', '+'</code>), <code>BinopsBase</code> itself
+cannot handle a specific operation. But it can lay the foundation for handling
+these operations. The foundation consists of delegating performing the
+actual operations to its own base class: a class <code>BinopsBase0</code> having three
+template parameters: the <code>BinopsBase</code> type, <code>BinopBase's Derived</code> class
+type, and the variadic operators. 
+</p><p>
+The class <code>BinopsBase</code> itself has no public members, but declares (see the
+previous exercise) the binary operators as its friends.
+</p><p>
+In addition, it declares the classes <code>Add</code> and <code>Mul</code> as its friends. These
+classes are implemented in the next exercise (in an implementation offering
+all binary operators there will also be clases <code>Div, Shl, Sub</code>, etc, but
+here we restrict ourselves to <code>Add</code> and <code>Mul</code>). Those classes are class
+templates having two template type arguments: the <code>BinopsBase</code> and its
+derived class type. 
+</p><p>
+<code>BinopsBase0's</code> generic implementation is not used, but is only
+declared. Its terminating implementation (no more operators) is empty.
+</p><p>
+Implement the class <code>BinopsBase</code>, declaring the classes <code>Add</code> and <code>Mul</code>
+as its friends.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 22.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to complete a generic class template 
+that uses a variadic set of <code>int</code> arguments, by implementing required
+support classes. 
+<p>
+The class template <code>Add</code> (see the previous two exercises) is a class
+template having one template type parameter: <code>BinopsBase's Derived</code> class
+type. It merely declares the binary compound addition operators. They are
+implementated using <code>BinopsBase's addWrap</code> member. They can do so, because
+<code>BinopsBase</code> declares <code>Add</code> its friend, and <code>addWrap</code> may call
+<code>Derived::add</code>, because the derived class declared <code>BinopsBase</code> as its
+friend, allowing it to call the derived class's private members. At this point
+the binary addition operators can also be implemented. These latter functions
+could have been implemented elsewhere (e.g., when developing <code>BinopsBase</code>),
+but by implementing it at this point all addition operators are physically
+close together. Not a logically compelling argument, but (hopefully)
+aesthetically appealing. 
+</p><p>
+The really interesting part of the implementation consists of the
+implementation of the <code>BinopsBase0</code> partial specialization. The
+specialization for add is simply derived from the <code>Add</code> class, and it's used
+when the first operator passed to <code>BinopsBase0</code> equals <code>'+'</code>. All
+remaining operators are passed to another base class, which itself is a
+<code>BinopsBase0</code> class.
+</p><p>
+Implement <code>Add, Mul</code>, as well as the corresponding binary and binary
+compound operators, and the corresponding <code>BinopsBase</code> partial
+specializations.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 23.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: show that you can use the <code>BinopsBase</code> class
+developed in the previous exercises.
+<p>
+You earn 2 points whenn successfully completing this exercise.
+</p><p>
+Augment <code>BinopsBase</code> so that it also can support subtraction, and illustrate
+its facilities by implementing binary addition, subtraction and multiplication
+binary operators and binary compound operators for the class <code>Arithmetic</code>. 
+</p><p>
+Submit all modified sources (wrt ex. 13, 14 and 15), as well as the
+implementation of <code>Sub</code>, handling subtraction, and a small demo program and
+its output showing that addition, multiplication and subtraction can be used
+for both named and anonymous <code>Arithmetic</code> objects.
+</p><p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven02.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

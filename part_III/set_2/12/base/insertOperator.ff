@@ -1,0 +1,5 @@
+template <typename Derived>
+std::ostream &operator<<(std::ostream &out, Base<Derived> const &base)
+{
+    return base.insertInto(out);
+}

@@ -1,10 +1,11 @@
 #include "matrix.ih"
 
-Matrix::Matrix(IniList iniList)
+template <class Type>
+Matrix<Type>::Matrix(IniList iniList)
 :
     d_nRows(iniList.size()),
     d_nCols(iniList.begin()->size()),
-    d_data(new double[size()])
+    d_data(new Type[size()])
 {
     auto ptr = d_data;
     for (auto &list: iniList)
@@ -16,7 +17,7 @@ Matrix::Matrix(IniList iniList)
             exit(1);        // BAD STYLE, but see the exercise's text
         }
 
-        memcpy(ptr, &*list.begin() , list.size() * sizeof(double));
+        memcpy(ptr, &*list.begin() , list.size() * sizeof(Type));
         ptr += list.size();
     }
 }

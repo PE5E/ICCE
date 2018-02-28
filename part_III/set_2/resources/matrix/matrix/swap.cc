@@ -1,5 +1,7 @@
 #include "matrix.ih"
 
+    // nothing throws here, so no safeguards required.
+
 void Matrix::swap(Matrix &other)
 {
     char buffer[sizeof(Matrix)];

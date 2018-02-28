@@ -1,19 +1,21 @@
 #include "matrix.ih"
 
+    // nothing is changed (roll-back) if the matrix isn't square
+
 Matrix &Matrix::tr()
 {
     if (d_nRows != d_nCols)
+        throw runtime_error{ "Matrix::tr requires square matrix" };
+
+    for (size_t row = 1; row != d_nRows; ++row)
     {
-        cerr << "Matrix::tr requires square matrix\n";
-
-        exit(1);        // BAD STYLE, but see the exercise's text
+        for (size_t col = 0; col != row; ++col)
+        {
+            double tmp = el(row, col);
+            el(row, col) = el(col, row);
+            el(col, row) = tmp;
+        }
     }
-
-    double *dest = new double[size()];
-    transpose(dest);
-
-    delete[] d_data;
-    d_data = dest;
 
     return *this;
 }

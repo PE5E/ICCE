@@ -1,0 +1,35 @@
+    // Row implements safe access to row elements
+
+class Matrix::Row                       
+{
+    friend class Matrix;
+
+    double *d_row;
+    size_t d_size;
+
+    public:
+        class Proxy;
+
+        Proxy at(size_t colIdx);
+        Proxy const at(size_t colIdx) const;
+
+    private:
+        Row(double *row, size_t size);
+
+        Proxy proxy(size_t colIdx) const;
+};
+
+
+    // at() members return Row objects, handling access to (column) 
+    //  elements of specific rows
+inline Matrix::Row Matrix::at(size_t idx)
+{
+    return row(idx);
+}
+
+inline Matrix::Row const Matrix::at(size_t idx) const
+{
+    return row(idx);
+}
+
+

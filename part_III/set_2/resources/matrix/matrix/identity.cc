@@ -1,5 +1,7 @@
 #include "matrix.ih"
 
+    // nothing throws here, so no safeguards required.
+
 // static
 Matrix Matrix::identity(size_t dim)
 {

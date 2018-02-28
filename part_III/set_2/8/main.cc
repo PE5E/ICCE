@@ -2,6 +2,7 @@
 
 int main(int argc, char **argv)
 {
+    Matrix tmp;
     cout << "3 x 3 matrix filled with zeros\n";
     Matrix mat(3, 3);
     show(cout, mat) << '\n';

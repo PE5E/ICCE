@@ -1,0 +1,58 @@
+//    cout << mat.fmt(", ", 5, 2) << mat << mat << endl;
+//
+//    cin >> mat.fmt(",") >> mat;
+
+//    cout << Matrix::identity(4) << endl;
+
+//    cin >> mat.fmt(",") >> mat;
+//
+//    cout <<  mat << '\n';
+//
+//    cout << mat.tr() << '\n';
+//
+//    cout <<  mat;
+
+//    Matrix rect(5, 3);
+//    cin >> rect;
+
+//    cout << rect << '\n' << endl;
+//    cout << rect.transpose();
+
+//    size_t nRows, nMid, nCols;
+//    cin >> nRows >> nMid >> nCols;
+//
+//    Matrix lhs(nRows, nMid);
+//    Matrix rhs(nMid, nCols);
+//
+//    cin >> lhs >> rhs;
+//
+//    cout << lhs << '\n' <<
+//            rhs << '\n';
+//
+//    Matrix prod(lhs * rhs);
+//    cout << prod << '\n';
+
+//    size_t nRows;
+//    cin >> nRows;
+//
+//    Matrix lhs(nRows, nRows);
+//    cin >> lhs;
+//
+//    cout << lhs << '\n' <<
+//            lhs.det() << '\n';
+
+//    size_t nRows;
+//    cin >> nRows;
+//
+//    Matrix lhs(nRows, nRows);
+//    cin >> lhs;
+//
+//    cout << lhs << 
+//        "symmetric: " << lhs.isSymmetric() << endl;
+//
+//    auto inv(lhs.invert());
+//
+//    cout << inv.first.fmt(" ", 7, 3) << inv.first << endl;
+//
+//    cout << (inv.first * lhs) << '\n' <<
+//            "determinant: " << inv.second << endl;

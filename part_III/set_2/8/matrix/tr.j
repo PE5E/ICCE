@@ -1,6 +1,7 @@
 #include "matrix.ih"
 
-Matrix &Matrix::tr()
+template <class Type>
+Matrix<Type> &Matrix<Type>::tr()
 {
     if (d_nRows != d_nCols)
     {
@@ -9,7 +10,7 @@ Matrix &Matrix::tr()
         exit(1);        // BAD STYLE, but see the exercise's text
     }
 
-    double *dest = new double[size()];
+    Type *dest = new Type[size()];
     transpose(dest);
 
     delete[] d_data;

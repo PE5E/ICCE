@@ -2,7 +2,7 @@
 
 Matrix &Matrix::operator=(Matrix const &other)
 {
-    Matrix tmp(other);
+    Matrix tmp(other);          // standard, exception safe implementation
     swap(tmp);
     return *this;
 }

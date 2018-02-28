@@ -1,0 +1,45 @@
+    // A Proxy handles lhs/rhs use of doubles, received from Row objects
+
+class Matrix::Row::Proxy
+{
+    friend class Matrix::Row;
+
+    double &d_value;
+
+    public:
+        double &operator=(double rhs);
+        operator double() const;
+
+    private:
+        Proxy(double &value);
+};
+
+    // at() members return Proxy objects, handling access to specific
+    //  double values (in the row passed to the current Row object)
+inline Matrix::Row::Proxy Matrix::Row::at(size_t idx)
+{
+    return proxy(idx);
+}
+
+inline Matrix::Row::Proxy const Matrix::Row::at(size_t idx) const
+{
+    return proxy(idx);
+}
+
+
+inline Matrix::Row::Proxy::Proxy(double &value)
+:
+    d_value(value)
+{}
+
+inline double &Matrix::Row::Proxy::operator=(double rhs)
+{
+    return d_value = rhs;
+}
+
+inline Matrix::Row::Proxy::operator double() const
+{
+    return d_value;
+}
+
+

@@ -1,5 +1,0 @@
-#include "intvalue.ih"
-
-IntValue::
-{
-}

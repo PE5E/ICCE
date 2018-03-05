@@ -2,14 +2,14 @@
 #define INCLUDED_BIN_
 
 #include <bitset>
-#include <string>
-#include <limits>
+#include <cmath>
 
 template <size_t x>
 struct Bin
 {
-    static constexpr std::bitset<std::numeric_limits<unsigned long      long>::digits> const value =
-    {std::bitset<std::numeric_limits<unsigned long long>::digits>(x)};
+    static constexpr std::bitset<static_cast<int>(log(x) / log(2)) + 1> 
+    const value = 
+    {std::bitset<static_cast<int>(log(x) / log(2)) + 1>(x)};
 };
 
 #endif    // INCLUDED_BIN_

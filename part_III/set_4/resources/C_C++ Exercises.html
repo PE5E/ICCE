@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body bgcolor="#FFFFAA" text="#000077">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven03.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l4"></a>
+<h1>Chapter 4: Exercises set four: Advanced Templates (II) (Deadline: Mar 15).</h1>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 24.</strong>
+            <br>
+            Purpose of this exercise: design a simple class using policies
+<p>
+Design a class <code>Insertable</code> (a <code>struct</code> is fine, since everything is public
+anyway) whose objects can be inserted into an ostream, showing the contents of
+its data (each data element on one row). The actual data are as yet unknown,
+but the data might be stored in containers like a vector or a deque.
+</p><p>
+When defining <code>Insertable</code> objects the container type and the type of the
+data that is stored in the container must be provided. E.g., if <code>Container</code>
+is the name of a container type (<em>not</em> specifying the type of data that is
+stored in the container), then an <code>Insertable</code> object can be defined using
+e.g., 
+        </p><pre>
+    Insertable&lt;Container, int&gt; ici;
+        
+</pre>
+
+<p>
+Objects of this class <code>Insertable</code> should offer <em>all</em> public members of
+the used data storage class type.
+</p><p>
+In addition to default, copy, and move constructors <code>Insertable</code> object can
+be initialized by an existing object of the data storage class type or by a
+single data element of the used containers. As with the standard constructors
+these constructors must accept rvalue and lvalue arguments.
+</p><p>
+Submit the interface of the class <code>Insertable</code>. Do <em>not</em> provide
+implementations.
+</p><p>
+Hint: no <code>friend</code> declarations are required.
+</p><p>
+Example: if <code>InsertableVector</code> is a type definition for an <code>Insertable</code>
+object for a <code>vector&lt;int&gt;</code>, then the following code must correctly compile:
+        </p><pre>
+    int main()
+    {
+        vector&lt;int&gt; vi {1, 2, 3, 4, 5};
+    
+        InsertableVector iv;
+        InsertableVector iv2(vi);
+        InsertableVector iv3(4);
+        InsertableVector iv4(iv2);
+    
+        cout &lt;&lt; iv2 &lt;&lt; '\n' &lt;&lt;
+                iv3 &lt;&lt; '\n' &lt;&lt;
+                iv4 &lt;&lt; '\n';
+    
+        iv3.push_back(123);
+        cout &lt;&lt; iv3 &lt;&lt; '\n';
+    }
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 25.</strong>
+            <br>
+            Purpose of this exercise: learn to implement a policy class
+<p>
+Implement alle required members of the class <code>Insertable</code>
+introduced in the previous exercise. Note that <code>Vector</code> and <code>Deque</code>
+haven't been defined, their definitions must be provided as well.
+</p><p>
+</p><pre>#include &lt;vector&gt;
+#include &lt;deque&gt;
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+#include "insertable.h"
+
+using namespace std;
+
+// NOTE: DON'T FORGET TO PROVIDE DEFINITONS FOR 'Vector' AND 'Deque'
+
+int main()
+{
+    deque&lt;string&gt; ds = {"kilo", "lima", "mike"};
+
+    vector&lt;int&gt; vi {1, 2, 3, 4, 5};
+
+    Insertable&lt;Vector, int&gt; iv;
+    Insertable&lt;Vector, int&gt; iv2(vi);
+    Insertable&lt;Vector, int&gt; iv3(4);
+    Insertable&lt;Vector, int&gt; iv4(iv2);
+
+    cout &lt;&lt; iv2 &lt;&lt; '\n' &lt;&lt;
+            iv3 &lt;&lt; '\n' &lt;&lt;
+            iv4 &lt;&lt; '\n';
+
+    iv3.push_back(123);
+    cout &lt;&lt; iv3 &lt;&lt; '\n';
+
+    Insertable&lt;Deque, string&gt; sd(ds);
+    sd.push_back("november");
+
+    cout &lt;&lt; "sd has " &lt;&lt; sd.size() &lt;&lt; " elements and contains:\n"
+            &lt;&lt; sd &lt;&lt; '\n';
+}
+</pre>
+
+<p>
+Note: <em>only</em> implement what's required.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 26.</strong>
+            <br>
+            Purpose of this exercise: learn to design a realistic member template
+<p>
+Starting point for this exercise is a class having a
+<code>std::vector&lt;std::string&gt;</code> data member:
+        </p><pre>
+    class Data
+    {
+        std::vector&lt;std::string&gt; d_data;
+        ...
+    };
+        
+</pre>
+
+    The strings in the vector may be empty, or not, or they may be convertible
+to some built-in type, or not.
+<p>
+Design a member template <code>get&lt;Type&gt;(size_t idx) const</code> where <code>idx</code> may
+be assumed to be a valid index of <code>d_data</code>. 
+</p><p>
+<code>Type</code> should be any built-in type (all integral types (<code>int, size_t,
+unsigned long, char,</code>) etc., and all floating types (<code>float, double, long
+double</code>)), as well as <code>std::string</code> are OK (altough type traits are
+available telling you whether a type is a floating point type, an integral
+type etc, etc; you should <em>not</em> use these available type-traits. Rather,
+this exercise should increase your knowledge about template meta-programming
+techniques by developing your own code).
+</p><p>
+If the latter type is specified, <code>get</code>'s return type must be <code>std::string
+const &amp;</code> (<strong>note</strong>: do not confuse this with the return type
+<code>std::string</code>!). Otherwise, the return type must be <code>Type</code>.
+</p><p>
+Submit <code>get</code>'s declaration and implementation. Make sure that you do <em>not</em>
+submit an in-class implementation. If <code>get</code> cannot convert <code>d_data[idx]</code>
+to <code>Type</code>, then return <code>Type</code>'s default value. 
+</p><p>
+When calling <code>get&lt;std::string&gt;(size_t idx)</code> there is no conversion, so this
+request always succeeds, returning <code>d_data[idx]</code> as a <code>std::string const
+&amp;</code>.
+</p><p>
+Hints: 
+    </p><ul>
+    <li> in your implementation handle all integral values types as one group,
+handle all floating point types as one group, and handle <code>std::string</code> as a
+group by itself.
+    </li><li> realize that the get function receives an index, so that index value
+can directly looked up in the d_data vector. The problem is to determine what
+to do with the value. For that use specializations of some template meta
+programming struct that returns the values of types for floats, doubles,
+strings, long doubles, or any kind of integral value type, 
+    it the return type is also determined by a template meta programming
+class, which allows <code>get</code> to distinguish between <code>std::string</code> and all
+ints, doubles, floats etc. Since you're not supposted to use any available
+type traits, define your own facility to distinguish between class- and
+non-class types: probably some IfElse facility that returns a Type const &amp; in
+case get returns a std::string (so: not a copy of d_data's value) and a Type
+in all other cases (so, the values converted from a string representation
+themselves)
+    </li></ul>
+<p>
+Here is an example of its use:
+        </p><pre>
+    int main()
+    {
+        Data data;
+
+        ...                     // assume data is filled with at least 4
+                                // strings. 
+
+        data.get&lt;int&gt;(3);       // returns d_data[3] converted to int or 0, if
+                                // the conversion fails
+
+        data.get&lt;long double&gt;(1);   // returns d_data[1] converted to a long
+                                // double or 0, if the conversion fails
+
+        data.get&lt;string&gt;(2);    // returns d_data[2] as std::string const &amp; 
+    }
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 27.</strong>
+            <br>
+            Purpose of this exercise: learn to design an expression template
+<p>
+Implement the expression template that is covered in the slides.
+</p><p>
+Submit your implementation and show that the following <code>main</code> function 
+correctly computes the resulting vectors:
+</p><p>
+</p><pre>
+    int main()
+    {
+        IVect iv1(10, 4);        // IVect: vector&lt;int&gt;
+        IVect iv2(10, 3);
+        IVect iv3(10, 2);
+        IVect iv4(10, 1);
+
+        IVect iResult { iv1 * (iv2 + iv3) / iv4 };
+
+        DVect dv1(10, 4.1);     // DVect: vector&lt;double
+        DVect dv2(10, 3.1);
+        DVect dv3(10, 2.1);
+        DVect dv4(10, 1.1);
+
+        DVect dResult { dv1 * (dv2 + dv3) / dv4 };
+    }
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 28.</strong>
+            <br>
+            Purpose of this exercise: learn to avoid an expression template?
+<p>
+This is an experimental exercise: its implementation was not yet available at
+the time this exercise was written.
+</p><p>
+Knowing that we can avoid needless object copies using dedicated binary
+operators overloads expecting rvalue references in its lhs operand and
+explicitly returning returing rvalue references, the challenge is to implement
+the previous exercise without using expression templates.
+</p><p>
+A solutions properly implementing this exercise earns you 3 pts.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 29.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to perform computations based on types.
+<p>
+The main reason for developing expression templates is that they require fewer
+real index computations than the traditional way of adding vectors.
+</p><p>
+Considering that <code>operator[]</code>, performed on a vector requires a real index
+computation (e.g., <code>idx * sizeof(dataType)</code>) while <code>operator[]</code> performed
+on <code>Expr&lt;?, ?, ?&gt;::operator</code> merely requires <code>idx</code> to be passed on to its
+arguments, count the latter situation as no index computation, and count the
+index operation applied to a vector as one index computation.
+</p><p>
+Extend the <code>Expr</code> template so that in its <code>operator[]</code> it keeps track of
+the number of index operations as defined in the previous paragraph. The
+global variable <code>nIndices</code> should contain the number of performed real
+index computations after computing expressions like
+        </p><pre>
+    IVect iResult { iv1 * (iv2 + iv3) / iv4 };
+        
+</pre>
+
+Also, <code>nOperations</code> should contain the number of performed arithmetic
+operations.
+<p>
+Hint: do not specialize <code>operator[]</code>, but modify <code>Expr::Trait</code>.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 30.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn how smart pointers like <code>shared_ptr</code> and
+<code>unique_ptr</code> may be aware of derived classes.
+<p>
+When completed successfully, this exercise earns you 3 points.
+</p><p>
+As we've seen, if you have a <code>class Derived: public Base</code>, then a
+<code>shared_ptr&lt;Base&gt; basePtr(new Derived)</code> calls <code>~Derived</code> when <code>basePtr</code>
+goes out of scope. At first sight this is peculiar as no slicing occurs, and
+no polymorphism is required (if polymorphism is used then the base class's
+destructor would be defined <code>virtual</code>, which would work OK. However, with
+<code>std::smart_ptr</code> objects you do not depend on a virtual base class
+destructor). Likewise, your implementation of <code>Ptr</code> may not use or depend on
+polymorphism.
+</p><p>
+In this exercise you should design your own `smart pointer'. The class should
+be named <code>Ptr</code> and the following code example should produce the output as
+shown below the example:
+        </p><pre>
+    #include &lt;iostream&gt;
+    #include "ptr.h"
+    
+    using namespace std;
+    
+    struct Base
+    {
+        ~Base()         // not a virtual destructor
+        {
+            cerr &lt;&lt; "Base destr.\n";
+        }
+    };
+    
+    struct Derived: public Base
+    {
+        ~Derived()      // no overriding
+        {
+            cerr &lt;&lt; "Derived's destructor\n";
+        }
+    };
+    
+    struct Derived2: public Base
+    {
+        ~Derived2()     // no overriding
+        {
+            cerr &lt;&lt; "Derived2's destructor\n";
+        }
+    };
+
+    int main()
+    {
+        {
+            Ptr&lt;Base&gt; p1(new Derived);
+        }
+        Ptr&lt;Base&gt; p2(new Derived2);
+        p2.reset(new Derived);
+    }
+        
+</pre>
+
+    The above program should produce this output:
+        <pre>
+    Derived's destructor
+    Base destr.
+    Derived2's destructor
+    Base destr.
+    Derived's destructor
+    Base destr.
+        
+</pre>
+
+<p>
+You should implement the class <code>Ptr</code>. The class's public interface should
+offer a constructor expecting a pointer to a newly allocated object of a class
+that is derived from the specified <code>Base</code> class, and a member <code>reset</code> that
+deletes the current <code>Derived</code> class object and resets its data to point to
+another newly allocated (derived) class object. 
+</p><p>
+Note that the current and subsequent (e.g., when using <code>reset</code>) derived
+types may be different.
+</p><p>
+Additional constructors and overloaded assignment operators are not required
+and should not be defined. Just stick to the mentioned constructor and
+<code>reset</code> member (any members you may need because of these may be added).
+</p><p>
+If you pass a pointer to a class that is not derived from <code>Base</code> compilation
+<em>must</em> fail. E.g., the following <em>may not</em> compile:
+            </p><pre>
+    // Base and Ptr, as before
+
+    struct StandAlone
+    {};
+
+    int main()
+    {
+        Ptr&lt;Base&gt; alone(new StandAlone);
+    }
+            
+</pre>
+    
+<p>
+You should not merely submit your solution, but you should also provide a
+clear explanation of what you did and why your solution is OK.
+</p><p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven03.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

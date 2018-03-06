@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>General Hints, Tips and Tricks for C++</title>
+
+<style type="text/css" media="screen">
+    div.Intro { background: #ffffe5 }  
+    div.Expressions { background: #fff8d5 }  
+    div.FLow        { background: #ffefc5 }  
+    div.Functions   { background: #ffe8b5 }  
+    div.Libraries   { background: #ffd8ad }
+    div.Classes     { background: #ffdfa5 }
+    div.Pointers1   { background: #ffd895 }
+    div.BasicIO     { background: #ffffe5 }  
+
+    div.ClassAlloc  { background: #fff8d5 }  
+    div.Exceptions  { background: #ffefc5 }  
+    div.Inheritance { background: #ffe8b5 }  
+    div.Polymorphism { background: #ffd8ad }  
+    div.Generic     { background: #ffd895 }  
+    div.Threading   { background: #ffffe5 }  
+
+    div.cb { background: #ffffe5; color: blue}
+
+    div.Scanners    { background: #ffffc5 }  
+    div.Parsers     { background: #ffffe5 }  
+
+</style>
+
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body fgcolor="black" bgcolor=" #caffca">
+<hr>
+<h1 id="title">General Hints, Tips and Tricks for C++</h1>
+<h2 id="author">Frank B. Brokken / Jurjen Bokma</h2>
+
+
+<p>
+This page provides hints, tips and tricks which may prove useful when solving
+the exercises of the <strong>C/C++</strong> course. Use them to your advantage. The
+bracketed names given with the hints refer to the set of exercises from where
+the hint can/should be applied. 
+</p><p>
+<a href="https://www.icce.rug.nl/edu/3/hints.shtml#partOne">Hints WRT Part I</a>
+</p><p>
+</p><h2>Hints WRT Part I</h2>
+<p>
+<a name="partOne"></a>
+    </p><div class="Intro"><hr>
+    <h2>Intro</h2>
+<p>
+</p><ul>
+<p>
+</p><li> Use a fairly recent compiler. The oldest version that can still be 
+used is mentioned with the exercises for the introductory lecture.
+<p>
+</p></li><li> Use <code>-Wall</code> for all compilations. Make sure your code compiles free
+of warnings.
+<p>
+</p></li><li> If your compiler allows it specify the latest standard: currently use
+<code>---std=c++17</code> if possible.
+<p>
+</p></li><li> Use <em>streams</em> for all input and output: use <code>cout</code> for
+insertions into the standard output stream, use <code>cin</code> for extractions from
+the standard input stream.
+<p>
+</p></li><li> The extraction operator (i.e., <code>&gt;&gt;</code>) by default skips
+leading whitespace. If a <code>string</code> is extracted, all initial  whitespace
+is skipped as well.
+<p>
+</p></li><li> White space not only consists of blanks and tabs, but also of
+newlines.
+<p>
+</p></li><li> Use (and define) <code>enum class</code>-types and values, rather than <code>int</code>
+constants in cases where your <code>int</code> isn't used to compute values but is used
+to indicate categories. <br>
+    With categories there are usually no compelling reasons to associate the
+category names with specific numeric values. Therefore resist the temptation
+to assign values to enum-names unless there are good reasons (e.g. when using
+bitflags) for doing so.
+<p>
+</p></li><li> The initial letter of self-defined types should be <strong>C</strong>apitalized,
+to make a clear distinction between self-defined types and variables. An
+enum-name is a self-defined type. Use mere <strong>CAPITAL LETTERS</strong> for symbolic
+enum constants.
+<p>
+</p></li><li> As a suggestion: rather than using underlines, prefer camelCase:
+capitalize the different words that you use when defining type- or variable
+names. E.g., use <code>errorCount</code> rather than <code>error_count</code>.
+<p>
+</p></li><li> Raw string literals break your layout if you include them in your
+function bodies. Don't do that. Instead, define the raw string literal near
+the top of your source file as a <code>char const name[]</code> array (where `name' is
+an appropriately chosen name, describing the nature of the raw string literal,
+and use that name in, e.g., <code>cout</code> statements inside function
+bodies. Preferably define the variable inside an anonymous name
+space. Example:
+        <pre>
+    #include &lt;iostream&gt;
+
+    namespace {                 // anonymous name space
+
+    char const hello[] =        // define the Raw String Literal
+    R"(
+    ***********
+    hello world
+    ***********
+    )";
+
+    }   // namespace ends
+
+    int main()
+    {
+        std::cout &lt;&lt; hello;     // display the Raw String Literal
+    }
+        
+</pre>
+
+<p>
+</p></li><li> 
+        Very soon, especially when you have some previous experience in using
+<strong>C/C++</strong> you'll encounter exercises that you can solve using your knowledge
+of the language by resorting to more advanced constructions than we've covered
+so far. Suppress the desire to do so. Like becoming a good carpenter first
+learn to use the plain tools like saw and chisel before using power tools like
+routers and lathes. Always try to solve exercises using the topics covered so
+far, unless there is an explicit suggestion to do otherwise. Don't jump ahead!
+<p>
+</p></li><li> 
+        Suppress the desire to look up things using google. Google often is
+fine, but in this course we're not going for the quick fixes. Instead, first
+study the relevant sections(s) of the Annotations (with each lecture sections
+of the Annotations and sometimes C book are provided as reading suggestions);
+then, when  you know what it's all about start solving the exercises.
+    )
+</li></ul>
+<p>
+About using comment:
+</p><p>
+</p><ul>
+<li> Comment is used to add brief explanations to statements. `Brief' means:
+    not long and verbose. As a rule of thumb: use at most 40 characters when
+    adding cooment to statements.
+<p>
+</p></li><li> Comment should not reformulate what's already available in the statement
+    itself. Rather, comment should be <em>semantic</em>: what's the purpose of the
+    statement. Here is an example of a statement you might encounter in a
+    <strong>C++</strong> source file. It is shown twcie. The first time it is provided with
+    useful comment, the second time it is provided with useless comment. Only
+    use the former type of comment in your code:
+        <pre>
+    offset = tmp.tellp();           // offset of the 1st entity
+        
+</pre>
+
+    avoid this type of comment:
+        <pre>
+    offset = tmp.tellp();           // offset hold tmp's current offset
+        
+</pre>
+
+    The latter type of comment should be avoided because it basically repeats
+    the statement itself. Instead, the former type of comment tells the reader
+    something about that particular offset location. That's why it's called a
+    <em>semantic comment</em>. 
+<p>
+</p></li><li> Also notice the layout of the comment: try to align comments in a source
+    file in such a way that the comments are neatly ordered underneath each
+    other. Sometimes the statement is too long. In that case put the comment
+    just above the statement. Here's an example:
+        <pre>
+                            // a generic object copy, owned by uid, and
+    if                      // initially copied by uid
+    (
+        obj.genID() != maxUint16 and obj.ofUser(uid) and 
+        obj.orgID() == uid
+    )
+        ...
+        
+</pre>
+
+<p>
+</p></li><li> Longer, descriptive comments about what a function is doing traditionally
+    is preceding the code. It turns out that that's not the optimal position
+    of such comment. In practically all situations the function's
+    implementation is what a software engineer is interested in, and only when
+    the design considerations are an issue the longer, descriptive comment
+    is inspected. Therefore long, descriptive comments should be provided
+    <em>after</em> providing the <strong>C++</strong> code itself (in very much existing code 
+    the longer, descriptive comments still precedes the <strong>C++</strong> code: in due
+    time this will change to this new layout). Here is an example (merely
+    consider the organization, not the meaning: the <strong>C++</strong> code precedes the
+    descriptive comment):
+        <pre>
+int Parser::local(string &amp;ident, int value)
+{
+    d_symtab.local(ident);
+        
+    return value;
+}
+
+// The name of the variable is stored in the symbol table in a vector of
+// names. The initial value is stored in an Int32Vector, using the
+// variable's value at the corresponding index position.
+// When the variable is subsequently used, its index is obtained, allowing
+// for instructions like 'push var 3'. Since the variable array of that
+// state also has at least that many elements the value can be retrieved
+// and saved.
+    
+</pre>
+
+<p>
+</p></li><li> Finally, empty lines also are an extremely useful tool for organizing
+    code. Statements are commonly organized in (short) series accomplishing a
+    certain task. Subsequent and earlier statements serve other
+    purposes. Separate such sets from each other by empty lines:
+        <pre>
+void execute(Uint8Vector const &amp;code, bool showObjects)
+{
+    if (code.size() == 0)               // leave if there's no code to exec.
+        return;
+
+    d_ip = &amp;code.front();               // begin at the 1st opcode
+
+    while (s_opcode[*d_ip++]())         // execute the instructions in 'code'
+        ;
+}
+        
+</pre>
+
+</li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+    </p><div class="Expressions"><hr>
+    <h2>Expressions</h2>
+<p>
+</p><ul>
+
+    <li>
+        An expression <em>statement</em> (and later: flow control <em>statements</em>)
+are <em>statements</em>. A variable or object definition is not commonly considered
+a <em>statement</em>. 
+<p>
+</p></li><li> 
+        When defining variables define every variable on a line by itself,
+using its own type specification. The advantage of that is that it is easy to
+move your variable to another point in the source file to improve
+localization.
+<p>
+</p></li><li> By default, the <code>char</code>-type has signed values. This may result in
+unexpected program behavior if a <code>char</code> variable is used as an
+array-index. In order to prevent this from happening, avoid <code>char</code> variables
+except for true character input/output. When a character must be read with the
+intention to use its value as an array-index, take one of the following
+approaches:
+    <ul>
+    <li> <code>int istream::get()</code> (e.g., <code>cin.get()</code>), returns an <code>int</code>,
+which is positive except at end-of-file, when the predefined constant <code>EOF</code>
+is returned. This return value should be assigned to an <code>int</code> variable,
+which can thereupon be used in, e.g., index-expressions.
+<p>
+</p></li><li> Assign (or cast) a signed character variable to an unsigned
+char. This effectively maps the range -128 .. -1 to 128 .. 255. E.g.,
+<code>static_cast&lt;unsigned char&gt;(char-expression)</code>.
+<p>
+</p></li><li> [Deprecated] Change the default interpretation of the <code>char</code> type,
+using a compiler flag. If the flag <code>-funsigned-char</code> is provided the
+<code>char</code> type will be interpreted as an unsigned type.
+        </li></ul>
+<p>
+</p></li><li> Try to use existing functions. Consult man-pages. The man-pages of
+all suggested functions are provided on the course's man-pages page. Do not
+bluntly apply a listed function. Sometimes they are there for reference
+purposes only. For example: rules of thumb like `use <code>std::string</code> objects
+where possible' deprecate certain functions (in particular <code>str...()</code>
+functions) see below.
+<p>
+</p></li><li> NTBSs are <em>not</em> <strong>C++</strong>-strings. If a function expects an NTBS
+argument convert a <strong>C++</strong>-string to an NTBS first using the string's
+<code>c_str</code> member.
+<p>
+</p></li><li> Raw String Literals are also NTBSs.
+<p>
+</p></li><li> The functionality of many legacy <strong>C</strong>-string functions (like
+<code>strlen</code>) are better provided  by <strong>C++</strong>-string objects. Don't use the 
+<strong>C</strong> <code>str...</code> legacy functions when the <strong>C++</strong> strings can be used as
+well. E.g.:
+        <pre>
+    // assume c_string is a NTBS, cpp_string is a C++ string
+
+    strlen(c_string);       // don't use this
+    cpp_string.length();    // use this instead
+        
+</pre>
+
+<p>
+</p></li><li> Know why you use the string's <code>at</code> member function. If you do so
+because <strong>Java</strong> has the <code>at</code> member function then learn about the index
+operator (<code>[]</code>). Whenever you're convinced that the index does not or cannot
+exceed the string's index-bounds, use the index-operator <code>[]</code>. When a
+<em>pointer to a string</em> (introduced later during part I) is available, first
+dereference the pointer, then use <code>[]</code> (e.g., prefer <code>(*str)[idx]</code> over
+<code>str-&gt;at(idx)</code>, let alone <code>str-&gt;operator[](index)</code>).
+<p>
+</p></li><li> <em>Prefer prefix</em> increment over postscript increment (and decrement,
+of course).
+<p>
+</p></li><li> Start names of variables (and later: objects) with lower case
+letters. Read also the hints about what letter casings to use for self-defined
+types in the intro hints and tips.
+<p>
+</p></li><li> <strong>C++</strong> programs should not use <code>#define</code> compiler directives,
+except for defining <em>include guards</em>, which are covered in the
+lecture about functions.
+<p>
+</p></li><li> Take care of the layout of exercises that you submit: they will be
+interpreted as <strong>C++</strong> code as received on paper. Therefore, prevent lines
+being wrapped around by your printer. E.g., a long <code>cout</code> statement might be
+printed like:
+        <pre>
+    cout &lt;&lt; "Let's assume that this is printed by your printer, but the line
+is too long, and so the printer `wraps around'\n";
+        
+</pre>
+
+    This is interpreted by <em>us</em> as <em>two</em> lines of source code, which 
+    <ul>
+    <li> Violates the layout rules and:
+    </li><li> Won't compile
+    </li></ul>
+    If you have a long line, <em>split</em> it over multiple lines, ensuring a
+readable layout. E.g.,
+        <pre>
+    cout &lt;&lt; "Let's assume that this is printed by your printer, "
+            "but the line is too long, and so the printer `wraps around'\n";
+        
+</pre>
+
+    The above example illustrates <em>string concatenation</em>, which is supported
+by the language and avoids an additional <code>cout</code> statement or insertion
+operator. In general,
+        <ul>
+        <li> prefer repeated insertion operators over series of <code>cout</code>
+            statements.  
+        </li><li> End lines containing multiple expressions inserted into
+            <code>cout</code> with an insertion operator or a semicolon. Use string
+            concatenation if a series of <strong>C</strong>-strings are inserted (as in the
+            above example).
+        </li></ul>
+    Here is an example of a long <code>cout</code> statement illustrating the preferred
+layout: 
+        <pre>
+    cout &lt;&lt; "Let's assume that this is printing " &lt;&lt; aValue &lt;&lt; "\n"
+            "using string concatenation\n"
+            "Start a new line following \\n, insert " &lt;&lt; multiple &lt;&lt;
+            variables &lt;&lt; likeThis &lt;&lt; '\n';
+        
+</pre>
+
+<p>
+</p></li><li> Some minor layout points deserving your attention: 
+        <ul>
+        <li> Put a blank behind a comma. After all you do that in natural
+languages too. 
+        </li><li> Casts represent one operation, Do not put blanks inside
+casts. Examples: 
+        <pre>
+    static_cast&lt;size_t&gt;(x)      // OK
+
+    static_cast&lt;size_t&gt; (x)     // don't
+    static_cast &lt;size_t&gt;(x)     // don't
+    static_cast &lt;size_t&gt; (x)    // don't
+        
+</pre>
+
+        </li></ul>    
+<p>
+</p></li><li> <em>Avoid</em> inserting <code>std::endl</code> into streams unless you're really
+intending to <em>flush</em> the stream. Streams are automatically flushed
+when they go out of scope (with <code>std::cout</code>: when the program ends and also
+when the next statement involves <code>std::cin</code>).
+<p>
+</p></li><li> When inserting single characters into a stream, do not use the double
+quoted <strong>C</strong> string but use a character constant (between single quotes). So,
+rather than:
+        <pre>
+    cout &lt;&lt; "\n";
+        
+</pre>
+
+    use:
+        <pre>
+    cout &lt;&lt; '\n';
+        
+</pre>
+
+    An NTBS (double quotes) tells the stream object to insert all
+characters until a final 0-byte is encountered; a character constant tells the
+stream object that exactly one character should be inserted and thus is more
+efficient. 
+<p>
+If a single character is immediately followed by the insertion of
+additional textual characters then use string concatenation: in that case use
+double quotes for the single character but <em>omit</em> the next insertion
+operator. E.g.:
+        </p><pre>
+    cout &lt;&lt; whatever &lt;&lt; "\n"
+        "string concatenation. The previous \\n is merged with this text\n";
+        
+</pre>
+
+<p>
+</p></li><li> <em>Avoid</em> computations within <code>cout</code> statements. You don't know
+when these expressions are evaluated and they result in a statement that's
+hard to read.<br>
+   Maybe an exception is conditionally printing a plural <code>s</code>, using a
+ternary operator (and comparable simple test-based alternatives). When used,
+let the expression using the ternary operator stand out clearly.
+<p>
+</p></li><li> Prefer <strong>size_t</strong> types over <strong>int</strong> when only non-negative integral
+values are used. See the Annotations for details.
+<p>
+</p></li><li> A <code>static_cast</code> operation is not required when assigning values of
+comparable data types but different sizes. Assigning an <code>int</code> to a <code>char</code>
+and v.v. can be performed without a <code>static_cast</code>. A <code>static_cast</code> <em>is</em>
+appropriate to change the `signed' quality of a type or to cast a value to a
+`wider' type in a non-default way. A good example of the latter use is casting
+an <code>int</code> variable in an <code>int</code> expression to a <code>double</code> if the resulting
+exxpression should be of <code>double</code> type. Casting the full expression is
+pointless, as the compiler will <em>first</em> evaluate the expression (as an
+<code>int</code>) and <em>then</em> convert the result to <code>double</code>, which basically
+doesn't do anything at all.
+<p>
+</p></li><li> Using <code>floor</code> to remove the fraction of a <code>double</code> before
+assigning its value to an <code>int</code> is pointless: the default assignment process
+already ignores the fraction.
+<p>
+</p></li><li> Avoid using `small types' like <code>char</code> or <code>short</code> unless the
+context requires their use. With <code>char</code> that's always a situation where
+characters are to be displayed, <code>short</code> is only required in very specific
+cases (and even then, <code>(u)int16_t</code> is probably preferable). Therefore, use
+<code>short</code> only when you're required (as in: forced) to use it.
+<p>
+</p></li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+    </p><div class="Flow"><hr>
+    <h2>Flow</h2>
+<p>
+</p><ul>
+
+    <li> Put a blank after keywords. Do not normally put a
+blank after an open-parenthesis and before a closing parenthesis if they are
+part of the statement syntax. E.g.,
+        <pre>
+    if (x == y)     // not: if( x == y )
+                    // not: if(x == y) 
+                    // not: if ( x == y ) 
+        
+</pre>
+
+<p>
+</p></li><li> The basic form for defining an incremental <code>for</code> statement
+(from 0 to n) is:
+        <pre>
+    for (size_t idx = 0; idx != end; ++idx)
+        
+</pre>
+
+The basic form for defining a decremental <code>for</code> statement (from end to 0)
+is:
+        <pre>
+    for (size_t idx = end; idx--; )
+        
+</pre>
+
+    Reserve the <code>for</code> statement for situations where you <em>know</em> in advance
+    how many iterations to perform; use the <code>while</code> statements for an
+    undetermined number of iterations. 
+<p>
+</p></li><li> The basic form for reading <strong>C/C++</strong> streams (i.e., files) is as
+         follows:
+        <pre>
+    while (true)
+    {
+        optionally perform tasks before reading information
+
+        read information
+
+        if the reading fails (e.g., end of file was reached)
+            break;
+
+        process the obtained information.
+    }
+        
+</pre>
+
+    Contractions are often possible, in particular when no repeated
+pre-processing is required (i.e., there is no task to perform before
+information is read):
+        <pre>
+    while (getline(cin, string))
+        process the read information.
+        
+</pre>
+
+    or:
+        <pre>
+    while (cin &gt;&gt; variable)
+        process the read information.
+        
+</pre>
+
+<p>
+</p></li><li> In an <code>if-else</code> construction, try to write the <em>shorter</em> nested
+statements first, and put the <em>longer</em> statement in the <code>else</code>
+substatement, especially if the <code>if</code>-true statement is a compound
+statement. This holds especially true for constructions like:
+        <pre>
+    ...
+    else
+        break;
+        
+</pre>
+
+    By the time you reach the <code>else</code>, you've probably forgotten what the
+condition was all about. Furthermore, changing substatements may actually make
+the <code>if-else</code> superfluous as execution terminates at the <code>break</code>. So,
+rather than
+        <pre>
+    if (condition)
+    {
+        // relatively much code
+    }
+    else
+        break;
+        
+</pre>
+
+    use:
+        <pre>
+    if (not condition)
+        break;
+
+    //relatively much code
+        
+</pre>
+
+<p>
+</p></li><li> <img src="General%20Hints,%20Tips%20and%20Tricks%20for%20C++_files/new.gif"> In a series of connected 
+        <code>if-else</code> statements (an <code>if-else</code> <em>ladder</em>), write the <code>if</code>
+        following an <code>else</code> immediately after the <code>else</code>, and do not
+        additionally indent:
+        <pre>
+    if (cond-1)
+        statement-1;
+    else if (cond-2)
+        statement-2;
+    else if (cond-3)
+        statement-3
+    else
+        statement-4
+            
+</pre>
+
+<p>
+</p></li><li> In an <code>if</code> or <code>if-else</code> construction, do not use parenthesized
+nested statements unless the nested statements themselves contain multiple
+statements. E.g., avoid constructions like:
+        <pre>
+    if (argc == 0)
+    {
+        usage(argv[0]);
+    }
+    else
+    {
+        process(argc, argv);
+    }
+        
+</pre>
+
+    Within the world of <strong>C++</strong> this is a <em>dialect</em> that belongs to another
+language (e.g., Perl). 
+<p>
+if() If the final or only statement in a <code>while</code> statement is an
+<code>if-else</code> statement, consider leaving out the <code>else</code>, ending the first
+substatement in <code>continue</code>: it allows you to omit the indentation of the
+<code>else</code> substatement. Since the <code>else</code> substatement usually is the longer
+substatement it tends to produce code that is easier to read.
+</p><p>
+</p></li><li> An <code>if-else</code> construction where the same variable receives a value
+in both conditions, should be rewritten to use the ternary operator (and by
+implication: this holds true for comparable other situations as well, e.g.,
+the <code>return</code> statement). Example:
+        <pre>
+    // don't:
+    if (condition)
+        x = value_1;
+    else
+        x = value_2;
+
+    // do:
+    x = condition ? value_1 : value_2;
+        
+</pre>
+
+    It's less work, describes concisely what you intend, it's applicable
+within expressions, and possibly allows the compiler to apply more direct
+optimizations and in an <code>if-else</code> statement, which, after all, contains
+three `statement' parts.
+<p>
+</p></li><li> In an <code>if-else</code> construction, avoid <code>else</code> following a
+sub-statement terminating in <code>break, return, exit</code> or <code>throw</code> (covered
+later):
+        <pre>
+    if (condition)
+    {
+        ...
+        return;
+    }
+    else        // the else and subsequent compound stmnt are not required
+    {
+        stmnt 1
+        stmnt 2
+        ...
+    }
+        
+</pre>
+
+    Instead, use:
+        <pre>
+    if (condition)
+    {
+        ...
+        return;
+    }
+    stmnt 1
+    stmnt 2
+        
+</pre>
+
+<p>
+</p></li><li> Prefer a <code>switch</code> over an <code>if-else</code> ladder: it's faster and
+easier to understand and maintain.
+<p>
+</p></li><li> Whenever the number of iterations is known, use a <code>for</code>
+statement. Whenever the number of iterations is unknown, use a <code>while</code>
+statement. This is the distinguishing characteristic of these two statements,
+and respecting this distinction helps you or others to understand your code.
+<p>
+</p></li><li> With <code>for</code> statements use the canonical forms. Using the canonical
+forms avoids the notorious `off-by-one' error and automatically takes you into
+the `world of offsets' which is almost always the world in which  <code>for</code>
+statements are used:
+        <pre>
+
+    // IdxType: the index type that is used
+
+    for (IdxType idx = 0; idx != end; ++idx)       // proceeding upwards
+
+    for (IdxType idx = end; idx-- != begin; )      // proceeding downwards
+
+    for (size_t idx = end; idx--; )                // (same, numeric IdxType)
+        
+</pre>
+
+<p>
+</p></li><li> If you use and array or other data structure of know size (many are
+introduced later on) and want to process each element in turn, consider using
+the range-based for-loop. See the Annotations for details.
+<p>
+</p></li><li> Generally avoid <code>do-while</code> statements. They are seldom
+required. If you think you need them you're probably wrong. In this course its
+not <em>prohibited</em> to use <code>do-while</code> statements, but your solution is
+downgraded if you use them without real necessity.
+<p>
+</p></li><li> Although you should localize, sometimes you can slightly relax that
+requirement. In particular when you need a constant value inside a loop the
+compiler will recompute that constant value every time you enter that loop. In
+that case put the constant value just outside of the loop.
+    Example:
+        <pre>
+    ...
+    string const text = "constant text";
+    for (size_t idx = 0; idx != 5; ++idx)
+        cout &lt;&lt; text &lt;&lt; '\n';
+    ...
+        
+</pre>
+
+<p>
+</p></li><li> With <code>while</code> statements prevent the famous <strong>Pascal</strong> statement
+flaw, which is another example of a dialect. Usually the perpetual loop is the
+construction to apply:
+        <pre>
+    // Avoid the Pascal-like statement repetition:
+
+    prompting();
+    while (obtainData())
+    {
+        processData();
+        prompting();            // statement repetition
+    }
+
+    // Instead use a continuous loop:
+    
+    while (true)
+    {
+        prompting();
+        if (not obtainData())
+            break;
+        processData();
+    }
+        
+</pre>
+
+    </li></ul>
+<p>
+</p><li> When processing the information in files (currently it's just
+<code>cin</code>), do not use the Perl-idiom of reading the file's full contents in a
+string variable, followed by processing the string. This may be fine for
+relatively short files, but for longer files it's a definite no-no, as you'll
+easily exceed the string variable's storage capacity.<br>
+    Instead carefully read the exercise's text and adopt its `unit of
+analysis': if the exercise is about character processing, process characters;
+if the exercise is about line processing, process lines; if the exercise uses
+another `unit of analysis', use that.<br>
+    Using idioms from other languages might be OK, but often is signals lack
+of mastery, and we'll consider it <strong>C++</strong><em>-dialect</em>, which downgrades the
+ratings you receive.
+<p>
+</p></li><li> In the abbreviations file two entries relate to the use of
+comment. Comment in the source code should not be too verbose, since this
+distracts from the code itself. Put verbose comment at the top of your
+sourcefile.
+<p>
+Comment within your code (within functions) should use end-of-line (eoln)
+comment. But again: don't put the comment at the same level of the code,
+because that makes it hard to distinguish at first glance code and comment.
+</p><p>
+Eoln comment should be concise and must provide additional information about
+the statement beyond what the statement already offers. E.g., this is CC:
+        </p><pre>
+    string str;         // define str
+        
+</pre>
+
+    Cluttering comment should be omitted. There really is no need to provide
+comment to self-explanatory lines in your sources.
+<p>
+This example's comment, however, isn't CC:
+        </p><pre>
+                        // process all command-line arguments
+    for (size_t idx = 1; idx != arc ++idx)
+        
+</pre>
+
+<p>
+Wrt comment layout, to distinguish comment from code use the following
+rules:
+    </p><ul>
+    <li> Eoln comment should be placed behind the statement, all preferably 
+starting at the same column position (a good location is half-way the width of
+your source file). Example:
+        <pre>
+    nCombinations = 1 &lt;&lt; argc;          // compute 2**argc: # combinations
+        
+</pre>
+
+<p>
+</p></li><li> If a statement is too wide, put the comment immediately above it,
+obeying the indentation rules. Example:
+        <pre>
+                        // process all command-line arguments
+    for (size_t idx = 1; idx != argc; ++idx)
+        
+</pre>
+
+<p>
+</p></li><li> Eoln-comment must be <em>semantic</em>. The comment shown above are
+examples of semantic comment. Comment like 
+        <pre>
+                        // idx iterates from 1 to argc
+    for (size_t idx = 1; idx != argc; ++idx)
+        
+</pre>
+
+    provides no additional information, and we call that <em>cluttering
+comment</em>, lowering your exercises' ratings
+<p>
+</p></li><li> Add a blank line between lines in your function(s) performing
+semantically different parts of its task. E.g.,
+        <pre>
+    int main(int argc, char *argv[])
+    {
+        .....       // inspecting the arguments
+        .....
+
+        .....       // processing arguments
+        .....
+        .....
+
+        .....       // performing the program's core business
+        .....
+    }
+        
+</pre>
+
+    </li></ul>
+<p>
+
+    </p><hr>
+    </li></div>
+<p>
+
+    </p><div class="Functions"><hr>
+    <h2>Functions</h2>
+<p>
+</p><ul>
+
+<p>
+</p><li> Layout: do not put a blank between function names and
+their parameter lists or argument lists; do not put a blank after the
+opening parenthesis and before the closing parenthesis of a parameter- or
+argument list. Example:
+        <pre>
+    void functionName(int param1, int param2)
+        
+</pre>
+
+    (some keywords, like <strong>if, switch, for</strong> and <strong>while</strong>, are followed by
+open parentheses. A blank should be inserted between those keywords and the
+open parentheses following them).
+<p>
+</p></li><li> Programs should have a function <code>void usage(string const
+&amp;programName)</code> (or <code>char const *programName</code>) displaying usage information
+and terminating the program. This function is called when no (or maybe: too
+few) arguments are passed to the program.
+<p>
+<strong>Notes:</strong> 
+        Your usage information should make sense, and should provide a
+to-the-point summary of how to use your program (and maybe a single line
+stating its purpose). Don't be frivolous here. Here is an example of how what
+usage info may look like:
+    </p><pre>
+cidr by Frank B. Brokken (f.b.brokken@rug.nl)
+cidr V1.20.01 2006-2013
+
+Usage: cidr [options] cidr-file
+Usage: cidr [options] cidrpattern line
+Where:
+   [options] - optional arguments (short options between parentheses):
+      --help (-h)      - provide this help
+      --quiet (-q)     - don't output the matching cidr if found
+      --verbose (-V)   - give a verbose report of what's going on
+      --version (-v)   - show version information and terminate
+   cidr-file - file containing cidr-patterns, one per line.
+               cidr returns 0 if a line on stdin contains
+               an IP4 address matching a cidr-pattern, and 1 otherwise.
+   cidrpattern line: inspect line for an ip-address matching cidrpattern
+               returns 0 if so, 1 if not
+    
+</pre>
+
+<p>
+</p></li><li> When constructing a program for which you defined multiple functions
+in separate files, then make sure that
+        <ul>
+        <li> you define only one header file in which <em>all</em> your
+functions are declared. In this header file do not declare <code>main</code>;
+        </li><li> you do <em>not</em> define a separate header file for each individual
+function;
+        </li><li> your function declarations are identical to their definitions,
+replacing functions' bodies by semicolons. In function declarations (and
+<em>not</em> in function definitions) default arguments may be specified for the
+parameters.
+        </li></ul>
+<p>
+</p></li><li> Since your header file is <em>only</em> used by the sources of your
+program (rather than declaring the functions of a software library) we
+consider such header files <em>internal header files</em>, and prefer the extension
+<code>.ih</code> rather than <code>.h</code>.
+<p>
+</p></li><li> Here is an example of the basic setup of such a header file:
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+// other header files may be required as well. Include them here.
+
+void usage(char const *programName);    // all declarations of functions we
+...                                     // developed ourselves for this
+...                                     // program, preferably alphabetically
+...                                     // ordered by function name
+
+// optionally, as we're the only ones using this header file:
+using namespace std;            // and/or any other namespace you use.
+
+        
+</pre>
+
+    When we're constructing a program <code>demo</code> all sources of the <code>demo</code>
+program may now start with:
+        <pre>
+    #include "demo.ih"
+
+    // followed by a function definition ...
+        
+</pre>
+
+<p>
+</p></li><li> When you're constructing a function and you feel the need for
+additional (auxiliary) functions, then feel free to define such functions. If
+these functions are not part of another exercise, but are the result of your
+own program-development process, then submit the sources of these auxiliary
+functions together with the source of the requested function.
+<p>
+</p></li><li> Here is an overview of various types of parameter definitions
+(exceptions exist, but they will only appear in the context of part III of
+this course):
+        <pre>
+    ------------------------------------------------------------------------
+    value:
+        primitive types:    e.g., (int counter)
+                            Don't use const, since the parameter's scope  is 
+                            restricted to the function anyway.
+
+        class types:        Generally: AVOID
+                            Avoid class type value parameters: 
+                            they require a full object copy which sometimes is
+                            downright impossible.
+                            USE a value class type parameter when it is used
+                            as a working object which would otherwise have
+                            been defined as a local object initialized by the
+                            parameter.
+
+    const reference:        
+        primitive types:    AVOID
+                            Avoid this. Use value parameters instead:
+                            parameter passing is easier and value
+                            parameters are handled more efficiently.
+
+        class types:        e.g., (std::string const &amp;message) 
+                            Use this when you only access the information of
+                            the parameter. In this case never use a value
+                            parameter instead.
+
+    non-const reference:
+        primitive types:    e.g., (int &amp;nSuccesses)
+                            AVOID this. 
+                            It is acceptable to use this form to implement 
+                            `return by argument' until we have covered 
+                            pointers. By convention return by argument
+                            parameters are defined before other parameters.
+
+        class types:        e.g., (std::istream &amp;in) 
+                           Used to communicate the existence of objects living
+                            outside of the function to the function. Such
+                            objects are used, and may be modified. `Return by
+                            argument' constructions are primarily used to
+                            assign new values to the objects/variables
+                            referred to by the `return by argument'
+                            parameters. It is acceptable to use non-const
+                            references to implement `return by argument' until
+                            we have covered pointers.
+
+        r-value references: e.g., (std::string &amp;&amp;tmp)
+
+                            Used when the current function may swallow (some
+                            say: steal) tmp's data. Following the call of this
+                            function tmp should cease to exist. Rvalue
+                            references are primarily used to implement
+                            so-called `move constructors' which are introduced
+                            at the earliest by the end of part I.
+
+    pointers to const entities:
+        primitive types:    e.g., (char const *message) Used when the `natural
+                            type' is a pointer, like an NTBS. Here the
+                            parameter is an input parameter.
+
+        class types:        e.g., (std::string const *msgPtr)
+                            Generally not used. Instead const references are
+                            preferred. 
+
+    pointers to non-const entities:
+        primitive types:    e.g., (int *successPtr)
+                            Used for `return by argument' constructions. To be
+                            defined before any other kind of parameters
+        class types:        e.g., (std::string *textPtr)
+                            Same.
+    --------------------------------------------------------------------------
+        
+</pre>
+
+<p>
+</p></li><li> For return types comparable considerations exist. Make sure that
+returned references refer to and that returned pointers point to something
+that remains in existence after the function has terminated. 0-pointers are an
+exception to this rule. Primitive type and class type value return types are
+both commonly used.
+<p>
+</p></li><li> Normally avoid class type return values unless the function is a
+factory function, returning an object created by the function. Rvalue
+reference return types have have very limited use: do not define them unless
+exercises explicitly tell you to do so.
+<p>
+</p></li><li> Starting with the C++17 standard, consider using structured binding
+declarations when your function returns POD with fields of various types.
+<p>
+</p></li><li> Functions should not be too large and should not contain deeply
+nested statements. A function's body should not exceed approx. 25
+lines. Define support (auxiliary) functions handling parts of a function's
+task or a function's nested code.
+    </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+    </p><div class="Libraries"><hr>
+    <h2>Libraries</h2>
+<p>
+The following describes how to create and use (static)
+libraries. Dynamic libraries are, construction-wise, a different topic, and
+may or may not be covered at some point during the course. For the time being,
+all that needs to be done can be done using (your own) static libraries.
+</p><p>
+</p><ul>
+    <li> Create object files for the modules you want to add to the
+library. Make sure the object files have unique names, as the library
+construction program `ar' stores the modules by name, not by path-name. E.g.,
+        <pre>
+        g++ -c *.cc             - create object modules of all sources in the
+                                  current directory.
+        
+</pre>
+
+    </li><li> Add the object files to a (new, existing) library:
+       and make a randomized index for the library:
+        <pre>
+        ar rsv libmylib.a *.o   - add all .o files in the current dir. to
+                                  some library. `libmylib.a' may also be a
+                                  path-name
+        ranlib libmylib.a       - randomize the index
+        
+</pre>
+
+       This process may be repeated. Existing libraries may be
+       extended by adding completely new objects to it. Just make sure the
+       object files are uniquely named.
+<p>
+</p></li><li> Object files may now be removed:
+        <pre>
+        rm *.o
+        
+</pre>
+
+    </li></ul>
+<p>
+The library is now constructed. Hereafter it can be used:
+    </p><ul>
+    <li> Compile the parts of a program as usual
+<p>
+</p></li><li> Link your program, also against the library
+            `<code>/where/it/is/stored/libmylib.a</code>':
+        <pre>
+        g++ -o program  *.o */*.o -L/where/it/is/stored -lmylib -s
+        
+</pre>
+
+        Notes:
+        <ul>
+        <li> If libmylib.a happens to be in the current directory, use:
+            <pre>
+            g++ -o program  *.o */*.o -L. -lmylib -s
+            
+</pre>
+
+          Relative paths may also be specified using <code>-L.</code> Multiple <code>-L</code>
+        and/or <code>-l</code> combinations may be specified if multiple libraries are
+        to be used. 
+<p>
+</p></li><li> The <code>-s</code> flags strips symbolic information off the final
+          executable. We won't use this symbolic info, and it usually
+          greatly reduces the size of the final executable.
+<p>
+</p></li><li> The final program contains copies of the relevant modules from the
+          library. It is not dynamically linked against that
+          library. Constructing shared libraries is a bit more complex, and
+          for the time beyond our scope. Maybe later....
+<p>
+</p></li></ul>
+    </li><li> Library construction and/or program maintenance is easily realized
+      using <code>icmake</code> or <code>ccbuild</code>. Whatever you prefer, but make sure
+        you <em>do</em> use a program maintenance tool.
+    </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+    </p><div class="Classes"><hr>
+    <h2>Classes</h2>
+<p>
+</p><ul>
+
+<p>
+</p><li> Adopt our naming conventions: let data members start with <code>d_</code>,
+start class names with a Capital letter.
+<p>
+</p></li><li> Constructors initialize data members. They do not perform other
+tasks. It is the responsibity of other (maybe public) members to do that.
+<p>
+</p></li><li> If a constant expression is used (i.e., an expression not referring
+to variables or functions) then data members can also be initialized in the
+class headers. Do so wherever possible. Constructor initializations overrule
+header initializations.
+<p>
+</p></li><li> All member functions that <em>can</em> be <code>const</code> member
+functions, <em>must</em> be <code>const</code> member functions.
+<p>
+</p></li><li> Make sure you understand how to define return types. Reread the
+<em>functions</em> HAT if you think you should return, e.g. <code>int const</code> values
+from members or if you think you should define, e.g., <code>bool const &amp;</code>
+parameters. Defining <code>bool const</code> parameters is OK if you want to stress
+that you're not going to change the parameter's value in your function, but at
+the same time it's somewhat pedantic.
+<p>
+</p></li><li> Objects that are used by multiple objects are usually passed as
+(modifiable) references, initializing reference data members. <em>Never</em> copy
+such objects. Sometimes that's plain impossible, but, more importantly, by
+copying you break the shared nature of such objects.
+<p>
+</p></li><li> Often, header files include other header files. Therefore, by
+including, e.g., <code>&lt;iostream&gt;</code> you may also implicitly have included
+<code>&lt;string&gt;</code>. Do not rely on this relationship between headers: it's 
+an `undocumented feature' at best, which may not be supported anymore by newer
+versions of your compiler. Instead,
+        <ul>
+        <li> If a class header or definition requires a type <code>X</code>, make sure
+the appropriate <code>X</code> header file is included before your class header or
+definition starts.
+        </li><li> With <code>C</code> structs, (like <code>tm</code>), consult the man-page to find
+the appropriate header file (in this case <code>time.h</code> or <code>ctime</code>).
+        </li></ul>
+<p>
+</p></li><li> In many cases self-defined class header files do not actually
+have to include header files when referring to objects. Headers must <em>only</em>
+be included when defining <em>data members</em> of existing class types, when
+<em>using member functions or subtypes</em> (e.g., enumeration types) of existing
+class types, or (usually) when referring to templates. In other cases class
+<em>declarations</em> are sufficient.
+<p>
+</p></li><li> To <em>merely declare</em> any <code>std</code> stream type or the type
+<code>std::string</code> include <code>iosfwd</code>.
+<p>
+</p></li><li> When implementing class member functions returning a value of an
+enumeration type (defined by the class) the class scope must also be provided
+when defining the return type. So, if a class <code>MyClass</code> defines an <code>enum
+Type</code> and declares a member <code>Type type() const</code>, then <code>type</code>'s
+implementation looks like this:
+        <pre>
+    MyClass::Type MyClass::type() const
+    {
+        ....
+    }
+        
+</pre>
+
+        Since the enum is now firmly attached to the class name, this usually
+also obviates the use of a strongly typed enum. 
+<p>
+</p></li><li> When an enumeration has values describing the behavior of a class,
+and it isn't already defined elsewhere, define the enumeration within the
+class. In that case, if the enumeration's values must be visible outside of
+the class's scope and if you want a data member of the enumeration's type,
+then consider defining the class as a <code>struct</code>, and immediately below the
+class's opening brace define all publicly visible types and enums, followed by
+a <code>private</code> section for the data.
+<p>
+</p></li><li> Otherwise, types and enumerations that are used for the class's own
+benefit should be put in the first available <code>private</code> section.
+<p>
+</p></li><li> When implementing private members, keep these members as simple as
+possible. Since their calling is completely at the control of your class's
+members, strong assumptions about their arguments may at times be made (e.g.,
+valid values, values in a certain range, etc.). In these cases no checks are
+required to ascertain the validity of these assumptions in the private members
+themselves. In contrast, <em>public</em> members should check the validity of
+received argument values before actually using them. If the <em>checking</em> code
+can be factorized, then do so. In that case, create additional private
+functions for these purposes.
+<p>
+</p></li><li> Adopt the convention of creating a <code>driver</code> program (e.g., in a
+subdirectory of the class directory itself) showing the proper functioning of
+the (public) members of the class. Such a driver can be developed in parallel
+with the development of the members of a class: construct a member, add its
+use to the driver, show to yourself that the driver works properly. Its good
+practice to show/test a member's behavior for both correct and incorrect
+input.
+<p>
+</p></li><li> Adopt the conventions suggested by
+<a href="http://www.trolltech.com/">Trolltech</a>, the creators of the
+<a href="http://www.trolltech.com/">Qt</a> library: <em>accessors</em> should <em>not</em> be
+given names starting with <code>get...</code>. Eg, use
+        <blockquote>size()</blockquote>
+    rather than:
+        <blockquote>getSize()</blockquote>.
+<p>
+</p></li><li> Often, <code>set</code> members can be defined likewise: overloaded functions
+usually do the trick. Instead of
+        <pre>
+    setInt(int x);
+    setDouble(double x);
+        
+</pre>
+
+    define:
+        <pre>
+    set(int x);
+    set(double x);
+        
+</pre>
+
+<p>
+</p></li><li> Declare private member <em>functions</em> below the public member
+functions. Contrary to this, <em>data</em> members should be positioned at the top
+of the class file. This convention is used because
+        <ul>
+        <li> The data are at the core of the class. By putting them at the
+headers' top they are highly visible, and conceptually form a block of
+data. This helps the class constructor to memorize what the internals of the
+class look like whenever any form of maintenance is performed.
+        </li><li> Support (private) functions are only infrequently used by the
+class developer and they are of course not directly called by the class's
+users. So, they can be `tucked away' at the bottom of the class.
+        </li><li> By separating the data members from the private member functions
+the header immediately indicates what is what. As data members can sometimes
+look like functions and as member functions can sometimes be used as though
+they are data members separating their locations in the header helps to solve
+any potential reader confusion.
+        </li><li> Once again, this is a design <em>convention</em>, but it turns out to
+be an very useful one: adopt it!
+        </li></ul>
+<p>
+</p></li><li> Don't over-elaborate. When designing your class do like you do with
+functions: split up once it becomes too large. As a rule of thumb: if the
+(public) interface isn't completely visible on your editor's screen it's too
+big, and you should  split it up into separate, more dedicated classes.  
+<p>
+</p></li><li> Splitting is also indicated when you realize that some of your member
+functions do things that aren't really the `core business' of your
+class. Follow the one-class-one-responsibility rule. If members do things not
+fitting the class's responsibility <em>encapsulate</em> these tasks in a separate 
+class and use local objects or composition to make their functionality
+available. 
+<p>
+</p></li><li> Avoid inline functions while constructing a class. While constructing
+a class you will often encounter situations where inline members need to be
+modified and then it's a pain to have to recompile all sources because the
+inline members' code will be `inlined' all over the place....
+<p>
+Member functions <em>can</em> be defined <em>in-line</em> if their code is
+smaller than their call (as a rule of thumb: this may hold true for functions
+consisting of at most one normal-sized statement) and if it can be assumed
+beyond reasonable doubt that their code remains unaltered.
+</p><p>
+When defining inline members, always make sure the class interface
+itself remains implementation-free. The class interface should contain
+<em>only</em> member function <em>declarations</em>. 
+</p><p>
+</p></li><li> Inline member functions, if used at all, should be defined in special
+files, e.g., having extensions <code>.f</code> for `function', which are included
+<em>below</em> the interface, as shown in the next example:
+        <pre>
+    class MyClass
+    {
+        size_t d_size;
+
+        public:
+            size_t size() const;
+    };
+
+    #include "size.f"
+        
+</pre>
+
+<p>
+While <code>size.f</code> merely contains:
+        </p><pre>
+    inline size_t MyClass::size()
+    {
+        return d_size;
+    }
+        
+</pre>
+
+    This approach has multiple advantages:
+    <ul>
+    <li> It keeps the file showing the class-interface absolutely clean, not
+confusing declarations with implementations;
+<p>
+</p></li><li> If at some point you'd like to change the status of a member from
+inline to normal, you merely have to remove the include (from the header), to
+replace the keyword <code>inline</code> by a line like <code>#include "myclass.ih"</code>, and
+to rename the <code>.f</code> file to a <code>.cc</code> file.
+<p>
+</p></li><li> Conversions from normal to inline are realized likewise.
+<p>
+</p></li><li> Especially during later parts of this course: implementations of
+templates must be available in header files. By using the <code>.f</code> convention we
+retain the advantages of implementation-free headers we also enjoy with
+standard, statically compiled functions (i.e., functions implemented in
+<code>.cc</code> files)
+    </li></ul> 
+<p>
+Note that <em>private</em> inline members (or their <code>.f</code> files) should
+<em>not</em> be included in the class's header file as they are never used outside
+of the class. Instead, define (or include the <code>.f</code> files of) private inline
+members in the internal header file. 
+</p><p>
+An exception to this rule is occasionally encountered with inline public
+members calling inline private members. In this situation the inline private
+member must also be defined in the class's header file.
+</p><p>
+A side note: when creating a library the class's header files are made
+available for inclusion by other programs. In those cases create those header
+files from the project's header file + <code>.f</code> files by including the <code>.f</code>
+files into the `exported' header file. Using the <code>.f</code> files convention is
+primarily for the benefit of the developer. <em>Users</em> of a class shouldn't
+have to inspect the header files anyway; they should be given a decent
+man-page. 
+</p><p>
+</p></li><li> Use <em>member initializers</em> whenever possible (but prefer
+initialization of data members in cleass headers if at all possible).
+<p>
+</p></li><li> <em>Never</em> give up <em>data hiding</em>. Accessors defined inline allow
+clients to access the data at no additional cost of a function call and ensure
+that your clients don't have to rely on your implementation details. CAVEAT:
+once you use inline accessors the locations of the data members are fixed in
+the inlined code. Consequently, you can not reorder your class's data members
+anymore; if that's ever necessary you'll have to recompile <em>all</em> source
+files using the inlined accessors.
+<p>
+</p></li><li> When defining accessors, make an educated guess how often they will
+be called in programs. If they're probably called multiple times (&gt; 1) then
+define a data member holding the value returned by the accessor. Usually the
+returned value can be computed at construction time (this is the preferred
+approach). It's also possible to do 'lazy computation': don't actually compute
+the returned value until requested for the first time. The next time the
+accessor is called it should be able to detect that the value has already been
+computed so it can return the available value. This involves evaluating a
+condition, which can easily be avoided. The latter approach is defensible if
+it is unclear if the accessor is ever called and when determining the value to
+return is a very expensive operation.
+<p>
+</p></li><li> Seriously consider using precompiled headers for your classes'
+internal header files. If you're using <code>icmake</code> and follow the design
+principles we advocate. Using precompiled headers in that case is as simple as
+changing the line
+        <pre>
+//#define PRECOMP "-x c++-header"
+        
+</pre>
+
+    into
+        <pre>
+#define PRECOMP "-x c++-header"
+        
+</pre>
+
+    in the file <code>icmconf</code>.
+  </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+    </p><div class="Pointers"><hr>
+    <h2>Pointers</h2>
+<p>
+</p><ul>
+
+<p>
+</p><li> 
+        Especially when pointers are new to you, make a drawing to visualize
+what your pointers are pointing at and showing what happens when
+using/modifying pointers. Draw pointer variables as a little variable
+rectangle from which an arrow emerges. Unless clearly pointing at a specific
+location let the arrow end in a question mark. E.g.
+        <pre>
+    +-------+
+    |    ---|---&gt; ?
+    +-------+
+        
+</pre>
+
+    Likewise, let a 0-pointer point at 0:
+        <pre>
+    +-------+
+    |    ---|---&gt; 0
+    +-------+
+        
+</pre>
+
+<p>
+</p></li><li> With fixed-size arrays the range-based for loop can often be
+used. See the Annotations for details. 
+<p>
+</p></li><li> Using <code>NULL</code> is old-school <strong>C</strong> programming. Use 0 (a plain zero)
+or <code>nullptr</code>, which is only necessary distinguish between overloaded
+functions when one function uses, e.g., an <code>int</code> parameter and another uses,
+e.g., a <code>char *</code> parameter.
+<p>
+</p></li><li> Always match <code>new</code> with <code>delete</code>, match <code>new[]</code> with
+<code>delete[]</code> and <code>operator new</code> with <code>operator delete</code>
+<p>
+</p></li><li> A dereferenced pointer to a multidimensional array is itself a
+        pointer. Consider:
+            <pre>
+        int array[3][5]     
+        int (*ptr)[5] = array   // note the parentheses!
+            
+</pre>
+
+        Now, <code>*ptr</code> points to <code>array</code>'s 1st row, and thus has type 
+            <code>int *</code>.
+<p>
+</p></li><li> Don't use <strong>C</strong>'s allocation functions like <strong>malloc(), free(),
+calloc(), realloc()</strong>. Instead use the <strong>C++</strong> operators <code>new, new[],
+operator new, delete, delete[]</code> and <code>operator delete</code>. They're <em>type-safe</em>
+and prevent your program from continuing when the allocation fails.
+<p>
+</p></li><li> 
+        Prefer for-loops accessing array elements using pointer variables over
+for-loops using <code>size_t</code> loop control variables and index expressions. This
+avoids the repeated evaluations of index expressions. E.g.,
+        <pre>
+        // rather than, assuming 'Type array[size]'
+    for (int idx = 0; idx != size; ++idx)
+        array[idx] = whatever();
+
+        // use:
+    for (Type *begin = array, *end = array + size; begin != end; ++begin)
+        *begin = whatever();
+        
+</pre>
+
+<p>
+</p></li><li> If the `world of pointers' is new to you, you might want to try the
+<em>variable declarator</em> (VD) program: <a href="https://www.icce.rug.nl/edu/3/vd-1.03.tar.gz">vd-1.03.tar.gz</a>.
+    Unpack and read the <code>README</code> file for further instructions.
+<p>
+</p></li><li> Do <em>not</em> define zero-length arrays (e.g., <code>string *sp = new
+string[0]</code>). They are pointless and useless. To initialize a pointer to an
+array for which no elements are as yet available simply initialize it to 0
+(string *sp = 0), allowing you to check for this value to infer that it
+doesn't point to elements yet.
+<p>
+</p></li><li> When passing arrays to functions you usually also have to provide the
+number of elements in that array to the function. This can be done for real
+arrays in a non-magical way:
+        <pre>
+    Type array[] = { ,-separated list of Type values };
+    size_t const sizeOfArray = sizeof(array) / sizeof(Type);
+    // or, sometimes shorter:
+    size_t const sizeOfArray = sizeof(array) / sizeof(array[0]);
+        
+</pre>
+
+    This is always correct. You don't have to count, and later on
+<code>array</code> can be modified resulting in a new, again correct, value of
+<code>sizeOfArray</code>.
+<p>
+</p></li><li> Do not use <code>[]</code> when defining array parameters of functions. Since
+the parameter is <em>always</em> a pointer define it as a pointer. Note that
+the pointer must be protected by parentheses when defining a parameter
+pointing to a multi-dimensional array.
+<p>
+</p></li><li> The placement new operator operates on bytes of `raw
+memory'. Therefore, <code>operator new</code> allocating a block of raw memory returns
+a <code>void *</code>. However, if the type of information stored in the raw memory is
+<code>Type</code> then the bytes are to represent <code>Type</code> objects, of which there may
+be <code>d_size</code> out of a potential <code>d_capacity</code> number of objects. Thus, when
+the raw memory becomes available indicate that the raw bytes are to represent
+<code>Type</code> objects, by encapsulating the raw memory allocation in the following
+function:
+        <pre>
+    Type *newRaw(size_t requestedNoOfObjects)
+    {
+        return  static_cast&lt;Type *&gt;(
+                        operator new(requestedNoOfObjects * sizeof(Type))
+                );
+    }
+        
+</pre>
+
+    and let the remaining software simply refer to <code>Type</code> elements accessed
+using a <code>Type *</code> pointer.
+<p>
+</p></li><li> Once <code>d_size</code> objects are stored at the location returned by
+<code>newRaw</code>, with <code>Type *d_ptr</code> having received <code>newRaw</code>'s return value,
+then another support function comes in handy to properly delete the objects
+and the allocated raw memory. Here is a function <code>deleteRaw</code> complementary
+to <code>newRaw</code>, performing the object destruction and the deletion of the raw
+memory: 
+        <pre>
+    void YourClassName::deleteRaw()
+    {
+        for (Type *ptr = d_ptr + d_size; ptr-- != d_ptr; )
+            ptr-&gt;~Type();                     // directly call the 
+                                              // object's destructor
+
+        operator delete(d_ptr);               // release the raw memory
+    }
+        
+</pre>
+
+<p>
+</p></li><li> Note that <code>newRaw</code> is defined as a <em>free function</em>: it has no
+class name scope. It doesn't need one, since no data members are used. You
+could consider storing <code>newraw.o</code> in a library (e.g., <code>libtools.a</code>) which
+can be used by any of your programs. In that case also define, e.g., a
+<code>tools.h</code> header file declaring <code>newRaw</code>. To use <code>newRaw</code> in your code
+your programs now merely heave to include <code>tools.h</code>, and you should link
+those programs (also) against <code>libtools.a</code>. 
+<p>
+Alternatively, <code>newRaw</code> could be defined as a class member. If so,
+<em>either</em> define it as a <code>const</code> member function, <em>or</em> define it as a
+static member. 
+</p><p>
+</p></li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+
+    </p><div class="BasicIO"><hr>
+    <h2>BasicIO</h2>
+<p>
+</p><ul>
+<p>
+</p><li> When defining parameters for streams use the plain stream class names
+        (<code>istream, ostream</code>), and not <code>Xfstream</code> or <code>Xstringstream</code>. By
+        using <code>istream</code> and <code>ostream</code> your function will be more generally
+        usable.
+    </li><li> Use <code>#include&lt;iosfwd&gt;</code> if a class interface or function declaration
+        only uses references or pointers to streams or strings. In those
+        cases the streams can merely be declared, speeding up the
+        compilation.  
+    </li><li> Implementations should include (usually via internal headers)
+        the proper header files for the stream objects used or defined by the
+        implementations.
+    </li><li> Do <em>not</em> use <strong>C</strong>'s I/O functions. The corresponding <strong>C++</strong>
+        objects are type-safe and extensible.
+    </li><li> Use <code>std::string's</code> conversion functions to convert values of basic
+        types to text. For more complex conversions use <code>Xstringstream</code>
+        objects.
+    </li><li> Be specific: use <strong>i</strong><code>stringstream</code> to extract from strings,
+        <strong>o</strong><code>stringstream</code> to insert into strings. Do not just use
+        <code>stringstream</code> objects: in practice you never have to read <em>and</em>
+        write from stringstreams.
+    </li><li> It's almost <em>never</em> necessary to explicitly <em>close</em> streams since
+        the stream's destructors both flush and close streams. Closing streams
+        <em>is</em> required in certain situations, e.g., when re-opening named
+        (file) streams. In those cases the previously used stream should first
+        be closed, and thereafter be opened again.
+   </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+
+    </p><div class="ClassAlloc"><hr>
+    <h2>ClassAlloc</h2>
+<p>
+</p><ul>
+<p>
+</p><li> Allocation support (copy constructor, move constructor, overloaded
+assignment operator, move assignment operator) is <em>not</em> required if a class
+does <em>not</em> use data members pointing to memory controlled by the class
+itself.
+<p>
+</p></li><li> The <a href="https://www.icce.rug.nl/edu/2/makeclass">makeclass</a> script may be used when defining
+a new class possibly requiring allocation and/or move support. In that case
+the interaction may proceed as follows (maybe use a <code>-c</code> option):
+        <pre>
+makeclass Demo
+constructing class Demo in directory demo
+make Demo() [y/n]? y
+Allocation support [y/n]? y
+Move support [y/n]? y
+use Bobcat's Swap [y/n]? n
+        
+</pre>
+
+    (The last question <em>may</em> be answered by <code>y</code> if you know what you're
+doing, but for now we strongly advise you to answer <code>n</code>.)
+<p>
+This results in the class <code>demo</code> containing:
+        </p><pre>
+demo.h              demo2.cc            frame               swap.cc 
+demo.ih             demo3.cc            operatorassign1.cc  
+demo1.cc            destructor.cc       operatorassign2.cc  
+        
+</pre>
+
+    Default, copy and move constructors are available, as are overloaded
+standard and move assignment operators.
+<p>
+</p></li><li> Only in very special circumstances (not likely to be encountered in
+this part of the course) functions will return rvalue references. So don't be
+tempted to return rvalue references from functions you define in this part of
+the course, unless the exercise explicitly states otherwise. Rvalue refs
+are used as function parameters, always non-const.
+<p>
+</p></li><li> Raw memory swapping is <em>not</em> possible for objects of classes having
+self-referential members (like pointers). Linked lists and objects having
+pointers pointing to their own data members cannot be swapped using raw memory
+swapping. In all other cases: be careful when using raw memory swapping. If
+you're not sure that it can be used, avoid it.
+<p>
+</p></li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+</p><hr>
+<p>
+</p><h2>Hints WRT Part II</h2>
+<p>
+<a name="partTwo"></a>
+
+    </p><div class="Exceptions"><hr>
+    <h2>Exceptions</h2>
+<p>
+</p><ul>
+<p>
+</p><li> Become familiar with exception guarantees:
+        <ul>
+        <li> the <em>basic guarantee</em>: never write programs leaking memory when
+exceptions are thrown; 
+        </li><li> the <em>strong guarantee</em>: <em>commit</em> or <em>roll-back</em>:
+Modifications to objects should either completely succeed or no modifications
+at all should be inflicted upon the object.
+        </li><li> the no-throw guarantee. Some actions never throw exceptions:
+operations on basic-type variables; <strong>C</strong>-functions; class-destructors
+(prohibited to throw exceptions by the standard).
+        </li></ul>
+<p>
+</p></li><li> Often you can simply use the `exception neutral' requirement: pass an
+exception up to its caller.
+<p>
+</p></li><li> Swapping usually helps to implement the strong guarantee. First the
+operation is performed on a copy of the object to modify; then, if that
+succeeds the copy and the original object are swapped.
+<p>
+</p></li><li> If an operation may fail (and would then result in throwing an
+exception) encapsulate it, together with the exception being thrown, in a
+separate function. 
+<p>
+</p></li><li> Avoid using <em>throw lists</em>, as they can only run-time be enforced.
+<p>
+</p></li><li> Just remember: exceptions thrown from insde the bodies of
+constructors and destructors and caught in these members' function try blocks
+are <em>always</em> rethrown, and thus leave those members. That's potentially OK
+for constructors, but it's a violation of the <strong>C++</strong> standard when exceptions
+leave destructors. As a consequence, destructors should <em>never</em> be provided
+with function try blocks. 
+<p>
+</p></li><li> <img src="General%20Hints,%20Tips%20and%20Tricks%20for%20C++_files/new.gif"> 
+        Resist the temptation to provide (nearly) all members with try/catch
+blocks and clauses. Generally only functions that may throw need them. If an
+exception can be thrown in some local section of a function, then encapsulate
+that section in a function, and handle the exception there, preferably in a
+function try block.
+<p>
+</p></li><li> Be advised: when submitting destructor implementations you <em>must</em>
+make sure that <em>no exception</em> can leave the destructor. Failing to do so
+will most likely result 0-ratings.
+    </li></ul>        
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+
+    </p><div class="Inheritance"><hr>
+    <h2>Inheritance</h2>
+<p>
+</p><ul>
+<p>
+</p><li> Use inheritance to specialize classes rather than to extend their
+functionality. Specialization usually involves defining new constructors,
+fitting the specialization.
+<p>
+</p></li><li> Always draw class diagrams. This is generally a good practice, but
+in particular with polymorphism it can be a life-saver against circular
+dependencies. 
+<p>
+</p></li><li> Strictly adhere to the Data Hiding paradigm. Don't permit derived
+classes direct access to data members.
+<p>
+</p></li><li> If you have a choice, prefer composition over inheritance.
+    </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+
+    </p><div class="Polymorphism"><hr>
+    <h2>Polymorphism</h2>
+<p>
+</p><ul>
+<p>
+</p><li> Polymorphism can be used to access classes `deep down' the class
+hierarchy from classes higher up in the hierarchy without falling into the
+`circular class dependencies' trap.
+<p>
+</p></li><li> Never define a virtual destructor inline. Always provide it with its
+own source file, even if it's body is empty. Since it is a virtual member it
+<em>must</em> be available or the class's Vtable can't be constructed, and by
+defining it inline you loose control over where it's actually implemented. If
+your destructor is defined in a source file of its own, then that's also the
+location of the Vtable. Therefore, if at some point you want to add another
+virtual member to your class then simply recompile your destructor's source as
+well and your Vtable is up-to-date again.
+<p>
+</p></li><li> To obtain a copy of an object pointed to by a base class pointer use
+the <em>Prototype</em> design pattern (using <code>Base *copy() const = 0</code>).
+<p>
+</p></li><li> Avoid downcasting.
+<p>
+</p></li><li> Declare overriding functions with the attribute <code>override</code> instead
+of <code>virtual</code>: this allows the compiler to verify whether you're using the
+correct prototypes.
+<p>
+</p></li><li> Make virtual members private, call them from members in the base
+class's public interface. (Like what we suggested for the Prototype design
+pattern: <code>clone</code> returns a pointer obtained from <code>copy</code>).
+<p>
+</p></li><li> Make sure you understand and follow the advice offered in the slides
+about when and how to use polymorphism. Don't just use it in a brain-dead way.
+    </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+
+    </p><div class="Generic"><hr>
+    <h2>Generic</h2>
+<p>
+</p><ul>
+<p>
+</p><li> Whenever you <em>can</em> use generic algorithms, you <em>should</em> use
+them. Especially when generic algorithms are new to you, actively look for
+algorithms you could use. Frequently used algorithms are <code>for_each,
+transform, sort, copy, find, find_if, count, count_if, fill, generate</code>.
+<p>
+</p></li><li> Become familiar with special iterators like the <code>back_inserter,
+front_inserter, inserter, istream_iterator</code>, and <code>ostream_iterator</code>.
+<p>
+</p></li><li> Don't fall into the trap of writing much code in the body of a lamda
+function. Lambda function's code blocks operate at another `aggregation level'
+than the code using the lambda function, and writing too many statements in 
+lambda functions' code blocks quickly blurrs the core business of your
+(surrounding) function. Treat lambda functions as inline functions. Once they
+need more than one or two statements encapsulate their bodies in a separate
+function, which is then called from the lambda function's body.
+<p>
+</p></li><li> Usually the closure variables are passed as references, but don't use
+reference where that's pointless (e.g. passing pointers as references to
+pointers). Consider the closure specification as a parameter list and ask
+yourself whether, in that case, you would have used value or reference
+parameters. Handle the variables mentioned in the closure accordingly.
+<p>
+</p></li><li> When passing closure variables by value they are by default immutable
+inside the lambda function's body. If that's not what you want write 
+<code>mutable</code> after the lambda declarator.
+<p>
+</p></li><li> If a generic function + lambda function can be replaced by a
+range-based for loop + the body of the lambda function then you could also use
+the range-based for loop (however, with the exercises about generic algorithms
+the generic algorithms should be used, rather than the range-based for loop).
+    </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+
+
+    </p><div class="Threading"><hr>
+    <h2>Threading</h2>
+<p>
+</p><ul>
+<p>
+</p><li> <em>Always</em> protect access to shared data with a mutex. 
+<p>
+</p></li><li> Whenever possible use a <code>lock_guard&lt;mutex&gt; lg(mutex object)</code> to
+        ensure locking while using the shared data. Make sure you don't define
+        an anonymous <code>lock_guard</code>, as that one will end its lifetime shortly
+        after its construction.
+<p>
+</p></li><li> Avoid using global data: embed shared data in a class, and provide
+        the class with a <code>mutex</code>.
+<p>
+</p></li><li> Use semaphores with producer-client programs.
+<p>
+</p></li><li> A construction like <code>fut.wait_for(chrono:seconds(0))</code> allows you to
+        inspect whether a thread has made its future ready or not (yet).
+    </li></ul>
+<p>
+
+    </p><hr>
+    </div>
+<p>
+</p><p align="right">
+<cite>
+    Frank B. Brokken
+    <a href="mailto:f.b.brokken@rug.nl">(f.b.brokken@rug.nl)</a><br>
+
+
+28 February 2018
+
+
+</cite>
+</p>
+
+<p>
+
+
+</p></body></html>

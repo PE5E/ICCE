@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body bgcolor="#FFFFAA" text="#000077">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven01.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven03.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l2"></a>
+<h1>Chapter 2: Exercises set two: Class Templates (Deadline Mar 1).</h1>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 8.</strong>
+            <br>
+            Purpose of this exercise: learn to convert an existing class to a class
+template. 
+<p>
+Take your pick: 
+    </p><ul>
+    <li>
+        In parts I and II the class <code>Matrix</code> was introduced (cf. part I's
+exercise 64, part II's exercises 4, 13-15). Convert the class <code>Matrix</code> to a
+class template, where the eventual data type is specified as a template type
+parameter, but matrices of operands can be matrices of different data
+types. E.g., if <code>Matrix&lt;double&gt; lhs</code> and <code>Matrix&lt;int&gt; rhs</code> are available,
+then <code>lhs += rhs</code> must be allowed. With plain binary arithmetic operators
+(e.g. <code>lhs + rhs</code>), <code>lhs's</code> type determines the type of the resulting
+matrix.
+<p>
+You don't have to construct a full class. Your class should offer:
+        </p><ul>
+        <li> Standard constructors, overloaded assignment operators and
+            destructor; 
+        </li><li> Standard insertion and extraction operators;
+        </li><li> Addition and compound addition operators;
+        </li><li> (In)equality operators
+        </li><li> Index operators (as usual: 
+                available for const and non-const objects).
+        </li></ul>
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    </p><ul>
+    <li> Notes:
+        <ul>
+        <li> the requirement `an index operator distinguishing between
+        being used as lhs and rhs operand' is irrelevant for <code>Matrix</code>: the
+        non-const index operator returns a row of modifyable <code>Type</code> values,
+        and whether <em>these</em> values distinguish between being used as lhs or
+        rhs operand is not something that <code>Matrix</code> needs to concern itself
+        with. 
+        </li><li> Members that can process matrices of different
+        sizes are defined as member templates. 
+        </li></ul>
+        Here is the <code>Matrix</code> class template:
+        <pre>#ifndef INCLUDED_MATRIX_
+#define INCLUDED_MATRIX_
+
+#include &lt;istream&gt;
+#include &lt;ostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+
+template &lt;class Type&gt;
+class Matrix
+{
+    template &lt;class LeftType, class RightType&gt;
+    friend Matrix&lt;LeftType&gt; operator+(Matrix&lt;LeftType&gt; const &amp;lhs, 
+                                        Matrix&lt;RightType&gt; const &amp;rhs);
+
+    template &lt;class LeftType, class RightType&gt;
+    friend Matrix&lt;LeftType&gt; operator+(Matrix&lt;LeftType&gt; &amp;&amp;lhs, 
+                                        Matrix&lt;RightType&gt; const &amp;rhs);
+
+    template &lt;class Tp&gt;
+    friend bool operator==(Matrix&lt;Tp&gt; const &amp;lhs, Matrix&lt;Tp&gt; const &amp;rhs);
+
+    size_t d_nRows = 0;
+    size_t d_nCols = 0;
+    Type *d_data = 0;                     // in fact R x C matrix
+
+    public:
+        Matrix() = default;
+        Matrix(Matrix const &amp;other);
+        Matrix(Matrix &amp;&amp;tmp);
+
+        ~Matrix();
+
+        Matrix &amp;operator=(Matrix const &amp;rhs);
+        Matrix &amp;operator=(Matrix &amp;&amp;tmp);
+
+        void swap(Matrix &amp;other);
+
+        Type *operator[](size_t rowIdx);
+        Type const *operator[](size_t rowIdx) const;
+
+        template &lt;class Tp&gt;
+        Matrix &amp;operator+=(Matrix&lt;Tp&gt; const &amp;rhs)   &amp;;
+
+        template &lt;class Tp&gt;
+        Matrix &amp;&amp;operator+=(Matrix&lt;Tp&gt; const &amp;rhs) &amp;&amp;;
+
+        size_t size() const;
+        size_t nRows() const;
+        size_t nCols() const;
+
+    private:
+        Type &amp;el(size_t row, size_t col) const;
+
+        template &lt;class Tp&gt;
+        void add(Matrix&lt;Tp&gt; const &amp;rhs);
+
+};        
+
+template &lt;typename Type&gt;
+inline size_t Matrix&lt;Type&gt;::size() const
+{
+    return d_nRows * d_nCols;
+}
+
+template &lt;typename Type&gt;
+inline size_t Matrix&lt;Type&gt;::nRows() const
+{
+    return d_nRows;
+}
+
+template &lt;typename Type&gt;
+inline size_t Matrix&lt;Type&gt;::nCols() const
+{
+    return d_nCols;
+}
+
+template &lt;typename Type&gt;
+Matrix&lt;Type&gt;::Matrix(Matrix const &amp;other)
+:
+    d_nRows(other.d_nRows),
+    d_nCols(other.d_nCols),
+    d_data(new Type[size()])
+{
+    memcpy(d_data, other.d_data, size() * sizeof(Type));
+}
+
+template &lt;typename Type&gt;
+inline Matrix&lt;Type&gt;::Matrix(Matrix &amp;&amp;tmp)
+{
+    swap(tmp);
+}
+
+template &lt;typename Type&gt;
+inline Matrix&lt;Type&gt;::~Matrix()
+{
+    delete[] d_data;
+}
+
+template &lt;typename Type&gt;
+Matrix&lt;Type&gt; &amp;Matrix&lt;Type&gt;::operator=(Matrix const &amp;other)
+{
+    Matrix tmp(other);
+    swap(tmp);
+    return *this;
+}
+
+template &lt;typename Type&gt;
+inline Matrix&lt;Type&gt; &amp;Matrix&lt;Type&gt;::operator=(Matrix &amp;&amp;tmp)
+{
+    swap(tmp);
+    return *this;
+}
+
+template &lt;typename Type&gt;
+void Matrix&lt;Type&gt;::swap(Matrix &amp;other)
+{
+    std::swap(d_nRows, other.d_nRows);
+    std::swap(d_nCols, other.d_nCols);
+    std::swap(d_data, other.d_data);
+}
+
+template &lt;typename Type&gt;
+inline Type &amp;Matrix&lt;Type&gt;::el(size_t row, size_t col) const
+{
+    return d_data[row * d_nCols + col];
+}
+
+template &lt;typename Type&gt;
+inline Type *Matrix&lt;Type&gt;::operator[](size_t idx)
+{
+    return &amp;el(idx, 0);
+}
+
+template &lt;typename Type&gt;
+inline Type const *Matrix&lt;Type&gt;::operator[](size_t idx) const
+{
+    return &amp;el(idx, 0);
+}
+
+template &lt;typename Type&gt;
+template &lt;class Tp&gt;
+void Matrix&lt;Type&gt;::add(Matrix&lt;Tp&gt; const &amp;rhs)
+{
+    if (d_nRows != rhs.nRows() || d_nCols != rhs.nCols())
+        std::runtime_error("Cannot add matrices of unequal dimensions");
+
+    for (size_t row = 0; row != d_nRows; ++row)
+    {    
+        Type *thisRow = (*this)[row];
+        Tp const *rhsRow = rhs[row];
+
+        for (size_t col = 0; col != d_nCols; ++col)
+            thisRow[col] = rhsRow[col];
+    }
+}
+
+template &lt;typename Type&gt;
+template &lt;class Tp&gt;
+inline Matrix&lt;Type&gt; &amp;Matrix&lt;Type&gt;::operator+=(Matrix&lt;Tp&gt; const &amp;rhs) &amp;
+{
+    add(rhs);
+    return *this;
+}
+
+template &lt;typename Type&gt;
+template &lt;class Tp&gt;
+inline Matrix&lt;Type&gt; &amp;&amp;Matrix&lt;Type&gt;::operator+=(Matrix&lt;Tp&gt; const &amp;rhs) &amp;&amp;
+{
+    add(rhs);
+    return move(*this);
+}
+
+template &lt;typename Type&gt;
+bool operator==(Matrix&lt;Type&gt; const &amp;lhs, Matrix&lt;Type&gt; const &amp;rhs)
+{
+    if (lhs.d_nRows != rhs.d_nRows || lhs.d_nCols != rhs.d_nCols)
+        return false;
+
+    for (size_t idx = 0, end = lhs.size(); idx != end; ++idx)
+    {
+        if (lhs.d_data[idx] != rhs.d_data[idx])
+            return false;
+    }
+
+    return true;
+}
+
+template &lt;typename Type&gt;
+inline bool operator!=(Matrix&lt;Type&gt; const &amp;lhs, Matrix&lt;Type&gt; const &amp;rhs)
+{
+    return not (lhs == rhs);
+}
+
+template &lt;class Tp&gt;
+std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, Matrix&lt;Tp&gt; const &amp;src)
+{
+    for (size_t row = 0; row != src.nRows(); ++row)
+    {    
+        Tp const *ptr = src[row];
+        for (size_t col = 0; col != src.nCols(); ++col)
+            out &lt;&lt; ptr[col] &lt;&lt; ' ';
+        out &lt;&lt; '\n';
+    }
+    return out;
+}            
+
+template &lt;class Tp&gt;
+std::istream &amp;operator&gt;&gt;(std::istream &amp;in, Matrix&lt;Tp&gt; &amp;dest)
+{
+    for (size_t row = 0; row != dest.nRows(); ++row)
+    {    
+        Tp *ptr = dest[row];
+        for (size_t col = 0; col != dest.nCols(); ++col)
+            in &gt;&gt; ptr[col];
+    }
+    return in;
+}            
+
+template &lt;class LeftType, class RightType&gt;
+Matrix&lt;LeftType&gt; operator+(Matrix&lt;LeftType&gt; const &amp;lhs, 
+                           Matrix&lt;RightType&gt; const &amp;rhs)
+{
+    Matrix&lt;LeftType&gt; ret{lhs};
+    ret.add(rhs);
+    return ret;
+}
+
+
+#endif
+
+
+
+
+</pre>
+
+<p>
+Here is an example of how it can be used:
+        </p><pre>#include &lt;iostream&gt;
+#include "matrix.h"
+
+using namespace std;
+
+int main()
+{
+    Matrix&lt;int&gt; mi1;
+    Matrix&lt;int&gt; mi2;
+    Matrix&lt;double&gt; mi3;
+
+    Matrix&lt;double&gt; mi4 = mi3 + mi1;
+    mi1 += mi4;
+
+    cout &lt;&lt; mi1;
+    cin &gt;&gt; mi1;
+}
+</pre>
+
+    </li></ul>
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 9.</strong>
+            <br>
+            Purpose of this exercise: learn to design a member template
+<p>
+In part II the class Semaphore was extensively used (see the Annotations for
+details). In one of the exercises a <code>wait</code> member accepting a function had
+to be developed. In that exercise it was stated:
+</p><p>
+</p><p></p><hr><p>
+</p><p>
+A Semaphore's <code>wait</code> member returns once its internal counter is unequal to
+zero and the process using the Semaphore are obtained the Semaphore's lock.
+</p><p>
+Consider a Producer-Client paradigm. If the producer produces the names of
+source files to compile, then the program might want to stop once a
+compilation fails and the compiler returns errors, even though not all files
+to compile have been processed. The clients could share a variable <code>bool
+Client::s_continue</code>, and a static member <code>Client::stop()</code> could be used to
+set <code>s_continue</code> to false. Once a compilation returns errors, that client
+could set <code>s_continue</code> to false, show the error messages and inform the
+other clients that they can stop working. The other clients might still be
+busy doing their own work but once done, and <code>s_continue</code> is false, their
+function implementing the actions of their thread could simply return. But
+what happens in situations where clients are waiting for input? When input
+arrives slowly, then the clients may have to wait for a fairly long time
+before they notice that they should stop.
+</p><p>
+Alternatively, we can modify the <code>Semaphore::wait</code> member: by providing it
+with a function, function object, or lambda function argument, which receives
+the <code>Semaphore's</code> counter as a reference, the function that is passed to the
+<code>wait</code> member can be given access to <code>s_continue</code> and if <code>s_continue</code> is
+false it could, e.g., throw an exception, thus ending the <code>Client's</code> thread
+function.
+</p><p>
+</p><p></p><hr><p>
+</p><p>
+Assuming a class <code>Semaphore</code> is available, defining these data memebrs:
+        </p><pre>
+    mutable std::mutex d_mutex;
+    std::condition_variable d_condition;
+    size_t d_nAvailable;
+        
+</pre>
+
+ implement <code>Semaphore::wait</code> as a member template accepting a function
+(object) and the function's arguments as its argument. This <code>wait</code> member
+should return a <code>bool</code>, and it must block until it has obtained the
+Semaphore's mutex lock. Then, while its <code>d_available</code> value equals 0, it
+waits until being notified.  Once it has re-acquired the lock after being
+notified the provided function is called, receiving <code>wait</code>'s perfectly
+forwarded remaining arguments.  This member returns <code>false</code> if the called
+function returns <code>false</code>. It returns <code>true</code> if the function returns
+<code>true</code> and <code>d_available</code> was unequal zero (following the function's
+<code>true</code> return. 
+<p>
+In the original implementation a <code>std::function</code> had to be used to handle
+functions, function objects and lambda functions, but your implementation
+should not depend on <code>std::function</code>. The template type parameter that's
+used for this implementation should be able to handle functions, function
+objects and lambda functions, but should not be defined as a
+<code>std::function</code>. 
+</p><p>
+Submit the implementation of the <code>bool wait</code> member, and insert the
+function's declaration at the indicated position in the following (partial)
+interface:
+</p><p>
+</p><pre>
+    class Semaphore
+    {
+        ...
+        public:
+
+        // declare bool wait here
+
+        ...
+    };
+
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+    Here is the declaration:
+</p><pre>
+    class Semaphore
+    {
+        ...
+        public:
+
+        template &lt;typename Fun, typename ...Params&gt;
+        bool Semaphore::wait(Fun fun, Params &amp;&amp;...args)
+
+        ...
+    };
+
+</pre>
+
+<p>
+Here is the implementation:
+</p><p>
+</p><pre>
+    template &lt;typename Fun, typename ...Params&gt;
+    bool Semaphore::wait(Fun &amp;&amp;fun, Params &amp;&amp;...args)
+    {
+        std::unique_lock&lt;std::mutex&gt; lk(d_mutex);   // get the lock
+        while (d_nAvailable == 0)
+        {
+            d_condition.wait(lk);
+                                   // called on notifications
+            if (not fun(std::forward&lt;Params&gt;(args)...))
+                return false;
+        }
+        --d_nAvailable;              // dec. semaphore
+        return true;
+    }
+
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 10.</strong>
+            <br>
+            Purpose of this exercise: learn to use <code>back_inserter</code> with a home-made
+class
+<p>
+Consider the following class skeleton:
+</p><p>
+</p><pre>
+    class Data
+    {
+        typedef std::vector&lt;std::shared_ptr&lt;std::string&gt;&gt; DataVector;
+
+        DataVector d_data;
+
+        public:
+            // declare push_back here
+    };
+        
+</pre>
+
+    Objects of the class <code>Data</code> store pointer to lines in the vector
+<code>d_data</code>, and provide a <code>push_back</code> member to fill the object with lines
+of text.
+<p>
+Implement <code>push_back</code> and show how the <code>copy</code> generic algorithm can be
+used to fill a <code>Data</code> object with lines read from an <code>istream</code>. 
+</p><p>
+Submit the interface of the <code>class Data</code>, the implementation of
+<code>push_back</code> and a demo program showing its use in combination with the
+<code>copy</code> generic algorithm.
+</p><p>
+<br><strong>Answer:</strong><br>
+    It is essential that, in addition to <code>push_back</code> the type
+<code>value_type</code> is also defined by <code>class Data</code>. 
+</p><p>
+Here is the header file:
+        </p><pre>#ifndef INCLUDED_DATA_
+#define INCLUDED_DATA_
+
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;memory&gt;
+#include &lt;iterator&gt;
+
+class Data
+{
+    typedef std::vector&lt;std::shared_ptr&lt;std::string&gt;&gt; DataVector;
+
+    DataVector d_data;
+
+    std::string d_str;
+
+    public:
+        typedef std::string value_type;
+
+        void push_back(std::string const &amp;line);
+};
+
+#endif
+</pre>
+
+<p>
+The implementation of <code>push_back</code>:
+        </p><pre>#include "pushback.h"
+
+using namespace std;
+
+void Data::push_back(string const &amp;line)
+{
+  //d_data.push_back(shared_ptr&lt;string&gt;(new string(line))); // works, but better:
+  d_data.push_back(make_shared&lt;string&gt;(line)); // line and string allocated at once (?)
+}
+</pre>
+
+<p>
+A small demo function showing its use:
+        </p><pre>#include "main.ih"
+
+class Line: public string
+{};
+
+inline istream &amp;operator&gt;&gt;(istream &amp;in, Line &amp;line)
+{
+    return getline(in, line);
+}
+
+void pushbackDemo()
+{
+    Data data;
+
+    copy(istream_iterator&lt;Line&gt;(cin), istream_iterator&lt;Line&gt;(),
+            back_inserter(data));
+}
+ 
+int main()
+{
+    pushbackDemo();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 11.</strong>
+            <br>
+            Purpose of this exercise: learn to convert an existing class into a class
+template.
+<p>
+Part II contained an exercise about a multi-threaded version of
+<code>qsort</code>. The multi-threaded version of <code>qsort</code> was introduced as follows:
+</p><p>
+</p><p></p><hr><p>
+</p><p>
+Consider the following raw outline of the qsort algorithm:
+        </p><pre>
+    qsort(begin, end)
+    {
+        mid = partition(begin, end);
+
+        qsort(begin, mid);
+        qsort(mid, end);
+    }
+        
+</pre>
+
+    In the multithreaded variant the recursive calls are implemented as
+threads, but they operate completely independently from each other. Our
+implementation will not do recursion and will not start new
+threads. Instead, we pre-define a number of worker threads, performing the
+following tasks:
+        <pre>
+    wait for a notification that the next range to partition might be 
+                                                                available
+    if it isn't, then done: notify the other threads and stop
+    it it is available:
+        retrieve it -&gt; begin, end
+        partition it: mid = partition(begin, end);
+        if the range begin..mid contains multiple elements (i.e., mid - begin
+            &gt; 1) then put begin, mid on the queue containing ranges waiting to
+            be processed  and notifiy other threads
+        if the range mid..end contains multiple elements (i.e., end - mid
+            &gt; 1) then put mid, end on the queue containing ranges waiting to
+            be processed and notifiy other threads
+        
+</pre>
+
+    Initially the queue is filled with begin, end, indicating the full range
+of elements to sort, and the semaphore <code>nextRange</code> is initialized with the
+value 1.
+<p>
+Implement this version of qsort using a main thread and three additional
+sorting threads. 
+</p><p>
+Assuming an <code>int ia[]</code> array and its number of elements (in
+<code>iaSize</code>) are available, your <code>main</code> function should look like this:
+        </p><pre>
+    int main()
+    {
+        nextRange.push(Pair{ia, ia + iaSize});  // initialize the queue
+    
+        thread t1(tsort);                       // start the threads
+        thread t2(tsort);
+        thread t3(tsort);
+    
+        t1.join();                              // clean up
+        t2.join();       
+        t3.join();       
+        t3.join();       
+    
+        for (int val: ia)                       // show the sorted array
+            cout &lt;&lt; val &lt;&lt; ' ';
+        cout &lt;&lt; '\n';
+    }
+        
+</pre>
+    
+<p></p><hr><p>
+</p><p>
+The version of <code>qsort</code> to be developed here implements this algorithm as a
+template. The above <code>main</code> function should then look like this:
+        </p><pre>
+    int main()
+    {
+        // define some sortable data structure, e.g., a vector:
+        vector&lt;SomeType&gt; data;
+
+                                                // tsort has the same
+                                                // signatures as STL's sort
+                                                // algorithm
+        tsort(data.begin(), data.end() [, optComparator]);
+
+        // display data's value using any available method
+    }
+        
+</pre>
+
+    Internally, <code>tsort</code> should pass its arguments to a class template
+<code>TSort</code> implementing the multithreaded qsort method using three sorting
+threads (comparable to the three threads used in the above (first) 
+<code>main</code> function). All the required functionality for the sorting process
+should be embedded in the class <code>TSort</code>.
+<p>
+(At this point our implementation of the non-templated implementation 
+cannot yet be made available, as the deadline of that exercises has not yet
+been reached).
+</p><p>
+<br><strong>Answer:</strong><br>
+    Here is the class implementation, followed by the function templates using
+the class. Note that the <code>tsort</code> function determines the required types,
+including the type that is referred to by the iterators. Also note how the
+type of the lambda function's parameter in the member function <code>partition</code>
+is determined: <code>auto</code> is used to determine that type. Alternatively, the
+more complex <code>decltype(*Iter{})</code> (or something alike) could have been
+used. In that (latter) case notice that the constructed <code>Iter{}</code> object is
+actually <em>never</em> constructed: the compiler simply uses the constructor
+statement to determine the type, which is then returned by <code>decltype</code>. 
+</p><p>
+Here is the class (at the end) the <code>sort</code> template functions are shown. Note
+that we need two functions: one for the default comparator (which is
+<code>std::less</code>), the other one for specified comparators:
+</p><p>
+</p><pre>#ifndef INCLUDED_TSORT_
+#define INCLUDED_TSORT_
+
+#include &lt;functional&gt;
+#include &lt;mutex&gt;
+#include &lt;stack&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+
+#include &lt;bobcat/semaphore&gt;
+
+template &lt;typename Iter, typename Comparator&gt;
+class TSort
+{
+    struct Pair
+    {
+        Iter pBeg;
+        Iter pEnd;
+        Pair() = default;
+        Pair(Iter beg, Iter end)
+        :
+            pBeg(beg),
+            pEnd(end)
+        {}
+    };
+
+    FBB::Semaphore      d_availableRanges{1};
+    std::stack&lt;Pair&gt;    d_nextRange;
+    std::mutex          d_nextMutex;
+
+    std::mutex          d_waitingMutex;
+    int                 d_waiting = 0;
+
+    Comparator          d_comparator;
+
+    public:
+        TSort(Comparator const &amp;comparator);
+
+        void sort(Iter begin, Iter end);
+
+    private:
+        static void sorter(TSort&lt;Iter, Comparator&gt; *obj);
+
+        void testDone();
+        Pair getNextPair();
+        void sortJobs(Pair const &amp;pair);
+        Iter partition(Pair pair);
+        void tryRange(Iter beg, Iter end);
+};
+
+template &lt;typename Iter, typename Comparator&gt;
+TSort&lt;Iter, Comparator&gt;::TSort(Comparator const &amp;comparator)
+:
+    d_comparator(comparator)
+{}
+
+template &lt;typename Iter, typename Comparator&gt;
+void TSort&lt;Iter, Comparator&gt;::testDone()
+{
+    std::lock_guard&lt;std::mutex&gt; lg(d_waitingMutex);
+    ++d_waiting;
+
+    if (d_nextRange.size() == 0 &amp;&amp; d_waiting == 3)
+    {
+        d_waiting = 100;
+        d_availableRanges.notify_all();
+     }
+}
+
+
+template &lt;typename Iter, typename Comparator&gt;
+typename TSort&lt;Iter, Comparator&gt;::Pair 
+    TSort&lt;Iter, Comparator&gt;::getNextPair()  // if pair's beg member == Iter{} 
+                                            // then done
+{
+    testDone();
+
+    d_availableRanges.wait();
+    {
+        std::lock_guard&lt;std::mutex&gt; lg(d_waitingMutex);
+        --d_waiting;
+    }
+
+    Pair pair;
+
+    {
+        std::lock_guard&lt;std::mutex&gt; lg(d_nextMutex);
+
+        if (d_nextRange.empty())
+            d_availableRanges.notify_all();
+        else
+        {
+            pair = d_nextRange.top();
+            d_nextRange.pop();
+        }
+    }
+    return pair;
+}
+
+template &lt;typename Iter, typename Comparator&gt;
+Iter TSort&lt;Iter, Comparator&gt;::partition(Pair pair)
+{
+    auto lhs = *pair.pBeg;
+    Iter mid = std::partition(pair.pBeg + 1, pair.pEnd, 
+        [&amp;](auto arg)
+        {
+//            this_thread::sleep_for(nanoseconds(1000));
+            return d_comparator(arg, lhs);
+        }
+    );
+    std::swap(*pair.pBeg, *(mid - 1));
+
+    return mid;
+}
+
+template &lt;typename Iter, typename Comparator&gt;
+void TSort&lt;Iter, Comparator&gt;::tryRange(Iter beg, Iter end)
+{
+    if (end - beg &gt; 1)
+    {
+        d_nextRange.push(Pair{beg, end});
+        d_availableRanges.notify_all();
+    }
+}
+
+
+template &lt;typename Iter, typename Comparator&gt;
+void TSort&lt;Iter, Comparator&gt;::sortJobs(Pair const &amp;pair)
+{
+    std::lock_guard&lt;std::mutex&gt; lg(d_nextMutex);
+
+    Iter mid = partition(pair);
+
+    tryRange(pair.pBeg, mid);
+    tryRange(mid, pair.pEnd);
+}
+
+template &lt;typename Iter, typename Comparator&gt;
+void TSort&lt;Iter, Comparator&gt;::sorter(TSort&lt;Iter, Comparator&gt; *obj)
+{
+    while (true)
+    {
+        Pair pair = obj-&gt;getNextPair();
+
+        if (pair.pBeg == Iter{})
+            return;
+
+        obj-&gt;sortJobs(pair);
+    }
+}
+
+
+template &lt;typename Iter, typename Comparator&gt;
+void TSort&lt;Iter, Comparator&gt;::sort(Iter begin, Iter end)
+{
+    d_nextRange.push(Pair{begin, end});
+
+    std::thread t1(sorter, this);
+    std::thread t2(sorter, this);
+    std::thread t3(sorter, this);
+
+    t1.join();
+    t2.join();       
+    t3.join();       
+}
+
+
+template &lt;typename Iter&gt;
+void tsort(Iter begin, Iter end)
+{
+    TSort&lt;Iter, std::less&lt;decltype(*begin)&gt;&gt; 
+                                    tSort(std::less&lt;decltype(*begin)&gt;{});
+    tSort.sort(begin, end);
+}
+
+template &lt;typename Iter, typename Comparator&gt;
+void tsort(Iter begin, Iter end, Comparator comparator)
+{
+    TSort&lt;Iter, Comparator&gt; tSort(comparator);
+    tSort.sort(begin, end);
+}
+
+
+#endif
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 12.</strong>
+            <br>
+            Purpose of this exercise: learn to design static polymorphic classes
+<p>
+Design a static polymorphic base class supporting insertion. The class has no
+public members, but an <code>operator&lt;&lt;</code> function should be declared as its
+friend, calling the base class's member <code>insertInto(std::ostream &amp;)</code>. This
+latter member, in turn, calls <code>insertInto</code> as defined by any classes derived
+from <code>Base</code>. 
+</p><p>
+To get you on the right track, the function <code>operator&lt;&lt;</code> is defined like
+this:
+        </p><pre>
+    template &lt;typename Derived&gt;
+    std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, Base&lt;Derived&gt; const &amp;base)
+    {
+        return base.insertInto(out);
+    }
+        
+</pre>
+
+<p>
+Derive classes <code>IntValue</code> and <code>DoubleValue</code> from <code>Base</code>, and show how
+you can insert the values stored in these classes, defining <code>insertInto</code> as
+their private members, and calling <code>operator&lt;&lt;</code> for objects of these classes
+in <code>main</code>.
+</p><p>
+Submit the implementation of <code>Base, IntValue, DoubleValue</code> and a small
+<code>main</code> function showing how you used the developed statically polymorphic
+classes. 
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+
+template &lt;typename Derived&gt;
+class Base
+{
+    template &lt;typename Derived__&gt;
+    friend std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, 
+                                        Base&lt;Derived__&gt; const &amp;base);
+
+    std::ostream &amp;insertInto(std::ostream &amp;out) const
+    {
+        static_cast&lt;Derived const *&gt;(this)-&gt;insertInto(out);
+    }
+    
+};
+
+template &lt;typename Derived&gt;
+std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, Base&lt;Derived&gt; const &amp;base)
+{
+    return base.insertInto(out);
+}
+
+class IntValue: public Base&lt;IntValue&gt;
+{
+    friend class Base&lt;IntValue&gt;;
+
+    std::ostream &amp;insertInto(std::ostream &amp;out) const;
+};
+
+std::ostream &amp;IntValue::insertInto(std::ostream &amp;out) const
+{
+    return out &lt;&lt; 12345;
+}
+
+using namespace std;
+
+int main()
+{
+    IntValue iv;
+
+    cout &lt;&lt; iv &lt;&lt; '\n';
+}
+
+
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 13.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to create a generic constructor for a virtual
+base class
+<p>
+Consider the situation where a abstract base class (ABC) defines a purely
+abstract member <code>void run()</code>. The ABC could look like this:
+        </p><pre>
+    class ABC
+    {
+        public:
+            virtual ~ABC();
+
+            void interface();       // calls run
+
+        private:
+            virtual void run() = 0;
+    };
+        
+</pre>
+
+<p>
+Another class (e.g., <code>class Process</code>) has a constructor defining  a
+reference to a temporary <code>ABC</code>. Its members may call the <code>ABC's interface</code>
+function, and thus the function <code>run</code>, as implemented in classes derived
+from <code>ABC</code>. 
+</p><p>
+The <code>class Process</code> could look like this:
+        </p><pre>
+    class Process
+    {
+        ABC &amp;&amp;d_abc;
+
+        public:
+            Process(ABC &amp;&amp;abc);
+            void execute();         // calls d_abc.interface()
+    };
+        
+</pre>
+
+<p>
+Assume classes <code>Derived1</code> and <code>Derived2</code> are derived from
+<code>ABC</code>. <code>Derived1's</code> constructor defines a <code>std::ostream &amp;</code> parameter,
+<code>Derived2's</code> constructor a <code>std::istream &amp;</code> and a <code>std::ostream &amp;</code>
+parameter. 
+</p><p>
+Part 1:
+</p><p>
+How would you define <code>Process</code> in <code>main</code>? If <code>main</code> is called with one
+argument <code>Derived1</code> should be passed to <code>Process's</code> constructor (passing
+cerr) to <code>Derived1</code>; otherwise <code>Derived2</code> should be passed (passing
+<code>cin</code> and <code>cout</code> to <code>Derived2</code>.
+</p><p>
+In <code>main</code> you get something like this:
+        </p><pre>
+    int main(int argc, char **argv)
+    {
+        Process process{
+                    argc == 1 ? Derived1{ cerr } : Derived2{ cin, cout }
+                };
+        // etc.
+    }
+        
+</pre>
+
+    The problem with the above piece of code is that it doesn't flawlessly
+compile. Solve that problem without altering <code>main's</code> design.
+<p>
+Part 2:
+</p><p>
+To solve the problem in a generic way (i.e., usable for any class derived from
+<code>ABC</code>) the class <code>ABC</code> could define a static member <code>make</code>, which not
+only can be used for any derived class, but also for any set of parameters
+that might ever be required by those derived classes.
+</p><p>
+Using this member template the above function <code>main</code> would then look like
+this:
+        </p><pre>
+    int main(int argc, char **argv)
+    {
+        Process process{
+                    argc == 1 ? 
+                        ABC::make&lt;Derived1&gt;(cerr) 
+                    : 
+                        ABC::make&lt;Derived2&gt;(cin, cout)
+                };
+        // etc.
+    }
+        
+</pre>
+
+    Define the member template <code>ABC::make</code> so that it can be used as shown.
+Also show its declaration in the class <code>ABC</code>.
+<p>
+<br><strong>Answer:</strong><br>
+Part 1: 
+</p><p>
+The problem is caused by the ternary expression: its alternatives
+must result in values of identical types. The problem can be solved by
+using static casts:
+        </p><pre>
+    int main(int argc, char **argv)
+    {
+        Process process{
+                    argc == 1 ? 
+                        static_cast&lt;ABC &amp;&amp;&gt;(Derived1{ cerr }) : 
+                        static_cast&lt;ABC &amp;&amp;&gt;(Derived2{ cin, cout })
+                };
+        // etc.
+    }
+        
+</pre>
+
+<p>
+Part 2:
+</p><p>
+Declaration in <code>class ABC</code>:    
+        </p><pre>
+    template &lt;typename Derived, typename ...Params&gt;
+    static ABC &amp;&amp;make(Params &amp;&amp;...params);         
+        
+</pre>
+
+<p>
+Implementation:
+        </p><pre>
+    template &lt;typename Derived, typename ...Params&gt;
+    inline ABC &amp;&amp;ABC::make(Params &amp;&amp;...params)
+    {
+        return std::move( Derived{ std::forward&lt;Params&gt;(params)... } );
+    }
+        
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 14.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to add iterators to a class.
+<p>
+Consider the following class:
+        </p><pre>
+    template &lt;typename Data&gt;
+    class Storage
+    {
+        std::vector&lt;Data *&gt; d_storage;
+
+        public:
+            // the usual stuff goes here
+
+    };
+        
+</pre>
+
+    The `usual stuff' are members allowing you to initialize a <code>Storage</code>,
+add <code>Data</code> objects to it, maybe remove elements, request elements,
+etc. etc., all of which are not required for this exercise. The essential part
+here is that the elements of <code>d_storage</code> should point to newly allocated
+<code>Data</code> values, allocated by <code>Storage</code>, using <code>Data</code> arguments that are
+passed to the various member functions.
+<p>
+For this exercise provide <code>Storage</code> with <code>Storage&lt;Data&gt;::iterator
+begin(), Storage&lt;Data&gt;::iterator end(), Storage&lt;Data&gt;::reverse_iterator
+begin()</code>, and <code>Storage&lt;Data&gt;::reverse_iterator rend()</code> members: submit their
+implementations and the implementations of the <code>iterator</code> and
+<code>reverse_iterator</code> classes.
+</p><p>
+The provided implementation should allow you to do this:
+        </p><pre>
+    int main()
+    {
+        Storage&lt;std::string&gt; storage;
+
+        sort(storage.begin(), storage.end());
+        sort(storage.rbegin(), storage.rend());
+    }
+        
+</pre>
+
+    where <code>sort</code> is the sorting function provided by the STL.
+<p>
+<br><strong>Answer:</strong><br>
+    Since storage elements must be sortable by the stl's <code>sort</code> function,
+they must be random access iterators. The implementation of random access
+iterators is covered in the <strong>C++</strong> Annotations: refer to the Annotations for
+details.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 15.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to design static polymorphic classes using
+                          multiple layers of inheritance.
+<p>
+This exercise may earn you 2 points.
+</p><p>
+Starting from the statically polymorphic class setup described in the previous
+exercise, derive a class <code>LabelledInt</code> from <code>IntValue</code>. <code>LabelledInt</code>
+expects a piece of text (the label) and an <code>int</code> value (stored in its
+<code>IntValue</code> base class). 
+</p><p>
+When a <code>LabelledInt</code> object is inserted into an <code>ostream</code> using
+<code>operator&lt;&lt;</code> developed in the previous exercise, it should print the label,
+followed by the int-value (of course, you need to allow access to
+<code>IntValue's int</code> value from <code>LabelledInt</code>: just define a simple accessor
+for this).
+</p><p>
+<br><strong>Answer:</strong><br>
+    </p><pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+  // all members implemented in-class for brevity
+
+template &lt;typename Derived&gt;
+class Base
+{
+    template &lt;typename Derived__&gt;
+    friend std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, 
+                                        Base&lt;Derived__&gt; const &amp;base);
+
+    std::ostream &amp;insertInto(std::ostream &amp;out) const
+    {
+        static_cast&lt;Derived const *&gt;(this)-&gt;insertInto(out);
+    }
+    
+};
+
+template &lt;typename Derived&gt;
+std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, Base&lt;Derived&gt; const &amp;base)
+{
+    return base.insertInto(out);
+}
+
+//----------------  IntValue and friends -----------------
+
+class IntBase
+{
+    int d_value;
+
+    public:
+        IntBase(int value)
+        :
+            d_value(value)
+        {}
+
+        int value() const
+        {
+            return d_value;
+        }
+};
+
+class IntValue: public IntBase, public Base&lt;IntValue&gt;
+{
+    friend class Base&lt;IntValue&gt;;
+
+    public:
+        IntValue(int value)
+        :
+            IntBase(value)
+        {}
+
+    private:
+        std::ostream &amp;insertInto(std::ostream &amp;out) const;
+};
+
+std::ostream &amp;IntValue::insertInto(std::ostream &amp;out) const
+{
+    return out &lt;&lt; value();
+}
+
+//----------------  LabelledInt and friends -----------------
+
+class StringBase: public IntBase
+{
+    std::string d_label;
+
+    public:
+        StringBase(std::string const &amp;label, int value)
+        :
+            IntBase(value),
+            d_label(label)
+        {}
+
+        std::string const &amp;label() const
+        {
+            return d_label;
+        }
+};
+
+class LabelledInt: public StringBase, public Base&lt;LabelledInt&gt;
+{
+    friend class Base&lt;LabelledInt&gt;;
+
+    public:
+        LabelledInt(std::string const &amp;label, int value)
+        :
+            StringBase(label, value)
+        {}
+
+    private:
+        std::ostream &amp;insertInto(std::ostream &amp;out) const;
+};
+
+std::ostream &amp;LabelledInt::insertInto(std::ostream &amp;out) const
+{
+    return out &lt;&lt; label() &lt;&lt; ' ' &lt;&lt; value();
+}
+
+//----------------  application: -----------------
+
+using namespace std;
+
+int main()
+{
+    IntValue iv(5);
+    LabelledInt sv("label", 100);
+
+    cout &lt;&lt; iv &lt;&lt; '\n' &lt;&lt;
+            sv &lt;&lt; '\n';
+}
+
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven01.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven03.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

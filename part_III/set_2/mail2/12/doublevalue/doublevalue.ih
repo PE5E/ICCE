@@ -1,0 +1,4 @@
+#include "doublevalue.h"
+
+using namespace std;
+

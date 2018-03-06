@@ -1,0 +1,6 @@
+#include <iostream>
+#include "base/base.h"
+#include "doublevalue/doublevalue.h"
+#include "intvalue/intvalue.h"
+
+using namespace std;

@@ -1,0 +1,5 @@
+template <typename CountType>
+CountType const Arithmetic<CountType> value() const
+{
+    return d_value;
+}

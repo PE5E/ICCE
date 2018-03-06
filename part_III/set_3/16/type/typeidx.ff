@@ -1,0 +1,5 @@
+template <typename Needle, typename Candidate, typename ...Haystack>
+struct TypeIdx
+{
+
+};

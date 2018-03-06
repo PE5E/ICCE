@@ -1,0 +1,5 @@
+template <typename needle, typename ...Haystack>
+struct Type
+{
+    enum {located = TypeIdx<needle, std::forward<Haystack>(haystack)...>}
+};

@@ -1,0 +1,6 @@
+template <typename CountType>
+Arithmetic<CountType> &Arithmetic<CountType> &operator=(CountType rhs);
+{
+    d_value = rhs;
+    return *this;
+}

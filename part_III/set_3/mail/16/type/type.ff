@@ -1,0 +1,7 @@
+#include "typeidx.ff"
+
+template <typename Needle, typename ...Haystack>
+struct Type
+{
+    enum {located = TypeIdx<Needle, Haystack...>::located};
+};

@@ -1,0 +1,32 @@
+//base template
+template <typename ...Types>
+struct TypeIdx
+{
+    TypeIdx(TypeIdx const &) = delete;
+};
+
+
+//template specialization for when at the end of the types
+template <typename Needle>
+struct TypeIdx<Needle>
+{
+    TypeIdx(TypeIdx const &) = delete;
+    enum { located = 0 };
+};
+
+//template specialization for when it finds the type
+template <typename Needle, typename ...Haystack>
+struct TypeIdx<Needle, Needle, Haystack...>
+{
+    TypeIdx(TypeIdx const &) = delete;
+    enum { located = 1 };
+};
+
+//template specialization for when it has values left to check
+template <typename Needle, typename Candidate, typename ...Haystack>
+struct TypeIdx<Needle, Candidate, Haystack...>
+{
+    TypeIdx(TypeIdx const &) = delete;
+    enum { tmp = TypeIdx<Needle, Haystack...>::located};
+    enum { located = tmp == 0 ? 0 : tmp + 1};
+};

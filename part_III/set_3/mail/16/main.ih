@@ -1,0 +1,4 @@
+#include <iostream>
+#include "type/type.ff"
+
+using namespace std;

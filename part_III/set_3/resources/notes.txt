@@ -1,0 +1,26 @@
+generic form
+        
+    template<bool selector,    
+             typename FirstType, 
+             typename SecondType>
+    struct IfElse
+    {
+        typedef FirstType type;
+    };
+
+partial specialization
+
+    template<typename FirstType, 
+             typename SecondType>
+    struct IfElse<false, FirstType, SecondType>
+    {
+        typedef SecondType type;
+    };
+
+- goal: data organisation conditional on template parameters
+
+template <typename Type, bool isPolymorphic>
+
+class Storage
+{
+    typedef typename IfElse<isPolymorphic, Type *, Type>::type

@@ -3,7 +3,7 @@
 int main()
 {
     cout <<
-        Type<int>::located << ' ' << 
+        Type<int>::located << ' ' <<
         Type<int, double>::located << ' ' <<
         Type<int, int>::located << ' ' <<
         Type<int, double, int>::located << ' ' <<

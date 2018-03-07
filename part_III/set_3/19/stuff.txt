@@ -1,0 +1,44 @@
+template <char ...Chars>
+size_t constexpr operator "" _N2km()
+{
+    return static_cast<size_t>(
+            NM2km<0, Chars ...>::value * 1.852);
+
+
+
+template <size_t value, size_t idx>
+struct byte
+{
+    enum {octet = byte<value >> 8, idx = 1>::octet};
+}
+
+template <size_t value>
+struct byte<value, 0>
+{
+    enum {octet = value & 0fxx};
+}
+
+variadic templates: arbitrary arguments
+
+define:
+
+template <typename ...Params>
+class Variadic
+
+use:
+Variadic<int, vector<double>, string> threeTypes;
+Variadic<> noTypes;
+
+CONSTRUCTORS need matching packs:
+
+template <typename ...Params>
+class Variadic
+{
+    Variadic(Params &&...params);       // perfect forwarding of the argument
+};
+
+in use:
+
+    Variadic<int, string>
+            twoTypes(12, "hello");
+    sizeof ...(Params)              // this actually works

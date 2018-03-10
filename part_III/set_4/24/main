@@ -1,0 +1,3606 @@
+	.file	"main.cc"
+	.section	.text._ZnwmPv,"axG",@progbits,_ZnwmPv,comdat
+	.weak	_ZnwmPv
+	.type	_ZnwmPv, @function
+_ZnwmPv:
+.LFB38:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE38:
+	.size	_ZnwmPv, .-_ZnwmPv
+	.local	_ZStL8__ioinit
+	.comm	_ZStL8__ioinit,1,1
+	.section	.text._ZN10InsertableISt6vectoriED2Ev,"axG",@progbits,_ZN10InsertableISt6vectoriED5Ev,comdat
+	.align 2
+	.weak	_ZN10InsertableISt6vectoriED2Ev
+	.type	_ZN10InsertableISt6vectoriED2Ev, @function
+_ZN10InsertableISt6vectoriED2Ev:
+.LFB2174:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEED2Ev
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2174:
+	.size	_ZN10InsertableISt6vectoriED2Ev, .-_ZN10InsertableISt6vectoriED2Ev
+	.weak	_ZN10InsertableISt6vectoriED1Ev
+	.set	_ZN10InsertableISt6vectoriED1Ev,_ZN10InsertableISt6vectoriED2Ev
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB2172:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2172
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r13
+	pushq	%r12
+	pushq	%rbx
+	subq	$184, %rsp
+	.cfi_offset 13, -24
+	.cfi_offset 12, -32
+	.cfi_offset 3, -40
+	movq	%fs:40, %rax
+	movq	%rax, -40(%rbp)
+	xorl	%eax, %eax
+	leaq	._86(%rip), %r12
+	movl	$5, %r13d
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSaIiEC1Ev
+	leaq	-64(%rbp), %rdx
+	movq	%r12, %rsi
+	movq	%r13, %rdi
+	movq	%r12, %rcx
+	movq	%r13, %rbx
+	movq	%rbx, %rdi
+	leaq	-192(%rbp), %rax
+	movq	%rdx, %rcx
+	movq	%rdi, %rdx
+	movq	%rax, %rdi
+.LEHB0:
+	call	_ZNSt6vectorIiSaIiEEC1ESt16initializer_listIiERKS0_
+.LEHE0:
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSaIiED1Ev
+	leaq	-160(%rbp), %rax
+	movq	%rax, %rdi
+.LEHB1:
+	call	_ZN10InsertableISt6vectoriEC1Ev@PLT
+.LEHE1:
+	leaq	-192(%rbp), %rdx
+	leaq	-64(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB2:
+	call	_ZNSt6vectorIiSaIiEEC1ERKS1_
+.LEHE2:
+	leaq	-64(%rbp), %rdx
+	leaq	-128(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB3:
+	call	_ZN10InsertableISt6vectoriEC1ES0_IiSaIiEE@PLT
+.LEHE3:
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEED1Ev
+	movl	$4, -64(%rbp)
+	leaq	-64(%rbp), %rdx
+	leaq	-96(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB4:
+	call	_ZN10InsertableISt6vectoriEC1EOi@PLT
+.LEHE4:
+	leaq	-128(%rbp), %rdx
+	leaq	-64(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB5:
+	call	_ZN10InsertableISt6vectoriEC1ERKS1_@PLT
+.LEHE5:
+	leaq	-128(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	_ZSt4cout(%rip), %rdi
+.LEHB6:
+	call	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E
+	movl	$10, %esi
+	movq	%rax, %rdi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c@PLT
+	movq	%rax, %rdx
+	leaq	-96(%rbp), %rax
+	movq	%rax, %rsi
+	movq	%rdx, %rdi
+	call	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E
+	movl	$10, %esi
+	movq	%rax, %rdi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c@PLT
+	movq	%rax, %rdx
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rsi
+	movq	%rdx, %rdi
+	call	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E
+	movl	$10, %esi
+	movq	%rax, %rdi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c@PLT
+	movl	$123, -196(%rbp)
+	leaq	-196(%rbp), %rdx
+	leaq	-96(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE9push_backEOi
+	leaq	-96(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	_ZSt4cout(%rip), %rdi
+	call	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E
+	movl	$10, %esi
+	movq	%rax, %rdi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c@PLT
+.LEHE6:
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	leaq	-96(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	leaq	-128(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	leaq	-160(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	leaq	-192(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEED1Ev
+	movl	$0, %eax
+	movq	-40(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L13
+	jmp	.L21
+.L14:
+	movq	%rax, %rbx
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSaIiED1Ev
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+.LEHB7:
+	call	_Unwind_Resume@PLT
+.L17:
+	movq	%rax, %rbx
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEED1Ev
+	jmp	.L8
+.L20:
+	movq	%rax, %rbx
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	jmp	.L10
+.L19:
+	movq	%rax, %rbx
+.L10:
+	leaq	-96(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	jmp	.L11
+.L18:
+	movq	%rax, %rbx
+.L11:
+	leaq	-128(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	jmp	.L8
+.L16:
+	movq	%rax, %rbx
+.L8:
+	leaq	-160(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN10InsertableISt6vectoriED1Ev
+	jmp	.L12
+.L15:
+	movq	%rax, %rbx
+.L12:
+	leaq	-192(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEED1Ev
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+	call	_Unwind_Resume@PLT
+.LEHE7:
+.L21:
+	call	__stack_chk_fail@PLT
+.L13:
+	addq	$184, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%r13
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2172:
+	.globl	__gxx_personality_v0
+	.section	.gcc_except_table,"a",@progbits
+.LLSDA2172:
+	.byte	0xff
+	.byte	0xff
+	.byte	0x1
+	.uleb128 .LLSDACSE2172-.LLSDACSB2172
+.LLSDACSB2172:
+	.uleb128 .LEHB0-.LFB2172
+	.uleb128 .LEHE0-.LEHB0
+	.uleb128 .L14-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB1-.LFB2172
+	.uleb128 .LEHE1-.LEHB1
+	.uleb128 .L15-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB2-.LFB2172
+	.uleb128 .LEHE2-.LEHB2
+	.uleb128 .L16-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB3-.LFB2172
+	.uleb128 .LEHE3-.LEHB3
+	.uleb128 .L17-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB4-.LFB2172
+	.uleb128 .LEHE4-.LEHB4
+	.uleb128 .L18-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB5-.LFB2172
+	.uleb128 .LEHE5-.LEHB5
+	.uleb128 .L19-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB6-.LFB2172
+	.uleb128 .LEHE6-.LEHB6
+	.uleb128 .L20-.LFB2172
+	.uleb128 0
+	.uleb128 .LEHB7-.LFB2172
+	.uleb128 .LEHE7-.LEHB7
+	.uleb128 0
+	.uleb128 0
+.LLSDACSE2172:
+	.text
+	.size	main, .-main
+	.section	.text._ZNSaIiEC2Ev,"axG",@progbits,_ZNSaIiEC5Ev,comdat
+	.align 2
+	.weak	_ZNSaIiEC2Ev
+	.type	_ZNSaIiEC2Ev, @function
+_ZNSaIiEC2Ev:
+.LFB2427:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiEC2Ev
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2427:
+	.size	_ZNSaIiEC2Ev, .-_ZNSaIiEC2Ev
+	.weak	_ZNSaIiEC1Ev
+	.set	_ZNSaIiEC1Ev,_ZNSaIiEC2Ev
+	.section	.text._ZNSaIiED2Ev,"axG",@progbits,_ZNSaIiED5Ev,comdat
+	.align 2
+	.weak	_ZNSaIiED2Ev
+	.type	_ZNSaIiED2Ev, @function
+_ZNSaIiED2Ev:
+.LFB2430:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiED2Ev
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2430:
+	.size	_ZNSaIiED2Ev, .-_ZNSaIiED2Ev
+	.weak	_ZNSaIiED1Ev
+	.set	_ZNSaIiED1Ev,_ZNSaIiED2Ev
+	.section	.text._ZNKSt16initializer_listIiE5beginEv,"axG",@progbits,_ZNKSt16initializer_listIiE5beginEv,comdat
+	.align 2
+	.weak	_ZNKSt16initializer_listIiE5beginEv
+	.type	_ZNKSt16initializer_listIiE5beginEv, @function
+_ZNKSt16initializer_listIiE5beginEv:
+.LFB2433:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2433:
+	.size	_ZNKSt16initializer_listIiE5beginEv, .-_ZNKSt16initializer_listIiE5beginEv
+	.section	.text._ZNKSt16initializer_listIiE3endEv,"axG",@progbits,_ZNKSt16initializer_listIiE3endEv,comdat
+	.align 2
+	.weak	_ZNKSt16initializer_listIiE3endEv
+	.type	_ZNKSt16initializer_listIiE3endEv, @function
+_ZNKSt16initializer_listIiE3endEv:
+.LFB2434:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$24, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt16initializer_listIiE5beginEv
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt16initializer_listIiE4sizeEv
+	salq	$2, %rax
+	addq	%rbx, %rax
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2434:
+	.size	_ZNKSt16initializer_listIiE3endEv, .-_ZNKSt16initializer_listIiE3endEv
+	.section	.text._ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_,"axG",@progbits,_ZNSt6vectorIiSaIiEEC5ESt16initializer_listIiERKS0_,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_
+	.type	_ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_, @function
+_ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_:
+.LFB2435:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2435
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r12
+	pushq	%rbx
+	subq	$48, %rsp
+	.cfi_offset 12, -24
+	.cfi_offset 3, -32
+	movq	%rdi, -40(%rbp)
+	movq	%rsi, %rax
+	movq	%rdx, %rsi
+	movq	%rsi, %rdx
+	movq	%rax, -64(%rbp)
+	movq	%rdx, -56(%rbp)
+	movq	%rcx, -48(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -24(%rbp)
+	xorl	%eax, %eax
+	movq	-40(%rbp), %rax
+	movq	-48(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt16initializer_listIiE3endEv
+	movq	%rax, %rbx
+	leaq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt16initializer_listIiE5beginEv
+	movq	%rax, %rcx
+	movq	-40(%rbp), %rax
+	subq	$8, %rsp
+	pushq	%r12
+	movq	%rbx, %rdx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+.LEHB8:
+	.cfi_escape 0x2e,0x10
+	call	_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag
+.LEHE8:
+	addq	$16, %rsp
+	nop
+	movq	-24(%rbp), %rax
+	xorq	%fs:40, %rax
+	je	.L30
+	jmp	.L32
+.L31:
+	movq	%rax, %rbx
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEED2Ev
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+.LEHB9:
+	call	_Unwind_Resume@PLT
+.LEHE9:
+.L32:
+	call	__stack_chk_fail@PLT
+.L30:
+	leaq	-16(%rbp), %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2435:
+	.section	.gcc_except_table
+.LLSDA2435:
+	.byte	0xff
+	.byte	0xff
+	.byte	0x1
+	.uleb128 .LLSDACSE2435-.LLSDACSB2435
+.LLSDACSB2435:
+	.uleb128 .LEHB8-.LFB2435
+	.uleb128 .LEHE8-.LEHB8
+	.uleb128 .L31-.LFB2435
+	.uleb128 0
+	.uleb128 .LEHB9-.LFB2435
+	.uleb128 .LEHE9-.LEHB9
+	.uleb128 0
+	.uleb128 0
+.LLSDACSE2435:
+	.section	.text._ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_,"axG",@progbits,_ZNSt6vectorIiSaIiEEC5ESt16initializer_listIiERKS0_,comdat
+	.size	_ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_, .-_ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_
+	.weak	_ZNSt6vectorIiSaIiEEC1ESt16initializer_listIiERKS0_
+	.set	_ZNSt6vectorIiSaIiEEC1ESt16initializer_listIiERKS0_,_ZNSt6vectorIiSaIiEEC2ESt16initializer_listIiERKS0_
+	.section	.text._ZNSt6vectorIiSaIiEED2Ev,"axG",@progbits,_ZNSt6vectorIiSaIiEED5Ev,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEED2Ev
+	.type	_ZNSt6vectorIiSaIiEED2Ev, @function
+_ZNSt6vectorIiSaIiEED2Ev:
+.LFB2438:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2438
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rcx
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEED2Ev
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2438:
+	.section	.gcc_except_table
+.LLSDA2438:
+	.byte	0xff
+	.byte	0xff
+	.byte	0x1
+	.uleb128 .LLSDACSE2438-.LLSDACSB2438
+.LLSDACSB2438:
+.LLSDACSE2438:
+	.section	.text._ZNSt6vectorIiSaIiEED2Ev,"axG",@progbits,_ZNSt6vectorIiSaIiEED5Ev,comdat
+	.size	_ZNSt6vectorIiSaIiEED2Ev, .-_ZNSt6vectorIiSaIiEED2Ev
+	.weak	_ZNSt6vectorIiSaIiEED1Ev
+	.set	_ZNSt6vectorIiSaIiEED1Ev,_ZNSt6vectorIiSaIiEED2Ev
+	.section	.text._ZNSt6vectorIiSaIiEEC2ERKS1_,"axG",@progbits,_ZNSt6vectorIiSaIiEEC5ERKS1_,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEEC2ERKS1_
+	.type	_ZNSt6vectorIiSaIiEEC2ERKS1_, @function
+_ZNSt6vectorIiSaIiEEC2ERKS1_:
+.LFB2441:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2441
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r13
+	pushq	%r12
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 13, -24
+	.cfi_offset 12, -32
+	.cfi_offset 3, -40
+	movq	%rdi, -56(%rbp)
+	movq	%rsi, -64(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -40(%rbp)
+	xorl	%eax, %eax
+	movq	-56(%rbp), %rbx
+	movq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rdx
+	leaq	-41(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB10:
+	call	_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_
+.LEHE10:
+	movq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE4sizeEv
+	movq	%rax, %rcx
+	leaq	-41(%rbp), %rax
+	movq	%rax, %rdx
+	movq	%rcx, %rsi
+	movq	%rbx, %rdi
+.LEHB11:
+	call	_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_
+.LEHE11:
+	leaq	-41(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSaIiED1Ev
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %r13
+	movq	-56(%rbp), %rax
+	movq	(%rax), %rbx
+	movq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE3endEv
+	movq	%rax, %r12
+	movq	-64(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE5beginEv
+	movq	%r13, %rcx
+	movq	%rbx, %rdx
+	movq	%r12, %rsi
+	movq	%rax, %rdi
+.LEHB12:
+	call	_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E
+.LEHE12:
+	movq	%rax, %rdx
+	movq	-56(%rbp), %rax
+	movq	%rdx, 8(%rax)
+	nop
+	movq	-40(%rbp), %rax
+	xorq	%fs:40, %rax
+	je	.L37
+	jmp	.L40
+.L38:
+	movq	%rax, %rbx
+	leaq	-41(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSaIiED1Ev
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+.LEHB13:
+	call	_Unwind_Resume@PLT
+.L39:
+	movq	%rax, %rbx
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEED2Ev
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+	call	_Unwind_Resume@PLT
+.LEHE13:
+.L40:
+	call	__stack_chk_fail@PLT
+.L37:
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%r13
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2441:
+	.section	.gcc_except_table
+.LLSDA2441:
+	.byte	0xff
+	.byte	0xff
+	.byte	0x1
+	.uleb128 .LLSDACSE2441-.LLSDACSB2441
+.LLSDACSB2441:
+	.uleb128 .LEHB10-.LFB2441
+	.uleb128 .LEHE10-.LEHB10
+	.uleb128 0
+	.uleb128 0
+	.uleb128 .LEHB11-.LFB2441
+	.uleb128 .LEHE11-.LEHB11
+	.uleb128 .L38-.LFB2441
+	.uleb128 0
+	.uleb128 .LEHB12-.LFB2441
+	.uleb128 .LEHE12-.LEHB12
+	.uleb128 .L39-.LFB2441
+	.uleb128 0
+	.uleb128 .LEHB13-.LFB2441
+	.uleb128 .LEHE13-.LEHB13
+	.uleb128 0
+	.uleb128 0
+.LLSDACSE2441:
+	.section	.text._ZNSt6vectorIiSaIiEEC2ERKS1_,"axG",@progbits,_ZNSt6vectorIiSaIiEEC5ERKS1_,comdat
+	.size	_ZNSt6vectorIiSaIiEEC2ERKS1_, .-_ZNSt6vectorIiSaIiEEC2ERKS1_
+	.weak	_ZNSt6vectorIiSaIiEEC1ERKS1_
+	.set	_ZNSt6vectorIiSaIiEEC1ERKS1_,_ZNSt6vectorIiSaIiEEC2ERKS1_
+	.section	.text._ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E,"axG",@progbits,_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E,comdat
+	.weak	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E
+	.type	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E, @function
+_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E:
+.LFB2443:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-8(%rbp), %rdx
+	movq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNK10InsertableISt6vectoriE6insertERSo@PLT
+	movq	-8(%rbp), %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2443:
+	.size	_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E, .-_ZlsISt6vectoriERSoS1_RK10InsertableIT_T0_E
+	.section	.text._ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_,"axG",@progbits,_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_,comdat
+	.weak	_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_
+	.type	_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_, @function
+_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_:
+.LFB2446:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2446:
+	.size	_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_, .-_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_
+	.section	.text._ZNSt6vectorIiSaIiEE9push_backEOi,"axG",@progbits,_ZNSt6vectorIiSaIiEE9push_backEOi,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE9push_backEOi
+	.type	_ZNSt6vectorIiSaIiEE9push_backEOi, @function
+_ZNSt6vectorIiSaIiEE9push_backEOi:
+.LFB2445:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2445:
+	.size	_ZNSt6vectorIiSaIiEE9push_backEOi, .-_ZNSt6vectorIiSaIiEE9push_backEOi
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiEC2Ev,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiEC5Ev,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiEC2Ev
+	.type	_ZN9__gnu_cxx13new_allocatorIiEC2Ev, @function
+_ZN9__gnu_cxx13new_allocatorIiEC2Ev:
+.LFB2521:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2521:
+	.size	_ZN9__gnu_cxx13new_allocatorIiEC2Ev, .-_ZN9__gnu_cxx13new_allocatorIiEC2Ev
+	.weak	_ZN9__gnu_cxx13new_allocatorIiEC1Ev
+	.set	_ZN9__gnu_cxx13new_allocatorIiEC1Ev,_ZN9__gnu_cxx13new_allocatorIiEC2Ev
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiED2Ev,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiED5Ev,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiED2Ev
+	.type	_ZN9__gnu_cxx13new_allocatorIiED2Ev, @function
+_ZN9__gnu_cxx13new_allocatorIiED2Ev:
+.LFB2524:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2524:
+	.size	_ZN9__gnu_cxx13new_allocatorIiED2Ev, .-_ZN9__gnu_cxx13new_allocatorIiED2Ev
+	.weak	_ZN9__gnu_cxx13new_allocatorIiED1Ev
+	.set	_ZN9__gnu_cxx13new_allocatorIiED1Ev,_ZN9__gnu_cxx13new_allocatorIiED2Ev
+	.section	.text._ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD5Ev,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev
+	.type	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev, @function
+_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev:
+.LFB2528:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSaIiED2Ev
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2528:
+	.size	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev, .-_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev
+	.weak	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD1Ev
+	.set	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD1Ev,_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev
+	.section	.text._ZNSt12_Vector_baseIiSaIiEEC2ERKS0_,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEEC5ERKS0_,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_
+	.type	_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_, @function
+_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_:
+.LFB2530:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-8(%rbp), %rax
+	movq	-16(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC1ERKS0_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2530:
+	.size	_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_, .-_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_
+	.weak	_ZNSt12_Vector_baseIiSaIiEEC1ERKS0_
+	.set	_ZNSt12_Vector_baseIiSaIiEEC1ERKS0_,_ZNSt12_Vector_baseIiSaIiEEC2ERKS0_
+	.section	.text._ZNSt12_Vector_baseIiSaIiEED2Ev,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEED5Ev,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEED2Ev
+	.type	_ZNSt12_Vector_baseIiSaIiEED2Ev, @function
+_ZNSt12_Vector_baseIiSaIiEED2Ev:
+.LFB2533:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2533
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	16(%rax), %rax
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	subq	%rax, %rdx
+	movq	%rdx, %rax
+	sarq	$2, %rax
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD1Ev
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2533:
+	.section	.gcc_except_table
+.LLSDA2533:
+	.byte	0xff
+	.byte	0xff
+	.byte	0x1
+	.uleb128 .LLSDACSE2533-.LLSDACSB2533
+.LLSDACSB2533:
+.LLSDACSE2533:
+	.section	.text._ZNSt12_Vector_baseIiSaIiEED2Ev,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEED5Ev,comdat
+	.size	_ZNSt12_Vector_baseIiSaIiEED2Ev, .-_ZNSt12_Vector_baseIiSaIiEED2Ev
+	.weak	_ZNSt12_Vector_baseIiSaIiEED1Ev
+	.set	_ZNSt12_Vector_baseIiSaIiEED1Ev,_ZNSt12_Vector_baseIiSaIiEED2Ev
+	.section	.text._ZNKSt16initializer_listIiE4sizeEv,"axG",@progbits,_ZNKSt16initializer_listIiE4sizeEv,comdat
+	.align 2
+	.weak	_ZNKSt16initializer_listIiE4sizeEv
+	.type	_ZNKSt16initializer_listIiE4sizeEv, @function
+_ZNKSt16initializer_listIiE4sizeEv:
+.LFB2535:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2535:
+	.size	_ZNKSt16initializer_listIiE4sizeEv, .-_ZNKSt16initializer_listIiE4sizeEv
+	.section	.text._ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_,"axG",@progbits,_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_,comdat
+	.weak	_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_
+	.type	_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_, @function
+_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_:
+.LFB2538:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2538:
+	.size	_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_, .-_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_
+	.section	.text._ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_,"axG",@progbits,_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_,comdat
+	.weak	_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_
+	.type	_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_, @function
+_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_:
+.LFB2537:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$24, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	leaq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_
+	movq	-24(%rbp), %rax
+	movq	-32(%rbp), %rdx
+	subq	$8, %rsp
+	pushq	%rbx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag
+	addq	$16, %rsp
+	movq	-8(%rbp), %rbx
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2537:
+	.size	_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_, .-_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_
+	.section	.text._ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag,"axG",@progbits,_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag
+	.type	_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag, @function
+_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag:
+.LFB2536:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-40(%rbp), %rdx
+	movq	-32(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt8distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_
+	movq	%rax, -8(%rbp)
+	movq	-24(%rbp), %rax
+	movq	-8(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm
+	movq	%rax, %rdx
+	movq	-24(%rbp), %rax
+	movq	%rdx, (%rax)
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
+	movq	-8(%rbp), %rdx
+	salq	$2, %rdx
+	addq	%rax, %rdx
+	movq	-24(%rbp), %rax
+	movq	%rdx, 16(%rax)
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rcx
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	-40(%rbp), %rsi
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E
+	movq	%rax, %rdx
+	movq	-24(%rbp), %rax
+	movq	%rdx, 8(%rax)
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2536:
+	.size	_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag, .-_ZNSt6vectorIiSaIiEE19_M_range_initializeIPKiEEvT_S5_St20forward_iterator_tag
+	.section	.text._ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	.type	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv, @function
+_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv:
+.LFB2539:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2539:
+	.size	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv, .-_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	.section	.text._ZSt8_DestroyIPiiEvT_S1_RSaIT0_E,"axG",@progbits,_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E,comdat
+	.weak	_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E
+	.type	_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E, @function
+_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E:
+.LFB2540:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt8_DestroyIPiEvT_S1_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2540:
+	.size	_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E, .-_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E
+	.section	.text._ZNKSt6vectorIiSaIiEE4sizeEv,"axG",@progbits,_ZNKSt6vectorIiSaIiEE4sizeEv,comdat
+	.align 2
+	.weak	_ZNKSt6vectorIiSaIiEE4sizeEv
+	.type	_ZNKSt6vectorIiSaIiEE4sizeEv, @function
+_ZNKSt6vectorIiSaIiEE4sizeEv:
+.LFB2541:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	subq	%rax, %rdx
+	movq	%rdx, %rax
+	sarq	$2, %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2541:
+	.size	_ZNKSt6vectorIiSaIiEE4sizeEv, .-_ZNKSt6vectorIiSaIiEE4sizeEv
+	.section	.text._ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_,"axG",@progbits,_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_,comdat
+	.weak	_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_
+	.type	_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_, @function
+_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_:
+.LFB2542:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-24(%rbp), %rax
+	movq	-32(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_
+	movq	-24(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L65
+	call	__stack_chk_fail@PLT
+.L65:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2542:
+	.size	_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_, .-_ZN9__gnu_cxx14__alloc_traitsISaIiEE17_S_select_on_copyERKS1_
+	.section	.text._ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv,"axG",@progbits,_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv,comdat
+	.align 2
+	.weak	_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	.type	_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv, @function
+_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv:
+.LFB2543:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2543:
+	.size	_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv, .-_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	.section	.text._ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEEC5EmRKS0_,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_
+	.type	_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_, @function
+_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_:
+.LFB2545:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2545
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	-40(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC1ERKS0_
+	movq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB14:
+	call	_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm
+.LEHE14:
+	jmp	.L71
+.L70:
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implD1Ev
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+.LEHB15:
+	call	_Unwind_Resume@PLT
+.LEHE15:
+.L71:
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2545:
+	.section	.gcc_except_table
+.LLSDA2545:
+	.byte	0xff
+	.byte	0xff
+	.byte	0x1
+	.uleb128 .LLSDACSE2545-.LLSDACSB2545
+.LLSDACSB2545:
+	.uleb128 .LEHB14-.LFB2545
+	.uleb128 .LEHE14-.LEHB14
+	.uleb128 .L70-.LFB2545
+	.uleb128 0
+	.uleb128 .LEHB15-.LFB2545
+	.uleb128 .LEHE15-.LEHB15
+	.uleb128 0
+	.uleb128 0
+.LLSDACSE2545:
+	.section	.text._ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEEC5EmRKS0_,comdat
+	.size	_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_, .-_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_
+	.weak	_ZNSt12_Vector_baseIiSaIiEEC1EmRKS0_
+	.set	_ZNSt12_Vector_baseIiSaIiEEC1EmRKS0_,_ZNSt12_Vector_baseIiSaIiEEC2EmRKS0_
+	.section	.text._ZNKSt6vectorIiSaIiEE5beginEv,"axG",@progbits,_ZNKSt6vectorIiSaIiEE5beginEv,comdat
+	.align 2
+	.weak	_ZNKSt6vectorIiSaIiEE5beginEv
+	.type	_ZNKSt6vectorIiSaIiEE5beginEv, @function
+_ZNKSt6vectorIiSaIiEE5beginEv:
+.LFB2547:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -40(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-40(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -24(%rbp)
+	leaq	-24(%rbp), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC1ERKS2_
+	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L74
+	call	__stack_chk_fail@PLT
+.L74:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2547:
+	.size	_ZNKSt6vectorIiSaIiEE5beginEv, .-_ZNKSt6vectorIiSaIiEE5beginEv
+	.section	.text._ZNKSt6vectorIiSaIiEE3endEv,"axG",@progbits,_ZNKSt6vectorIiSaIiEE3endEv,comdat
+	.align 2
+	.weak	_ZNKSt6vectorIiSaIiEE3endEv
+	.type	_ZNKSt6vectorIiSaIiEE3endEv, @function
+_ZNKSt6vectorIiSaIiEE3endEv:
+.LFB2548:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -40(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-40(%rbp), %rax
+	movq	8(%rax), %rax
+	movq	%rax, -24(%rbp)
+	leaq	-24(%rbp), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC1ERKS2_
+	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L77
+	call	__stack_chk_fail@PLT
+.L77:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2548:
+	.size	_ZNKSt6vectorIiSaIiEE3endEv, .-_ZNKSt6vectorIiSaIiEE3endEv
+	.section	.text._ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E,"axG",@progbits,_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E,comdat
+	.weak	_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E
+	.type	_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E, @function
+_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E:
+.LFB2549:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	%rcx, -32(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2549:
+	.size	_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E, .-_ZSt22__uninitialized_copy_aIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiiET0_T_SA_S9_RSaIT1_E
+	.section	.text._ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE,"axG",@progbits,_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE,comdat
+	.weak	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	.type	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE, @function
+_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE:
+.LFB2551:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2551:
+	.size	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE, .-_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	.section	.text._ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_,"axG",@progbits,_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_
+	.type	_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_, @function
+_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_:
+.LFB2550:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$24, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	8(%rax), %rdx
+	movq	-24(%rbp), %rax
+	movq	16(%rax), %rax
+	cmpq	%rax, %rdx
+	je	.L83
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	movq	%rax, %rdx
+	movq	-24(%rbp), %rax
+	movq	8(%rax), %rcx
+	movq	-24(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_
+	movq	-24(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	4(%rax), %rdx
+	movq	-24(%rbp), %rax
+	movq	%rdx, 8(%rax)
+	jmp	.L84
+.L83:
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE3endEv
+	movq	%rax, %rcx
+	movq	-24(%rbp), %rax
+	movq	%rbx, %rdx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_
+.L84:
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE4backEv
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2550:
+	.size	_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_, .-_ZNSt6vectorIiSaIiEE12emplace_backIJiEEERiDpOT_
+	.section	.text._ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC5ERKS0_,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_
+	.type	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_, @function
+_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_:
+.LFB2597:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSaIiEC2ERKS_
+	movq	-8(%rbp), %rax
+	movq	$0, (%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 8(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 16(%rax)
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2597:
+	.size	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_, .-_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_
+	.weak	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC1ERKS0_
+	.set	_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC1ERKS0_,_ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2ERKS0_
+	.section	.text._ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim
+	.type	_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim, @function
+_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim:
+.LFB2599:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	cmpq	$0, -16(%rbp)
+	je	.L89
+	movq	-8(%rbp), %rax
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim
+.L89:
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2599:
+	.size	_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim, .-_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim
+	.section	.text._ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag,"axG",@progbits,_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag,comdat
+	.weak	_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag
+	.type	_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag, @function
+_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:
+.LFB2600:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	subq	%rax, %rdx
+	movq	%rdx, %rax
+	sarq	$2, %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2600:
+	.size	_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag, .-_ZSt10__distanceIPKiENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag
+	.section	.text._ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm
+	.type	_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm, @function
+_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm:
+.LFB2601:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	cmpq	$0, -16(%rbp)
+	je	.L93
+	movq	-8(%rbp), %rax
+	movq	-16(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt16allocator_traitsISaIiEE8allocateERS0_m
+	jmp	.L95
+.L93:
+	movl	$0, %eax
+.L95:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2601:
+	.size	_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm, .-_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm
+	.section	.text._ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E,"axG",@progbits,_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E,comdat
+	.weak	_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E
+	.type	_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E, @function
+_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E:
+.LFB2602:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	%rcx, -32(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2602:
+	.size	_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E, .-_ZSt22__uninitialized_copy_aIPKiPiiET0_T_S4_S3_RSaIT1_E
+	.section	.text._ZSt8_DestroyIPiEvT_S1_,"axG",@progbits,_ZSt8_DestroyIPiEvT_S1_,comdat
+	.weak	_ZSt8_DestroyIPiEvT_S1_
+	.type	_ZSt8_DestroyIPiEvT_S1_, @function
+_ZSt8_DestroyIPiEvT_S1_:
+.LFB2603:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2603:
+	.size	_ZSt8_DestroyIPiEvT_S1_, .-_ZSt8_DestroyIPiEvT_S1_
+	.section	.text._ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_,"axG",@progbits,_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_,comdat
+	.weak	_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_
+	.type	_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_, @function
+_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_:
+.LFB2604:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSaIiEC1ERKS_
+	movq	-8(%rbp), %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2604:
+	.size	_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_, .-_ZNSt16allocator_traitsISaIiEE37select_on_container_copy_constructionERKS0_
+	.section	.text._ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm,"axG",@progbits,_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm,comdat
+	.align 2
+	.weak	_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm
+	.type	_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm, @function
+_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm:
+.LFB2605:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm
+	movq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, (%rax)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, 8(%rax)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	movq	-16(%rbp), %rdx
+	salq	$2, %rdx
+	addq	%rax, %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, 16(%rax)
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2605:
+	.size	_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm, .-_ZNSt12_Vector_baseIiSaIiEE17_M_create_storageEm
+	.section	.text._ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_,"axG",@progbits,_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC5ERKS2_,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_
+	.type	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_, @function
+_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_:
+.LFB2607:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, (%rax)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2607:
+	.size	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_, .-_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_
+	.weak	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC1ERKS2_
+	.set	_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC1ERKS2_,_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_
+	.section	.text._ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_,"axG",@progbits,_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_,comdat
+	.weak	_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_
+	.type	_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_, @function
+_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_:
+.LFB2609:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movb	$1, -1(%rbp)
+	movq	-40(%rbp), %rdx
+	movq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2609:
+	.size	_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_, .-_ZSt18uninitialized_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_
+	.section	.text._ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_,"axG",@progbits,_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_,comdat
+	.weak	_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_
+	.type	_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_, @function
+_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_:
+.LFB2610:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	movq	%rax, %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2610:
+	.size	_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_, .-_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_
+	.section	.text._ZNSt6vectorIiSaIiEE3endEv,"axG",@progbits,_ZNSt6vectorIiSaIiEE3endEv,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE3endEv
+	.type	_ZNSt6vectorIiSaIiEE3endEv, @function
+_ZNSt6vectorIiSaIiEE3endEv:
+.LFB2611:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-24(%rbp), %rax
+	leaq	8(%rax), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC1ERKS1_
+	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L108
+	call	__stack_chk_fail@PLT
+.L108:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2611:
+	.size	_ZNSt6vectorIiSaIiEE3endEv, .-_ZNSt6vectorIiSaIiEE3endEv
+	.section	.rodata
+.LC0:
+	.string	"vector::_M_realloc_insert"
+	.section	.text._ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_,"axG",@progbits,_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_
+	.type	_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_, @function
+_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_:
+.LFB2612:
+	.cfi_startproc
+	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+	.cfi_lsda 0x1b,.LLSDA2612
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r12
+	pushq	%rbx
+	subq	$80, %rsp
+	.cfi_offset 12, -24
+	.cfi_offset 3, -32
+	movq	%rdi, -72(%rbp)
+	movq	%rsi, -80(%rbp)
+	movq	%rdx, -88(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -24(%rbp)
+	xorl	%eax, %eax
+	movq	-72(%rbp), %rax
+	leaq	.LC0(%rip), %rdx
+	movl	$1, %esi
+	movq	%rax, %rdi
+.LEHB16:
+	call	_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc
+	movq	%rax, -48(%rbp)
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE5beginEv
+	movq	%rax, -64(%rbp)
+	leaq	-64(%rbp), %rdx
+	leaq	-80(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+	movq	%rax, -40(%rbp)
+	movq	-72(%rbp), %rax
+	movq	-48(%rbp), %rdx
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm
+.LEHE16:
+	movq	%rax, -32(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -56(%rbp)
+	movq	-88(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	movq	%rax, %rsi
+	movq	-40(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	leaq	(%rdx,%rax), %rcx
+	movq	-72(%rbp), %rax
+	movq	%rsi, %rdx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt16allocator_traitsISaIiEE9constructIiJiEEEvRS0_PT_DpOT0_
+	movq	$0, -56(%rbp)
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rbx
+	leaq	-80(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv
+	movq	(%rax), %rsi
+	movq	-72(%rbp), %rax
+	movq	(%rax), %rax
+	movq	-32(%rbp), %rdx
+	movq	%rbx, %rcx
+	movq	%rax, %rdi
+.LEHB17:
+	call	_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_
+	movq	%rax, -56(%rbp)
+	addq	$4, -56(%rbp)
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %r12
+	movq	-72(%rbp), %rax
+	movq	8(%rax), %rbx
+	leaq	-80(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv
+	movq	(%rax), %rax
+	movq	-56(%rbp), %rdx
+	movq	%r12, %rcx
+	movq	%rbx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_
+.LEHE17:
+	movq	%rax, -56(%rbp)
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rdx
+	movq	-72(%rbp), %rax
+	movq	8(%rax), %rcx
+	movq	-72(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+.LEHB18:
+	call	_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E
+	movq	-72(%rbp), %rax
+	movq	-72(%rbp), %rdx
+	movq	16(%rdx), %rdx
+	movq	%rdx, %rcx
+	movq	-72(%rbp), %rdx
+	movq	(%rdx), %rdx
+	subq	%rdx, %rcx
+	movq	%rcx, %rdx
+	sarq	$2, %rdx
+	movq	%rdx, %rsi
+	movq	-72(%rbp), %rdx
+	movq	(%rdx), %rcx
+	movq	%rsi, %rdx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim
+.LEHE18:
+	movq	-72(%rbp), %rax
+	movq	-32(%rbp), %rdx
+	movq	%rdx, (%rax)
+	movq	-72(%rbp), %rax
+	movq	-56(%rbp), %rdx
+	movq	%rdx, 8(%rax)
+	movq	-48(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rax, %rdx
+	movq	-72(%rbp), %rax
+	movq	%rdx, 16(%rax)
+	nop
+	movq	-24(%rbp), %rax
+	xorq	%fs:40, %rax
+	je	.L114
+	jmp	.L117
+.L115:
+	movq	%rax, %rdi
+	call	__cxa_begin_catch@PLT
+	cmpq	$0, -56(%rbp)
+	jne	.L111
+	movq	-40(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rax, %rdx
+	movq	-72(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+.LEHB19:
+	call	_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_
+	jmp	.L112
+.L111:
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rdx
+	movq	-56(%rbp), %rcx
+	movq	-32(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt8_DestroyIPiiEvT_S1_RSaIT0_E
+.L112:
+	movq	-72(%rbp), %rax
+	movq	-48(%rbp), %rdx
+	movq	-32(%rbp), %rcx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim
+	call	__cxa_rethrow@PLT
+.LEHE19:
+.L116:
+	movq	%rax, %rbx
+	call	__cxa_end_catch@PLT
+	movq	%rbx, %rax
+	movq	%rax, %rdi
+.LEHB20:
+	call	_Unwind_Resume@PLT
+.LEHE20:
+.L117:
+	call	__stack_chk_fail@PLT
+.L114:
+	addq	$80, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2612:
+	.section	.gcc_except_table
+	.align 4
+.LLSDA2612:
+	.byte	0xff
+	.byte	0x9b
+	.uleb128 .LLSDATT2612-.LLSDATTD2612
+.LLSDATTD2612:
+	.byte	0x1
+	.uleb128 .LLSDACSE2612-.LLSDACSB2612
+.LLSDACSB2612:
+	.uleb128 .LEHB16-.LFB2612
+	.uleb128 .LEHE16-.LEHB16
+	.uleb128 0
+	.uleb128 0
+	.uleb128 .LEHB17-.LFB2612
+	.uleb128 .LEHE17-.LEHB17
+	.uleb128 .L115-.LFB2612
+	.uleb128 0x1
+	.uleb128 .LEHB18-.LFB2612
+	.uleb128 .LEHE18-.LEHB18
+	.uleb128 0
+	.uleb128 0
+	.uleb128 .LEHB19-.LFB2612
+	.uleb128 .LEHE19-.LEHB19
+	.uleb128 .L116-.LFB2612
+	.uleb128 0
+	.uleb128 .LEHB20-.LFB2612
+	.uleb128 .LEHE20-.LEHB20
+	.uleb128 0
+	.uleb128 0
+.LLSDACSE2612:
+	.byte	0x1
+	.byte	0
+	.align 4
+	.long	0
+
+.LLSDATT2612:
+	.section	.text._ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_,"axG",@progbits,_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_,comdat
+	.size	_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_, .-_ZNSt6vectorIiSaIiEE17_M_realloc_insertIJiEEEvN9__gnu_cxx17__normal_iteratorIPiS1_EEDpOT_
+	.section	.text._ZNSt6vectorIiSaIiEE4backEv,"axG",@progbits,_ZNSt6vectorIiSaIiEE4backEv,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE4backEv
+	.type	_ZNSt6vectorIiSaIiEE4backEv, @function
+_ZNSt6vectorIiSaIiEE4backEv:
+.LFB2613:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -40(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNSt6vectorIiSaIiEE3endEv
+	movq	%rax, -24(%rbp)
+	leaq	-24(%rbp), %rax
+	movl	$1, %esi
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl
+	movq	%rax, -16(%rbp)
+	leaq	-16(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv
+	movq	-8(%rbp), %rdx
+	xorq	%fs:40, %rdx
+	je	.L120
+	call	__stack_chk_fail@PLT
+.L120:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2613:
+	.size	_ZNSt6vectorIiSaIiEE4backEv, .-_ZNSt6vectorIiSaIiEE4backEv
+	.section	.text._ZNSaIiEC2ERKS_,"axG",@progbits,_ZNSaIiEC5ERKS_,comdat
+	.align 2
+	.weak	_ZNSaIiEC2ERKS_
+	.type	_ZNSaIiEC2ERKS_, @function
+_ZNSaIiEC2ERKS_:
+.LFB2663:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2663:
+	.size	_ZNSaIiEC2ERKS_, .-_ZNSaIiEC2ERKS_
+	.weak	_ZNSaIiEC1ERKS_
+	.set	_ZNSaIiEC1ERKS_,_ZNSaIiEC2ERKS_
+	.section	.text._ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim,"axG",@progbits,_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim,comdat
+	.weak	_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim
+	.type	_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim, @function
+_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim:
+.LFB2665:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2665:
+	.size	_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim, .-_ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim
+	.section	.text._ZNSt16allocator_traitsISaIiEE8allocateERS0_m,"axG",@progbits,_ZNSt16allocator_traitsISaIiEE8allocateERS0_m,comdat
+	.weak	_ZNSt16allocator_traitsISaIiEE8allocateERS0_m
+	.type	_ZNSt16allocator_traitsISaIiEE8allocateERS0_m, @function
+_ZNSt16allocator_traitsISaIiEE8allocateERS0_m:
+.LFB2666:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movl	$0, %edx
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2666:
+	.size	_ZNSt16allocator_traitsISaIiEE8allocateERS0_m, .-_ZNSt16allocator_traitsISaIiEE8allocateERS0_m
+	.section	.text._ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_,"axG",@progbits,_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_,comdat
+	.weak	_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_
+	.type	_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_, @function
+_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_:
+.LFB2667:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movb	$1, -1(%rbp)
+	movq	-40(%rbp), %rdx
+	movq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2667:
+	.size	_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_, .-_ZSt18uninitialized_copyIPKiPiET0_T_S4_S3_
+	.section	.text._ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_,"axG",@progbits,_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_,comdat
+	.weak	_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_
+	.type	_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_, @function
+_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_:
+.LFB2668:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2668:
+	.size	_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_, .-_ZNSt12_Destroy_auxILb1EE9__destroyIPiEEvT_S3_
+	.section	.text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_,"axG",@progbits,_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_,comdat
+	.weak	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_
+	.type	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_, @function
+_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_:
+.LFB2669:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2669:
+	.size	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_, .-_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiEET0_T_SC_SB_
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_
+	.type	_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_, @function
+_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_:
+.LFB2670:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE
+	movl	(%rax), %ebx
+	movq	-32(%rbp), %rax
+	movq	%rax, %rsi
+	movl	$4, %edi
+	call	_ZnwmPv
+	movl	%ebx, (%rax)
+	nop
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2670:
+	.size	_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_, .-_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_
+	.section	.text._ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_,"axG",@progbits,_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC5ERKS1_,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_
+	.type	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_, @function
+_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_:
+.LFB2672:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, (%rax)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2672:
+	.size	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_, .-_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_
+	.weak	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC1ERKS1_
+	.set	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC1ERKS1_,_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_
+	.section	.text._ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc,"axG",@progbits,_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc,comdat
+	.align 2
+	.weak	_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc
+	.type	_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc, @function
+_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc:
+.LFB2674:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$72, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -56(%rbp)
+	movq	%rsi, -64(%rbp)
+	movq	%rdx, -72(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -24(%rbp)
+	xorl	%eax, %eax
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE8max_sizeEv
+	movq	%rax, %rbx
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE4sizeEv
+	subq	%rax, %rbx
+	movq	%rbx, %rdx
+	movq	-64(%rbp), %rax
+	cmpq	%rax, %rdx
+	setb	%al
+	testb	%al, %al
+	je	.L133
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt20__throw_length_errorPKc@PLT
+.L133:
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE4sizeEv
+	movq	%rax, %rbx
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE4sizeEv
+	movq	%rax, -40(%rbp)
+	leaq	-64(%rbp), %rdx
+	leaq	-40(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt3maxImERKT_S2_S2_
+	movq	(%rax), %rax
+	addq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE4sizeEv
+	cmpq	%rax, -32(%rbp)
+	jb	.L134
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE8max_sizeEv
+	cmpq	%rax, -32(%rbp)
+	jbe	.L135
+.L134:
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt6vectorIiSaIiEE8max_sizeEv
+	jmp	.L136
+.L135:
+	movq	-32(%rbp), %rax
+.L136:
+	movq	-24(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L138
+	call	__stack_chk_fail@PLT
+.L138:
+	addq	$72, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2674:
+	.size	_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc, .-_ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc
+	.section	.text._ZNSt6vectorIiSaIiEE5beginEv,"axG",@progbits,_ZNSt6vectorIiSaIiEE5beginEv,comdat
+	.align 2
+	.weak	_ZNSt6vectorIiSaIiEE5beginEv
+	.type	_ZNSt6vectorIiSaIiEE5beginEv, @function
+_ZNSt6vectorIiSaIiEE5beginEv:
+.LFB2675:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-24(%rbp), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC1ERKS1_
+	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L141
+	call	__stack_chk_fail@PLT
+.L141:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2675:
+	.size	_ZNSt6vectorIiSaIiEE5beginEv, .-_ZNSt6vectorIiSaIiEE5beginEv
+	.section	.text._ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_,"axG",@progbits,_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_,comdat
+	.weak	_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+	.type	_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_, @function
+_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_:
+.LFB2676:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$24, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv
+	movq	(%rax), %rax
+	movq	%rax, %rbx
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv
+	movq	(%rax), %rax
+	subq	%rax, %rbx
+	movq	%rbx, %rax
+	sarq	$2, %rax
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2676:
+	.size	_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_, .-_ZN9__gnu_cxxmiIPiSt6vectorIiSaIiEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+	.section	.text._ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv,"axG",@progbits,_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv,comdat
+	.align 2
+	.weak	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv
+	.type	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv, @function
+_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv:
+.LFB2677:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2677:
+	.size	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv, .-_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv
+	.section	.text._ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_,"axG",@progbits,_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_,comdat
+	.weak	_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_
+	.type	_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_, @function
+_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_:
+.LFB2679:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-24(%rbp), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt13move_iteratorIPiEC1ES0_
+	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L148
+	call	__stack_chk_fail@PLT
+.L148:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2679:
+	.size	_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_, .-_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_
+	.section	.text._ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_,"axG",@progbits,_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_,comdat
+	.weak	_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_
+	.type	_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_, @function
+_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_:
+.LFB2678:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	%rcx, -48(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt32__make_move_if_noexcept_iteratorIiSt13move_iteratorIPiEET0_PT_
+	movq	%rax, %rdi
+	movq	-48(%rbp), %rdx
+	movq	-40(%rbp), %rax
+	movq	%rdx, %rcx
+	movq	%rax, %rdx
+	movq	%rbx, %rsi
+	call	_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2678:
+	.size	_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_, .-_ZSt34__uninitialized_move_if_noexcept_aIPiS0_SaIiEET0_T_S3_S2_RT1_
+	.section	.text._ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_,"axG",@progbits,_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_,comdat
+	.weak	_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_
+	.type	_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_, @function
+_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_:
+.LFB2680:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2680:
+	.size	_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_, .-_ZNSt16allocator_traitsISaIiEE7destroyIiEEvRS0_PT_
+	.section	.text._ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl,"axG",@progbits,_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl,comdat
+	.align 2
+	.weak	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl
+	.type	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl, @function
+_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl:
+.LFB2681:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -40(%rbp)
+	movq	%rsi, -48(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	-40(%rbp), %rax
+	movq	(%rax), %rax
+	movq	-48(%rbp), %rdx
+	salq	$2, %rdx
+	negq	%rdx
+	addq	%rdx, %rax
+	movq	%rax, -24(%rbp)
+	leaq	-24(%rbp), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC1ERKS1_
+	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L154
+	call	__stack_chk_fail@PLT
+.L154:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2681:
+	.size	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl, .-_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEmiEl
+	.section	.text._ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv,"axG",@progbits,_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv,comdat
+	.align 2
+	.weak	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv
+	.type	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv, @function
+_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv:
+.LFB2682:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2682:
+	.size	_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv, .-_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiEC5ERKS1_,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_
+	.type	_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_, @function
+_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_:
+.LFB2730:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2730:
+	.size	_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_, .-_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_
+	.weak	_ZN9__gnu_cxx13new_allocatorIiEC1ERKS1_
+	.set	_ZN9__gnu_cxx13new_allocatorIiEC1ERKS1_,_ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim
+	.type	_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim, @function
+_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim:
+.LFB2732:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-16(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZdlPv@PLT
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2732:
+	.size	_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim, .-_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv
+	.type	_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv, @function
+_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv:
+.LFB2733:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv
+	cmpq	%rax, -16(%rbp)
+	seta	%al
+	testb	%al, %al
+	je	.L163
+	call	_ZSt17__throw_bad_allocv@PLT
+.L163:
+	movq	-16(%rbp), %rax
+	salq	$2, %rax
+	movq	%rax, %rdi
+	call	_Znwm@PLT
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2733:
+	.size	_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv, .-_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv
+	.section	.text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_,"axG",@progbits,_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_,comdat
+	.weak	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_
+	.type	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_, @function
+_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_:
+.LFB2734:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt4copyIPKiPiET0_T_S4_S3_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2734:
+	.size	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_, .-_ZNSt20__uninitialized_copyILb1EE13__uninit_copyIPKiPiEET0_T_S6_S5_
+	.section	.text._ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_,"axG",@progbits,_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_,comdat
+	.weak	_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_
+	.type	_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_, @function
+_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_:
+.LFB2735:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_
+	movq	%rax, %rcx
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdx
+	movq	%rbx, %rsi
+	movq	%rcx, %rdi
+	call	_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2735:
+	.size	_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_, .-_ZSt4copyIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET0_T_SA_S9_
+	.section	.text._ZNKSt6vectorIiSaIiEE8max_sizeEv,"axG",@progbits,_ZNKSt6vectorIiSaIiEE8max_sizeEv,comdat
+	.align 2
+	.weak	_ZNKSt6vectorIiSaIiEE8max_sizeEv
+	.type	_ZNKSt6vectorIiSaIiEE8max_sizeEv, @function
+_ZNKSt6vectorIiSaIiEE8max_sizeEv:
+.LFB2736:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv
+	movq	%rax, %rdi
+	call	_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2736:
+	.size	_ZNKSt6vectorIiSaIiEE8max_sizeEv, .-_ZNKSt6vectorIiSaIiEE8max_sizeEv
+	.section	.text._ZSt3maxImERKT_S2_S2_,"axG",@progbits,_ZSt3maxImERKT_S2_S2_,comdat
+	.weak	_ZSt3maxImERKT_S2_S2_
+	.type	_ZSt3maxImERKT_S2_S2_, @function
+_ZSt3maxImERKT_S2_S2_:
+.LFB2737:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	-16(%rbp), %rax
+	movq	(%rax), %rax
+	cmpq	%rax, %rdx
+	jnb	.L171
+	movq	-16(%rbp), %rax
+	jmp	.L172
+.L171:
+	movq	-8(%rbp), %rax
+.L172:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2737:
+	.size	_ZSt3maxImERKT_S2_S2_, .-_ZSt3maxImERKT_S2_S2_
+	.section	.text._ZNSt13move_iteratorIPiEC2ES0_,"axG",@progbits,_ZNSt13move_iteratorIPiEC5ES0_,comdat
+	.align 2
+	.weak	_ZNSt13move_iteratorIPiEC2ES0_
+	.type	_ZNSt13move_iteratorIPiEC2ES0_, @function
+_ZNSt13move_iteratorIPiEC2ES0_:
+.LFB2739:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-8(%rbp), %rax
+	movq	-16(%rbp), %rdx
+	movq	%rdx, (%rax)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2739:
+	.size	_ZNSt13move_iteratorIPiEC2ES0_, .-_ZNSt13move_iteratorIPiEC2ES0_
+	.weak	_ZNSt13move_iteratorIPiEC1ES0_
+	.set	_ZNSt13move_iteratorIPiEC1ES0_,_ZNSt13move_iteratorIPiEC2ES0_
+	.section	.text._ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E,"axG",@progbits,_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E,comdat
+	.weak	_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E
+	.type	_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E, @function
+_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E:
+.LFB2741:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	%rcx, -32(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2741:
+	.size	_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E, .-_ZSt22__uninitialized_copy_aISt13move_iteratorIPiES1_iET0_T_S4_S3_RSaIT1_E
+	.section	.text._ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_,"axG",@progbits,_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_,comdat
+	.align 2
+	.weak	_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_
+	.type	_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_, @function
+_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_:
+.LFB2742:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2742:
+	.size	_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_, .-_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_
+	.section	.text._ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv,"axG",@progbits,_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv,comdat
+	.align 2
+	.weak	_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv
+	.type	_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv, @function
+_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv:
+.LFB2768:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movabsq	$4611686018427387903, %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2768:
+	.size	_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv, .-_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv
+	.section	.text._ZSt4copyIPKiPiET0_T_S4_S3_,"axG",@progbits,_ZSt4copyIPKiPiET0_T_S4_S3_,comdat
+	.weak	_ZSt4copyIPKiPiET0_T_S4_S3_
+	.type	_ZSt4copyIPKiPiET0_T_S4_S3_, @function
+_ZSt4copyIPKiPiET0_T_S4_S3_:
+.LFB2769:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIPKiET_S2_
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIPKiET_S2_
+	movq	%rax, %rcx
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdx
+	movq	%rbx, %rsi
+	movq	%rcx, %rdi
+	call	_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2769:
+	.size	_ZSt4copyIPKiPiET0_T_S4_S3_, .-_ZSt4copyIPKiPiET0_T_S4_S3_
+	.section	.text._ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_,"axG",@progbits,_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_,comdat
+	.weak	_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_
+	.type	_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_, @function
+_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_:
+.LFB2770:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2770:
+	.size	_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_, .-_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_
+	.section	.text._ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_,"axG",@progbits,_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_,comdat
+	.weak	_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_
+	.type	_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_, @function
+_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_:
+.LFB2771:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r12
+	pushq	%rbx
+	subq	$32, %rsp
+	.cfi_offset 12, -24
+	.cfi_offset 3, -32
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPiET_S1_
+	movq	%rax, %r12
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE
+	movq	%r12, %rdx
+	movq	%rbx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2771:
+	.size	_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_, .-_ZSt14__copy_move_a2ILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_
+	.section	.text._ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_,"axG",@progbits,_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_,comdat
+	.weak	_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_
+	.type	_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_, @function
+_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_:
+.LFB2772:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2772:
+	.size	_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_, .-_ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_
+	.section	.text._ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_,"axG",@progbits,_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_,comdat
+	.weak	_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_
+	.type	_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_, @function
+_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_:
+.LFB2773:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movb	$1, -1(%rbp)
+	movq	-40(%rbp), %rdx
+	movq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2773:
+	.size	_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_, .-_ZSt18uninitialized_copyISt13move_iteratorIPiES1_ET0_T_S4_S3_
+	.section	.text._ZSt12__miter_baseIPKiET_S2_,"axG",@progbits,_ZSt12__miter_baseIPKiET_S2_,comdat
+	.weak	_ZSt12__miter_baseIPKiET_S2_
+	.type	_ZSt12__miter_baseIPKiET_S2_, @function
+_ZSt12__miter_baseIPKiET_S2_:
+.LFB2788:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2788:
+	.size	_ZSt12__miter_baseIPKiET_S2_, .-_ZSt12__miter_baseIPKiET_S2_
+	.section	.text._ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_,"axG",@progbits,_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_,comdat
+	.weak	_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_
+	.type	_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_, @function
+_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_:
+.LFB2789:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r12
+	pushq	%rbx
+	subq	$32, %rsp
+	.cfi_offset 12, -24
+	.cfi_offset 3, -32
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPiET_S1_
+	movq	%rax, %r12
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPKiET_S2_
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPKiET_S2_
+	movq	%r12, %rdx
+	movq	%rbx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2789:
+	.size	_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_, .-_ZSt14__copy_move_a2ILb0EPKiPiET1_T0_S4_S3_
+	.section	.text._ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE,"axG",@progbits,_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE,comdat
+	.weak	_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE
+	.type	_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE, @function
+_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE:
+.LFB2790:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	leaq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv
+	movq	(%rax), %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2790:
+	.size	_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE, .-_ZSt12__niter_baseIPKiSt6vectorIiSaIiEEET_N9__gnu_cxx17__normal_iteratorIS5_T0_EE
+	.section	.text._ZSt12__niter_baseIPiET_S1_,"axG",@progbits,_ZSt12__niter_baseIPiET_S1_,comdat
+	.weak	_ZSt12__niter_baseIPiET_S1_
+	.type	_ZSt12__niter_baseIPiET_S1_, @function
+_ZSt12__niter_baseIPiET_S1_:
+.LFB2791:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2791:
+	.size	_ZSt12__niter_baseIPiET_S1_, .-_ZSt12__niter_baseIPiET_S1_
+	.section	.text._ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_,"axG",@progbits,_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_,comdat
+	.weak	_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_
+	.type	_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_, @function
+_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_:
+.LFB2792:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movb	$1, -1(%rbp)
+	movq	-40(%rbp), %rdx
+	movq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2792:
+	.size	_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_, .-_ZSt13__copy_move_aILb0EPKiPiET1_T0_S4_S3_
+	.section	.text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_,"axG",@progbits,_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_,comdat
+	.weak	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_
+	.type	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_, @function
+_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_:
+.LFB2793:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-24(%rbp), %rdx
+	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2793:
+	.size	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_, .-_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPiES3_EET0_T_S6_S5_
+	.section	.text._ZSt12__niter_baseIPKiET_S2_,"axG",@progbits,_ZSt12__niter_baseIPKiET_S2_,comdat
+	.weak	_ZSt12__niter_baseIPKiET_S2_
+	.type	_ZSt12__niter_baseIPKiET_S2_, @function
+_ZSt12__niter_baseIPKiET_S2_:
+.LFB2797:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2797:
+	.size	_ZSt12__niter_baseIPKiET_S2_, .-_ZSt12__niter_baseIPKiET_S2_
+	.section	.text._ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv,"axG",@progbits,_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv,comdat
+	.align 2
+	.weak	_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv
+	.type	_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv, @function
+_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv:
+.LFB2798:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2798:
+	.size	_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv, .-_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv
+	.section	.text._ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_,"axG",@progbits,_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_,comdat
+	.weak	_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_
+	.type	_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_, @function
+_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_:
+.LFB2799:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rax
+	subq	%rax, %rdx
+	movq	%rdx, %rax
+	sarq	$2, %rax
+	movq	%rax, -8(%rbp)
+	cmpq	$0, -8(%rbp)
+	je	.L206
+	movq	-8(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rcx
+	movq	-40(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	memmove@PLT
+.L206:
+	movq	-8(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2799:
+	.size	_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_, .-_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_
+	.section	.text._ZNKSt13move_iteratorIPiE4baseEv,"axG",@progbits,_ZNKSt13move_iteratorIPiE4baseEv,comdat
+	.align 2
+	.weak	_ZNKSt13move_iteratorIPiE4baseEv
+	.type	_ZNKSt13move_iteratorIPiE4baseEv, @function
+_ZNKSt13move_iteratorIPiE4baseEv:
+.LFB2801:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2801:
+	.size	_ZNKSt13move_iteratorIPiE4baseEv, .-_ZNKSt13move_iteratorIPiE4baseEv
+	.section	.text._ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_,"axG",@progbits,_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_,comdat
+	.weak	_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_
+	.type	_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_, @function
+_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_:
+.LFB2800:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+	movq	%rax, %rcx
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdx
+	movq	%rbx, %rsi
+	movq	%rcx, %rdi
+	call	_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2800:
+	.size	_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_, .-_ZSt4copyISt13move_iteratorIPiES1_ET0_T_S4_S3_
+	.section	.text._ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E,"axG",@progbits,_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E,comdat
+	.weak	_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+	.type	_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E, @function
+_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E:
+.LFB2802:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	leaq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZNKSt13move_iteratorIPiE4baseEv
+	movq	%rax, %rdi
+	call	_ZSt12__miter_baseIPiET_S1_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2802:
+	.size	_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E, .-_ZSt12__miter_baseIPiEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+	.section	.text._ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_,"axG",@progbits,_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_,comdat
+	.weak	_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_
+	.type	_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_, @function
+_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_:
+.LFB2803:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%r12
+	pushq	%rbx
+	subq	$32, %rsp
+	.cfi_offset 12, -24
+	.cfi_offset 3, -32
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPiET_S1_
+	movq	%rax, %r12
+	movq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPiET_S1_
+	movq	%rax, %rbx
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZSt12__niter_baseIPiET_S1_
+	movq	%r12, %rdx
+	movq	%rbx, %rsi
+	movq	%rax, %rdi
+	call	_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2803:
+	.size	_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_, .-_ZSt14__copy_move_a2ILb1EPiS0_ET1_T0_S2_S1_
+	.section	.text._ZSt12__miter_baseIPiET_S1_,"axG",@progbits,_ZSt12__miter_baseIPiET_S1_,comdat
+	.weak	_ZSt12__miter_baseIPiET_S1_
+	.type	_ZSt12__miter_baseIPiET_S1_, @function
+_ZSt12__miter_baseIPiET_S1_:
+.LFB2804:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2804:
+	.size	_ZSt12__miter_baseIPiET_S1_, .-_ZSt12__miter_baseIPiET_S1_
+	.section	.text._ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_,"axG",@progbits,_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_,comdat
+	.weak	_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_
+	.type	_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_, @function
+_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_:
+.LFB2805:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movb	$1, -1(%rbp)
+	movq	-40(%rbp), %rdx
+	movq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2805:
+	.size	_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_, .-_ZSt13__copy_move_aILb1EPiS0_ET1_T0_S2_S1_
+	.section	.text._ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_,"axG",@progbits,_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_,comdat
+	.weak	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_
+	.type	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_, @function
+_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_:
+.LFB2806:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rax
+	subq	%rax, %rdx
+	movq	%rdx, %rax
+	sarq	$2, %rax
+	movq	%rax, -8(%rbp)
+	cmpq	$0, -8(%rbp)
+	je	.L221
+	movq	-8(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rcx
+	movq	-40(%rbp), %rax
+	movq	%rcx, %rsi
+	movq	%rax, %rdi
+	call	memmove@PLT
+.L221:
+	movq	-8(%rbp), %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2806:
+	.size	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_, .-_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mIiEEPT_PKS3_S6_S4_
+	.text
+	.type	_Z41__static_initialization_and_destruction_0ii, @function
+_Z41__static_initialization_and_destruction_0ii:
+.LFB2807:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	cmpl	$1, -4(%rbp)
+	jne	.L225
+	cmpl	$65535, -8(%rbp)
+	jne	.L225
+	leaq	_ZStL8__ioinit(%rip), %rdi
+	call	_ZNSt8ios_base4InitC1Ev@PLT
+	leaq	__dso_handle(%rip), %rdx
+	leaq	_ZStL8__ioinit(%rip), %rsi
+	movq	_ZNSt8ios_base4InitD1Ev@GOTPCREL(%rip), %rax
+	movq	%rax, %rdi
+	call	__cxa_atexit@PLT
+.L225:
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2807:
+	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
+	.section	.rodata
+	.align 16
+	.type	._86, @object
+	.size	._86, 20
+._86:
+	.long	1
+	.long	2
+	.long	3
+	.long	4
+	.long	5
+	.text
+	.type	_GLOBAL__sub_I_main, @function
+_GLOBAL__sub_I_main:
+.LFB2808:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	$65535, %esi
+	movl	$1, %edi
+	call	_Z41__static_initialization_and_destruction_0ii
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2808:
+	.size	_GLOBAL__sub_I_main, .-_GLOBAL__sub_I_main
+	.section	.init_array,"aw"
+	.align 8
+	.quad	_GLOBAL__sub_I_main
+	.hidden	DW.ref.__gxx_personality_v0
+	.weak	DW.ref.__gxx_personality_v0
+	.section	.data.DW.ref.__gxx_personality_v0,"awG",@progbits,DW.ref.__gxx_personality_v0,comdat
+	.align 8
+	.type	DW.ref.__gxx_personality_v0, @object
+	.size	DW.ref.__gxx_personality_v0, 8
+DW.ref.__gxx_personality_v0:
+	.quad	__gxx_personality_v0
+	.hidden	__dso_handle
+	.ident	"GCC: (Ubuntu 7.2.0-8ubuntu3.2) 7.2.0"
+	.section	.note.GNU-stack,"",@progbits

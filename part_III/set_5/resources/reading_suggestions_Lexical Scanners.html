@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Lexical Scanners</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body fgcolor="black" bgcolor="white">
+<hr>
+<h1 id="title">Lexical Scanners</h1>
+<h2 id="author">Frank B. Brokken</h2>
+
+
+<p>
+</p><h2>Suggested Literature</h2>
+<p>
+</p><ul>
+    <li> <strong>C++ Annotations:</strong> 
+        <ul>
+        <li> Chapter 24: paragraph 24.8.1
+        </li></ul>
+    </li></ul>
+<p>
+</p><ul>
+    <li> <strong>De Programmeertaal C:</strong> 
+        <ul>
+        <li> Hoofdstuk 14. No detailed attention will be devoted to finite
+state automatons (FSAs) during the lectures, but FSAs lay at the heart of
+lexical scanners. In some situations it is arguably worth while to construct
+your own lexical scanner. Ch. 14 describes the background and construction of
+table-driven FSAs. 
+        </li><li> Hoofdstuk 18, until 18.3
+        </li></ul>
+    </li></ul>
+<p>
+</p><ul>
+    <li> The <a href="https://fbb-git.github.io/flexcpp/">flex-documentation</a>.
+<p>
+</p></li><li> If your system doesn't have <code>flexc++</code> installed, you might get away
+with sending an e-mail to <code>flexc++@icce.rug.nl</code>, with the following
+contents:
+    <pre>
+FLEXC++ INPUT
+ put your flexc++-specification file here
+FLEXC++ INPUT
+    
+</pre>
+
+    Shortly after submitting that mail you should receive an e-mail from
+<code>Sendmail Default User</code> containing:
+    <pre>
+Subject: Flex output
+
+[-- Attachment #1 --]
+[-- Type: text/plain, Encoding: 7bit, Size: 0.1K --]
+
+The output of your flex run is in the attached zip archive
+
+[-- Attachment #2: scanner.zip --]
+[-- Type: application/zip, Encoding: base64, Size: 19K --]
+
+</pre>
+
+    (of course the size of your zip file may differ). The zip file contains
+seven files. E.g.,
+    <pre>
+ Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
+--------  ------  ------- ---- ---------- ----- --------  ----
+       0  Stored        0   0% 2013-01-29 16:12 00000000  scanner/
+    1242  Defl:N      516  59% 2013-01-29 16:12 c1dfe990  scanner/Scanner.h
+       3  Defl:N        5 -67% 2013-01-29 16:12 c9e164e0  scanner/input
+   10262  Defl:N     2947  71% 2013-01-29 16:12 f71bdd32  scanner/Scannerbase.h
+     110  Defl:N      107   3% 2013-01-29 16:12 544b29db  scanner/Scanner.ih
+     182  Defl:N      117  36% 2013-01-29 16:12 c0f415d1  scanner/out
+   13318  Defl:N     3664  73% 2013-01-29 16:12 4173da6f  scanner/lex.cc
+    
+</pre>
+
+    <em>PLEASE</em> don't use this e-mail interface if you have flexc++ installed
+on your system. Furthermore, no warranty is offered: it might simply not work
+for you.
+    </li></ul>
+<p>
+<!--#include file="macros/sigfrank" -->
+</p><p>
+
+
+</p></body></html>

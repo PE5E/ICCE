@@ -6,17 +6,17 @@
 
 class Data
 {   
-    struct Char2
+    std::vector<std::string> d_data;
+    
+     struct Char2
     {
         char data[2];
     };
     
-    std::vector<std::string> d_data;
-
-    template <typename ClassType>
+    template <typename ClassType>                        // match class type
     static Char2    fun(void (ClassType::*)());
 
-    template <typename NonclassType>
+    template <typename NonclassType>                     // match value type
     static char     fun(...);
 
 public:
@@ -33,14 +33,7 @@ public:
         }
         else                                                   // value
         {
-            try
-            {
-                return static_cast<Type>(d_data[idx]);
-            }
-            catch (...)
-            {
-                return 0;
-            }
+            return static_cast<Type>(*d_data[idx].data());
         }
     }
 };

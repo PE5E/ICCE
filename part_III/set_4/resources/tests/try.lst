@@ -1,0 +1,283 @@
+GAS LISTING /tmp/ccJN8zIh.s 			page 1
+
+
+   1              		.file	"sqrt.cc"
+   2              		.text
+   3              		.section	.text._ZNSt11char_traitsIcE6lengthEPKc,"axG",@progbits,std::char_traits<char>::length(char const*),c
+   4              		.p2align 4,,15
+   5              		.weak	std::char_traits<char>::length(char const*)
+   7              	std::char_traits<char>::length(char const*):
+   8              	.LFB985:
+   9              		.cfi_startproc
+  10 0000 E9000000 		jmp	strlen@PLT
+  10      00
+  11              		.cfi_endproc
+  12              	.LFE985:
+  14              		.text
+  15              		.p2align 4,,15
+  16              		.globl	sqrtArg(double&)
+  18              	sqrtArg(double&):
+  19              	.LFB3796:
+  20              		.cfi_startproc
+  21 0000 660FEFD2 		pxor	%xmm2, %xmm2
+  22 0004 F20F1007 		movsd	(%rdi), %xmm0
+  23 0008 660F2ED0 		ucomisd	%xmm0, %xmm2
+  24 000c F20F51C8 		sqrtsd	%xmm0, %xmm1
+  25 0010 7705     		ja	.L9
+  26 0012 F20F110F 		movsd	%xmm1, (%rdi)
+  27 0016 C3       		ret
+  28              	.L9:
+  29 0017 4883EC18 		subq	$24, %rsp
+  30              		.cfi_def_cfa_offset 32
+  31 001b 48897C24 		movq	%rdi, 8(%rsp)
+  31      08
+  32 0020 F20F110C 		movsd	%xmm1, (%rsp)
+  32      24
+  33 0025 E8000000 		call	sqrt@PLT
+  33      00
+  34 002a 488B7C24 		movq	8(%rsp), %rdi
+  34      08
+  35 002f F20F100C 		movsd	(%rsp), %xmm1
+  35      24
+  36 0034 F20F110F 		movsd	%xmm1, (%rdi)
+  37 0038 4883C418 		addq	$24, %rsp
+  38              		.cfi_def_cfa_offset 8
+  39 003c C3       		ret
+  40              		.cfi_endproc
+  41              	.LFE3796:
+  43              		.section	.rodata.str1.1,"aMS",@progbits,1
+  44              	.LC2:
+  45 0000 696E2063 		.string	"in call: arg = "
+  45      616C6C3A 
+  45      20617267 
+  45      203D2000 
+  46              	.LC3:
+  47 0010 50617373 		.string	"Passed value, returns: "
+  47      65642076 
+  47      616C7565 
+  47      2C207265 
+  47      7475726E 
+  48              	.LC4:
+GAS LISTING /tmp/ccJN8zIh.s 			page 2
+
+
+  49 0028 50617373 		.string	"Passed ref(value), returns: "
+  49      65642072 
+  49      65662876 
+  49      616C7565 
+  49      292C2072 
+  50              		.section	.text.startup,"ax",@progbits
+  51              		.p2align 4,,15
+  52              		.globl	main
+  54              	main:
+  55              	.LFB3798:
+  56              		.cfi_startproc
+  57 0000 4883EC28 		subq	$40, %rsp
+  58              		.cfi_def_cfa_offset 48
+  59 0004 F20F1005 		movsd	.LC1(%rip), %xmm0
+  59      00000000 
+  60 000c 488D7C24 		leaq	16(%rsp), %rdi
+  60      10
+  61 0011 64488B04 		movq	%fs:40, %rax
+  61      25280000 
+  61      00
+  62 001a 48894424 		movq	%rax, 24(%rsp)
+  62      18
+  63 001f 31C0     		xorl	%eax, %eax
+  64 0021 F20F1144 		movsd	%xmm0, 8(%rsp)
+  64      2408
+  65 0027 F20F1144 		movsd	%xmm0, 16(%rsp)
+  65      2410
+  66 002d E8000000 		call	sqrtArg(double&)
+  66      00
+  67 0032 488D3500 		leaq	.LC2(%rip), %rsi
+  67      000000
+  68 0039 488D3D00 		leaq	std::cout(%rip), %rdi
+  68      000000
+  69 0040 BA0F0000 		movl	$15, %edx
+  69      00
+  70 0045 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+  70      00
+  71 004a F20F1044 		movsd	16(%rsp), %xmm0
+  71      2410
+  72 0050 488D3D00 		leaq	std::cout(%rip), %rdi
+  72      000000
+  73 0057 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::basic_ostream<char, std::char_traits<char> >::_M_insert<double>(double)@PLT
+  73      00
+  74 005c 488D7424 		leaq	7(%rsp), %rsi
+  74      07
+  75 0061 BA010000 		movl	$1, %edx
+  75      00
+  76 0066 4889C7   		movq	%rax, %rdi
+  77 0069 C6442407 		movb	$10, 7(%rsp)
+  77      0A
+  78 006e E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+  78      00
+  79 0073 488D3D00 		leaq	.LC3(%rip), %rdi
+  79      000000
+  80 007a E8000000 		call	std::char_traits<char>::length(char const*)
+  80      00
+  81 007f 488D3500 		leaq	.LC3(%rip), %rsi
+GAS LISTING /tmp/ccJN8zIh.s 			page 3
+
+
+  81      000000
+  82 0086 488D3D00 		leaq	std::cout(%rip), %rdi
+  82      000000
+  83 008d 4889C2   		movq	%rax, %rdx
+  84 0090 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+  84      00
+  85 0095 F20F1044 		movsd	8(%rsp), %xmm0
+  85      2408
+  86 009b 488D3D00 		leaq	std::cout(%rip), %rdi
+  86      000000
+  87 00a2 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::basic_ostream<char, std::char_traits<char> >::_M_insert<double>(double)@PLT
+  87      00
+  88 00a7 488D7424 		leaq	4(%rsp), %rsi
+  88      04
+  89 00ac BA010000 		movl	$1, %edx
+  89      00
+  90 00b1 4889C7   		movq	%rax, %rdi
+  91 00b4 C6442404 		movb	$10, 4(%rsp)
+  91      0A
+  92 00b9 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+  92      00
+  93 00be 488D7C24 		leaq	8(%rsp), %rdi
+  93      08
+  94 00c3 E8000000 		call	sqrtArg(double&)
+  94      00
+  95 00c8 488D3500 		leaq	.LC2(%rip), %rsi
+  95      000000
+  96 00cf 488D3D00 		leaq	std::cout(%rip), %rdi
+  96      000000
+  97 00d6 BA0F0000 		movl	$15, %edx
+  97      00
+  98 00db E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+  98      00
+  99 00e0 F20F1044 		movsd	8(%rsp), %xmm0
+  99      2408
+ 100 00e6 488D3D00 		leaq	std::cout(%rip), %rdi
+ 100      000000
+ 101 00ed E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::basic_ostream<char, std::char_traits<char> >::_M_insert<double>(double)@PLT
+ 101      00
+ 102 00f2 488D7424 		leaq	6(%rsp), %rsi
+ 102      06
+ 103 00f7 BA010000 		movl	$1, %edx
+ 103      00
+ 104 00fc 4889C7   		movq	%rax, %rdi
+ 105 00ff C6442406 		movb	$10, 6(%rsp)
+ 105      0A
+ 106 0104 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+ 106      00
+ 107 0109 488D3D00 		leaq	.LC4(%rip), %rdi
+ 107      000000
+ 108 0110 E8000000 		call	std::char_traits<char>::length(char const*)
+ 108      00
+ 109 0115 488D3500 		leaq	.LC4(%rip), %rsi
+ 109      000000
+ 110 011c 488D3D00 		leaq	std::cout(%rip), %rdi
+ 110      000000
+ 111 0123 4889C2   		movq	%rax, %rdx
+GAS LISTING /tmp/ccJN8zIh.s 			page 4
+
+
+ 112 0126 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+ 112      00
+ 113 012b F20F1044 		movsd	8(%rsp), %xmm0
+ 113      2408
+ 114 0131 488D3D00 		leaq	std::cout(%rip), %rdi
+ 114      000000
+ 115 0138 E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::basic_ostream<char, std::char_traits<char> >::_M_insert<double>(double)@PLT
+ 115      00
+ 116 013d 488D7424 		leaq	5(%rsp), %rsi
+ 116      05
+ 117 0142 BA010000 		movl	$1, %edx
+ 117      00
+ 118 0147 4889C7   		movq	%rax, %rdi
+ 119 014a C6442405 		movb	$10, 5(%rsp)
+ 119      0A
+ 120 014f E8000000 		call	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)@PLT
+ 120      00
+ 121 0154 488B4C24 		movq	24(%rsp), %rcx
+ 121      18
+ 122 0159 6448330C 		xorq	%fs:40, %rcx
+ 122      25280000 
+ 122      00
+ 123 0162 7507     		jne	.L13
+ 124 0164 31C0     		xorl	%eax, %eax
+ 125 0166 4883C428 		addq	$40, %rsp
+ 126              		.cfi_remember_state
+ 127              		.cfi_def_cfa_offset 8
+ 128 016a C3       		ret
+ 129              	.L13:
+ 130              		.cfi_restore_state
+ 131 016b E8000000 		call	__stack_chk_fail@PLT
+ 131      00
+ 132              		.cfi_endproc
+ 133              	.LFE3798:
+ 135              		.p2align 4,,15
+ 137              	_GLOBAL__sub_I__Z7sqrtArgRd:
+ 138              	.LFB4471:
+ 139              		.cfi_startproc
+ 140 0170 488D3D00 		leaq	std::__ioinit(%rip), %rdi
+ 140      000000
+ 141 0177 4883EC08 		subq	$8, %rsp
+ 142              		.cfi_def_cfa_offset 16
+ 143 017b E8000000 		call	std::ios_base::Init::Init()@PLT
+ 143      00
+ 144 0180 488B3D00 		movq	std::ios_base::Init::~Init()@GOTPCREL(%rip), %rdi
+ 144      000000
+ 145 0187 488D1500 		leaq	__dso_handle(%rip), %rdx
+ 145      000000
+ 146 018e 488D3500 		leaq	std::__ioinit(%rip), %rsi
+ 146      000000
+ 147 0195 4883C408 		addq	$8, %rsp
+ 148              		.cfi_def_cfa_offset 8
+ 149 0199 E9000000 		jmp	__cxa_atexit@PLT
+ 149      00
+ 150              		.cfi_endproc
+ 151              	.LFE4471:
+ 153              		.section	.init_array,"aw"
+GAS LISTING /tmp/ccJN8zIh.s 			page 5
+
+
+ 154              		.align 8
+ 155 0000 00000000 		.quad	_GLOBAL__sub_I__Z7sqrtArgRd
+ 155      00000000 
+ 156              		.local	std::__ioinit
+ 157              		.comm	std::__ioinit,1,1
+ 158              		.section	.rodata.cst8,"aM",@progbits,8
+ 159              		.align 8
+ 160              	.LC1:
+ 161 0000 00000000 		.long	0
+ 162 0004 00000840 		.long	1074266112
+ 163              		.hidden	__dso_handle
+ 164              		.ident	"GCC: (GNU) 7.3.0"
+ 165              		.section	.note.GNU-stack,"",@progbits
+GAS LISTING /tmp/ccJN8zIh.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sqrt.cc
+     /tmp/ccJN8zIh.s:7      .text._ZNSt11char_traitsIcE6lengthEPKc:0000000000000000 std::char_traits<char>::length(char const*)
+     /tmp/ccJN8zIh.s:18     .text:0000000000000000 sqrtArg(double&)
+     /tmp/ccJN8zIh.s:54     .text.startup:0000000000000000 main
+     /tmp/ccJN8zIh.s:137    .text.startup:0000000000000170 _GLOBAL__sub_I__Z7sqrtArgRd
+                             .bss:0000000000000000 std::__ioinit
+     /tmp/ccJN8zIh.s:160    .rodata.cst8:0000000000000000 .LC1
+     /tmp/ccJN8zIh.s:44     .rodata.str1.1:0000000000000000 .LC2
+     /tmp/ccJN8zIh.s:46     .rodata.str1.1:0000000000000010 .LC3
+     /tmp/ccJN8zIh.s:48     .rodata.str1.1:0000000000000028 .LC4
+
+UNDEFINED SYMBOLS
+_GLOBAL_OFFSET_TABLE_
+strlen
+sqrt
+std::cout
+std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+std::basic_ostream<char, std::char_traits<char> >& std::basic_ostream<char, std::char_traits<char> >::_M_insert<double>(double)
+__stack_chk_fail
+std::ios_base::Init::Init()
+std::ios_base::Init::~Init()
+__dso_handle
+__cxa_atexit

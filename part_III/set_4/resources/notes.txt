@@ -1,0 +1,902 @@
+* decltype is always followed by expression between parentheses:
+	decltype(something)
+* in the context of decltype, 'expression' means expression that is not just a plain variable
+* the compiler will see if a reference could be appended. If so, it does.
+
+* example:
+struct Data
+{
+	vector<string> d_vs;
+	string *d_val = new string[10];
+	
+	Data()
+	:
+		d_vs(1)			// initialize d_vs with value 1
+	{}
+
+	auto autoFun() const		// d_val[0] is a string, this function returns a string
+	{
+		return d_val[0];
+	}
+
+	decltype(auto) declArr() const	// d_val[0] is an expression, decltype(auto) is string&
+	{
+		return d_val[0];
+	}
+
+	decltype(auto) declVect() const	// as above, but const
+	{
+		return d_vs[0];
+	}
+};
+
+* late-specified return type
+	
+	template <typename Lhs, typename Rhs>
+	(lhs + rhs) add(Lhs lhs, Rhs, rhs
+
+* reference wrappers
+	- sometimes the compiler can't infer that a ref is passed
+	example:
+	template <typename Type>
+	void outer(Type t)
+	{
+		t.x();
+	}
+	void useInt()
+	{
+		int arg;
+		outer(arg);
+	}
+	
+	example:
+	void sqrtArg(double &arg)
+	{
+		arg = sqrt(arg);
+	}
+	template<typename Fun, typename Arg>
+	void call(Fun fun, Arg arg)
+	{
+		fun(arg);
+		cout << "in call: arg = " << arg << '\n';
+	}
+	
+	Here, a double is not accepted as ref by call. We can do this explicitly:
+
+	int main()
+	[
+		double value = 2;
+		call(sqrtArg, value);
+		cout << "Passed value, returns: " << value << '\n';
+		
+		call(sqrtArg, ref(value));
+		cout << "Passed ref(value), returns: " << value << '\n';
+	}
+
+local and unnamed types as template arguments	
+
+anonymous type:
+	
+	enum
+	{
+		v1,
+		v2,
+		v3,
+	};
+	
+	template <typename T>
+	void fun(T &&t)
+	{
+		T var(t);
+	}
+
+	fun(V1);	
+
+Template parameter deduction
+
+example where compiled can't call fun because it can not deduce the actual type
+
+	template <typename Type>
+	Type fun()
+	{
+		return Type{};
+	}
+
+	- promotions are limited when generating code using templates	
+	
+22.01 Template Argument Deduction
+	template <typename T>
+	void fun(T const &param);
+
+	vector<int> vi;
+	fun(vi)
+
+	won't work:
+	
+	template <typename T>
+	struct Fun
+	{
+		Fun(T const &param);
+	}
+	
+	vector<int> vi;
+	Fun fun(vi);
+			// note that vi is an argument for the constructor of Fun, 
+			// but is not picked up by the templating of the struct Fun!
+	the 'solution' for this is a helper function which does the rest.
+
+	template <class ... Types> 	// any set of types
+	class Deduce
+	{
+		public:
+			Deduce(Types ...params);	// constructor
+			void fun();
+	};
+
+	Deduce first{1}; 	// int, Deduce<int> first{1} 
+	Deduce second;;		// nothing, Deduce<> second;
+	Deduce &&ref = Deduce<int>{1}; // Deduce<int> &&
+
+	template <class Type>
+	Deduce third{ static_cast<Toype *>(0) }; // static cast to nullptr?
+
+	Steps of deduction
+	- list of constructors formed
+	
+	template <class OuterType>
+	class outer
+	{
+		public:
+			template <class InnerType>
+			struct Inner
+			{
+				Inner(OuterType);
+				Inner(OuterType, InnerType);
+				template <typename ExtraType>
+				Inner(Extratype, InnerType);
+			};
+	};
+
+	explicit conversions:
+
+	template <class T>
+	struct Class
+	{
+		struct Iterator
+		{
+			typedef T type;
+		};
+		
+		Class(Type t)					// constructor
+		
+		Class(Iterator begin, Iterator end)		// constructor
+		{}
+
+		template <class Tp>				// constructors
+		class(Tp a, Tp b)
+		{}
+		
+		Iterator begin();
+		Iterator end();
+	};
+
+	implementation: (the same for all class types!)
+
+	template <class T>
+	Class<T>::Class(Iterator begin, Iterator end)
+	{
+		while (begin != end)
+			d_data.push_back(*begin++);
+	}
+
+Chapter 23: Advanced template use
+
+	22.2.1 Extended use of 'typename' 
+	- typename indicates template type parameter
+	- BUT: also to disambiguate code in templates!
+		template <typename Type>
+		Type function(Type t)
+		{
+			Type::Ambiguous *ptr;
+			return t + *ptr;
+		}	
+		- Type is not yet available
+		- Two options:
+			* Type::Ambiguous is a /static member/ 
+			*      		  is a /subtype/
+		- Standard specifies the former.
+		----> Compiler thinks you want to multiply ptr with Type::Ambiguous 	
+	- typename can be used to disambiguate code like this:
+
+	template <typename Type>
+	Type function(Type t)
+	{
+		typename Type::Ambiguous *ptr; // tell the compiler that we are talking about a subTYPE.
+		return t + *ptr;
+	}
+
+    template <typename Container>
+    class Handler
+    {
+        Container::const_iterator d_it;             // data member, class
+                                                    // subtype
+
+        public:                                     
+            Handler(Container const &container)     // constructor
+            :
+                d_it(container.begin())             // initialize
+            {}
+    };
+
+23.1.1: Returning types nested under class templates
+
+    template <typename T>
+    class Outer
+    {
+        public:
+            class Nested                // class in class
+            {};
+            Nested nested() const       // factory
+            {
+                return Nested{};        // construction
+            }
+    };
+    
+    However: good practice says
+        * inline and template members should be implemented below the interfaces.
+    
+    template <typename T>       
+    class Outer
+    {
+        public:
+            class Nested                // class declaration
+            {};
+
+            Nested nested() const;      // factory function declaration
+    };
+
+    template <typename T>               
+    Outer<T>::Nested Outer<T>::nested() const       // notice the subtype
+    {
+        return Nested{};
+    }
+
+    while you are in the class, Nested is a perfectly normal type.
+    but outside, it is a subtype of a templated class !
+    
+    fix:
+    template <typename T>
+    typename Outer<t>::nested Outer<T>::nested() const
+    {   
+        return Nested{};
+    }
+    
+23.1.2 Type resolution for base class members
+
+#include <iostream>
+
+template <typename T>
+class Base
+{
+    public:
+        void member();
+};
+
+template <typename T>
+void Base<T>::member()
+{
+    std::cout << "This is Base<T>::member() \n";
+}
+
+template <typename T>
+class Derived: public Base<T>
+{
+    public:
+        Derived();
+};
+
+template <typename T>
+Derived<T>::Derived()
+{
+    member();
+    // here the compiler won't know what type to give to member!
+}
+
+solution: postpone decision about type
+    - using 'this'
+    - explicit mention of base class
+    
+ #include <iostream>
+
+    template <typename T>
+    class Base
+    {
+        public:
+            void member();
+    };
+    template <typename T>
+    void Base<T>::member()
+    {
+        std::cout << "This is Base<T>::member()\n";
+    }
+    template <>
+    void Base<int>::member()
+    {
+        std::cout << "This is the int-specialization\n";
+    }
+    template <typename T>
+    class Derived: public Base<T>
+    {
+        public:
+            Derived();
+            virtual void member();          // NOTE VIRTUAL!
+    };
+    template <typename T>
+    void Derived<T>::member()
+    {
+        std::cout << "This is Derived<T>::member()\n";
+    }
+    template <typename T>
+    Derived<T>::Derived()
+    {
+        this->member();         // Using `this' implies using the
+                                // type for which T was instantiated
+        Derived<T>::member();   // Same: calls the Derived member
+        Base<T>::member();      // Same: calls the Base member
+        std::cout << "Derived<T>::Derived() completed\n";
+    }
+
+    int main()
+    {
+        Derived<double> d;
+        Derived<int> i;
+    }
+
+    /*
+        Generated output:
+    This is Derived<T>::member()
+    This is Derived<T>::member()
+    This is Base<T>::member()
+    Derived<T>::Derived() completed
+    This is Derived<T>::member()
+    This is Derived<T>::member()
+    This is the int-specialization
+    Derived<T>::Derived() completed
+    */
+
+22.3 Specializing class templates for deviating types
+- Sometimes inheritance is better than specialization
+    Specialized members inherit nothing!
+- Use specialization for really different stuff!
+
+22.3.1 Example
+
+#ifndef INCLUDED_CIRQUEVECTOR_H_
+#define INCLUDED_CIRQUEVECTOR_H_
+
+#include <vector>
+#include "cirque.h"
+
+template<>
+class CirQue<std::vector<int>>
+{
+    typedef std::vector<int> IntVect;       // custom type
+    
+    IntVect d_data;                         // data member
+    size_t  d_size;                         // size of data
+    
+    typedef IntVect::iterator iterator;     // iterator custom type
+    iterator d_front;                       
+    iterator d_back;
+
+    public:
+        typedef int value_type;
+        typedef value_type const &const_reference;
+
+        enum Exception
+        {
+            EMPTY,
+            FULL
+        };
+                                                // constructors
+        CirQue();
+        CirQue(IntVect const &iv);
+        CirQue(CirQue<IntVect> const &other);
+
+        CirQue &operator=(CirQue<IntVect> const &other);
+
+        int &back();
+        int &front();
+        bool empty() const;
+        bool full() const;
+        size_t maxSize() const;
+        size_t size() const;
+        void pop_front();
+        void push_back(int const &object);
+        void swap(CirQue<IntVect> &other);
+
+    private:
+        iterator inc(iterator const &iter);
+};
+
+CirQue<std::vector<int>>::CirQue()
+:
+    d_size(0)
+{}
+CirQue<std::vector<int>>::CirQue(IntVect const &iv)
+:
+    d_data(iv),
+    d_size(iv.size()),
+    d_front(d_data.begin()),
+    d_back(d_data.begin())
+{}
+CirQue<std::vector<int>>::CirQue(CirQue<IntVect> const &other)
+:
+    d_data(other.d_data),
+    d_size(other.d_size),
+    d_front(d_data.begin() + (other.d_front - other.d_data.begin())),
+    d_back(d_data.begin() + (other.d_back - other.d_data.begin()))
+{}
+CirQue<std::vector<int>> &CirQue<std::vector<int>>::operator=(
+                                        CirQue<IntVect> const &rhs)
+{
+    CirQue<IntVect> tmp(rhs);
+    swap(tmp);
+}
+
+void CirQue<std::vector<int>>::swap(CirQue<IntVect> &other)
+{
+    char tmp[sizeof(CirQue<IntVect>)];
+    memcpy(tmp, &other, sizeof(CirQue<IntVect>));
+    memcpy(&other, this, sizeof(CirQue<IntVect>));
+    memcpy(this, tmp, sizeof(CirQue<IntVect>));
+}
+void CirQue<std::vector<int>>::pop_front()
+{
+    if (d_size == 0)
+        throw EMPTY;
+
+    d_front = inc(d_front);
+    --d_size;
+}
+void CirQue<std::vector<int>>::push_back(int const &object)
+{
+    if (d_size == d_data.size())
+        throw FULL;
+
+    *d_back = object;
+    d_back = inc(d_back);
+    ++d_size;
+}
+inline int &CirQue<std::vector<int>>::back()
+{
+    return d_back == d_data.begin() ? d_data.back() : d_back[-1];
+}
+inline int &CirQue<std::vector<int>>::front()
+{
+    return *d_front;
+}
+CirQue<std::vector<int>>::iterator CirQue<std::vector<int>>::inc(
+    CirQue<std::vector<int>>::iterator const &iter)
+{
+    iterator tmp(iter + 1);
+    tmp =  tmp == d_data.end() ? d_data.begin() : tmp;
+    return tmp;
+}
+
+#endif
+
+22.4 Partial specializations
+- function templates don't have partial specialization!
+    You can just overload on the specialized parameters.
+    Compiler prefers that over the generic template.
+-
+
+Variadic templates
+
+23.1.3 ::template, .template, ->template
+
+- sometimes, the token < can't be parsed!
+
+example:
+
+    template <typename Type>
+    class Outer
+    {
+        public:
+            template <typename InType>
+            class Inner
+            {
+                template <typename X>
+                void nested();
+            }
+    };
+    
+    template <typename T1, typename T2>
+    class Usage
+    {
+        public:
+                void caller(Outer<T1>::Inner<T2> &obj);
+                ...
+    };
+    
+    - caller expects an object of the nested kind defined above.
+    - compiler reads Outer<T1>::Inner, gives error (never got to <T2>!)
+    fix:
+    void caller(Outer<T1>::template Inner<T2> &obj);
+        // here 'template' tells compiler to read < correctly
+    because it's a nested type we need to add also typename:
+    void called(Outer<T1>::template typename Inner<T2> &obj);
+    
+23.2 Template Meta Programming
+- Prefer values as enums in template programming
+- enums don't require linkage (Pure symbolic values)
+
+Consider casts.
+    - 'turns off compiler checks'
+    example of extreme bs:
+    int intVar = 12;
+    ostream &ostr = reinterpret_cast<ostream &>(intVar);
+    // COMPILER WILL NOT WARN!
+    
+    principle:
+        - source type should not be  smaller
+        
+    template<typename Target, typename Source>
+    Target &reinterpret_to_smaller_cast(Source &source)
+    {
+        enum
+        {
+            the_Target_size_exceeds_the_Source_size =
+                1 / (sizeof(Target) <= sizeof(Source))
+        };
+        return reinterpret_cast<Target &>(source);
+    }
+    
+23.2.1.1 Converting Integral types to types
+situation:
+    - value is available to specialize
+    - type has to be used to specialize 
+    example:
+    template <int x>
+    struct InType
+    {
+        enum { value = x };
+    };
+    use:
+    int main()
+    {
+        IntType<1> it;
+        cout << "IntType<1> objects have value: " << it.value << "\n" 
+             << "IntType<2> objects are of a different type "
+                "and have values " 
+             << IntType<2>().value << '\n';
+             
+23.2.2 Selecting alternatives using templates
+
+    essence: "no executable code"
+    
+    template <typename Type, bool isPolymorphic>
+    class Storage
+    
+    Problem: can't overload by argument value, only by argument TYPE
+    Solution: convert True and False to Types!
+    
+    template <typename Type, bool isPolymorphic>
+    void Storage<Type, isPolymorphic::add(Type const &obj,
+                                          IntType<false>)
+    {
+        d_data.push_back(obj.clone());
+    }
+    
+23.2.2.2: Class structure as a function of template paramaters
+
+- value class objects can be stored by value
+- some engineers therefore prefer it over pointers
+- so:
+    - store Polymorphic classes by pointer 
+    - store value classes by value
+    
+generic form:
+    template<bool selector, typename FirstType, typename SecondType>
+    struct IfElse
+    {
+    typedef FirstType type;
+    };
+    
+specialization:
+    template<typename FirstType, typename SecondType>
+    struct IfEsle<false, FirstType, SecondType>
+    {
+        typedef SecondType type;
+    };
+    
+- we now have data dependent on template non-type paramaters.
+- use this for the pointer/value distinction
+
+template <typename Type, bool isPolymorphic>
+class Storage
+{                                 // data type depends on isPolymorphic
+    typedef typename IfElse<isPolymorphic,
+                            Type *,
+                            Type>::type
+                            DataType;
+                                  // a vector of the data
+    std::vector<DataType> d_data;
+    
+    private:
+        void add(Type const &obj, IntType<true>);
+        void add(Type const &obj, IntType<false>);
+    public:
+        void add(Type const &obj);
+}
+
+    // implementation of the <true> add function
+    // Note that the template still has the bool
+    // but the add function argument is specified
+    // so this is a function overload which fits
+    // only if isPolymorphic = true
+template <typename Type, bool isPolymorphic>
+void Storage<Type, isPolymorphic>::add(Type const &obj, IntType<true>)
+{
+    d_data.push_back(obj.clone());          // insert value
+}
+
+    // implementation of the <false> add function
+template <typename Type, bool isPolymorphic>
+void Storage<Type, isPolymorphi>::add(Type const &obj, IntType<false>)
+{
+    d_data.push_back(obj);                  // insert reference
+};
+
+    // implementation of the generic add function,
+    // converts isPolymorphic (bool value) to a IntType<isPolymorphic> 
+    // which is a class type. It then calls one of the other add
+    // functions
+template <typename Type, bool isPolymorphic>
+void Storage<Type, isPolymorphic>::add(Type const &obj)
+{
+    add(obj, IntType<isPolymorphic>());
+}
+
+23.2.2.3 An illustrative example
+
+template <typename KLey, typename Value, int selector>
+class Storage
+{   
+    // this type is dependent on a shitload of conditions
+    // 
+    typedef typename IfElse<
+        selector = 1,
+        map<Key, Value>,
+        
+        typename IfElse<
+            selector == 2,
+            map<Key, Value *>,
+        
+            typename IfElse<
+                selector == 3,
+                map<Key *, Value>,
+                map<Key *, Value*>
+            >::type
+        >::type
+    >::type
+    MapType;
+    
+    MapType d_map;
+    
+    public:             // the generic function
+        void add(Key const &key,
+                 Value const &value);
+    private             // the specializations
+        void add(Key const &key,
+                 Value const &value,
+                 IntType<1>);
+        ...
+};
+// generic implementation:
+// 
+template <typename Key, 
+          typename Value, 
+          int selector>
+inline void Storage<Selector, 
+                    Key, 
+                    Value>::add(Key const &key, 
+                                Value const &value)
+{
+    add(key, 
+        value, 
+        IntType<selector>()
+        );
+}
+
+23.2.3 Templates: Iterations by Recursion
+- TMP has no variables
+- no for or while statements
+- recursion!
+
+23.3: User-defined literals
+
+23.4.1 Policy classes - I
+
+- define part of class interface 
+- allocations schemes? use:
+    - template classes
+    - std::allocator 
+example:
+
+template <typename Data>
+class PlainAlloc: public std::allocator<Data>           // inherit from correct allocator
+{
+    template <typename IData>                           // declare insertion
+    friend std::ostream &operator<<(std::ostream &out,
+                                    PlainAlloc<IData> const &alloc);
+    
+    Data d_data;                                        // the data
+    
+    public:
+        PlainAlloc()                                    
+        {}
+        
+        PlainAlloc(Data const &data)
+        :
+            d_data(data)
+        {}
+        PlainAlloc(PlainAlloc<Data> const &other)
+        :
+            d_data(other.d_data)
+        {}
+};
+
+example 2:
+
+template <typename Data>
+class NewAlloc: public std::allocator<Data>
+{
+    template<typename IData>
+    friend std::ostream &operator<<(std::ostream &out,
+                                    NewAlloc<IData> const &alloc);
+    Data *d_data;
+    public:
+        NewAlloc()
+        :
+            d_data(0)
+        {}
+        NewAlloc(NewAlloc<Data> const &other)
+        :
+            d_data(new Data(*other.d_data))
+        {}
+        ~NewAlloc()
+        {
+            delete d_data;
+        }
+};
+
+23.4.2 Policy classes II
+
+    template <typename Data, template <typename> class policy>
+    class Storage: public Policy<Data>
+    
+    - template template parameter
+        + keyword template
+        + list of template parameters (named or not)
+        + template template parameters must match
+    
+    real code example:
+    
+    template <typename Dta, template <typename> class Allocate>
+    class Storage: public std::vector<Data, Allocate<Data>>
+    {};
+    
+    Here's how the 'Allocate' policy is used:
+    
+    Storage<std::string, NewAlloc storage; // if selected the NewAlloc scheme
+    
+    copy(istream_iterator<std::string>(cin),
+         istream_iterator<std::string>()
+         back_inserter(storage));
+         
+    cout << "Element index 1 is " << storage[1] << '\n';
+    storage[1] = "hello";
+    
+    copy(storage.begin(0,
+         storage.end(),
+         ostream_iterator<NewAlloc<std::string> >(cout, "\n"));
+
+23.5 Alias templates
+- as arguments to template template parameters
+
+template <typename Type>
+using Vector = std::vector<Type>
+
+Vector<int> vi;
+std::vector<int> vi2(vi);
+
+template <typename Type, template <typename> class Container>
+class Generic: public Container<Type>
+{
+    ...
+};
+
+23.6 Trait classes
+- compile type decisions about types
+- data to use from type specified when template is used
+- compiler can choose:
+    - pointer
+    - pointer to member 
+    - const pointer
+    - lvalue vs rvalue
+- allows templates that define types like
+    + argument_type
+    + first_argument_type
+    + second_argument_type
+    + result_type
+- trait class usually has no behaviour:
+    - no constructor
+    - no members
+- instead:
+    - types
+    - enum values dependent on type passed to trait class template
+    - point of departure: plain struct
+- example
+    BasicTraits 
+        to disambiguate between
+            plain value 
+            pointer
+            lvalue ref
+            rvalue ref 
+
+the generic thing:
+
+    template <typename T>
+    struct Basic
+    {
+        typedef T Type;
+        enum
+        {
+            isPointer = false,
+            isConst = false,
+            isRef = false
+            isRRef = false
+        };
+    };
+    
+pointer special:
+
+    template <typename T>           // template ignores *
+    struct Basic<T*>
+    {
+        typedef T Type;
+        enum
+        {
+            isPointer   = true,
+            isConst     = false,
+            isRef       = false,
+            isRRef      = false
+        };
+    };
+         
+const pointer special:
+
+    template <typename T>
+    struct Basic<T const *>
+    etc...
+    
+- Basis is used in BasicTraits:
+
+template <typename TypeParam>
+class BasicTraits
+{
+    // define specials of Base here
+    public:
+        BasicTraits(BasicTraits const &other) = delete;
+        
+        typedef typename Basic<TypeParam>::Type ValueType;
+        
+etc...
+
+
+
+23.6.1 class vs non-class Types
+template <typename ClassType>
+static 'some returntype' fun(void (ClassType::*)());

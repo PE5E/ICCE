@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 class Data
 {   
@@ -24,7 +25,7 @@ public:
     Data(std::vector<std::string> &initial);                   // constructor
     
     template <typename Type>
-    auto get(size_t idx)
+    decltype(auto) get(size_t idx)
     {
         if constexpr ( sizeof(fun<Type>(0)) == sizeof(Char2) ) // class
         {   
@@ -33,7 +34,14 @@ public:
         }
         else                                                   // value
         {
-            return static_cast<Type>(*d_data[idx].data());
+            try
+            {
+                return static_cast<Type>(*d_data[idx].data());
+            }
+            catch (...)
+            {
+                return static_cast<Type>(0);
+            }
         }
     }
 };

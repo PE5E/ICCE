@@ -34,14 +34,7 @@ public:
         }
         else                                                   // value
         {
-            try
-            {
-                return static_cast<Type>(*d_data[idx].data());
-            }
-            catch (...)
-            {
-                return static_cast<Type>(0);
-            }
+            return static_cast<Type>(*d_data[idx].data());
         }
     }
 };

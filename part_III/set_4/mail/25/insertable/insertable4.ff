@@ -1,0 +1,5 @@
+template <template <typename> class Container, typename Data>
+Insertable<Container, Data>::Insertable(Data &&data)
+:
+    Container<Data>(1, data)
+{}

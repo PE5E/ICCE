@@ -1,0 +1,291 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: Table of Contents</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: Table of Contents">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: Table of Contents">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="SEC_Contents"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>Table of Contents</h1>
+<div class="contents">
+
+<ul class="toc">
+  <li><a name="TOC1" href="flex_1.html#SEC1">1. Copyright</a></li>
+  <li><a name="TOC2" href="flex_2.html#SEC2">2. Reporting Bugs</a></li>
+  <li><a name="TOC3" href="flex_3.html#SEC3">3. Introduction</a></li>
+  <li><a name="TOC4" href="flex_4.html#SEC4">4. Some Simple Examples</a></li>
+  <li><a name="TOC5" href="flex_5.html#SEC5">5. Format of the Input File</a>
+  <ul class="toc">
+    <li><a name="TOC6" href="flex_5.html#SEC6">5.1 Format of the Definitions Section</a></li>
+    <li><a name="TOC7" href="flex_5.html#SEC7">5.2 Format of the Rules Section</a></li>
+    <li><a name="TOC8" href="flex_5.html#SEC8">5.3 Format of the User Code Section</a></li>
+    <li><a name="TOC9" href="flex_5.html#SEC9">5.4 Comments in the Input</a></li>
+  </ul></li>
+  <li><a name="TOC10" href="flex_6.html#SEC10">6. Patterns</a></li>
+  <li><a name="TOC11" href="flex_7.html#SEC11">7. How the Input Is Matched</a></li>
+  <li><a name="TOC12" href="flex_8.html#SEC12">8. Actions</a></li>
+  <li><a name="TOC13" href="flex_9.html#SEC13">9. The Generated Scanner</a></li>
+  <li><a name="TOC14" href="flex_10.html#SEC14">10. Start Conditions</a></li>
+  <li><a name="TOC15" href="flex_11.html#SEC15">11. Multiple Input Buffers</a></li>
+  <li><a name="TOC16" href="flex_12.html#SEC16">12. End-of-File Rules</a></li>
+  <li><a name="TOC17" href="flex_13.html#SEC17">13. Miscellaneous Macros</a></li>
+  <li><a name="TOC18" href="flex_14.html#SEC18">14. Values Available To the User</a></li>
+  <li><a name="TOC19" href="flex_15.html#SEC19">15. Interfacing with Yacc</a></li>
+  <li><a name="TOC20" href="flex_16.html#SEC20">16. Scanner Options</a>
+  <ul class="toc">
+    <li><a name="TOC21" href="flex_16.html#SEC21">16.1 Options for Specifing Filenames</a></li>
+    <li><a name="TOC22" href="flex_16.html#SEC22">16.2 Options Affecting Scanner Behavior</a></li>
+    <li><a name="TOC23" href="flex_16.html#SEC23">16.3 Code-Level And API Options</a></li>
+    <li><a name="TOC24" href="flex_16.html#SEC24">16.4 Options for Scanner Speed and Size</a></li>
+    <li><a name="TOC25" href="flex_16.html#SEC25">16.5 Debugging Options</a></li>
+    <li><a name="TOC26" href="flex_16.html#SEC26">16.6 Miscellaneous Options</a></li>
+  </ul></li>
+  <li><a name="TOC27" href="flex_17.html#SEC27">17. Performance Considerations</a></li>
+  <li><a name="TOC28" href="flex_18.html#SEC28">18. Generating C++ Scanners</a></li>
+  <li><a name="TOC29" href="flex_19.html#SEC29">19. Reentrant C Scanners</a>
+  <ul class="toc">
+    <li><a name="TOC30" href="flex_19.html#SEC30">19.1 Uses for Reentrant Scanners</a></li>
+    <li><a name="TOC31" href="flex_19.html#SEC31">19.2 An Overview of the Reentrant API</a></li>
+    <li><a name="TOC32" href="flex_19.html#SEC32">19.3 Reentrant Example</a></li>
+    <li><a name="TOC33" href="flex_19.html#SEC33">19.4 The Reentrant API in Detail</a>
+    <ul class="toc">
+      <li><a name="TOC34" href="flex_19.html#SEC34">19.4.1 Declaring a Scanner As Reentrant</a></li>
+      <li><a name="TOC35" href="flex_19.html#SEC35">19.4.2 The Extra Argument</a></li>
+      <li><a name="TOC36" href="flex_19.html#SEC36">19.4.3 Global Variables Replaced By Macros</a></li>
+      <li><a name="TOC37" href="flex_19.html#SEC37">19.4.4 Init and Destroy Functions</a></li>
+      <li><a name="TOC38" href="flex_19.html#SEC38">19.4.5 Accessing Variables with Reentrant Scanners</a></li>
+      <li><a name="TOC39" href="flex_19.html#SEC39">19.4.6 Extra Data</a></li>
+      <li><a name="TOC40" href="flex_19.html#SEC40">19.4.7 About yyscan_t</a></li>
+    </ul></li>
+    <li><a name="TOC41" href="flex_19.html#SEC41">19.5 Functions and Macros Available in Reentrant C Scanners</a></li>
+  </ul></li>
+  <li><a name="TOC42" href="flex_20.html#SEC42">20. Incompatibilities with Lex and Posix</a></li>
+  <li><a name="TOC43" href="flex_21.html#SEC43">21. Memory Management</a>
+  <ul class="toc">
+    <li><a name="TOC44" href="flex_21.html#SEC44">21.1 The Default Memory Management</a></li>
+    <li><a name="TOC45" href="flex_21.html#SEC45">21.2 Overriding The Default Memory Management</a></li>
+    <li><a name="TOC46" href="flex_21.html#SEC46">21.3 A Note About yytext And Memory</a></li>
+  </ul></li>
+  <li><a name="TOC47" href="flex_22.html#SEC47">22. Serialized Tables</a>
+  <ul class="toc">
+    <li><a name="TOC48" href="flex_22.html#SEC48">22.1 Creating Serialized Tables</a></li>
+    <li><a name="TOC49" href="flex_22.html#SEC49">22.2 Loading and Unloading Serialized Tables</a></li>
+    <li><a name="TOC50" href="flex_22.html#SEC50">22.3 Tables File Format</a></li>
+  </ul></li>
+  <li><a name="TOC51" href="flex_23.html#SEC51">23. Diagnostics</a></li>
+  <li><a name="TOC52" href="flex_24.html#SEC52">24. Limitations</a></li>
+  <li><a name="TOC53" href="flex_25.html#SEC53">25. Additional Reading</a></li>
+  <li><a name="TOC54" href="flex_26.html#SEC54">FAQ</a>
+  <ul class="toc">
+    <li><a name="TOC55" href="flex_26.html#SEC55">When was flex born?</a></li>
+    <li><a name="TOC56" href="flex_26.html#SEC56">How do I expand \ escape sequences in C-style quoted strings?</a></li>
+    <li><a name="TOC57" href="flex_26.html#SEC57">Why do flex scanners call fileno if it is not ANSI compatible?</a></li>
+    <li><a name="TOC58" href="flex_26.html#SEC58">Does flex support recursive pattern definitions?</a></li>
+    <li><a name="TOC59" href="flex_26.html#SEC59">How do I skip huge chunks of input (tens of megabytes) while using flex?</a></li>
+    <li><a name="TOC60" href="flex_26.html#SEC60">Flex is not matching my patterns in the same order that I defined them.</a></li>
+    <li><a name="TOC61" href="flex_26.html#SEC61">My actions are executing out of order or sometimes not at all.</a></li>
+    <li><a name="TOC62" href="flex_26.html#SEC62">How can I have multiple input sources feed into the same scanner at the same time?</a></li>
+    <li><a name="TOC63" href="flex_26.html#SEC63">Can I build nested parsers that work with the same input file?</a></li>
+    <li><a name="TOC64" href="flex_26.html#SEC64">How can I match text only at the end of a file?</a></li>
+    <li><a name="TOC65" href="flex_26.html#SEC65">How can I make REJECT cascade across start condition boundaries?</a></li>
+    <li><a name="TOC66" href="flex_26.html#SEC66">Why can't I use fast or full tables with interactive mode?</a></li>
+    <li><a name="TOC67" href="flex_26.html#SEC67">How much faster is -F or -f than -C?</a></li>
+    <li><a name="TOC68" href="flex_26.html#SEC68">If I have a simple grammar can't I just parse it with flex?</a></li>
+    <li><a name="TOC69" href="flex_26.html#SEC69">Why doesn't yyrestart() set the start state back to INITIAL?</a></li>
+    <li><a name="TOC70" href="flex_26.html#SEC70">How can I match C-style comments?</a></li>
+    <li><a name="TOC71" href="flex_26.html#SEC71">The '.' isn't working the way I expected.</a></li>
+    <li><a name="TOC72" href="flex_26.html#SEC72">Can I get the flex manual in another format?</a></li>
+    <li><a name="TOC73" href="flex_26.html#SEC73">Does there exist a &quot;faster&quot; NDFA-&gt;DFA algorithm?</a></li>
+    <li><a name="TOC74" href="flex_26.html#SEC74">How does flex compile the DFA so quickly?</a></li>
+    <li><a name="TOC75" href="flex_26.html#SEC75">How can I use more than 8192 rules?</a></li>
+    <li><a name="TOC76" href="flex_26.html#SEC76">How do I abandon a file in the middle of a scan and switch to a new file?</a></li>
+    <li><a name="TOC77" href="flex_26.html#SEC77">How do I execute code only during initialization (only before the first scan)?</a></li>
+    <li><a name="TOC78" href="flex_26.html#SEC78">How do I execute code at termination?</a></li>
+    <li><a name="TOC79" href="flex_26.html#SEC79">Where else can I find help?</a></li>
+    <li><a name="TOC80" href="flex_26.html#SEC80">Can I include comments in the &quot;rules&quot; section of the file?</a></li>
+    <li><a name="TOC81" href="flex_26.html#SEC81">I get an error about undefined yywrap().</a></li>
+    <li><a name="TOC82" href="flex_26.html#SEC82">How can I change the matching pattern at run time?</a></li>
+    <li><a name="TOC83" href="flex_26.html#SEC83">How can I expand macros in the input?</a></li>
+    <li><a name="TOC84" href="flex_26.html#SEC84">How can I build a two-pass scanner?</a></li>
+    <li><a name="TOC85" href="flex_26.html#SEC85">How do I match any string not matched in the preceding rules?</a></li>
+    <li><a name="TOC86" href="flex_26.html#SEC86">I am trying to port code from AT&amp;T lex that uses yysptr and yysbuf.</a></li>
+    <li><a name="TOC87" href="flex_26.html#SEC87">Is there a way to make flex treat NULL like a regular character?</a></li>
+    <li><a name="TOC88" href="flex_26.html#SEC88">Whenever flex can not match the input it says &quot;flex scanner jammed&quot;.</a></li>
+    <li><a name="TOC89" href="flex_26.html#SEC89">Why doesn't flex have non-greedy operators like perl does?</a></li>
+    <li><a name="TOC90" href="flex_26.html#SEC90">Memory leak - 16386 bytes allocated by malloc.</a></li>
+    <li><a name="TOC91" href="flex_26.html#SEC91">How do I track the byte offset for lseek()?</a></li>
+    <li><a name="TOC92" href="flex_26.html#SEC92">25.1 How do I use my own I/O classes in a C++ scanner?</a></li>
+    <li><a name="TOC93" href="flex_26.html#SEC93">How do I skip as many chars as possible?</a></li>
+    <li><a name="TOC94" href="flex_26.html#SEC94">deleteme00</a></li>
+    <li><a name="TOC95" href="flex_26.html#SEC95">Are certain equivalent patterns faster than others?</a></li>
+    <li><a name="TOC96" href="flex_26.html#SEC96">Is backing up a big deal?</a></li>
+    <li><a name="TOC97" href="flex_26.html#SEC97">Can I fake multi-byte character support?</a></li>
+    <li><a name="TOC98" href="flex_26.html#SEC98">deleteme01</a></li>
+    <li><a name="TOC99" href="flex_26.html#SEC99">Can you discuss some flex internals?</a></li>
+    <li><a name="TOC100" href="flex_26.html#SEC100">unput() messes up yy_at_bol</a></li>
+    <li><a name="TOC101" href="flex_26.html#SEC101">The | operator is not doing what I want</a></li>
+    <li><a name="TOC102" href="flex_26.html#SEC102">Why can't flex understand this variable trailing context pattern?</a></li>
+    <li><a name="TOC103" href="flex_26.html#SEC103">The ^ operator isn't working</a></li>
+    <li><a name="TOC104" href="flex_26.html#SEC104">Trailing context is getting confused with trailing optional patterns</a></li>
+    <li><a name="TOC105" href="flex_26.html#SEC105">Is flex GNU or not?</a></li>
+    <li><a name="TOC106" href="flex_26.html#SEC106">ERASEME53</a></li>
+    <li><a name="TOC107" href="flex_26.html#SEC107">I need to scan if-then-else blocks and while loops</a></li>
+    <li><a name="TOC108" href="flex_26.html#SEC108">ERASEME55</a></li>
+    <li><a name="TOC109" href="flex_26.html#SEC109">ERASEME56</a></li>
+    <li><a name="TOC110" href="flex_26.html#SEC110">ERASEME57</a></li>
+    <li><a name="TOC111" href="flex_26.html#SEC111">Is there a repository for flex scanners?</a></li>
+    <li><a name="TOC112" href="flex_26.html#SEC112">How can I conditionally compile or preprocess my flex input file?</a></li>
+    <li><a name="TOC113" href="flex_26.html#SEC113">Where can I find grammars for lex and yacc?</a></li>
+    <li><a name="TOC114" href="flex_26.html#SEC114">I get an end-of-buffer message for each character scanned.</a></li>
+    <li><a name="TOC115" href="flex_26.html#SEC115">unnamed-faq-62</a></li>
+    <li><a name="TOC116" href="flex_26.html#SEC116">unnamed-faq-63</a></li>
+    <li><a name="TOC117" href="flex_26.html#SEC117">unnamed-faq-64</a></li>
+    <li><a name="TOC118" href="flex_26.html#SEC118">unnamed-faq-65</a></li>
+    <li><a name="TOC119" href="flex_26.html#SEC119">unnamed-faq-66</a></li>
+    <li><a name="TOC120" href="flex_26.html#SEC120">unnamed-faq-67</a></li>
+    <li><a name="TOC121" href="flex_26.html#SEC121">unnamed-faq-68</a></li>
+    <li><a name="TOC122" href="flex_26.html#SEC122">unnamed-faq-69</a></li>
+    <li><a name="TOC123" href="flex_26.html#SEC123">unnamed-faq-70</a></li>
+    <li><a name="TOC124" href="flex_26.html#SEC124">unnamed-faq-71</a></li>
+    <li><a name="TOC125" href="flex_26.html#SEC125">unnamed-faq-72</a></li>
+    <li><a name="TOC126" href="flex_26.html#SEC126">unnamed-faq-73</a></li>
+    <li><a name="TOC127" href="flex_26.html#SEC127">unnamed-faq-74</a></li>
+    <li><a name="TOC128" href="flex_26.html#SEC128">unnamed-faq-75</a></li>
+    <li><a name="TOC129" href="flex_26.html#SEC129">unnamed-faq-76</a></li>
+    <li><a name="TOC130" href="flex_26.html#SEC130">unnamed-faq-77</a></li>
+    <li><a name="TOC131" href="flex_26.html#SEC131">unnamed-faq-78</a></li>
+    <li><a name="TOC132" href="flex_26.html#SEC132">unnamed-faq-79</a></li>
+    <li><a name="TOC133" href="flex_26.html#SEC133">unnamed-faq-80</a></li>
+    <li><a name="TOC134" href="flex_26.html#SEC134">unnamed-faq-81</a></li>
+    <li><a name="TOC135" href="flex_26.html#SEC135">unnamed-faq-82</a></li>
+    <li><a name="TOC136" href="flex_26.html#SEC136">unnamed-faq-83</a></li>
+    <li><a name="TOC137" href="flex_26.html#SEC137">unnamed-faq-84</a></li>
+    <li><a name="TOC138" href="flex_26.html#SEC138">unnamed-faq-85</a></li>
+    <li><a name="TOC139" href="flex_26.html#SEC139">unnamed-faq-86</a></li>
+    <li><a name="TOC140" href="flex_26.html#SEC140">unnamed-faq-87</a></li>
+    <li><a name="TOC141" href="flex_26.html#SEC141">unnamed-faq-88</a></li>
+    <li><a name="TOC142" href="flex_26.html#SEC142">unnamed-faq-90</a></li>
+    <li><a name="TOC143" href="flex_26.html#SEC143">unnamed-faq-91</a></li>
+    <li><a name="TOC144" href="flex_26.html#SEC144">unnamed-faq-92</a></li>
+    <li><a name="TOC145" href="flex_26.html#SEC145">unnamed-faq-93</a></li>
+    <li><a name="TOC146" href="flex_26.html#SEC146">unnamed-faq-94</a></li>
+    <li><a name="TOC147" href="flex_26.html#SEC147">unnamed-faq-95</a></li>
+    <li><a name="TOC148" href="flex_26.html#SEC148">unnamed-faq-96</a></li>
+    <li><a name="TOC149" href="flex_26.html#SEC149">unnamed-faq-97</a></li>
+    <li><a name="TOC150" href="flex_26.html#SEC150">unnamed-faq-98</a></li>
+    <li><a name="TOC151" href="flex_26.html#SEC151">unnamed-faq-99</a></li>
+    <li><a name="TOC152" href="flex_26.html#SEC152">unnamed-faq-100</a></li>
+    <li><a name="TOC153" href="flex_26.html#SEC153">unnamed-faq-101</a></li>
+  </ul></li>
+  <li><a name="TOC154" href="flex_27.html#SEC154">A. Appendices</a>
+  <ul class="toc">
+    <li><a name="TOC155" href="flex_27.html#SEC155">A.1 Makefiles and Flex</a></li>
+    <li><a name="TOC156" href="flex_27.html#SEC156">A.2 C Scanners with Bison Parsers</a></li>
+    <li><a name="TOC157" href="flex_27.html#SEC157">A.3 M4 Dependency</a></li>
+  </ul></li>
+  <li><a name="TOC158" href="flex_28.html#SEC158">Indices</a>
+  <ul class="toc">
+    <li><a name="TOC159" href="flex_28.html#SEC159">Concept Index</a></li>
+    <li><a name="TOC160" href="flex_28.html#SEC160">Index of Functions and Macros</a></li>
+    <li><a name="TOC161" href="flex_28.html#SEC161">Index of Variables</a></li>
+    <li><a name="TOC162" href="flex_28.html#SEC162">Index of Data Types</a></li>
+    <li><a name="TOC163" href="flex_28.html#SEC163">Index of Hooks</a></li>
+    <li><a name="TOC164" href="flex_28.html#SEC164">Index of Scanner Options</a></li>
+  </ul>
+</li>
+</ul>
+</div>
+<hr size="1">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

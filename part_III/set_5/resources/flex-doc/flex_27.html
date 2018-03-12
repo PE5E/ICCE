@@ -1,0 +1,377 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: A. Appendices</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: A. Appendices">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: A. Appendices">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Appendices"></a>
+<a name="SEC154"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_26.html#SEC153" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC155" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_26.html#SEC54" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="appendix"> A. Appendices </h1>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC155">A.1 Makefiles and Flex</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC156">A.2 C Scanners with Bison Parsers</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC157">A.3 M4 Dependency</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Makefiles-and-Flex"></a>
+<a name="SEC155"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC154" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC156" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC154" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC154" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="appendixsec"> A.1 Makefiles and Flex </h2>
+
+
+<p>In this appendix, we provide tips for writing Makefiles to build your scanners.
+</p>
+<p>In a traditional build environment, we say that the <tt>`.c'</tt> files are the
+sources, and the <tt>`.o'</tt> files are the intermediate files. When using
+<code>flex</code>, however, the <tt>`.l'</tt> files are the sources, and the generated
+<tt>`.c'</tt> files (along with the <tt>`.o'</tt> files) are the intermediate files.
+This requires you to carefully plan your Makefile.
+</p>
+<p>Modern <code>make</code> programs understand that <tt>`foo.l'</tt> is intended to
+generate <tt>`lex.yy.c'</tt> or <tt>`foo.c'</tt>, and will behave
+accordingly<a name="DOCF4" href="flex_fot.html#FOOT4">(4)</a>.  The
+following Makefile does not explicitly instruct <code>make</code> how to build
+<tt>`foo.c'</tt> from <tt>`foo.l'</tt>. Instead, it relies on the implicit rules of the
+<code>make</code> program to build the intermediate file, <tt>`scan.c'</tt>:
+</p>
+<a name="IDX415"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    # Basic Makefile -- relies on implicit rules
+    # Creates &quot;myprogram&quot; from &quot;scan.l&quot; and &quot;myprogram.c&quot;
+    #
+    LEX=flex
+    myprogram: scan.o myprogram.o
+    scan.o: scan.l
+
+</pre></td></tr></table>
+
+<p>For simple cases, the above may be sufficient. For other cases,
+you may have to explicitly instruct <code>make</code> how to build your scanner.
+The following is an example of a Makefile containing explicit rules:
+</p>
+<a name="IDX416"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    # Basic Makefile -- provides explicit rules
+    # Creates &quot;myprogram&quot; from &quot;scan.l&quot; and &quot;myprogram.c&quot;
+    #
+    LEX=flex
+    myprogram: scan.o myprogram.o
+            $(CC) -o $@  $(LDFLAGS) $^
+
+    myprogram.o: myprogram.c
+            $(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $^
+
+    scan.o: scan.c
+            $(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $^
+
+    scan.c: scan.l
+            $(LEX) $(LFLAGS) -o $@ $^
+
+    clean:
+            $(RM) *.o scan.c
+
+</pre></td></tr></table>
+<p>Notice in the above example that <tt>`scan.c'</tt> is in the <code>clean</code> target.
+This is because we consider the file <tt>`scan.c'</tt> to be an intermediate file.
+</p>
+<p>Finally, we provide a realistic example of a <code>flex</code> scanner used with a
+<code>bison</code> parser<a name="DOCF5" href="flex_fot.html#FOOT5">(5)</a>.
+There is a tricky problem we have to deal with. Since a <code>flex</code> scanner
+will typically include a header file (e.g., <tt>`y.tab.h'</tt>) generated by the
+parser, we need to be sure that the header file is generated BEFORE the scanner
+is compiled. We handle this case in the following example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    # Makefile example -- scanner and parser.
+    # Creates &quot;myprogram&quot; from &quot;scan.l&quot;, &quot;parse.y&quot;, and &quot;myprogram.c&quot;
+    #
+    LEX     = flex
+    YACC    = bison -y
+    YFLAGS  = -d
+    objects = scan.o parse.o myprogram.o
+
+    myprogram: $(objects)
+    scan.o: scan.l parse.c
+    parse.o: parse.y
+    myprogram.o: myprogram.c
+
+</pre></td></tr></table>
+<p>In the above example, notice the line,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    scan.o: scan.l parse.c
+</pre></td></tr></table>
+<p>, which lists the file <tt>`parse.c'</tt> (the generated parser) as a dependency of
+<tt>`scan.o'</tt>. We want to ensure that the parser is created before the scanner
+is compiled, and the above line seems to do the trick. Feel free to experiment
+with your specific implementation of <code>make</code>.
+</p>
+
+<p>For more details on writing Makefiles, see <a href="../make/index.html#Top">(make)Top</a> section `Top' in <cite>The GNU Make Manual</cite>.
+</p>
+<hr size="6">
+<a name="Bison-Bridge"></a>
+<a name="SEC156"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC155" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC157" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC154" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC154" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> A.2 C Scanners with Bison Parsers </h2>
+
+
+<p>This section describes the <code>flex</code> features useful when integrating
+<code>flex</code> with <code>GNU bison</code><a name="DOCF6" href="flex_fot.html#FOOT6">(6)</a>.
+Skip this section if you are not using
+<code>bison</code> with your scanner.  Here we discuss only the <code>flex</code>
+half of the <code>flex</code> and <code>bison</code> pair.  We do not discuss
+<code>bison</code> in any detail.  For more information about generating
+<code>bison</code> parsers, see <a href="../bison/index.html#Top">(bison)Top</a> section `Top' in <cite>the GNU Bison Manual</cite>.
+</p>
+<p>A compatible <code>bison</code> scanner is generated by declaring <samp>`%option
+bison-bridge'</samp> or by supplying <samp>`--bison-bridge'</samp> when invoking <code>flex</code>
+from the command line.  This instructs <code>flex</code> that the macro
+<code>yylval</code> may be used. The data type for
+<code>yylval</code>, <code>YYSTYPE</code>,
+is typically defined in a header file, included in section 1 of the
+<code>flex</code> input file.  For a list of functions and macros
+available, See <a href="flex_19.html#bison_002dfunctions">bison-functions</a>.
+</p>
+<p>The declaration of yylex becomes,
+</p>
+<a name="IDX417"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">      int yylex ( YYSTYPE * lvalp, yyscan_t scanner );
+</pre></td></tr></table>
+<p>If <code>%option bison-locations</code> is specified, then the declaration
+becomes,
+</p>
+<a name="IDX418"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">      int yylex ( YYSTYPE * lvalp, YYLTYPE * llocp, yyscan_t scanner );
+</pre></td></tr></table>
+<p>Note that the macros <code>yylval</code> and <code>yylloc</code> evaluate to pointers.
+Support for <code>yylloc</code> is optional in <code>bison</code>, so it is optional in
+<code>flex</code> as well. The following is an example of a <code>flex</code> scanner that
+is compatible with <code>bison</code>.
+</p>
+<a name="IDX419"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* Scanner for &quot;C&quot; assignment statements... sort of. */
+    %{
+    #include &quot;y.tab.h&quot;  /* Generated by bison. */
+    %}
+
+    %option bison-bridge bison-locations
+    %
+
+    [[:digit:]]+  { yylval-&gt;num = atoi(yytext);   return NUMBER;}
+    [[:alnum:]]+  { yylval-&gt;str = strdup(yytext); return STRING;}
+    &quot;=&quot;|&quot;;&quot;       { return yytext[0];}
+    .  {}
+    %
+</pre></td></tr></table>
+<p>As you can see, there really is no magic here. We just use
+<code>yylval</code> as we would any other variable. The data type of
+<code>yylval</code> is generated by <code>bison</code>, and included in the file
+<tt>`y.tab.h'</tt>. Here is the corresponding <code>bison</code> parser:
+</p>
+<a name="IDX420"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* Parser to convert &quot;C&quot; assignments to lisp. */
+    %{
+    /* Pass the argument to yyparse through to yylex. */
+    #define YYPARSE_PARAM scanner
+    #define YYLEX_PARAM   scanner
+    %}
+    %locations
+    %pure_parser
+    %union {
+        int num;
+        char* str;
+    }
+    %token &lt;str&gt; STRING
+    %token &lt;num&gt; NUMBER
+    %%
+    assignment:
+        STRING '=' NUMBER ';' {
+            printf( &quot;(setf %s %d)&quot;, $1, $3 );
+       }
+    ;
+</pre></td></tr></table>
+<hr size="6">
+<a name="M4-Dependency"></a>
+<a name="SEC157"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC156" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC154" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC154" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> A.3 M4 Dependency </h2>
+
+<p>The macro processor <code>m4</code><a name="DOCF7" href="flex_fot.html#FOOT7">(7)</a> must be installed wherever flex is installed.
+<code>flex</code> invokes <samp>`m4'</samp>, found by searching the directories in the
+<code>PATH</code> environment variable. Any code you place in section 1 or in the
+actions will be sent through m4. Please follow these rules to protect your
+code from unwanted <code>m4</code> processing.
+</p>
+<ul class="toc">
+<li> Do not use symbols that begin with, <samp>`m4_'</samp>, such as, <samp>`m4_define'</samp>,
+or <samp>`m4_include'</samp>, since those are reserved for <code>m4</code> macro names.
+
+</li><li> Do not use the strings <samp>`[['</samp> or <samp>`]]'</samp> anywhere in your code. The
+former is not valid in C, except within comments, but the latter is valid in
+code such as <code>x[y[z]]</code>.
+
+</li></ul>
+
+<p><code>m4</code> is only required at the time you run <code>flex</code>. The generated
+scanner is ordinary C or C++, and does <em>not</em> require <code>m4</code>.
+</p>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC154" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

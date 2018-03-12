@@ -1,0 +1,1165 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 16. Scanner Options</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 16. Scanner Options">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 16. Scanner Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Scanner-Options"></a>
+<a name="SEC20"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_15.html#SEC19" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC21" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_15.html#SEC19" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 16. Scanner Options </h1>
+
+
+<p>The various <code>flex</code> options are categorized by function in the following
+menu. If you want to lookup a particular option by name, See section <a href="flex_28.html#SEC164">Index of Scanner Options</a>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC21">16.1 Options for Specifing Filenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC22">16.2 Options Affecting Scanner Behavior</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC23">16.3 Code-Level And API Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC24">16.4 Options for Scanner Speed and Size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC25">16.5 Debugging Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC26">16.6 Miscellaneous Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+</table>
+
+<p>Even though there are many scanner options, a typical scanner might only
+specify the following options:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">%option   8bit reentrant bison-bridge
+%option   warn nodefault
+%option   yylineno
+%option   outfile=&quot;scanner.c&quot; header-file=&quot;scanner.h&quot;
+</pre></td></tr></table>
+<p>The first line specifies the general type of scanner we want. The second line
+specifies that we are being careful. The third line asks flex to track line
+numbers. The last line tells flex what to name the files. (The options can be
+specified in any order. We just dividied them.)
+</p>
+<p><code>flex</code> also provides a mechanism for controlling options within the
+scanner specification itself, rather than from the flex command-line.
+This is done by including <code>%option</code> directives in the first section
+of the scanner specification.  You can specify multiple options with a
+single <code>%option</code> directive, and multiple directives in the first
+section of your flex input file.
+</p>
+<p>Most options are given simply as names, optionally preceded by the
+word <samp>`no'</samp> (with no intervening whitespace) to negate their meaning.
+The names are the same as their long-option equivalents (but without the
+leading <samp>`--'</samp> ).
+</p>
+<p><code>flex</code> scans your rule actions to determine whether you use the
+<code>REJECT</code> or <code>yymore()</code> features.  The <code>REJECT</code> and
+<code>yymore</code> options are available to override its decision as to
+whether you use the options, either by setting them (e.g., <code>%option
+reject)</code> to indicate the feature is indeed used, or unsetting them to
+indicate it actually is not used (e.g., <code>%option noyymore)</code>.
+</p>
+
+<p>A number of options are available for lint purists who want to suppress
+the appearance of unneeded routines in the generated scanner.  Each of
+the following, if unset (e.g., <code>%option nounput</code>), results in the
+corresponding routine not appearing in the generated scanner:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    input, unput
+    yy_push_state, yy_pop_state, yy_top_state
+    yy_scan_buffer, yy_scan_bytes, yy_scan_string
+
+    yyget_extra, yyset_extra, yyget_leng, yyget_text,
+    yyget_lineno, yyset_lineno, yyget_in, yyset_in,
+    yyget_out, yyset_out, yyget_lval, yyset_lval,
+    yyget_lloc, yyset_lloc, yyget_debug, yyset_debug
+</pre></td></tr></table>
+<p>(though <code>yy_push_state()</code> and friends won't appear anyway unless
+you use <code>%option stack)</code>.
+</p>
+<hr size="6">
+<a name="Options-for-Specifing-Filenames"></a>
+<a name="SEC21"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC20" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC22" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 16.1 Options for Specifing Filenames </h2>
+
+<dl compact="compact">
+<dd>
+<p><a name="option_002dheader"></a>
+<a name="IDX211"></a>
+<a name="IDX212"></a>
+</p></dd>
+<dt> <samp>`--header-file=FILE, <code>%option header-file=&quot;FILE&quot;</code>'</samp></dt>
+<dd><p>instructs flex to write a C header to <tt>`FILE'</tt>. This file contains
+function prototypes, extern variables, and types used by the scanner.
+Only the external API is exported by the header file. Many macros that
+are usable from within scanner actions are not exported to the header
+file. This is due to namespace problems and the goal of a clean
+external API.
+</p>
+<p>While in the header, the macro <code>yyIN_HEADER</code> is defined, where <samp>`yy'</samp>
+is substituted with the appropriate prefix.
+</p>
+<p>The <samp>`--header-file'</samp> option is not compatible with the <samp>`--c++'</samp> option,
+since the C++ scanner provides its own header in <tt>`yyFlexLexer.h'</tt>.
+</p>
+
+
+<p><a name="option_002doutfile"></a>
+<a name="IDX213"></a>
+<a name="IDX214"></a>
+<a name="IDX215"></a>
+</p></dd>
+<dt> <samp>`-oFILE, --outfile=FILE, <code>%option outfile=&quot;FILE&quot;</code>'</samp></dt>
+<dd><p>directs flex to write the scanner to the file <tt>`FILE'</tt> instead of
+<tt>`lex.yy.c'</tt>.  If you combine <samp>`--outfile'</samp> with the <samp>`--stdout'</samp> option,
+then the scanner is written to <tt>`stdout'</tt> but its <code>#line</code>
+directives (see the <samp>`-l'</samp> option above) refer to the file
+<tt>`FILE'</tt>.
+</p>
+
+
+<p><a name="option_002dstdout"></a>
+<a name="IDX216"></a>
+<a name="IDX217"></a>
+<a name="IDX218"></a>
+</p></dd>
+<dt> <samp>`-t, --stdout, <code>%option stdout</code>'</samp></dt>
+<dd><p>instructs <code>flex</code> to write the scanner it generates to standard
+output instead of <tt>`lex.yy.c'</tt>.
+</p>
+
+
+<a name="IDX219"></a>
+</dd>
+<dt> <samp>`-SFILE, --skel=FILE'</samp></dt>
+<dd><p>overrides the default skeleton file from which
+<code>flex</code>
+constructs its scanners.  You'll never need this option unless you are doing
+<code>flex</code>
+maintenance or development.
+</p>
+<a name="IDX220"></a>
+<a name="IDX221"></a>
+</dd>
+<dt> <samp>`--tables-file=FILE'</samp></dt>
+<dd><p>Write serialized scanner dfa tables to FILE. The generated scanner will not
+contain the tables, and requires them to be loaded at runtime.
+See <a href="flex_22.html#serialization">serialization</a>.
+</p>
+<a name="IDX222"></a>
+<a name="IDX223"></a>
+</dd>
+<dt> <samp>`--tables-verify'</samp></dt>
+<dd><p>This option is for flex development. We document it here in case you stumble
+upon it by accident or in case you suspect some inconsistency in the serialized
+tables.  Flex will serialize the scanner dfa tables but will also generate the
+in-code tables as it normally does. At runtime, the scanner will verify that
+the serialized tables match the in-code tables, instead of loading them. 
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Options-Affecting-Scanner-Behavior"></a>
+<a name="SEC22"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC21" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC23" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 16.2 Options Affecting Scanner Behavior </h2>
+
+<dl compact="compact">
+<dd><p><a name="option_002dcase_002dinsensitive"></a>
+<a name="IDX224"></a>
+<a name="IDX225"></a>
+<a name="IDX226"></a>
+</p></dd>
+<dt> <samp>`-i, --case-insensitive, <code>%option case-insensitive</code>'</samp></dt>
+<dd><p>instructs <code>flex</code> to generate a <em>case-insensitive</em> scanner.  The
+case of letters given in the <code>flex</code> input patterns will be ignored,
+and tokens in the input will be matched regardless of case.  The matched
+text given in <code>yytext</code> will have the preserved case (i.e., it will
+not be folded).  For tricky behavior, see <a href="flex_6.html#case-and-character-ranges">case and character ranges</a>.
+</p>
+
+
+<p><a name="option_002dlex_002dcompat"></a>
+<a name="IDX227"></a>
+<a name="IDX228"></a>
+<a name="IDX229"></a>
+</p></dd>
+<dt> <samp>`-l, --lex-compat, <code>%option lex-compat</code>'</samp></dt>
+<dd><p>turns on maximum compatibility with the original AT&amp;T <code>lex</code>
+implementation.  Note that this does not mean <em>full</em> compatibility.
+Use of this option costs a considerable amount of performance, and it
+cannot be used with the <samp>`--c++'</samp>, <samp>`--full'</samp>, <samp>`--fast'</samp>, <samp>`-Cf'</samp>, or
+<samp>`-CF'</samp> options.  For details on the compatibilities it provides, see
+<a href="flex_20.html#SEC42">Incompatibilities with Lex and Posix</a>.  This option also results in the name
+<code>YY_FLEX_LEX_COMPAT</code> being <code>#define</code>'d in the generated scanner.
+</p>
+
+
+<p><a name="option_002dbatch"></a>
+<a name="IDX230"></a>
+<a name="IDX231"></a>
+<a name="IDX232"></a>
+</p></dd>
+<dt> <samp>`-B, --batch, <code>%option batch</code>'</samp></dt>
+<dd><p>instructs <code>flex</code> to generate a <em>batch</em> scanner, the opposite of
+<em>interactive</em> scanners generated by <samp>`--interactive'</samp> (see below).  In
+general, you use <samp>`-B'</samp> when you are <em>certain</em> that your scanner
+will never be used interactively, and you want to squeeze a
+<em>little</em> more performance out of it.  If your goal is instead to
+squeeze out a <em>lot</em> more performance, you should be using the
+<samp>`-Cf'</samp> or <samp>`-CF'</samp> options, which turn on <samp>`--batch'</samp> automatically
+anyway.
+</p>
+
+
+<p><a name="option_002dinteractive"></a>
+<a name="IDX233"></a>
+<a name="IDX234"></a>
+<a name="IDX235"></a>
+</p></dd>
+<dt> <samp>`-I, --interactive, <code>%option interactive</code>'</samp></dt>
+<dd><p>instructs <code>flex</code> to generate an <i>interactive</i> scanner.  An
+interactive scanner is one that only looks ahead to decide what token
+has been matched if it absolutely must.  It turns out that always
+looking one extra character ahead, even if the scanner has already seen
+enough text to disambiguate the current token, is a bit faster than only
+looking ahead when necessary.  But scanners that always look ahead give
+dreadful interactive performance; for example, when a user types a
+newline, it is not recognized as a newline token until they enter
+<em>another</em> token, which often means typing in another whole line.
+</p>
+<p><code>flex</code> scanners default to <code>interactive</code> unless you use the
+<samp>`-Cf'</samp> or <samp>`-CF'</samp> table-compression options
+(see section <a href="flex_17.html#SEC27">Performance Considerations</a>).  That's because if you're looking for
+high-performance you should be using one of these options, so if you
+didn't, <code>flex</code> assumes you'd rather trade off a bit of run-time
+performance for intuitive interactive behavior.  Note also that you
+<em>cannot</em> use <samp>`--interactive'</samp> in conjunction with <samp>`-Cf'</samp> or
+<samp>`-CF'</samp>.  Thus, this option is not really needed; it is on by default
+for all those cases in which it is allowed.
+</p>
+<p>You can force a scanner to
+<em>not</em>
+be interactive by using
+<samp>`--batch'</samp>
+</p>
+
+
+<p><a name="option_002d7bit"></a>
+<a name="IDX236"></a>
+<a name="IDX237"></a>
+<a name="IDX238"></a>
+</p></dd>
+<dt> <samp>`-7, --7bit, <code>%option 7bit</code>'</samp></dt>
+<dd><p>instructs <code>flex</code> to generate a 7-bit scanner, i.e., one which can
+only recognize 7-bit characters in its input.  The advantage of using
+<samp>`--7bit'</samp> is that the scanner's tables can be up to half the size of
+those generated using the <samp>`--8bit'</samp>.  The disadvantage is that such
+scanners often hang or crash if their input contains an 8-bit character.
+</p>
+<p>Note, however, that unless you generate your scanner using the
+<samp>`-Cf'</samp> or <samp>`-CF'</samp> table compression options, use of <samp>`--7bit'</samp>
+will save only a small amount of table space, and make your scanner
+considerably less portable.  <code>Flex</code>'s default behavior is to
+generate an 8-bit scanner unless you use the <samp>`-Cf'</samp> or <samp>`-CF'</samp>,
+in which case <code>flex</code> defaults to generating 7-bit scanners unless
+your site was always configured to generate 8-bit scanners (as will
+often be the case with non-USA sites).  You can tell whether flex
+generated a 7-bit or an 8-bit scanner by inspecting the flag summary in
+the <samp>`--verbose'</samp> output as described above.
+</p>
+<p>Note that if you use <samp>`-Cfe'</samp> or <samp>`-CFe'</samp> <code>flex</code> still
+defaults to generating an 8-bit scanner, since usually with these
+compression options full 8-bit tables are not much more expensive than
+7-bit tables.
+</p>
+
+
+<p><a name="option_002d8bit"></a>
+<a name="IDX239"></a>
+<a name="IDX240"></a>
+<a name="IDX241"></a>
+</p></dd>
+<dt> <samp>`-8, --8bit, <code>%option 8bit</code>'</samp></dt>
+<dd><p>instructs <code>flex</code> to generate an 8-bit scanner, i.e., one which can
+recognize 8-bit characters.  This flag is only needed for scanners
+generated using <samp>`-Cf'</samp> or <samp>`-CF'</samp>, as otherwise flex defaults to
+generating an 8-bit scanner anyway.
+</p>
+<p>See the discussion of
+<samp>`--7bit'</samp>
+above for <code>flex</code>'s default behavior and the tradeoffs between 7-bit
+and 8-bit scanners.
+</p>
+
+
+<p><a name="option_002ddefault"></a>
+<a name="IDX242"></a>
+<a name="IDX243"></a>
+</p></dd>
+<dt> <samp>`--default, <code>%option default</code>'</samp></dt>
+<dd><p>generate the default rule.
+</p>
+
+
+<p><a name="option_002dalways_002dinteractive"></a>
+<a name="IDX244"></a>
+<a name="IDX245"></a>
+</p></dd>
+<dt> <samp>`--always-interactive, <code>%option always-interactive</code>'</samp></dt>
+<dd><p>instructs flex to generate a scanner which always considers its input
+<em>interactive</em>.  Normally, on each new input file the scanner calls
+<code>isatty()</code> in an attempt to determine whether the scanner's input
+source is interactive and thus should be read a character at a time.
+When this option is used, however, then no such call is made.
+</p>
+
+
+<a name="IDX246"></a>
+</dd>
+<dt> <samp>`--never-interactive, <code>--never-interactive</code>'</samp></dt>
+<dd><p>instructs flex to generate a scanner which never considers its input
+interactive.  This is the opposite of <code>always-interactive</code>.
+</p>
+
+<p><a name="option_002dposix"></a>
+<a name="IDX247"></a>
+<a name="IDX248"></a>
+<a name="IDX249"></a>
+</p></dd>
+<dt> <samp>`-X, --posix, <code>%option posix</code>'</samp></dt>
+<dd><p>turns on maximum compatibility with the POSIX 1003.2-1992 definition of
+<code>lex</code>.  Since <code>flex</code> was originally designed to implement the
+POSIX definition of <code>lex</code> this generally involves very few changes
+in behavior.  At the current writing the known differences between
+<code>flex</code> and the POSIX standard are:
+</p>
+<ul class="toc">
+<li>
+In POSIX and AT&amp;T <code>lex</code>, the repeat operator, <samp>`{}'</samp>, has lower
+precedence than concatenation (thus <samp>`ab{3}'</samp> yields <samp>`ababab'</samp>).
+Most POSIX utilities use an Extended Regular Expression (ERE) precedence
+that has the precedence of the repeat operator higher than concatenation
+(which causes <samp>`ab{3}'</samp> to yield <samp>`abbb'</samp>).  By default, <code>flex</code>
+places the precedence of the repeat operator higher than concatenation
+which matches the ERE processing of other POSIX utilities.  When either
+<samp>`--posix'</samp> or <samp>`-l'</samp> are specified, <code>flex</code> will use the
+traditional AT&amp;T and POSIX-compliant precedence for the repeat operator
+where concatenation has higher precedence than the repeat operator.
+</li></ul>
+
+
+<p><a name="option_002dstack"></a>
+<a name="IDX250"></a>
+<a name="IDX251"></a>
+</p></dd>
+<dt> <samp>`--stack, <code>%option stack</code>'</samp></dt>
+<dd><p>enables the use of
+start condition stacks (see section <a href="flex_10.html#SEC14">Start Conditions</a>).
+</p>
+
+
+<p><a name="option_002dstdinit"></a>
+<a name="IDX252"></a>
+<a name="IDX253"></a>
+</p></dd>
+<dt> <samp>`--stdinit, <code>%option stdinit</code>'</samp></dt>
+<dd><p>if set (i.e., <b>%option stdinit)</b> initializes <code>yyin</code> and
+<code>yyout</code> to <tt>`stdin'</tt> and <tt>`stdout'</tt>, instead of the default of
+<tt>`NULL'</tt>.  Some existing <code>lex</code> programs depend on this behavior,
+even though it is not compliant with ANSI C, which does not require
+<tt>`stdin'</tt> and <tt>`stdout'</tt> to be compile-time constant. In a
+reentrant scanner, however, this is not a problem since initialization
+is performed in <code>yylex_init</code> at runtime.
+</p>
+
+
+<p><a name="option_002dyylineno"></a>
+<a name="IDX254"></a>
+<a name="IDX255"></a>
+</p></dd>
+<dt> <samp>`--yylineno, <code>%option yylineno</code>'</samp></dt>
+<dd><p>directs <code>flex</code> to generate a scanner
+that maintains the number of the current line read from its input in the
+global variable <code>yylineno</code>.  This option is implied by <code>%option
+lex-compat</code>.  In a reentrant C scanner, the macro <code>yylineno</code> is
+accessible regardless of the value of <code>%option yylineno</code>, however, its
+value is not modified by <code>flex</code> unless <code>%option yylineno</code> is enabled.
+</p>
+
+
+<p><a name="option_002dyywrap"></a>
+<a name="IDX256"></a>
+<a name="IDX257"></a>
+</p></dd>
+<dt> <samp>`--yywrap, <code>%option yywrap</code>'</samp></dt>
+<dd><p>if unset (i.e., <code>--noyywrap)</code>, makes the scanner not call
+<code>yywrap()</code> upon an end-of-file, but simply assume that there are no
+more files to scan (until the user points <tt>`yyin'</tt> at a new file and
+calls <code>yylex()</code> again).
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Code_002dLevel-And-API-Options"></a>
+<a name="SEC23"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC22" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC24" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 16.3 Code-Level And API Options </h2>
+
+<dl compact="compact">
+<dd>
+<p><a name="option_002dansi_002ddefinitions"></a>
+<a name="IDX258"></a>
+<a name="IDX259"></a>
+</p></dd>
+<dt> <samp>`--ansi-definitions, <code>%option ansi-definitions</code>'</samp></dt>
+<dd><p>instruct flex to generate ANSI C99 definitions for functions.
+This option is enabled by default.
+If <code>%option noansi-definitions</code> is specified, then the obsolete style
+is generated.
+</p>
+<p><a name="option_002dansi_002dprototypes"></a>
+<a name="IDX260"></a>
+<a name="IDX261"></a>
+</p></dd>
+<dt> <samp>`--ansi-prototypes, <code>%option ansi-prototypes</code>'</samp></dt>
+<dd><p>instructs flex to generate ANSI C99 prototypes for functions. 
+This option is enabled by default.
+If <code>noansi-prototypes</code> is specified, then
+prototypes will have empty parameter lists.
+</p>
+<p><a name="option_002dbison_002dbridge"></a>
+<a name="IDX262"></a>
+<a name="IDX263"></a>
+</p></dd>
+<dt> <samp>`--bison-bridge, <code>%option bison-bridge</code>'</samp></dt>
+<dd><p>instructs flex to generate a C scanner that is
+meant to be called by a
+<code>GNU bison</code>
+parser. The scanner has minor API changes for
+<code>bison</code>
+compatibility. In particular, the declaration of
+<code>yylex</code>
+is modified to take an additional parameter,
+<code>yylval</code>.
+See section <a href="flex_27.html#SEC156">C Scanners with Bison Parsers</a>.
+</p>
+<p><a name="option_002dbison_002dlocations"></a>
+<a name="IDX264"></a>
+<a name="IDX265"></a>
+</p></dd>
+<dt> <samp>`--bison-locations, <code>%option bison-locations</code>'</samp></dt>
+<dd><p>instruct flex that 
+<code>GNU bison</code> <code>%locations</code> are being used.
+This means <code>yylex</code> will be passed
+an additional parameter, <code>yylloc</code>. This option
+implies <code>%option bison-bridge</code>.
+See section <a href="flex_27.html#SEC156">C Scanners with Bison Parsers</a>.
+</p>
+<p><a name="option_002dnoline"></a>
+<a name="IDX266"></a>
+<a name="IDX267"></a>
+<a name="IDX268"></a>
+</p></dd>
+<dt> <samp>`-L, --noline, <code>%option noline</code>'</samp></dt>
+<dd><p>instructs
+<code>flex</code>
+not to generate
+<code>#line</code>
+directives.  Without this option,
+<code>flex</code>
+peppers the generated scanner
+with <code>#line</code> directives so error messages in the actions will be correctly
+located with respect to either the original
+<code>flex</code>
+input file (if the errors are due to code in the input file), or
+<tt>`lex.yy.c'</tt>
+(if the errors are
+<code>flex</code>'s
+fault - you should report these sorts of errors to the email address
+given in <a href="flex_2.html#SEC2">Reporting Bugs</a>).
+</p>
+
+
+<p><a name="option_002dreentrant"></a>
+<a name="IDX269"></a>
+<a name="IDX270"></a>
+<a name="IDX271"></a>
+</p></dd>
+<dt> <samp>`-R, --reentrant, <code>%option reentrant</code>'</samp></dt>
+<dd><p>instructs flex to generate a reentrant C scanner.  The generated scanner
+may safely be used in a multi-threaded environment. The API for a
+reentrant scanner is different than for a non-reentrant scanner
+see section <a href="flex_19.html#SEC29">Reentrant C Scanners</a>).  Because of the API difference between
+reentrant and non-reentrant <code>flex</code> scanners, non-reentrant flex
+code must be modified before it is suitable for use with this option.
+This option is not compatible with the <samp>`--c++'</samp> option.
+</p>
+<p>The option <samp>`--reentrant'</samp> does not affect the performance of
+the scanner.
+</p>
+
+
+<p><a name="option_002dc_002b_002b"></a>
+<a name="IDX272"></a>
+<a name="IDX273"></a>
+<a name="IDX274"></a>
+</p></dd>
+<dt> <samp>`-+, --c++, <code>%option c++</code>'</samp></dt>
+<dd><p>specifies that you want flex to generate a C++
+scanner class.  See section <a href="flex_18.html#SEC28">Generating C++ Scanners</a>, for
+details.
+</p>
+
+
+<p><a name="option_002darray"></a>
+<a name="IDX275"></a>
+<a name="IDX276"></a>
+</p></dd>
+<dt> <samp>`--array, <code>%option array</code>'</samp></dt>
+<dd><p>specifies that you want yytext to be an array instead of a char*
+</p>
+
+
+<p><a name="option_002dpointer"></a>
+<a name="IDX277"></a>
+<a name="IDX278"></a>
+</p></dd>
+<dt> <samp>`--pointer, <code>%option pointer</code>'</samp></dt>
+<dd><p>specify that  <code>yytext</code> should be a <code>char *</code>, not an array.
+This default is <code>char *</code>.
+</p>
+
+
+<p><a name="option_002dprefix"></a>
+<a name="IDX279"></a>
+<a name="IDX280"></a>
+<a name="IDX281"></a>
+</p></dd>
+<dt> <samp>`-PPREFIX, --prefix=PREFIX, <code>%option prefix=&quot;PREFIX&quot;</code>'</samp></dt>
+<dd><p>changes the default <samp>`yy'</samp> prefix used by <code>flex</code> for all
+globally-visible variable and function names to instead be
+<samp>`PREFIX'</samp>.  For example, <samp>`--prefix=foo'</samp> changes the name of
+<code>yytext</code> to <code>footext</code>.  It also changes the name of the default
+output file from <tt>`lex.yy.c'</tt> to <tt>`lex.foo.c'</tt>.  Here is a partial
+list of the names affected:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    yy_create_buffer
+    yy_delete_buffer
+    yy_flex_debug
+    yy_init_buffer
+    yy_flush_buffer
+    yy_load_buffer_state
+    yy_switch_to_buffer
+    yyin
+    yyleng
+    yylex
+    yylineno
+    yyout
+    yyrestart
+    yytext
+    yywrap
+    yyalloc
+    yyrealloc
+    yyfree
+</pre></td></tr></table>
+<p>(If you are using a C++ scanner, then only <code>yywrap</code> and
+<code>yyFlexLexer</code> are affected.)  Within your scanner itself, you can
+still refer to the global variables and functions using either version
+of their name; but externally, they have the modified name.
+</p>
+<p>This option lets you easily link together multiple
+<code>flex</code>
+programs into the same executable.  Note, though, that using this
+option also renames
+<code>yywrap()</code>,
+so you now
+<em>must</em>
+either
+provide your own (appropriately-named) version of the routine for your
+scanner, or use
+<code>%option noyywrap</code>,
+as linking with
+<samp>`-lfl'</samp>
+no longer provides one for you by default.
+</p>
+
+
+<p><a name="option_002dmain"></a>
+<a name="IDX282"></a>
+<a name="IDX283"></a>
+</p></dd>
+<dt> <samp>`--main, <code>%option main</code>'</samp></dt>
+<dd><p> directs flex to provide a default <code>main()</code> program for the
+scanner, which simply calls <code>yylex()</code>.  This option implies
+<code>noyywrap</code> (see below).
+</p>
+
+
+<p><a name="option_002dnounistd"></a>
+<a name="IDX284"></a>
+<a name="IDX285"></a>
+</p></dd>
+<dt> <samp>`--nounistd, <code>%option nounistd</code>'</samp></dt>
+<dd><p>suppresses inclusion of the non-ANSI header file <tt>`unistd.h'</tt>. This option
+is meant to target environments in which <tt>`unistd.h'</tt> does not exist. Be aware
+that certain options may cause flex to generate code that relies on functions
+normally found in <tt>`unistd.h'</tt>, (e.g. <code>isatty()</code>, <code>read()</code>.)
+If you wish to use these functions, you will have to inform your compiler where
+to find them.
+See <a href="#option_002dalways_002dinteractive">option-always-interactive</a>. See <a href="#option_002dread">option-read</a>.
+</p>
+
+
+<p><a name="option_002dyyclass"></a>
+<a name="IDX286"></a>
+<a name="IDX287"></a>
+</p></dd>
+<dt> <samp>`--yyclass, <code>%option yyclass=&quot;NAME&quot;</code>'</samp></dt>
+<dd><p>only applies when generating a C++ scanner (the <samp>`--c++'</samp> option).  It
+informs <code>flex</code> that you have derived <code>foo</code> as a subclass of
+<code>yyFlexLexer</code>, so <code>flex</code> will place your actions in the member
+function <code>foo::yylex()</code> instead of <code>yyFlexLexer::yylex()</code>.  It
+also generates a <code>yyFlexLexer::yylex()</code> member function that emits
+a run-time error (by invoking <code>yyFlexLexer::LexerError())</code> if
+called.  See section <a href="flex_18.html#SEC28">Generating C++ Scanners</a>.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Options-for-Scanner-Speed-and-Size"></a>
+<a name="SEC24"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC23" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC25" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 16.4 Options for Scanner Speed and Size </h2>
+
+<dl compact="compact">
+<dt> <samp>`-C[aefFmr]'</samp></dt>
+<dd><p>controls the degree of table compression and, more generally, trade-offs
+between small scanners and fast scanners.
+</p>
+<dl compact="compact">
+<dd><a name="IDX288"></a>
+</dd>
+<dt> <samp>`-C'</samp></dt>
+<dd><p>A lone <samp>`-C'</samp> specifies that the scanner tables should be compressed
+but neither equivalence classes nor meta-equivalence classes should be
+used.
+</p>
+<p><a name="option_002dalign"></a>
+<a name="IDX289"></a>
+<a name="IDX290"></a>
+<a name="IDX291"></a>
+</p></dd>
+<dt> <samp>`-Ca, --align, <code>%option align</code>'</samp></dt>
+<dd><p>(&quot;align&quot;) instructs flex to trade off larger tables in the
+generated scanner for faster performance because the elements of
+the tables are better aligned for memory access and computation.  On some
+RISC architectures, fetching and manipulating longwords is more efficient
+than with smaller-sized units such as shortwords.  This option can
+quadruple the size of the tables used by your scanner.
+</p>
+<p><a name="option_002decs"></a>
+<a name="IDX292"></a>
+<a name="IDX293"></a>
+<a name="IDX294"></a>
+</p></dd>
+<dt> <samp>`-Ce, --ecs, <code>%option ecs</code>'</samp></dt>
+<dd><p>directs <code>flex</code> to construct <em>equivalence classes</em>, i.e., sets
+of characters which have identical lexical properties (for example, if
+the only appearance of digits in the <code>flex</code> input is in the
+character class &quot;[0-9]&quot; then the digits '0', '1', ..., '9' will all be
+put in the same equivalence class).  Equivalence classes usually give
+dramatic reductions in the final table/object file sizes (typically a
+factor of 2-5) and are pretty cheap performance-wise (one array look-up
+per character scanned).
+</p>
+<a name="IDX295"></a>
+</dd>
+<dt> <samp>`-Cf'</samp></dt>
+<dd><p>specifies that the <em>full</em> scanner tables should be generated -
+<code>flex</code> should not compress the tables by taking advantages of
+similar transition functions for different states.
+</p>
+<a name="IDX296"></a>
+</dd>
+<dt> <samp>`-CF'</samp></dt>
+<dd><p>specifies that the alternate fast scanner representation (described
+above under the <samp>`--fast'</samp> flag) should be used.  This option cannot be
+used with <samp>`--c++'</samp>.
+</p>
+<p><a name="option_002dmeta_002decs"></a>
+<a name="IDX297"></a>
+<a name="IDX298"></a>
+<a name="IDX299"></a>
+</p></dd>
+<dt> <samp>`-Cm, --meta-ecs, <code>%option meta-ecs</code>'</samp></dt>
+<dd><p>directs
+<code>flex</code>
+to construct
+<em>meta-equivalence classes</em>,
+which are sets of equivalence classes (or characters, if equivalence
+classes are not being used) that are commonly used together.  Meta-equivalence
+classes are often a big win when using compressed tables, but they
+have a moderate performance impact (one or two <code>if</code> tests and one
+array look-up per character scanned).
+</p>
+<p><a name="option_002dread"></a>
+<a name="IDX300"></a>
+<a name="IDX301"></a>
+<a name="IDX302"></a>
+</p></dd>
+<dt> <samp>`-Cr, --read, <code>%option read</code>'</samp></dt>
+<dd><p>causes the generated scanner to <em>bypass</em> use of the standard I/O
+library (<code>stdio</code>) for input.  Instead of calling <code>fread()</code> or
+<code>getc()</code>, the scanner will use the <code>read()</code> system call,
+resulting in a performance gain which varies from system to system, but
+in general is probably negligible unless you are also using <samp>`-Cf'</samp>
+or <samp>`-CF'</samp>.  Using <samp>`-Cr'</samp> can cause strange behavior if, for
+example, you read from <tt>`yyin'</tt> using <code>stdio</code> prior to calling
+the scanner (because the scanner will miss whatever text your previous
+reads left in the <code>stdio</code> input buffer).  <samp>`-Cr'</samp> has no effect
+if you define <code>YY_INPUT()</code> (see section <a href="flex_9.html#SEC13">The Generated Scanner</a>).
+</p></dd>
+</dl>
+
+<p>The options <samp>`-Cf'</samp> or <samp>`-CF'</samp> and <samp>`-Cm'</samp> do not make sense
+together - there is no opportunity for meta-equivalence classes if the
+table is not being compressed.  Otherwise the options may be freely
+mixed, and are cumulative.
+</p>
+<p>The default setting is <samp>`-Cem'</samp>, which specifies that <code>flex</code>
+should generate equivalence classes and meta-equivalence classes.  This
+setting provides the highest degree of table compression.  You can trade
+off faster-executing scanners at the cost of larger tables with the
+following generally being true:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    slowest &amp; smallest
+          -Cem
+          -Cm
+          -Ce
+          -C
+          -C{f,F}e
+          -C{f,F}
+          -C{f,F}a
+    fastest &amp; largest
+</pre></td></tr></table>
+<p>Note that scanners with the smallest tables are usually generated and
+compiled the quickest, so during development you will usually want to
+use the default, maximal compression.
+</p>
+<p><samp>`-Cfe'</samp> is often a good compromise between speed and size for
+production scanners.
+</p>
+<p><a name="option_002dfull"></a>
+<a name="IDX303"></a>
+<a name="IDX304"></a>
+<a name="IDX305"></a>
+</p></dd>
+<dt> <samp>`-f, --full, <code>%option full</code>'</samp></dt>
+<dd><p>specifies
+<em>fast scanner</em>.
+No table compression is done and <code>stdio</code> is bypassed.
+The result is large but fast.  This option is equivalent to
+<samp>`--Cfr'</samp>
+</p>
+
+<p><a name="option_002dfast"></a>
+<a name="IDX306"></a>
+<a name="IDX307"></a>
+<a name="IDX308"></a>
+</p></dd>
+<dt> <samp>`-F, --fast, <code>%option fast</code>'</samp></dt>
+<dd><p>specifies that the <em>fast</em> scanner table representation should be
+used (and <code>stdio</code> bypassed).  This representation is about as fast
+as the full table representation <samp>`--full'</samp>, and for some sets of
+patterns will be considerably smaller (and for others, larger).  In
+general, if the pattern set contains both <em>keywords</em> and a
+catch-all, <em>identifier</em> rule, such as in the set:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    &quot;case&quot;    return TOK_CASE;
+    &quot;switch&quot;  return TOK_SWITCH;
+    ...
+    &quot;default&quot; return TOK_DEFAULT;
+    [a-z]+    return TOK_ID;
+</pre></td></tr></table>
+<p>then you're better off using the full table representation.  If only
+the <em>identifier</em> rule is present and you then use a hash table or some such
+to detect the keywords, you're better off using
+<samp>`--fast'</samp>.
+</p>
+<p>This option is equivalent to <samp>`-CFr'</samp> (see below).  It cannot be used
+with <samp>`--c++'</samp>.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Debugging-Options"></a>
+<a name="SEC25"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC24" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC26" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 16.5 Debugging Options </h2>
+
+<dl compact="compact">
+<dd>
+<p><a name="option_002dbackup"></a>
+<a name="IDX309"></a>
+<a name="IDX310"></a>
+<a name="IDX311"></a>
+</p></dd>
+<dt> <samp>`-b, --backup, <code>%option backup</code>'</samp></dt>
+<dd><p>Generate backing-up information to <tt>`lex.backup'</tt>.  This is a list of
+scanner states which require backing up and the input characters on
+which they do so.  By adding rules one can remove backing-up states.  If
+<em>all</em> backing-up states are eliminated and <samp>`-Cf'</samp> or <code>-CF</code>
+is used, the generated scanner will run faster (see the <samp>`--perf-report'</samp> flag).
+Only users who wish to squeeze every last cycle out of their scanners
+need worry about this option.  (see section <a href="flex_17.html#SEC27">Performance Considerations</a>).
+</p>
+
+
+<p><a name="option_002ddebug"></a>
+<a name="IDX312"></a>
+<a name="IDX313"></a>
+<a name="IDX314"></a>
+</p></dd>
+<dt> <samp>`-d, --debug, <code>%option debug</code>'</samp></dt>
+<dd><p>makes the generated scanner run in <em>debug</em> mode.  Whenever a pattern
+is recognized and the global variable <code>yy_flex_debug</code> is non-zero
+(which is the default), the scanner will write to <tt>`stderr'</tt> a line
+of the form:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    -accepting rule at line 53 (&quot;the matched text&quot;)
+</pre></td></tr></table>
+<p>The line number refers to the location of the rule in the file defining
+the scanner (i.e., the file that was fed to flex).  Messages are also
+generated when the scanner backs up, accepts the default rule, reaches
+the end of its input buffer (or encounters a NUL; at this point, the two
+look the same as far as the scanner's concerned), or reaches an
+end-of-file.
+</p>
+
+
+<p><a name="option_002dperf_002dreport"></a>
+<a name="IDX315"></a>
+<a name="IDX316"></a>
+<a name="IDX317"></a>
+</p></dd>
+<dt> <samp>`-p, --perf-report, <code>%option perf-report</code>'</samp></dt>
+<dd><p>generates a performance report to <tt>`stderr'</tt>.  The report consists of
+comments regarding features of the <code>flex</code> input file which will
+cause a serious loss of performance in the resulting scanner.  If you
+give the flag twice, you will also get comments regarding features that
+lead to minor performance losses.
+</p>
+<p>Note that the use of <code>REJECT</code>, and
+variable trailing context (see section <a href="flex_24.html#SEC52">Limitations</a>) entails a substantial
+performance penalty; use of <code>yymore()</code>, the <samp>`^'</samp> operator, and
+the <samp>`--interactive'</samp> flag entail minor performance penalties.
+</p>
+
+
+<p><a name="option_002dnodefault"></a>
+<a name="IDX318"></a>
+<a name="IDX319"></a>
+<a name="IDX320"></a>
+</p></dd>
+<dt> <samp>`-s, --nodefault, <code>%option nodefault</code>'</samp></dt>
+<dd><p>causes the <em>default rule</em> (that unmatched scanner input is echoed
+to <tt>`stdout)'</tt> to be suppressed.  If the scanner encounters input
+that does not match any of its rules, it aborts with an error.  This
+option is useful for finding holes in a scanner's rule set.
+</p>
+
+
+<p><a name="option_002dtrace"></a>
+<a name="IDX321"></a>
+<a name="IDX322"></a>
+<a name="IDX323"></a>
+</p></dd>
+<dt> <samp>`-T, --trace, <code>%option trace</code>'</samp></dt>
+<dd><p>makes <code>flex</code> run in <em>trace</em> mode.  It will generate a lot of
+messages to <tt>`stderr'</tt> concerning the form of the input and the
+resultant non-deterministic and deterministic finite automata.  This
+option is mostly for use in maintaining <code>flex</code>.
+</p>
+
+
+<p><a name="option_002dnowarn"></a>
+<a name="IDX324"></a>
+<a name="IDX325"></a>
+<a name="IDX326"></a>
+</p></dd>
+<dt> <samp>`-w, --nowarn, <code>%option nowarn</code>'</samp></dt>
+<dd><p>suppresses warning messages.
+</p>
+
+
+<p><a name="option_002dverbose"></a>
+<a name="IDX327"></a>
+<a name="IDX328"></a>
+<a name="IDX329"></a>
+</p></dd>
+<dt> <samp>`-v, --verbose, <code>%option verbose</code>'</samp></dt>
+<dd><p>specifies that <code>flex</code> should write to <tt>`stderr'</tt> a summary of
+statistics regarding the scanner it generates.  Most of the statistics
+are meaningless to the casual <code>flex</code> user, but the first line
+identifies the version of <code>flex</code> (same as reported by <samp>`--version'</samp>),
+and the next line the flags used when generating the scanner, including
+those that are on by default.
+</p>
+
+
+<p><a name="option_002dwarn"></a>
+<a name="IDX330"></a>
+<a name="IDX331"></a>
+</p></dd>
+<dt> <samp>`--warn, <code>%option warn</code>'</samp></dt>
+<dd><p>warn about certain things. In particular, if the default rule can be
+matched but no defualt rule has been given, the flex will warn you.
+We recommend using this option always.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Miscellaneous-Options"></a>
+<a name="SEC26"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC25" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 16.6 Miscellaneous Options </h2>
+
+<dl compact="compact">
+<dd><a name="IDX332"></a>
+</dd>
+<dt> <samp>`-c'</samp></dt>
+<dd><p>is a do-nothing option included for POSIX compliance.
+</p>
+<a name="IDX333"></a>
+<a name="IDX334"></a>
+<p>generates
+</p></dd>
+<dt> <samp>`-h, -?, --help'</samp></dt>
+<dd><p>generates a &quot;help&quot; summary of <code>flex</code>'s options to <tt>`stdout'</tt>
+and then exits.
+</p>
+<a name="IDX335"></a>
+</dd>
+<dt> <samp>`-n'</samp></dt>
+<dd><p>is another do-nothing option included only for
+POSIX compliance.
+</p>
+<a name="IDX336"></a>
+<a name="IDX337"></a>
+</dd>
+<dt> <samp>`-V, --version'</samp></dt>
+<dd><p>prints the version number to <tt>`stdout'</tt> and exits.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC20" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_17.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

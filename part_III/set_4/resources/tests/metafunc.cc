@@ -20,7 +20,7 @@ struct Storage
             return TypeHolder<map<Key, Value>>{};
             cerr << "BLA !" << '\n';
         }
-        else if (selector == 2)
+        else if constexpr (selector == 2)
         {
             return TypeHolder<map<Key, Value *>>{};
             cerr << "BLA !" << '\n';

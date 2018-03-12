@@ -898,5 +898,44 @@ etc...
 
 
 23.6.1 class vs non-class Types
+// since we request a member function pointer the compiler will mathc
+// class types
 template <typename ClassType>
 static 'some returntype' fun(void (ClassType::*)());
+
+// the compiler prefers anything above the following, but value types 
+// don't have member functions
+template <typename NonClassType>
+static 'some returntype' fun(...);
+
+- the return type can't be a simple value
+- provide an enum telling if we have a class type or not 
+
+version A:
+    enum { isClass = some class / non-class expression };
+Version B:
+    enum { isClass = fun<Type>(0) };
+    // WC: fun<Type>(0) is not a constexpr!
+Version C:
+    - use sizeof operator. 
+    - select different size return types 
+
+    char is size 1 
+    char[2] is size 2 but is not a type
+    
+final implementation:
+
+    struct Char2
+    {
+        char data[2];
+    };
+    
+    template <typename ClassType>
+    static Char2 fun(void (ClassType::*)());
+    
+    template <typename NonclassType>
+    static char fun(...);
+    
+    enum { isClass = sizeof(fun<Type>(0)) == sizeof(Char2) };
+    // note that we select the return size of the function on 0
+    // because both functions take 0 as an argument :)

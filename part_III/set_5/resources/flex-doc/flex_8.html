@@ -1,0 +1,392 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 8. Actions</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 8. Actions">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 8. Actions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Actions"></a>
+<a name="SEC12"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_7.html#SEC11" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_9.html#SEC13" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_7.html#SEC11" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_9.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 8. Actions </h1>
+
+<p>Each pattern in a rule has a corresponding <em>action</em>, which can be
+any arbitrary C statement.  The pattern ends at the first non-escaped
+whitespace character; the remainder of the line is its action.  If the
+action is empty, then when the pattern is matched the input token is
+simply discarded.  For example, here is the specification for a program
+which deletes all occurrences of <samp>`zap me'</samp> from its input:
+</p>
+<a name="IDX72"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    &quot;zap me&quot;
+</pre></td></tr></table>
+<p>This example will copy all other characters in the input to the output
+since they will be matched by the default rule.
+</p>
+<p>Here is a program which compresses multiple blanks and tabs down to a
+single blank, and throws away whitespace found at the end of a line:
+</p>
+<a name="IDX73"></a>
+<a name="IDX74"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    [ \t]+        putchar( ' ' );
+    [ \t]+$       /* ignore this token */
+</pre></td></tr></table>
+<a name="IDX75"></a>
+<a name="IDX76"></a>
+<a name="IDX77"></a>
+<a name="IDX78"></a>
+<a name="IDX79"></a>
+<p>If the action contains a <samp>`{'</samp>, then the action spans till the
+balancing <samp>`}'</samp> is found, and the action may cross multiple lines.
+<code>flex</code> knows about C strings and comments and won't be fooled by
+braces found within them, but also allows actions to begin with
+<samp>`%{'</samp> and will consider the action to be all the text up to the
+next <samp>`%}'</samp> (regardless of ordinary braces inside the action).
+</p>
+<a name="IDX80"></a>
+<p>An action consisting solely of a vertical bar (<samp>`|'</samp>) means &quot;same as the
+action for the next rule&quot;.  See below for an illustration.
+</p>
+<p>Actions can include arbitrary C code, including <code>return</code> statements
+to return a value to whatever routine called <code>yylex()</code>.  Each time
+<code>yylex()</code> is called it continues processing tokens from where it
+last left off until it either reaches the end of the file or executes a
+return.
+</p>
+<a name="IDX81"></a>
+<p>Actions are free to modify <code>yytext</code> except for lengthening it
+(adding characters to its end-these will overwrite later characters in
+the input stream).  This however does not apply when using <code>%array</code>
+(see section <a href="flex_7.html#SEC11">How the Input Is Matched</a>). In that case, <code>yytext</code> may be freely modified
+in any way.
+</p>
+<a name="IDX82"></a>
+<a name="IDX83"></a>
+<p>Actions are free to modify <code>yyleng</code> except they should not do so if
+the action also includes use of <code>yymore()</code> (see below).
+</p>
+<a name="IDX84"></a>
+<p>There are a number of special directives which can be included within an
+action:
+</p>
+<dl compact="compact">
+<dt>  <code>ECHO</code></dt>
+<dd><a name="IDX85"></a>
+<p>copies yytext to the scanner's output.
+</p>
+</dd>
+<dt>  <code>BEGIN</code></dt>
+<dd><a name="IDX86"></a>
+<p>followed by the name of a start condition places the scanner in the
+corresponding start condition (see below).
+</p>
+</dd>
+<dt>  <code>REJECT</code></dt>
+<dd><a name="IDX87"></a>
+<p>directs the scanner to proceed on to the &quot;second best&quot; rule which
+matched the input (or a prefix of the input).  The rule is chosen as
+described above in <a href="flex_7.html#SEC11">How the Input Is Matched</a>, and <code>yytext</code> and <code>yyleng</code>
+set up appropriately.  It may either be one which matched as much text
+as the originally chosen rule but came later in the <code>flex</code> input
+file, or one which matched less text.  For example, the following will
+both count the words in the input and call the routine <code>special()</code>
+whenever <samp>`frob'</samp> is seen:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">            int word_count = 0;
+    %%
+
+    frob        special(); REJECT;
+    [^ \t\n]+   ++word_count;
+</pre></td></tr></table>
+<p>Without the <code>REJECT</code>, any occurences of <samp>`frob'</samp> in the input
+would not be counted as words, since the scanner normally executes only
+one action per token.  Multiple uses of <code>REJECT</code> are allowed, each
+one finding the next best choice to the currently active rule.  For
+example, when the following scanner scans the token <samp>`abcd'</samp>, it will
+write <samp>`abcdabcaba'</samp> to the output:
+</p>
+<a name="IDX88"></a>
+<a name="IDX89"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    a        |
+    ab       |
+    abc      |
+    abcd     ECHO; REJECT;
+    .|\n     /* eat up any unmatched character */
+</pre></td></tr></table>
+<p>The first three rules share the fourth's action since they use the
+special <samp>`|'</samp> action.
+</p>
+<p><code>REJECT</code> is a particularly expensive feature in terms of scanner
+performance; if it is used in <em>any</em> of the scanner's actions it
+will slow down <em>all</em> of the scanner's matching.  Furthermore,
+<code>REJECT</code> cannot be used with the <samp>`-Cf'</samp> or <samp>`-CF'</samp> options
+(see section <a href="flex_16.html#SEC20">Scanner Options</a>).
+</p>
+<p>Note also that unlike the other special actions, <code>REJECT</code> is a
+<em>branch</em>.  code immediately following it in the action will
+<em>not</em> be executed.
+</p>
+</dd>
+<dt>  <code>yymore()</code></dt>
+<dd><a name="IDX90"></a>
+<p>tells the scanner that the next time it matches a rule, the
+corresponding token should be <em>appended</em> onto the current value of
+<code>yytext</code> rather than replacing it.  For example, given the input
+<samp>`mega-kludge'</samp> the following will write <samp>`mega-mega-kludge'</samp> to
+the output:
+</p>
+<a name="IDX91"></a>
+<a name="IDX92"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    mega-    ECHO; yymore();
+    kludge   ECHO;
+</pre></td></tr></table>
+<p>First <samp>`mega-'</samp> is matched and echoed to the output.  Then <samp>`kludge'</samp>
+is matched, but the previous <samp>`mega-'</samp> is still hanging around at the
+beginning of
+<code>yytext</code>
+so the
+<code>ECHO</code>
+for the <samp>`kludge'</samp> rule will actually write <samp>`mega-kludge'</samp>.
+</p></dd>
+</dl>
+
+<a name="IDX93"></a>
+<p>Two notes regarding use of <code>yymore()</code>.  First, <code>yymore()</code>
+depends on the value of <code>yyleng</code> correctly reflecting the size of
+the current token, so you must not modify <code>yyleng</code> if you are using
+<code>yymore()</code>.  Second, the presence of <code>yymore()</code> in the
+scanner's action entails a minor performance penalty in the scanner's
+matching speed.
+</p>
+<a name="IDX94"></a>
+<p><code>yyless(n)</code> returns all but the first <code>n</code> characters of the
+current token back to the input stream, where they will be rescanned
+when the scanner looks for the next match.  <code>yytext</code> and
+<code>yyleng</code> are adjusted appropriately (e.g., <code>yyleng</code> will now
+be equal to <code>n</code>).  For example, on the input <samp>`foobar'</samp> the
+following will write out <samp>`foobarbar'</samp>:
+</p>
+<a name="IDX95"></a>
+<a name="IDX96"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    foobar    ECHO; yyless(3);
+    [a-z]+    ECHO;
+</pre></td></tr></table>
+<p>An argument of 0 to <code>yyless()</code> will cause the entire current input
+string to be scanned again.  Unless you've changed how the scanner will
+subsequently process its input (using <code>BEGIN</code>, for example), this
+will result in an endless loop.
+</p>
+<p>Note that <code>yyless()</code> is a macro and can only be used in the flex
+input file, not from other source files.
+</p>
+<a name="IDX97"></a>
+<a name="IDX98"></a>
+<p><code>unput(c)</code> puts the character <code>c</code> back onto the input stream.
+It will be the next character scanned.  The following action will take
+the current token and cause it to be rescanned enclosed in parentheses.
+</p>
+<a name="IDX99"></a>
+<a name="IDX100"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    {
+    int i;
+    /* Copy yytext because unput() trashes yytext */
+    char *yycopy = strdup( yytext );
+    unput( ')' );
+    for ( i = yyleng - 1; i &gt;= 0; --i )
+        unput( yycopy[i] );
+    unput( '(' );
+    free( yycopy );
+    }
+</pre></td></tr></table>
+<p>Note that since each <code>unput()</code> puts the given character back at the
+<em>beginning</em> of the input stream, pushing back strings must be done
+back-to-front.
+</p>
+<a name="IDX101"></a>
+<a name="IDX102"></a>
+<p>An important potential problem when using <code>unput()</code> is that if you
+are using <code>%pointer</code> (the default), a call to <code>unput()</code>
+<em>destroys</em> the contents of <code>yytext</code>, starting with its
+rightmost character and devouring one character to the left with each
+call.  If you need the value of <code>yytext</code> preserved after a call to
+<code>unput()</code> (as in the above example), you must either first copy it
+elsewhere, or build your scanner using <code>%array</code> instead
+(see section <a href="flex_7.html#SEC11">How the Input Is Matched</a>).
+</p>
+<a name="IDX103"></a>
+<a name="IDX104"></a>
+<p>Finally, note that you cannot put back <samp>`EOF'</samp> to attempt to mark the
+input stream with an end-of-file.
+</p>
+<a name="IDX105"></a>
+<p><code>input()</code> reads the next character from the input stream.  For
+example, the following is one way to eat up C comments:
+</p>
+<a name="IDX106"></a>
+<a name="IDX107"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    &quot;/*&quot;        {
+                register int c;
+
+                for ( ; ; )
+                    {
+                    while ( (c = input()) != '*' &amp;&amp;
+                            c != EOF )
+                        ;    /* eat up text of comment */
+
+                    if ( c == '*' )
+                        {
+                        while ( (c = input()) == '*' )
+                            ;
+                        if ( c == '/' )
+                            break;    /* found the end */
+                        }
+
+                    if ( c == EOF )
+                        {
+                        error( &quot;EOF in comment&quot; );
+                        break;
+                        }
+                    }
+                }
+</pre></td></tr></table>
+<a name="IDX108"></a>
+<a name="IDX109"></a>
+<p>(Note that if the scanner is compiled using <code>C++</code>, then
+<code>input()</code> is instead referred to as <b>yyinput()</b>, in order to
+avoid a name clash with the <code>C++</code> stream by the name of
+<code>input</code>.)
+</p>
+<a name="IDX110"></a>
+<a name="IDX111"></a>
+<p><code>YY_FLUSH_BUFFER()</code> flushes the scanner's internal buffer so that
+the next time the scanner attempts to match a token, it will first
+refill the buffer using <code>YY_INPUT()</code> (see section <a href="flex_9.html#SEC13">The Generated Scanner</a>).
+This action is a special case of the more general
+<code>yy_flush_buffer()</code> function, described below (see section <a href="flex_11.html#SEC15">Multiple Input Buffers</a>)
+</p>
+<a name="IDX112"></a>
+<a name="IDX113"></a>
+<a name="IDX114"></a>
+<a name="IDX115"></a>
+<p><code>yyterminate()</code> can be used in lieu of a return statement in an
+action.  It terminates the scanner and returns a 0 to the scanner's
+caller, indicating &quot;all done&quot;.  By default, <code>yyterminate()</code> is
+also called when an end-of-file is encountered.  It is a macro and may
+be redefined.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_7.html#SEC11" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_9.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

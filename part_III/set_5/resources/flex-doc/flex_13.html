@@ -1,0 +1,185 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 13. Miscellaneous Macros</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 13. Miscellaneous Macros">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 13. Miscellaneous Macros">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Misc-Macros"></a>
+<a name="SEC17"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_12.html#SEC16" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_14.html#SEC18" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_12.html#SEC16" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_14.html#SEC18" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 13. Miscellaneous Macros </h1>
+
+<p>The macro <code>YY_USER_ACTION</code> can be defined to provide an action
+which is always executed prior to the matched rule's action.  For
+example, it could be #define'd to call a routine to convert yytext to
+lower-case.  When <code>YY_USER_ACTION</code> is invoked, the variable
+<code>yy_act</code> gives the number of the matched rule (rules are numbered
+starting with 1).  Suppose you want to profile how often each of your
+rules is matched.  The following would do the trick:
+</p>
+<a name="IDX189"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    #define YY_USER_ACTION ++ctr[yy_act]
+</pre></td></tr></table>
+<a name="IDX190"></a>
+<p>where <code>ctr</code> is an array to hold the counts for the different rules.
+Note that the macro <code>YY_NUM_RULES</code> gives the total number of rules
+(including the default rule), even if you use <samp>`-s)'</samp>, so a correct
+declaration for <code>ctr</code> is:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    int ctr[YY_NUM_RULES];
+</pre></td></tr></table>
+<a name="IDX191"></a>
+<p>The macro <code>YY_USER_INIT</code> may be defined to provide an action which
+is always executed before the first scan (and before the scanner's
+internal initializations are done).  For example, it could be used to
+call a routine to read in a data table or open a logging file.
+</p>
+<a name="IDX192"></a>
+<p>The macro <code>yy_set_interactive(is_interactive)</code> can be used to
+control whether the current buffer is considered <em>interactive</em>.  An
+interactive buffer is processed more slowly, but must be used when the
+scanner's input source is indeed interactive to avoid problems due to
+waiting to fill buffers (see the discussion of the <samp>`-I'</samp> flag in
+<a href="flex_16.html#SEC20">Scanner Options</a>).  A non-zero value in the macro invocation marks
+the buffer as interactive, a zero value as non-interactive.  Note that
+use of this macro overrides <code>%option always-interactive</code> or
+<code>%option never-interactive</code> (see section <a href="flex_16.html#SEC20">Scanner Options</a>).
+<code>yy_set_interactive()</code> must be invoked prior to beginning to scan
+the buffer that is (or is not) to be considered interactive.
+</p>
+<a name="IDX193"></a>
+<a name="IDX194"></a>
+<p>The macro <code>yy_set_bol(at_bol)</code> can be used to control whether the
+current buffer's scanning context for the next token match is done as
+though at the beginning of a line.  A non-zero macro argument makes
+rules anchored with <samp>`^'</samp> active, while a zero argument makes
+<samp>`^'</samp> rules inactive.
+</p>
+<a name="IDX195"></a>
+<a name="IDX196"></a>
+<p>The macro <code>YY_AT_BOL()</code> returns true if the next token scanned from
+the current buffer will have <samp>`^'</samp> rules active, false otherwise.
+</p>
+<a name="IDX197"></a>
+<a name="IDX198"></a>
+<p>In the generated scanner, the actions are all gathered in one large
+switch statement and separated using <code>YY_BREAK</code>, which may be
+redefined.  By default, it is simply a <code>break</code>, to separate each
+rule's action from the following rule's.  Redefining <code>YY_BREAK</code>
+allows, for example, C++ users to #define YY_BREAK to do nothing (while
+being very careful that every rule ends with a <code>break</code>&quot; or a
+<code>return</code>!) to avoid suffering from unreachable statement warnings
+where because a rule's action ends with <code>return</code>, the
+<code>YY_BREAK</code> is inaccessible.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_12.html#SEC16" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_14.html#SEC18" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

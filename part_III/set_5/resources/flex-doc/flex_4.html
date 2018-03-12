@@ -1,0 +1,230 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 4. Some Simple Examples</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 4. Some Simple Examples">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 4. Some Simple Examples">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Simple-Examples"></a>
+<a name="SEC4"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_3.html#SEC3" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_5.html#SEC5" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_3.html#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_5.html#SEC5" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 4. Some Simple Examples </h1>
+
+<p>First some simple examples to get the flavor of how one uses
+<code>flex</code>.
+</p>
+<a name="IDX1"></a>
+<p>The following <code>flex</code> input specifies a scanner which, when it
+encounters the string <samp>`username'</samp> will replace it with the user's
+login name:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    username    printf( &quot;%s&quot;, getlogin() );
+</pre></td></tr></table>
+<a name="IDX2"></a>
+<a name="IDX3"></a>
+<p>By default, any text not matched by a <code>flex</code> scanner is copied to
+the output, so the net effect of this scanner is to copy its input file
+to its output with each occurrence of <samp>`username'</samp> expanded.  In this
+input, there is just one rule.  <samp>`username'</samp> is the <em>pattern</em> and
+the <samp>`printf'</samp> is the <em>action</em>.  The <samp>`%%'</samp> symbol marks the
+beginning of the rules.
+</p>
+<p>Here's another simple example:
+</p>
+<a name="IDX4"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">            int num_lines = 0, num_chars = 0;
+
+    %%
+    \n      ++num_lines; ++num_chars;
+    .       ++num_chars;
+
+    %%
+    main()
+            {
+            yylex();
+            printf( &quot;# of lines = %d, # of chars = %d\n&quot;,
+                    num_lines, num_chars );
+            }
+</pre></td></tr></table>
+<p>This scanner counts the number of characters and the number of lines in
+its input. It produces no output other than the final report on the
+character and line counts.  The first line declares two globals,
+<code>num_lines</code> and <code>num_chars</code>, which are accessible both inside
+<code>yylex()</code> and in the <code>main()</code> routine declared after the
+second <samp>`%%'</samp>.  There are two rules, one which matches a newline
+(<samp>`\n'</samp>) and increments both the line count and the character count,
+and one which matches any character other than a newline (indicated by
+the <samp>`.'</samp> regular expression).
+</p>
+<p>A somewhat more complicated example:
+</p>
+<a name="IDX5"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* scanner for a toy Pascal-like language */
+
+    %{
+    /* need this for the call to atof() below */
+    #include math.h&gt;
+    %}
+
+    DIGIT    [0-9]
+    ID       [a-z][a-z0-9]*
+
+    %%
+
+    {DIGIT}+    {
+                printf( &quot;An integer: %s (%d)\n&quot;, yytext,
+                        atoi( yytext ) );
+                }
+
+    {DIGIT}+&quot;.&quot;{DIGIT}*        {
+                printf( &quot;A float: %s (%g)\n&quot;, yytext,
+                        atof( yytext ) );
+                }
+
+    if|then|begin|end|procedure|function        {
+                printf( &quot;A keyword: %s\n&quot;, yytext );
+                }
+
+    {ID}        printf( &quot;An identifier: %s\n&quot;, yytext );
+
+    &quot;+&quot;|&quot;-&quot;|&quot;*&quot;|&quot;/&quot;   printf( &quot;An operator: %s\n&quot;, yytext );
+
+    &quot;{&quot;[\^{}}\n]*&quot;}&quot;     /* eat up one-line comments */
+
+    [ \t\n]+          /* eat up whitespace */
+
+    .           printf( &quot;Unrecognized character: %s\n&quot;, yytext );
+
+    %%
+
+    main( argc, argv )
+    int argc;
+    char **argv;
+        {
+        ++argv, --argc;  /* skip over program name */
+        if ( argc &gt; 0 )
+                yyin = fopen( argv[0], &quot;r&quot; );
+        else
+                yyin = stdin;
+
+        yylex();
+        }
+</pre></td></tr></table>
+<p>This is the beginnings of a simple scanner for a language like Pascal.
+It identifies different types of <em>tokens</em> and reports on what it has
+seen.
+</p>
+<p>The details of this example will be explained in the following
+sections.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_3.html#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_5.html#SEC5" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

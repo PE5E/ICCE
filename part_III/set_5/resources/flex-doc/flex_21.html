@@ -1,0 +1,346 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 21. Memory Management</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 21. Memory Management">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 21. Memory Management">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Memory-Management"></a>
+<a name="SEC43"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC44" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_22.html#SEC47" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 21. Memory Management </h1>
+
+<p><a name="memory_002dmanagement"></a>
+This chapter describes how flex handles dynamic memory, and how you can
+override the default behavior.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC44">21.1 The Default Memory Management</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC45">21.2 Overriding The Default Memory Management</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC46">21.3 A Note About yytext And Memory</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="The-Default-Memory-Management"></a>
+<a name="SEC44"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC43" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_22.html#SEC47" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 21.1 The Default Memory Management </h2>
+
+<p>Flex allocates dynamic memory during initialization, and once in a while from
+within a call to yylex(). Initialization takes place during the first call to
+yylex(). Thereafter, flex may reallocate more memory if it needs to enlarge a
+buffer. As of version 2.5.9 Flex will clean up all memory when you call <code>yylex_destroy</code>
+See <a href="flex_26.html#faq_002dmemory_002dleak">faq-memory-leak</a>.
+</p>
+<p>Flex allocates dynamic memory for four purposes, listed below <a name="DOCF2" href="flex_fot.html#FOOT2">(2)</a> 
+</p>
+<dl compact="compact">
+<dt> 16kB for the input buffer.</dt>
+<dd><p>Flex allocates memory for the character buffer used to perform pattern
+matching.  Flex must read ahead from the input stream and store it in a large
+character buffer.  This buffer is typically the largest chunk of dynamic memory
+flex consumes. This buffer will grow if necessary, doubling the size each time.
+Flex frees this memory when you call yylex_destroy().  The default size of this
+buffer (16384 bytes) is almost always too large.  The ideal size for this
+buffer is the length of the longest token expected.  Flex will allocate a few
+extra bytes for housekeeping.
+</p>
+</dd>
+<dt> 16kb for the REJECT state. This will only be allocated if you use REJECT.</dt>
+<dd><p>The size is the same as the input buffer, so if you override the size of the
+input buffer, then you automatically override the size of this buffer as well.
+</p>
+</dd>
+<dt> 100 bytes for the start condition stack.</dt>
+<dd><p>Flex allocates memory for the start condition stack. This is the stack used
+for pushing start states, i.e., with yy_push_state(). It will grow if
+necessary.  Since the states are simply integers, this stack doesn't consume
+much memory.  This stack is not present if <code>%option stack</code> is not
+specified.  You will rarely need to tune this buffer. The ideal size for this
+stack is the maximum depth expected.  The memory for this stack is
+automatically destroyed when you call yylex_destroy(). See <a href="flex_16.html#option_002dstack">option-stack</a>.
+</p>
+</dd>
+<dt> 40 bytes for each YY_BUFFER_STATE.</dt>
+<dd><p>Flex allocates memory for each YY_BUFFER_STATE. The buffer state itself
+is about 40 bytes, plus an additional large character buffer (described above.)
+The initial buffer state is created during initialization, and with each call
+to yy_create_buffer(). You can't tune the size of this, but you can tune the
+character buffer as described above. Any buffer state that you explicitly
+create by calling yy_create_buffer() is <em>NOT</em> destroyed automatically. You
+must call yy_delete_buffer() to free the memory. The exception to this rule is
+that flex will delete the current buffer automatically when you call
+yylex_destroy(). If you delete the current buffer, be sure to set it to NULL.
+That way, flex will not try to delete the buffer a second time (possibly
+crashing your program!) At the time of this writing, flex does not provide a
+growable stack for the buffer states.  You have to manage that yourself.
+See section <a href="flex_11.html#SEC15">Multiple Input Buffers</a>.
+</p>
+</dd>
+<dt> 84 bytes for the reentrant scanner guts</dt>
+<dd><p>Flex allocates about 84 bytes for the reentrant scanner structure when
+you call yylex_init(). It is destroyed when the user calls yylex_destroy().
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="Overriding-The-Default-Memory-Management"></a>
+<a name="SEC45"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC44" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC46" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_22.html#SEC47" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 21.2 Overriding The Default Memory Management </h2>
+
+
+<p>Flex calls the functions <code>yyalloc</code>, <code>yyrealloc</code>, and <code>yyfree</code>
+when it needs to allocate or free memory. By default, these functions are
+wrappers around the standard C functions, <code>malloc</code>, <code>realloc</code>, and
+<code>free</code>, respectively. You can override the default implementations by telling
+flex that you will provide your own implementations.
+</p>
+<p>To override the default implementations, you must do two things:
+</p>
+<ol>
+<li> Suppress the default implementations by specifying one or more of the
+following options:
+
+<ul class="toc">
+<li><a name="IDX402"></a>
+</li><li> <code>%option noyyalloc</code>
+</li><li> <code>%option noyyrealloc</code>
+</li><li> <code>%option noyyfree</code>.
+</li></ul>
+
+</li><li> Provide your own implementation of the following functions: <a name="DOCF3" href="flex_fot.html#FOOT3">(3)</a>
+
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">// For a non-reentrant scanner
+void * yyalloc (size_t bytes);
+void * yyrealloc (void * ptr, size_t bytes);
+void   yyfree (void * ptr);
+
+// For a reentrant scanner
+void * yyalloc (size_t bytes, void * yyscanner);
+void * yyrealloc (void * ptr, size_t bytes, void * yyscanner);
+void   yyfree (void * ptr, void * yyscanner);
+</pre></td></tr></table>
+</li></ol>
+
+<p>In the following example, we will override all three memory routines. We assume
+that there is a custom allocator with garbage collection. In order to make this
+example interesting, we will use a reentrant scanner, passing a pointer to the
+custom allocator through <code>yyextra</code>.
+</p>
+<a name="IDX403"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">%{
+#include &quot;some_allocator.h&quot;
+%}
+
+/* Suppress the default implementations. */
+%option noyyalloc noyyrealloc noyyfree
+%option reentrant
+
+/* Initialize the allocator. */
+#define YY_EXTRA_TYPE  struct allocator*
+#define YY_USER_INIT  yyextra = allocator_create();
+
+%%
+.|\n   ;
+%%
+
+/* Provide our own implementations. */
+void * yyalloc (size_t bytes, void* yyscanner) {
+    return allocator_alloc (yyextra, bytes);
+}
+
+void * yyrealloc (void * ptr, size_t bytes, void* yyscanner) {
+    return allocator_realloc (yyextra, bytes);
+}
+
+void yyfree (void * ptr, void * yyscanner) {      
+    /* Do nothing -- we leave it to the garbage collector. */
+}
+
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="A-Note-About-yytext-And-Memory"></a>
+<a name="SEC46"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC45" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_22.html#SEC47" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_22.html#SEC47" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 21.3 A Note About yytext And Memory </h2>
+
+
+<p>When flex finds a match, <code>yytext</code> points to the first character of the
+match in the input buffer. The string itself is part of the input buffer, and
+is <em>NOT</em> allocated separately. The value of yytext will be overwritten the next
+time yylex() is called. In short, the value of yytext is only valid from within
+the matched rule's action.
+</p>
+<p>Often, you want the value of yytext to persist for later processing, i.e., by a
+parser with non-zero lookahead. In order to preserve yytext, you will have to
+copy it with strdup() or a similar function. But this introduces some headache
+because your parser is now responsible for freeing the copy of yytext. If you
+use a yacc or bison parser, (commonly used with flex), you will discover that
+the error recovery mechanisms can cause memory to be leaked.
+</p>
+<p>To prevent memory leaks from strdup'd yytext, you will have to track the memory
+somehow. Our experience has shown that a garbage collection mechanism or a
+pooled memory mechanism will save you a lot of grief when writing parsers.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC43" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_22.html#SEC47" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

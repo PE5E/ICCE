@@ -939,3 +939,198 @@ final implementation:
     enum { isClass = sizeof(fun<Type>(0)) == sizeof(Char2) };
     // note that we select the return size of the function on 0
     // because both functions take 0 as an argument :)
+    
+    
+Expression Templates
+
+    VecType &VecType::operator+=(VecType const &rhs)
+    {
+        for (size_t idx = 0, end = size(); idx != end; ++idx)
+            (*this)[idx] += rhs[idx];
+        return *this;
+    }
+    
+    ET(ET(one, two), ET(three, four))
+    // ET only saves references, does no computation
+    
+    operator ETL::VecType() const 
+    {
+        VecType retVal;             // create
+        retVal.reserve(size());     // set size
+        
+        for (size_t ix = 0; end = size(0); ix != end; ++x)      // 
+            new(&retVal[ix]) value_type((*this)[idx]);
+        
+        return retVal;
+    }
+
+23.11.2 Implementing Expr tempts
+
+- in this section: typedef std::vector<int> IntVect;
+
+int main()
+{
+	IntVect one;
+	IntVect two;
+	IntVect three;
+	IntVect four;
+
+	// suppose the IntVects contain values
+
+	four = one + two + three + four;
+}
+
+observe:
+	- no expression template visible to user
+	- implementation:
+
+	template<typename LHS, typename RHS>
+	BinExpr<LHS, RHS, plus> &&operator+(LHS const &lhs, RHS const &rhs)
+	{
+		return BinExpr<LHS, RHS, plus>{lhs, rhs};
+	}
+
+	- special syntax: BinExpr<LHS, RHS, plus>
+	- return a BinExpr object too!
+	- this allows the RECURSION
+
+	decleration of BinExpr:
+
+	template<typename LHS, typename RHS, template<typename> class Operation>
+	struct BinExpr;
+	
+	- note 
+		template <typename> class Operation
+		here Operation is the operation to be performed by the expression template
+		could use our own function templates here
+	- LHS and RHS can be data type or BinExpr object
+
+	BinExpr constructor:
+
+		BinExpr(LHS const &lhs, RHS const &rhs)
+		:
+			d_lhs(lhs),
+			d_rhs(rhs)
+		{}
+
+	- to retrieve the final vector of ints, we use a conversion:
+
+	operator ObjType() const
+	{
+		ObjType retVal;
+		retVal.reserve(size());
+
+		for  (size_t idx = 0, end = size(); idx != end; ++idx)
+			new(&retVal[idx]) value_type((*this)[idx]);
+
+		return retVal;
+	}
+
+	- this will be intVect	
+	
+	size_t size() const
+	{
+		return d_lhs.size();
+	}
+	
+	- In any tree of BinExpr objects, the final d_lhs will be of the Type! 
+	
+	index operator:
+
+	value_type operator[](size_t idx) const
+	{
+		static Operation<value_type> operation;
+		return operation(d_lhs[idx], d_rhs[idx]);
+	}
+
+	- value_type is the type of the elements of the vector type that is processed by the expression template
+
+23.11.3 BasicType trait class and ordering class
+	
+	- BinExpr relies on two types
+	- Needs to be aware of these types
+	- We want ObjType::value_type (syntax)
+	- We want to know the nested type
+	Generic:	
+		template <typename Type>
+		struct BasicType
+		{
+			typedef Type ObjType;
+		};
+	for BinExpr:
+		template <typename LHS, typename RHS, template <typename> class Operation>
+		struct BasicType(BinExpr<LHS, RHS, Operation>>
+		{
+			typedef typename BinExpr(LHS, RHS, Operation>::ObjType ObjType;
+		};
+	- this just asks for the type of the nested object
+
+23.8.3 Type convertibility
+
+	- A can be converted to B if A can be used in 'B code'.
+	- This can be decided compile time
+	- Also: decide if class B is base class of A
+
+	// declared, never defined
+	Convertible test(U const &);
+
+		- idea: If A can be used instead of U, then A can be passed to test.
+		- If A can't be used, we provide a lower priority test
+
+	// declared, never defined
+	NotConvertible test(...);
+
+	Problems:
+		- T might not have constructor. How do we get a T object?
+		- How do we distinguish?
+	Solution
+		- Don't define a T. We decide compile-time. 
+	
+		T makeT();
+
+		- Trick compiler to think a T object will be returned.
+		- Problem: arrays. Functions can't return array, only refs to arrays.
+
+		T const &makeT();
+
+		- Lets try it:
+		
+			test(makeT())
+			
+			isConvertible = sizeof(test(MakeT())) == sizeof(Convertible);
+
+	Summary:
+
+		template <typename T, typename U>
+		class LconvertibleToR
+		{
+			struct Char2
+			{
+				char array[2];
+			};
+			static T const &makeT();	// fake T factory
+			static char test(U const &);	// return types
+			static Char2 test(...);
+
+			public:
+				LconvertibleToR(LconvertibleToR const &other) = delete;
+				enum { yes = sizeof(test(makeT())) == sizeof(char) };
+				enum { sameType = 0 };
+		};
+
+		template <typename T>
+		class LconvertibleToR<T, T>
+		{
+			public:
+				LconvertibleToR(LconvertibleToR const &other) = delete;
+				enum { yes = 1 };
+				enum { sameType = 1 };
+		};
+
+		
+
+	
+	
+	
+
+	

@@ -45,3 +45,5 @@ PLAN:
     static char fun(...);
     
     enum { isClass = sizeof(fun<Type>(0)) == sizeof(Char2) };
+    
+    

@@ -1,0 +1,5 @@
+ value_type operator[](size_t ix) const
+    {
+        static Operation<value_type> operation;
+        return operation(d_lhs[ix], d_rhs[ix]);
+    }

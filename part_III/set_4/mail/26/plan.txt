@@ -1,0 +1,49 @@
+class Data
+{
+    std::vector<std::string> d_data;
+    ...
+};
+
+strings may be
+    - empty
+    - not empty
+    - convertible to built-in type
+    - not convertible to built-in type
+    
+member template:
+    get<Type>(size_t idx) const                 // assume idx is valid 
+    
+- Type any built-in, and string
+- for string return type should be std::string const&
+- otherwise Type
+- If get cannot convert d_data[idx] to Type, then return Type's default value
+
+Hints: 
+    3 groups
+        - integral 
+        - floats
+        - string
+        
+        
+"""
+For that use specializations of some template meta programming struct that returns the values of types for floats, doubles, strings, long doubles, or any kind of integral value type, it the return type is also determined by a template meta programming class, which allows get to distinguish between std::string and all ints, doubles, floats etc. Since you're not supposted to use any available type traits, define your own facility to distinguish between class- and non-class types: probably some IfElse facility that returns a Type const & in case get returns a std::string (so: not a copy of d_data's value) and a Type in all other cases (so, the values converted from a string representation themselves) 
+""""
+
+
+PLAN:
+    - use 23.6.1 to make class IfElse that tests if something is class or value type. In this class type means string
+    
+    truct Char2
+    {
+        char data[2];
+    };
+    
+    template <typename ClassType>
+    static Char2 fun(void (ClassType::*)());
+    
+    template <typename NonclassType>
+    static char fun(...);
+    
+    enum { isClass = sizeof(fun<Type>(0)) == sizeof(Char2) };
+    
+    

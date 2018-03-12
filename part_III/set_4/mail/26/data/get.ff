@@ -1,0 +1,13 @@
+template <typename Type>
+decltype(auto) Data::get(size_t idx)
+{
+    if constexpr ( sizeof(fun<Type>(0)) == sizeof(Char2) )      // class
+    {   
+        std::string &ref = d_data[idx];
+        return ref;
+    }
+    else                                                        // value
+    {
+        return static_cast<Type>(*d_data[idx].data());
+    }
+}

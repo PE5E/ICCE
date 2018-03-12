@@ -1,0 +1,5 @@
+template<typename Type>
+struct BasicType
+{
+    typedef Type ObjType;
+};

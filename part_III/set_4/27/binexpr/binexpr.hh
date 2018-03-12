@@ -18,11 +18,9 @@ BinExpr<LHS, RHS, plus> operator+(LHS const &lhs, RHS const &rhs);
 template<typename Type>
 struct BasicType;
 
-
 // BasicType's specialization (for BinExpr)            
 template<typename LHS, typename RHS, template<typename> class Operation>
 struct BasicType<BinExpr<LHS, RHS, Operation>>;
-
 
 // BinExpr itself. Operation is a template template parameter 
 // which defines the binary operation that is to be used

@@ -1,0 +1,783 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 19. Reentrant C Scanners</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 19. Reentrant C Scanners">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 19. Reentrant C Scanners">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Reentrant"></a>
+<a name="SEC29"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_18.html#SEC28" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC30" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_18.html#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 19. Reentrant C Scanners </h1>
+
+<p><code>flex</code> has the ability to generate a reentrant C scanner. This is
+accomplished by specifying <code>%option reentrant</code> (<samp>`-R'</samp>) The generated
+scanner is both portable, and safe to use in one or more separate threads of
+control.  The most common use for reentrant scanners is from within
+multi-threaded applications.  Any thread may create and execute a reentrant
+<code>flex</code> scanner without the need for synchronization with other threads.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC30">19.1 Uses for Reentrant Scanners</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC31">19.2 An Overview of the Reentrant API</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC32">19.3 Reentrant Example</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC33">19.4 The Reentrant API in Detail</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC41">19.5 Functions and Macros Available in Reentrant C Scanners</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Reentrant-Uses"></a>
+<a name="SEC30"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC29" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC31" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 19.1 Uses for Reentrant Scanners </h2>
+
+<p>However, there are other uses for a reentrant scanner.  For example, you
+could scan two or more files simultaneously to implement a <code>diff</code> at
+the token level (i.e., instead of at the character level):
+</p>
+<a name="IDX375"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* Example of maintaining more than one active scanner. */
+
+    do {
+        int tok1, tok2;
+
+        tok1 = yylex( scanner_1 );
+        tok2 = yylex( scanner_2 );
+
+        if( tok1 != tok2 )
+            printf(&quot;Files are different.&quot;);
+
+   } while ( tok1 &amp;&amp; tok2 );
+</pre></td></tr></table>
+<p>Another use for a reentrant scanner is recursion.
+(Note that a recursive scanner can also be created using a non-reentrant scanner and
+buffer states. See section <a href="flex_11.html#SEC15">Multiple Input Buffers</a>.)
+</p>
+<p>The following crude scanner supports the <samp>`eval'</samp> command by invoking
+another instance of itself.
+</p>
+<a name="IDX376"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* Example of recursive invocation. */
+
+    %option reentrant
+
+    %%
+    &quot;eval(&quot;.+&quot;)&quot;  {
+                      yyscan_t scanner;
+                      YY_BUFFER_STATE buf;
+
+                      yylex_init( &amp;scanner );
+                      yytext[yyleng-1] = ' ';
+
+                      buf = yy_scan_string( yytext + 5, scanner );
+                      yylex( scanner );
+
+                      yy_delete_buffer(buf,scanner);
+                      yylex_destroy( scanner );
+                 }
+    ...
+    %%
+</pre></td></tr></table>
+<hr size="6">
+<a name="Reentrant-Overview"></a>
+<a name="SEC31"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC30" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC32" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 19.2 An Overview of the Reentrant API </h2>
+
+<p>The API for reentrant scanners is different than for non-reentrant
+scanners. Here is a quick overview of the API:
+</p>
+<ul class="toc">
+<li><code>%option reentrant</code> must be specified.
+
+</li><li>
+All functions take one additional argument: <code>yyscanner</code>
+
+</li><li>
+All global variables are replaced by their macro equivalents.
+(We tell you this because it may be important to you during debugging.)
+
+</li><li>
+<code>yylex_init</code> and <code>yylex_destroy</code> must be called before and
+after <code>yylex</code>, respectively.
+
+</li><li>
+Accessor methods (get/set functions) provide access to common
+<code>flex</code> variables.
+
+</li><li>
+User-specific data can be stored in <code>yyextra</code>.
+</li></ul>
+
+<hr size="6">
+<a name="Reentrant-Example"></a>
+<a name="SEC32"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC31" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 19.3 Reentrant Example </h2>
+
+<p>First, an example of a reentrant scanner:
+<a name="IDX377"></a>
+</p><table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* This scanner prints &quot;//&quot; comments. */
+    %option reentrant stack
+    %x COMMENT
+    %%
+    &quot;//&quot;                 yy_push_state( COMMENT, yyscanner);
+    .|\n
+    &lt;COMMENT&gt;\n          yy_pop_state( yyscanner );
+    &lt;COMMENT&gt;[^\n]+      fprintf( yyout, &quot;%s\n&quot;, yytext);
+    %%
+    int main ( int argc, char * argv[] )
+    {
+        yyscan_t scanner;
+
+        yylex_init ( &amp;scanner );
+        yylex ( scanner );
+        yylex_destroy ( scanner );
+    return 0;
+   }
+</pre></td></tr></table>
+<hr size="6">
+<a name="Reentrant-Detail"></a>
+<a name="SEC33"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC32" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 19.4 The Reentrant API in Detail </h2>
+
+<p>Here are the things you need to do or know to use the reentrant C API of
+<code>flex</code>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC34">19.4.1 Declaring a Scanner As Reentrant</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC35">19.4.2 The Extra Argument</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC36">19.4.3 Global Variables Replaced By Macros</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC37">19.4.4 Init and Destroy Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC38">19.4.5 Accessing Variables with Reentrant Scanners</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC39">19.4.6 Extra Data</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC40">19.4.7 About yyscan_t</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Specify-Reentrant"></a>
+<a name="SEC34"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC33" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC35" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.1 Declaring a Scanner As Reentrant </h3>
+
+<p> %option reentrant (-reentrant) must be specified.
+</p>
+<p>Notice that <code>%option reentrant</code> is specified in the above example
+(see section <a href="#SEC32">Reentrant Example</a>. Had this option not been specified,
+<code>flex</code> would have happily generated a non-reentrant scanner without
+complaining. You may explicitly specify <code>%option noreentrant</code>, if
+you do <em>not</em> want a reentrant scanner, although it is not
+necessary. The default is to generate a non-reentrant scanner.
+</p>
+<hr size="6">
+<a name="Extra-Reentrant-Argument"></a>
+<a name="SEC35"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC34" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC36" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.2 The Extra Argument </h3>
+
+<p>All functions take one additional argument: <code>yyscanner</code>.
+</p>
+<p>Notice that the calls to <code>yy_push_state</code> and <code>yy_pop_state</code>
+both have an argument, <code>yyscanner</code> , that is not present in a
+non-reentrant scanner.  Here are the declarations of
+<code>yy_push_state</code> and <code>yy_pop_state</code> in the generated scanner:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    static void yy_push_state  ( int new_state , yyscan_t yyscanner ) ;
+    static void yy_pop_state  ( yyscan_t yyscanner  ) ;
+</pre></td></tr></table>
+<p>Notice that the argument <code>yyscanner</code> appears in the declaration of
+both functions.  In fact, all <code>flex</code> functions in a reentrant
+scanner have this additional argument.  It is always the last argument
+in the argument list, it is always of type <code>yyscan_t</code> (which is
+typedef'd to <code>void *</code>) and it is
+always named <code>yyscanner</code>.  As you may have guessed,
+<code>yyscanner</code> is a pointer to an opaque data structure encapsulating
+the current state of the scanner.  For a list of function declarations,
+see <a href="#SEC41">Functions and Macros Available in Reentrant C Scanners</a>. Note that preprocessor macros, such as
+<code>BEGIN</code>, <code>ECHO</code>, and <code>REJECT</code>, do not take this
+additional argument.
+</p>
+<hr size="6">
+<a name="Global-Replacement"></a>
+<a name="SEC36"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC35" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC37" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.3 Global Variables Replaced By Macros </h3>
+
+<p>All global variables in traditional flex have been replaced by macro equivalents.
+</p>
+<p>Note that in the above example, <code>yyout</code> and <code>yytext</code> are
+not plain variables. These are macros that will expand to their equivalent lvalue.
+All of the familiar <code>flex</code> globals have been replaced by their macro
+equivalents. In particular, <code>yytext</code>, <code>yyleng</code>, <code>yylineno</code>,
+<code>yyin</code>, <code>yyout</code>, <code>yyextra</code>, <code>yylval</code>, and <code>yylloc</code>
+are macros. You may safely use these macros in actions as if they were plain
+variables. We only tell you this so you don't expect to link to these variables
+externally. Currently, each macro expands to a member of an internal struct, e.g.,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">#define yytext (((struct yyguts_t*)yyscanner)-&gt;yytext_r)
+</pre></td></tr></table>
+<p>One important thing to remember about
+<code>yytext</code>
+and friends is that
+<code>yytext</code>
+is not a global variable in a reentrant
+scanner, you can not access it directly from outside an action or from
+other functions. You must use an accessor method, e.g.,
+<code>yyget_text</code>,
+to accomplish this. (See below).
+</p>
+<hr size="6">
+<a name="Init-and-Destroy-Functions"></a>
+<a name="SEC37"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC36" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC38" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.4 Init and Destroy Functions </h3>
+
+
+<p><code>yylex_init</code> and <code>yylex_destroy</code> must be called before and
+after <code>yylex</code>, respectively.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    int yylex_init ( yyscan_t * ptr_yy_globals ) ;
+    int yylex ( yyscan_t yyscanner ) ;
+    int yylex_destroy ( yyscan_t yyscanner ) ;
+</pre></td></tr></table>
+<p>The function <code>yylex_init</code> must be called before calling any other
+function. The argument to <code>yylex_init</code> is the address of an
+uninitialized pointer to be filled in by <code>flex</code>. The contents of
+<code>ptr_yy_globals</code> need not be initialized, since <code>flex</code> will
+overwrite it anyway. The value stored in <code>ptr_yy_globals</code> should
+thereafter be passed to <code>yylex()</code> and <b>yylex_destroy()</b>.  Flex
+does not save the argument passed to <code>yylex_init</code>, so it is safe to
+pass the address of a local pointer to <code>yylex_init</code>.  The function
+<code>yylex</code> should be familiar to you by now. The reentrant version
+takes one argument, which is the value returned (via an argument) by
+<code>yylex_init</code>.  Otherwise, it behaves the same as the non-reentrant
+version of <code>yylex</code>.
+</p>
+<p><code>yylex_init</code> returns 0 (zero) on success, or non-zero on failure,
+in which case, errno is set to one of the following values:
+</p>
+<ul class="toc">
+<li> ENOMEM
+Memory allocation error. See <a href="flex_21.html#memory_002dmanagement">memory-management</a>.
+</li><li> EINVAL
+Invalid argument.
+</li></ul>
+
+
+<p>The function <code>yylex_destroy</code> should be
+called to free resources used by the scanner. After <code>yylex_destroy</code>
+is called, the contents of <code>yyscanner</code> should not be used.  Of
+course, there is no need to destroy a scanner if you plan to reuse it.
+A <code>flex</code> scanner (both reentrant and non-reentrant) may be
+restarted by calling <code>yyrestart</code>.
+</p>
+<p>Below is an example of a program that creates a scanner, uses it, then destroys
+it when done:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    int main ()
+    {
+        yyscan_t scanner;
+        int tok;
+
+        yylex_init(&amp;scanner);
+
+        while ((tok=yylex()) &gt; 0)
+            printf(&quot;tok=%d  yytext=%s\n&quot;, tok, yyget_text(scanner));
+
+        yylex_destroy(scanner);
+        return 0;
+    }
+</pre></td></tr></table>
+<hr size="6">
+<a name="Accessor-Methods"></a>
+<a name="SEC38"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC37" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC39" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.5 Accessing Variables with Reentrant Scanners </h3>
+
+<p>Accessor methods (get/set functions) provide access to common
+<code>flex</code> variables.
+</p>
+<p>Many scanners that you build will be part of a larger project. Portions
+of your project will need access to <code>flex</code> values, such as
+<code>yytext</code>.  In a non-reentrant scanner, these values are global, so
+there is no problem accessing them. However, in a reentrant scanner, there are no
+global <code>flex</code> values. You can not access them directly.  Instead,
+you must access <code>flex</code> values using accessor methods (get/set
+functions). Each accessor method is named <code>yyget_NAME</code> or
+<code>yyset_NAME</code>, where <code>NAME</code> is the name of the <code>flex</code>
+variable you want. For example:
+</p>
+<a name="IDX378"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* Set the last character of yytext to NULL. */
+    void chop ( yyscan_t scanner )
+    {
+        int len = yyget_leng( scanner );
+        yyget_text( scanner )[len - 1] = '\0';
+    }
+</pre></td></tr></table>
+<p>The above code may be called from within an action like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %%
+    .+\n    { chop( yyscanner );}
+</pre></td></tr></table>
+<p>You may find that <code>%option header-file</code> is particularly useful for generating
+prototypes of all the accessor functions. See <a href="flex_16.html#option_002dheader">option-header</a>.
+</p>
+<hr size="6">
+<a name="Extra-Data"></a>
+<a name="SEC39"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC38" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC40" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.6 Extra Data </h3>
+
+<p>User-specific data can be stored in <code>yyextra</code>.
+</p>
+<p>In a reentrant scanner, it is unwise to use global variables to
+communicate with or maintain state between different pieces of your program.
+However, you may need access to external data or invoke external functions
+from within the scanner actions.
+Likewise, you may need to pass information to your scanner
+(e.g., open file descriptors, or database connections).
+In a non-reentrant scanner, the only way to do this would be through the
+use of global variables.
+<code>Flex</code> allows you to store arbitrary, &quot;extra&quot; data in a scanner.
+This data is accessible through the accessor methods
+<code>yyget_extra</code>
+and
+<code>yyset_extra</code>
+from outside the scanner, and through the shortcut macro
+<code>yyextra</code>
+from within the scanner itself. They are defined as follows:
+</p>
+<a name="IDX379"></a>
+<a name="IDX380"></a>
+<a name="IDX381"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    #define YY_EXTRA_TYPE  void*
+    YY_EXTRA_TYPE  yyget_extra ( yyscan_t scanner );
+    void           yyset_extra ( YY_EXTRA_TYPE arbitrary_data , yyscan_t scanner);
+</pre></td></tr></table>
+<p>By default, <code>YY_EXTRA_TYPE</code> is defined as type <code>void *</code>.  You
+will have to cast <code>yyextra</code> and the return value from
+<code>yyget_extra</code> to the appropriate value each time you access the
+extra data.  To avoid casting, you may override the default type by
+defining <code>YY_EXTRA_TYPE</code> in section 1 of your scanner:
+</p>
+<a name="IDX382"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    /* An example of overriding YY_EXTRA_TYPE. */
+    %{
+    #include &lt;sys/stat.h&gt;
+    #include &lt;unistd.h&gt;
+    #define YY_EXTRA_TYPE  struct stat*
+    %}
+    %option reentrant
+    %%
+
+    __filesize__     printf( &quot;%ld&quot;, yyextra-&gt;st_size  );
+    __lastmod__      printf( &quot;%ld&quot;, yyextra-&gt;st_mtime );
+    %%
+    void scan_file( char* filename )
+    {
+        yyscan_t scanner;
+        struct stat buf;
+
+        yylex_init ( &amp;scanner );
+        yyset_in( fopen(filename,&quot;r&quot;), scanner );
+
+        stat( filename, &amp;buf);
+        yyset_extra( &amp;buf, scanner );
+        yylex ( scanner );
+        yylex_destroy( scanner );
+   }
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="About-yyscan_005ft"></a>
+<a name="SEC40"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC39" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC41" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 19.4.7 About yyscan_t </h3>
+
+<p><code>yyscan_t</code> is defined as:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">     typedef void* yyscan_t;
+</pre></td></tr></table>
+<p>It is initialized by <code>yylex_init()</code> to point to
+an internal structure. You should never access this value
+directly. In particular, you should never attempt to free it
+(use <code>yylex_destroy()</code> instead.)
+</p>
+<hr size="6">
+<a name="Reentrant-Functions"></a>
+<a name="SEC41"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC40" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 19.5 Functions and Macros Available in Reentrant C Scanners </h2>
+
+<p>The following Functions are available in a reentrant scanner:
+</p>
+<a name="IDX383"></a>
+<a name="IDX384"></a>
+<a name="IDX385"></a>
+<a name="IDX386"></a>
+<a name="IDX387"></a>
+<a name="IDX388"></a>
+<a name="IDX389"></a>
+<a name="IDX390"></a>
+<a name="IDX391"></a>
+<a name="IDX392"></a>
+<a name="IDX393"></a>
+<a name="IDX394"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    char *yyget_text ( yyscan_t scanner );
+    int yyget_leng ( yyscan_t scanner );
+    FILE *yyget_in ( yyscan_t scanner );
+    FILE *yyget_out ( yyscan_t scanner );
+    int yyget_lineno ( yyscan_t scanner );
+    YY_EXTRA_TYPE yyget_extra ( yyscan_t scanner );
+    int  yyget_debug ( yyscan_t scanner );
+
+    void yyset_debug ( int flag, yyscan_t scanner );
+    void yyset_in  ( FILE * in_str , yyscan_t scanner );
+    void yyset_out  ( FILE * out_str , yyscan_t scanner );
+    void yyset_lineno ( int line_number , yyscan_t scanner );
+    void yyset_extra ( YY_EXTRA_TYPE user_defined , yyscan_t scanner );
+</pre></td></tr></table>
+<p>There are no &quot;set&quot; functions for yytext and yyleng. This is intentional.
+</p>
+<p>The following Macro shortcuts are available in actions in a reentrant
+scanner:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    yytext
+    yyleng
+    yyin
+    yyout
+    yylineno
+    yyextra
+    yy_flex_debug
+</pre></td></tr></table>
+<a name="IDX395"></a>
+<p>In a reentrant C scanner, support for yylineno is always present
+(i.e., you may access yylineno), but the value is never modified by
+<code>flex</code> unless <code>%option yylineno</code> is enabled. This is to allow
+the user to maintain the line count independently of <code>flex</code>.
+</p>
+<p><a name="bison_002dfunctions"></a>
+The following functions and macros are made available when <code>%option
+bison-bridge</code> (<samp>`--bison-bridge'</samp>) is specified:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    YYSTYPE * yyget_lval ( yyscan_t scanner );
+    void yyset_lval ( YYSTYPE * yylvalp , yyscan_t scanner );
+    yylval
+</pre></td></tr></table>
+<p>The following functions and macros are made available
+when <code>%option bison-locations</code> (<samp>`--bison-locations'</samp>) is specified:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    YYLTYPE *yyget_lloc ( yyscan_t scanner );
+    void yyset_lloc ( YYLTYPE * yyllocp , yyscan_t scanner );
+    yylloc
+</pre></td></tr></table>
+<p>Support for yylval assumes that <code>YYSTYPE</code> is a valid type.  Support for
+yylloc assumes that <code>YYSLYPE</code> is a valid type.  Typically, these types are
+generated by <code>bison</code>, and are included in section 1 of the <code>flex</code>
+input.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC29" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_20.html#SEC42" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

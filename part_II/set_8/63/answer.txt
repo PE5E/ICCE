@@ -1,0 +1,48 @@
+goal: compule multiple source files
+input: list of files (list in file or constructed by program from dirs & it's
+contents.
+- should stop when error in any of the threads
+- output compilation error of that thread
+--> 
+unlike the multisort there is only one queue.
+
+    int main()
+    {
+        workForce();
+        readData();
+        scheduler();    
+    }
+
+data:
+    a std::queue containing the file paths
+    a size_t counting the number of available cores
+
+- scheduler
+    void scheduler()
+    {
+        while (task queue not empty)                       // check work queue not empty
+        {
+            g_workforce.wait();                 // wait for worker
+            g_worker.notify_all();              // activate worker
+        }  
+    }
+
+- pool of workers
+    for (size_t idx = 0; idx != g_sizeofWorkforce; ++idx)
+        thread(worker).detach();
+
+- worker
+
+    void worker()
+    {
+        while (true)
+        {
+            g_worker.wait();                    // wait for notification
+                                                // from scheduler
+
+            // lock task queue 
+            // fetch file from task que
+            // unlock task queue 
+            // start compiling
+        }
+    }

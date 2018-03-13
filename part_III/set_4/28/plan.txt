@@ -1,0 +1,59 @@
+// base class for all vector expressions taking as a template
+// argument the derive class. the sole method provided by this
+// class is a cast to const reference to the derived class, 
+// allowing conversion between base and derived types.
+template< typename ExpType >
+class VecExp { 
+public:
+    operator const VecExp&() const {
+        return static_cast<const VecExp&>(*this);
+    }
+};
+
+// define the vector type itself
+template< typename DataType >
+class vector : public VecExp< vector<DataType> > {
+public:
+    ... typical implementation of vector, initialization, resizing, etc ...
+    
+    // define the data type DataType in the vector
+    typedef DataType DataType_type;
+    
+    // templated copy constructor taking any const reference
+    // to a vector expression and lazily evaluating it.
+    template< typename ExpType >
+    vector( const VecExp<ExpType>& _rhs ){
+        // get a const reference to the RHS type
+        const ExpType& rhs = _rhs;
+        // resize data and evaluate the expression
+        resize( rhs.size() );
+        for( int i=0; i<size(); ++i ){
+            m_data[i] = rhs[i];
+        }
+    }
+    
+    // templated assignment operator taking any const reference
+    // to a vector expression and lazily evaluating it
+    template< typename ExpType >
+    vector<DataType> operator=( const VecExp<ExpType>& _rhs ){
+        // get a const reference to the RHS type
+        const ExpType& rhs = _rhs;
+        // resize data and evaluate the expression
+        resize( rhs.size() );
+        for( int i=0; i<size(); ++i ){
+            m_data[i] = rhs[i];
+        }
+        return *this;
+    }
+    
+    // first of two required public const method implemented
+    // by every vector, returning the size of the vector
+    inline int size() const {
+        return m_size;
+    }
+    
+    // second required method returning the idx'th component
+    inline DataType operator[]( const int idx ) const {
+        return m_data[idx];
+    }
+};

@@ -1,0 +1,467 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 22. Serialized Tables</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 22. Serialized Tables">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 22. Serialized Tables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Serialized-Tables"></a>
+<a name="SEC47"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_21.html#SEC46" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC48" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_21.html#SEC43" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_23.html#SEC51" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 22. Serialized Tables </h1>
+
+<p><a name="serialization"></a>
+A <code>flex</code> scanner has the ability to save the DFA tables to a file, and
+load them at runtime when needed.  The motivation for this feature is to reduce
+the runtime memory footprint.  Traditionally, these tables have been compiled into
+the scanner as C arrays, and are sometimes quite large.  Since the tables are
+compiled into the scanner, the memory used by the tables can never be freed.
+This is a waste of memory, especially if an application uses several scanners,
+but none of them at the same time.
+</p>
+<p>The serialization feature allows the tables to be loaded at runtime, before
+scanning begins. The tables may be discarded when scanning is finished.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC48">22.1 Creating Serialized Tables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC49">22.2 Loading and Unloading Serialized Tables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC50">22.3 Tables File Format</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Creating-Serialized-Tables"></a>
+<a name="SEC48"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC47" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC49" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_23.html#SEC51" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 22.1 Creating Serialized Tables </h2>
+
+<p>You may create a scanner with serialized tables by specifying:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %option tables-file=FILE
+or
+    --tables-file=FILE
+</pre></td></tr></table>
+<p>These options instruct flex to save the DFA tables to the file <var>FILE</var>. The tables
+will <em>not</em> be embedded in the generated scanner. The scanner will not
+function on its own. The scanner will be dependent upon the serialized tables. You must
+load the tables from this file at runtime before you can scan anything. 
+</p>
+<p>If you do not specify a filename to <code>--tables-file</code>, the tables will be
+saved to <tt>`lex.yy.tables'</tt>, where <samp>`yy'</samp> is the appropriate prefix.
+</p>
+<p>If your project uses several different scanners, you can concatenate the
+serialized tables into one file, and flex will find the correct set of tables,
+using the scanner prefix as part of the lookup key. An example follows:
+</p>
+<a name="IDX404"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">$ flex --tables-file --prefix=cpp cpp.l
+$ flex --tables-file --prefix=c   c.l
+$ cat lex.cpp.tables lex.c.tables  &gt;  all.tables
+</pre></td></tr></table>
+<p>The above example created two scanners, <samp>`cpp'</samp>, and <samp>`c'</samp>. Since we did
+not specify a filename, the tables were serialized to <tt>`lex.c.tables'</tt> and
+<tt>`lex.cpp.tables'</tt>, respectively. Then, we concatenated the two files
+together into <tt>`all.tables'</tt>, which we will distribute with our project. At
+runtime, we will open the file and tell flex to load the tables from it.  Flex
+will find the correct tables automatically. (See next section).
+</p>
+<hr size="6">
+<a name="Loading-and-Unloading-Serialized-Tables"></a>
+<a name="SEC49"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC48" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC50" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_23.html#SEC51" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 22.2 Loading and Unloading Serialized Tables </h2>
+
+<p>If you've built your scanner with <code>%option tables-file</code>, then you must
+load the scanner tables at runtime. This can be accomplished with the following
+function:
+</p>
+<dl>
+<dt><u>Function:</u> int <b>yytables_fload</b><i> (FILE* <var>fp</var> [, yyscan_t <var>scanner</var>])</i>
+<a name="IDX405"></a>
+</dt>
+<dd><p>Locates scanner tables in the stream pointed to by <var>fp</var> and loads them.
+Memory for the tables is allocated via <code>yyalloc</code>.  You must call this
+function before the first call to <code>yylex</code>. The argument <var>scanner</var>
+only appears in the reentrant scanner.
+This function returns <samp>`0'</samp> (zero) on success, or non-zero on error.
+</p></dd></dl>
+
+<p>The loaded tables are <strong>not</strong> automatically destroyed (unloaded) when you
+call <code>yylex_destroy</code>. The reason is that you may create several scanners
+of the same type (in a reentrant scanner), each of which needs access to these
+tables.  To avoid a nasty memory leak, you must call the following function:
+</p>
+<dl>
+<dt><u>Function:</u> int <b>yytables_destroy</b><i> ([yyscan_t <var>scanner</var>])</i>
+<a name="IDX406"></a>
+</dt>
+<dd><p>Unloads the scanner tables. The tables must be loaded again before you can scan
+any more data.  The argument <var>scanner</var> only appears in the reentrant
+scanner.  This function returns <samp>`0'</samp> (zero) on success, or non-zero on
+error.
+</p></dd></dl>
+
+<p><strong>The functions <code>yytables_fload</code> and <code>yytables_destroy</code> are not
+thread-safe.</strong> You must ensure that these functions are called exactly once (for
+each scanner type) in a threaded program, before any thread calls <code>yylex</code>.
+After the tables are loaded, they are never written to, and no thread
+protection is required thereafter - until you destroy them.
+</p>
+<hr size="6">
+<a name="Tables-File-Format"></a>
+<a name="SEC50"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC49" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_23.html#SEC51" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_23.html#SEC51" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 22.3 Tables File Format </h2>
+
+<p>This section defines the file format of serialized <code>flex</code> tables.
+</p>
+<p>The tables format allows for one or more sets of tables to be
+specified, where each set corresponds to a given scanner. Scanners are
+indexed by name, as described below. The file format is as follows:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">                 TABLE SET 1
+                +-------------------------------+
+        Header  | uint32          th_magic;     |
+                | uint32          th_hsize;     |
+                | uint32          th_ssize;     |
+                | uint16          th_flags;     |
+                | char            th_version[]; |
+                | char            th_name[];    |
+                | uint8           th_pad64[];   |
+                +-------------------------------+
+        Table 1 | uint16          td_id;        |
+                | uint16          td_flags;     |
+                | uint32          td_lolen;     |
+                | uint32          td_hilen;     |
+                | void            td_data[];    |
+                | uint8           td_pad64[];   |
+                +-------------------------------+
+        Table 2 |                               |
+           .    .                               .
+           .    .                               .
+           .    .                               .
+           .    .                               .
+        Table n |                               |
+                +-------------------------------+
+                 TABLE SET 2
+                      .
+                      .
+                      .
+                 TABLE SET N
+</pre></td></tr></table>
+<p>The above diagram shows that a complete set of tables consists of a header
+followed by multiple individual tables. Furthermore, multiple complete sets may
+be present in the same file, each set with its own header and tables. The sets
+are contiguous in the file. The only way to know if another set follows is to
+check the next four bytes for the magic number (or check for EOF). The header
+and tables sections are padded to 64-bit boundaries. Below we describe each
+field in detail. This format does not specify how the scanner will expand the
+given data, i.e., data may be serialized as int8, but expanded to an int32
+array at runtime. This is to reduce the size of the serialized data where
+possible.  Remember, <em>all integer values are in network byte order</em>. 
+</p>
+
+<p>Fields of a table header:
+</p>
+<dl compact="compact">
+<dt> <code>th_magic</code></dt>
+<dd><p>Magic number, always 0xF13C57B1.
+</p>
+</dd>
+<dt> <code>th_hsize</code></dt>
+<dd><p>Size of this entire header, in bytes, including all fields plus any padding.
+</p>
+</dd>
+<dt> <code>th_ssize</code></dt>
+<dd><p>Size of this entire set, in bytes, including the header, all tables, plus
+any padding.
+</p>
+</dd>
+<dt> <code>th_flags</code></dt>
+<dd><p>Bit flags for this table set. Currently unused.
+</p>
+</dd>
+<dt> <code>th_version[]</code></dt>
+<dd><p>Flex version in NULL-termninated string format. e.g., <samp>`2.5.13a'</samp>. This is
+the version of flex that was used to create the serialized tables.
+</p>
+</dd>
+<dt> <code>th_name[]</code></dt>
+<dd><p>Contains the name of this table set. The default is <samp>`yytables'</samp>,
+and is prefixed accordingly, e.g., <samp>`footables'</samp>. Must be NULL-terminated.
+</p>
+</dd>
+<dt> <code>th_pad64[]</code></dt>
+<dd><p>Zero or more NULL bytes, padding the entire header to the next 64-bit boundary
+as calculated from the beginning of the header.
+</p></dd>
+</dl>
+
+
+<p>Fields of a table:
+</p>
+<dl compact="compact">
+<dt> <code>td_id</code></dt>
+<dd><p>Specifies the table identifier. Possible values are:
+</p><dl compact="compact">
+<dt> <code>YYTD_ID_ACCEPT (0x01)</code></dt>
+<dd><p><code>yy_accept</code>
+</p></dd>
+<dt> <code>YYTD_ID_BASE   (0x02)</code></dt>
+<dd><p><code>yy_base</code>
+</p></dd>
+<dt> <code>YYTD_ID_CHK    (0x03)</code></dt>
+<dd><p><code>yy_chk</code>
+</p></dd>
+<dt> <code>YYTD_ID_DEF    (0x04)</code></dt>
+<dd><p><code>yy_def</code>
+</p></dd>
+<dt> <code>YYTD_ID_EC     (0x05)</code></dt>
+<dd><p><code>yy_ec </code>
+</p></dd>
+<dt> <code>YYTD_ID_META   (0x06)</code></dt>
+<dd><p><code>yy_meta</code>
+</p></dd>
+<dt> <code>YYTD_ID_NUL_TRANS (0x07)</code></dt>
+<dd><p><code>yy_NUL_trans</code>
+</p></dd>
+<dt> <code>YYTD_ID_NXT (0x08)</code></dt>
+<dd><p><code>yy_nxt</code>. This array may be two dimensional. See the <code>td_hilen</code>
+field below.
+</p></dd>
+<dt> <code>YYTD_ID_RULE_CAN_MATCH_EOL (0x09)</code></dt>
+<dd><p><code>yy_rule_can_match_eol</code>
+</p></dd>
+<dt> <code>YYTD_ID_START_STATE_LIST (0x0A)</code></dt>
+<dd><p><code>yy_start_state_list</code>. This array is handled specially because it is an
+array of pointers to structs. See the <code>td_flags</code> field below.
+</p></dd>
+<dt> <code>YYTD_ID_TRANSITION (0x0B)</code></dt>
+<dd><p><code>yy_transition</code>. This array is handled specially because it is an array of
+structs. See the <code>td_lolen</code> field below.
+</p></dd>
+<dt> <code>YYTD_ID_ACCLIST (0x0C)</code></dt>
+<dd><p><code>yy_acclist</code>
+</p></dd>
+</dl>
+
+</dd>
+<dt> <code>td_flags</code></dt>
+<dd><p>Bit flags describing how to interpret the data in <code>td_data</code>.
+The data arrays are one-dimensional by default, but may be
+two dimensional as specified in the <code>td_hilen</code> field.
+</p>
+<dl compact="compact">
+<dt> <code>YYTD_DATA8 (0x01)</code></dt>
+<dd><p>The data is serialized as an array of type int8.
+</p></dd>
+<dt> <code>YYTD_DATA16 (0x02)</code></dt>
+<dd><p>The data is serialized as an array of type int16.
+</p></dd>
+<dt> <code>YYTD_DATA32 (0x04)</code></dt>
+<dd><p>The data is serialized as an array of type int32.
+</p></dd>
+<dt> <code>YYTD_PTRANS (0x08)</code></dt>
+<dd><p>The data is a list of indexes of entries in the expanded <code>yy_transition</code>
+array.  Each index should be expanded to a pointer to the corresponding entry
+in the <code>yy_transition</code> array. We count on the fact that the
+<code>yy_transition</code> array has already been seen.
+</p></dd>
+<dt> <code>YYTD_STRUCT (0x10)</code></dt>
+<dd><p>The data is a list of yy_trans_info structs, each of which consists of
+two integers. There is no padding between struct elements or between structs.
+The type of each member is determined by the <code>YYTD_DATA*</code> bits.
+</p></dd>
+</dl>
+
+</dd>
+<dt> <code>td_lolen</code></dt>
+<dd><p>Specifies the number of elements in the lowest dimension array. If this is
+a one-dimensional array, then it is simply the number of elements in this array.
+The element size is determined by the <code>td_flags</code> field.
+</p>
+</dd>
+<dt> <code>td_hilen</code></dt>
+<dd><p>If <code>td_hilen</code> is non-zero, then the data is a two-dimensional array.
+Otherwise, the data is a one-dimensional array. <code>td_hilen</code> contains the
+number of elements in the higher dimensional array, and <code>td_lolen</code> contains
+the number of elements in the lowest dimension.
+</p>
+<p>Conceptually, <code>td_data</code> is either <code>sometype td_data[td_lolen]</code>, or
+<code>sometype td_data[td_hilen][td_lolen]</code>, where <code>sometype</code> is specified
+by the <code>td_flags</code> field.  It is possible for both <code>td_lolen</code> and
+<code>td_hilen</code> to be zero, in which case <code>td_data</code> is a zero length
+array, and no data is loaded, i.e., this table is simply skipped. Flex does not
+currently generate tables of zero length.
+</p>
+</dd>
+<dt> <code>td_data[]</code></dt>
+<dd><p>The table data. This array may be a one- or two-dimensional array, of type
+<code>int8</code>, <code>int16</code>, <code>int32</code>, <code>struct yy_trans_info</code>, or
+<code>struct yy_trans_info*</code>,  depending upon the values in the
+<code>td_flags</code>, <code>td_lolen</code>, and <code>td_hilen</code> fields.
+</p>
+</dd>
+<dt> <code>td_pad64[]</code></dt>
+<dd><p>Zero or more NULL bytes, padding the entire table to the next 64-bit boundary as
+calculated from the beginning of this table.
+</p></dd>
+</dl>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC47" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_23.html#SEC51" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

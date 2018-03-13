@@ -1,0 +1,441 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 6. Patterns</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 6. Patterns">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 6. Patterns">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Patterns"></a>
+<a name="SEC10"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_5.html#SEC9" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_7.html#SEC11" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_5.html#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_7.html#SEC11" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 6. Patterns </h1>
+
+<p>The patterns in the input (see <a href="flex_5.html#SEC7">Format of the Rules Section</a>) are written using an
+extended set of regular expressions.  These are:
+</p>
+<a name="IDX20"></a>
+<a name="IDX21"></a>
+<dl compact="compact">
+<dt> <samp>`x'</samp></dt>
+<dd><p>match the character 'x'
+</p>
+</dd>
+<dt> <samp>`.'</samp></dt>
+<dd><p>any character (byte) except newline
+</p>
+<a name="IDX22"></a>
+<a name="IDX23"></a>
+<a name="IDX24"></a>
+</dd>
+<dt> <samp>`[xyz]'</samp></dt>
+<dd><p>a <em>character class</em>; in this case, the pattern
+matches either an 'x', a 'y', or a 'z'
+</p>
+<a name="IDX25"></a>
+</dd>
+<dt> <samp>`[abj-oZ]'</samp></dt>
+<dd><p>a &quot;character class&quot; with a range in it; matches
+an 'a', a 'b', any letter from 'j' through 'o',
+or a 'Z'
+</p>
+<a name="IDX26"></a>
+<a name="IDX27"></a>
+</dd>
+<dt> <samp>`[^A-Z]'</samp></dt>
+<dd><p>a &quot;negated character class&quot;, i.e., any character
+but those in the class.  In this case, any
+character EXCEPT an uppercase letter.
+</p>
+</dd>
+<dt> <samp>`[^A-Z\n]'</samp></dt>
+<dd><p>any character EXCEPT an uppercase letter or
+a newline
+</p>
+</dd>
+<dt> <samp>`r*'</samp></dt>
+<dd><p>zero or more r's, where r is any regular expression
+</p>
+</dd>
+<dt> <samp>`r+'</samp></dt>
+<dd><p>one or more r's
+</p>
+</dd>
+<dt> <samp>`r?'</samp></dt>
+<dd><p>zero or one r's (that is, &quot;an optional r&quot;)
+</p>
+<a name="IDX28"></a>
+</dd>
+<dt> <samp>`r{2,5}'</samp></dt>
+<dd><p>anywhere from two to five r's
+</p>
+</dd>
+<dt> <samp>`r{2,}'</samp></dt>
+<dd><p>two or more r's
+</p>
+</dd>
+<dt> <samp>`r{4}'</samp></dt>
+<dd><p>exactly 4 r's
+</p>
+<a name="IDX29"></a>
+</dd>
+<dt> <samp>`{name}'</samp></dt>
+<dd><p>the expansion of the <samp>`name'</samp> definition
+(see section <a href="flex_5.html#SEC5">Format of the Input File</a>).
+</p>
+<a name="IDX30"></a>
+<a name="IDX31"></a>
+</dd>
+<dt> <samp>`&quot;[xyz]\&quot;foo&quot;'</samp></dt>
+<dd><p>the literal string: <samp>`[xyz]&quot;foo'</samp>
+</p>
+<a name="IDX32"></a>
+</dd>
+<dt> <samp>`\X'</samp></dt>
+<dd><p>if X is <samp>`a'</samp>, <samp>`b'</samp>, <samp>`f'</samp>, <samp>`n'</samp>, <samp>`r'</samp>, <samp>`t'</samp>, or
+<samp>`v'</samp>, then the ANSI-C interpretation of <samp>`\x'</samp>.  Otherwise, a
+literal <samp>`X'</samp> (used to escape operators such as <samp>`*'</samp>)
+</p>
+<a name="IDX33"></a>
+</dd>
+<dt> <samp>`\0'</samp></dt>
+<dd><p>a NUL character (ASCII code 0)
+</p>
+<a name="IDX34"></a>
+</dd>
+<dt> <samp>`\123'</samp></dt>
+<dd><p>the character with octal value 123
+</p>
+</dd>
+<dt> <samp>`\x2a'</samp></dt>
+<dd><p>the character with hexadecimal value 2a
+</p>
+</dd>
+<dt> <samp>`(r)'</samp></dt>
+<dd><p>match an <samp>`r'</samp>; parentheses are used to override precedence (see below)
+</p>
+<a name="IDX35"></a>
+</dd>
+<dt> <samp>`rs'</samp></dt>
+<dd><p>the regular expression <samp>`r'</samp> followed by the regular expression <samp>`s'</samp>; called
+<em>concatenation</em>
+</p>
+</dd>
+<dt> <samp>`r|s'</samp></dt>
+<dd><p>either an <samp>`r'</samp> or an <samp>`s'</samp>
+</p>
+<a name="IDX36"></a>
+</dd>
+<dt> <samp>`r/s'</samp></dt>
+<dd><p>an <samp>`r'</samp> but only if it is followed by an <samp>`s'</samp>.  The text matched by <samp>`s'</samp> is
+included when determining whether this rule is the longest match, but is
+then returned to the input before the action is executed.  So the action
+only sees the text matched by <samp>`r'</samp>.  This type of pattern is called
+<em>trailing context</em>.  (There are some combinations of <samp>`r/s'</samp> that flex
+cannot match correctly. See section <a href="flex_24.html#SEC52">Limitations</a>, regarding dangerous trailing
+context.)
+</p>
+<a name="IDX37"></a>
+<a name="IDX38"></a>
+</dd>
+<dt> <samp>`^r'</samp></dt>
+<dd><p>an <samp>`r'</samp>, but only at the beginning of a line (i.e.,
+when just starting to scan, or right after a
+newline has been scanned).
+</p>
+<a name="IDX39"></a>
+<a name="IDX40"></a>
+</dd>
+<dt> <samp>`r$'</samp></dt>
+<dd><p>an <samp>`r'</samp>, but only at the end of a line (i.e., just before a
+newline).  Equivalent to <samp>`r/\n'</samp>.
+</p>
+<a name="IDX41"></a>
+<p>Note that <code>flex</code>'s notion of &quot;newline&quot; is exactly
+whatever the C compiler used to compile <code>flex</code>
+interprets <samp>`\n'</samp> as; in particular, on some DOS
+systems you must either filter out <samp>`\r'</samp>s in the
+input yourself, or explicitly use <samp>`r/\r\n'</samp> for <samp>`r$'</samp>.
+</p>
+<a name="IDX42"></a>
+</dd>
+<dt> <samp>`&lt;s&gt;r'</samp></dt>
+<dd><p>an <samp>`r'</samp>, but only in start condition <code>s</code> (see <a href="flex_10.html#SEC14">Start Conditions</a> for discussion of start conditions).
+</p>
+</dd>
+<dt> <samp>`&lt;s1,s2,s3&gt;r'</samp></dt>
+<dd><p>same, but in any of start conditions <code>s1</code>, <code>s2</code>, or <code>s3</code>.
+</p>
+</dd>
+<dt> <samp>`&lt;*&gt;r'</samp></dt>
+<dd><p>an <samp>`r'</samp> in any start condition, even an exclusive one.
+</p>
+<a name="IDX43"></a>
+<a name="IDX44"></a>
+</dd>
+<dt> <samp>`&lt;&lt;EOF&gt;&gt;'</samp></dt>
+<dd><p>an end-of-file.
+</p>
+</dd>
+<dt> <samp>`&lt;s1,s2&gt;&lt;&lt;EOF&gt;&gt;'</samp></dt>
+<dd><p>an end-of-file when in start condition <code>s1</code> or <code>s2</code>
+</p></dd>
+</dl>
+
+<p>Note that inside of a character class, all regular expression operators
+lose their special meaning except escape (<samp>`\'</samp>) and the character class
+operators, <samp>`-'</samp>, <samp>`]]'</samp>, and, at the beginning of the class, <samp>`^'</samp>.
+</p>
+<a name="IDX45"></a>
+<p>The regular expressions listed above are grouped according to
+precedence, from highest precedence at the top to lowest at the bottom.
+Those grouped together have equal precedence (see special note on the
+precedence of the repeat operator, <samp>`{}'</samp>, under the documentation
+for the <samp>`--posix'</samp> POSIX compliance option).  For example,
+</p>
+<a name="IDX46"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    foo|bar*
+</pre></td></tr></table>
+<p>is the same as
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    (foo)|(ba(r*))
+</pre></td></tr></table>
+<p>since the <samp>`*'</samp> operator has higher precedence than concatenation,
+and concatenation higher than alternation (<samp>`|'</samp>).  This pattern
+therefore matches <em>either</em> the string <samp>`foo'</samp> <em>or</em> the
+string <samp>`ba'</samp> followed by zero-or-more <samp>`r'</samp>'s.  To match
+<samp>`foo'</samp> or zero-or-more repetitions of the string <samp>`bar'</samp>, use:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    foo|(bar)*
+</pre></td></tr></table>
+<p>And to match a sequence of zero or more repetitions of <samp>`foo'</samp> and
+<samp>`bar'</samp>:
+</p>
+<a name="IDX47"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    (foo|bar)*
+</pre></td></tr></table>
+<a name="IDX48"></a>
+<p>In addition to characters and ranges of characters, character classes
+can also contain <em>character class expressions</em>.  These are
+expressions enclosed inside <samp>`['</samp>: and <samp>`:]'</samp> delimiters (which
+themselves must appear between the <samp>`['</samp> and <samp>`]'</samp> of the
+character class. Other elements may occur inside the character class,
+too).  The valid expressions are:
+</p>
+<a name="IDX49"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    [:alnum:] [:alpha:] [:blank:]
+    [:cntrl:] [:digit:] [:graph:]
+    [:lower:] [:print:] [:punct:]
+    [:space:] [:upper:] [:xdigit:]
+</pre></td></tr></table>
+<p>These expressions all designate a set of characters equivalent to the
+corresponding standard C <code>isXXX</code> function.  For example,
+<samp>`[:alnum:]'</samp> designates those characters for which <code>isalnum()</code>
+returns true - i.e., any alphabetic or numeric character.  Some systems
+don't provide <code>isblank()</code>, so flex defines <samp>`[:blank:]'</samp> as a
+blank or a tab.
+</p>
+<p>For example, the following character classes are all equivalent:
+</p>
+<a name="IDX50"></a>
+<a name="IDX51"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    [[:alnum:]]
+    [[:alpha:][:digit:]]
+    [[:alpha:][0-9]]
+    [a-zA-Z0-9]
+</pre></td></tr></table>
+<p>Some notes on patterns are in order.
+</p>
+
+<ul class="toc">
+<li><a name="IDX52"></a>
+</li><li> If your scanner is case-insensitive (the <samp>`-i'</samp> flag), then
+<samp>`[:upper:]'</samp> and <samp>`[:lower:]'</samp> are equivalent to
+<samp>`[:alpha:]'</samp>.
+
+<p><a name="case-and-character-ranges"></a>
+</p></li><li> Character classes with ranges, such as <samp>`[a-Z]'</samp>, should be used with
+caution in a case-insensitive scanner if the range spans upper or lowercase
+characters. Flex does not know if you want to fold all upper and lowercase
+characters together, or if you want the literal numeric range specified (with
+no case folding). When in doubt, flex will assume that you meant the literal
+numeric range, and will issue a warning. The exception to this rule is a
+character range such as <samp>`[a-z]'</samp> or <samp>`[S-W]'</samp> where it is obvious that you
+want case-folding to occur. Here are some examples with the <samp>`-i'</samp> flag
+enabled:
+
+<table>
+<tr><td><p> Range </p></td><td><p> Result </p></td><td><p> Literal Range </p></td><td><p> Alternate Range
+</p></td></tr>
+<tr><td><p> <samp>`[a-t]'</samp> </p></td><td><p> ok </p></td><td><p> <samp>`[a-tA-T]'</samp> </p></td><td>
+</td></tr>
+<tr><td><p> <samp>`[A-T]'</samp> </p></td><td><p> ok </p></td><td><p> <samp>`[a-tA-T]'</samp> </p></td><td>
+</td></tr>
+<tr><td><p> <samp>`[A-t]'</samp> </p></td><td><p> ambiguous </p></td><td><p> <samp>`[A-Z\[\\\]_`a-t]'</samp> </p></td><td><p> <samp>`[a-tA-T]'</samp>
+</p></td></tr>
+<tr><td><p> <samp>`[_-{]'</samp> </p></td><td><p> ambiguous </p></td><td><p> <samp>`[_`a-z{]'</samp> </p></td><td><p> <samp>`[_`a-zA-Z{]'</samp>
+</p></td></tr>
+<tr><td><p> <samp>`[@-C]'</samp> </p></td><td><p> ambiguous </p></td><td><p> <samp>`[@ABC]'</samp> </p></td><td><p> <samp>`[@A-Z\[\\\]_`abc]'</samp>
+</p></td></tr>
+</table>
+
+<a name="IDX53"></a>
+<a name="IDX54"></a>
+</li><li>
+A negated character class such as the example <samp>`[^A-Z]'</samp> above
+<em>will</em> match a newline unless <samp>`\n'</samp> (or an equivalent escape
+sequence) is one of the characters explicitly present in the negated
+character class (e.g., <samp>`[^A-Z\n]'</samp>).  This is unlike how many other
+regular expression tools treat negated character classes, but
+unfortunately the inconsistency is historically entrenched.  Matching
+newlines means that a pattern like <samp>`[^&quot;]*'</samp> can match the entire
+input unless there's another quote in the input.
+
+<a name="IDX55"></a>
+<a name="IDX56"></a>
+<a name="IDX57"></a>
+</li><li>
+A rule can have at most one instance of trailing context (the <samp>`/'</samp> operator
+or the <samp>`$'</samp> operator).  The start condition, <samp>`^'</samp>, and <samp>`&lt;&lt;EOF&gt;&gt;'</samp> patterns
+can only occur at the beginning of a pattern, and, as well as with <samp>`/'</samp> and <samp>`$'</samp>,
+cannot be grouped inside parentheses.  A <samp>`^'</samp> which does not occur at
+the beginning of a rule or a <samp>`$'</samp> which does not occur at the end of
+a rule loses its special properties and is treated as a normal character.
+
+</li><li>
+The following are invalid:
+
+<a name="IDX58"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    foo/bar$
+    &lt;sc1&gt;foo&lt;sc2&gt;bar
+</pre></td></tr></table>
+<p>Note that the first of these can be written <samp>`foo/bar\n'</samp>.
+</p>
+</li><li>
+The following will result in <samp>`$'</samp> or <samp>`^'</samp> being treated as a normal character:
+
+<a name="IDX59"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    foo|(bar$)
+    foo|^bar
+</pre></td></tr></table>
+<p>If the desired meaning is a <samp>`foo'</samp> or a
+<samp>`bar'</samp>-followed-by-a-newline, the following could be used (the
+special <code>|</code> action is explained below, see section <a href="flex_8.html#SEC12">Actions</a>):
+</p>
+<a name="IDX60"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    foo      |
+    bar$     /* action goes here */
+</pre></td></tr></table>
+<p>A similar trick will work for matching a <samp>`foo'</samp> or a
+<samp>`bar'</samp>-at-the-beginning-of-a-line.
+</p></li></ul>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_5.html#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_7.html#SEC11" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,368 @@
+html2
+<html>
+<!--
+The flex manual is placed under the same licensing conditions as the
+rest of flex:
+
+Copyright C 1990, 1997 The Regents of the University of California.
+All rights reserved.
+
+This code is derived from software contributed to Berkeley by
+Vern Paxson.
+
+The United States Government has rights in this work pursuant
+to contract no. DE-AC03-76SF00098 between the United States
+Department of Energy and the University of California.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+
+ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of the University nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<!-- Created on August, 8 2005 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>flex: a fast lexical analyzer generator: 5. Format of the Input File</title>
+
+<meta name="description" content="flex: a fast lexical analyzer generator: 5. Format of the Input File">
+<meta name="keywords" content="flex: a fast lexical analyzer generator: 5. Format of the Input File">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Format"></a>
+<a name="SEC5"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="flex_4.html#SEC4" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC6" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex_4.html#SEC4" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 5. Format of the Input File </h1>
+
+
+
+<p>The <code>flex</code> input file consists of three sections, separated by a
+line containing only <samp>`%%'</samp>.
+</p>
+<a name="IDX6"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    definitions
+    %%
+    rules
+    %%
+    user code
+</pre></td></tr></table>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC6">5.1 Format of the Definitions Section</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC7">5.2 Format of the Rules Section</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC8">5.3 Format of the User Code Section</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC9">5.4 Comments in the Input</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Definitions-Section"></a>
+<a name="SEC6"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC5" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC7" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.1 Format of the Definitions Section </h2>
+
+<p>The <em>definitions section</em> contains declarations of simple <em>name</em>
+definitions to simplify the scanner specification, and declarations of
+<em>start conditions</em>, which are explained in a later section.
+</p>
+<a name="IDX7"></a>
+<a name="IDX8"></a>
+<p>Name definitions have the form:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    name definition
+</pre></td></tr></table>
+<p>The <samp>`name'</samp> is a word beginning with a letter or an underscore
+(<samp>`_'</samp>) followed by zero or more letters, digits, <samp>`_'</samp>, or
+<samp>`-'</samp> (dash).  The definition is taken to begin at the first
+non-whitespace character following the name and continuing to the end of
+the line.  The definition can subsequently be referred to using
+<samp>`{name}'</samp>, which will expand to <samp>`(definition)'</samp>.  For example,
+</p>
+<a name="IDX9"></a>
+<a name="IDX10"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    DIGIT    [0-9]
+    ID       [a-z][a-z0-9]*
+</pre></td></tr></table>
+<p>Defines <samp>`DIGIT'</samp> to be a regular expression which matches a single
+digit, and <samp>`ID'</samp> to be a regular expression which matches a letter
+followed by zero-or-more letters-or-digits.  A subsequent reference to
+</p>
+<a name="IDX11"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    {DIGIT}+&quot;.&quot;{DIGIT}*
+</pre></td></tr></table>
+<p>is identical to
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    ([0-9])+&quot;.&quot;([0-9])*
+</pre></td></tr></table>
+<p>and matches one-or-more digits followed by a <samp>`.'</samp> followed by
+zero-or-more digits.
+</p>
+<a name="IDX12"></a>
+<p>An unindented comment (i.e., a line
+beginning with <samp>`/*'</samp>) is copied verbatim to the output up
+to the next <samp>`*/'</samp>.
+</p>
+<a name="IDX13"></a>
+<a name="IDX14"></a>
+<a name="IDX15"></a>
+<p>Any <em>indented</em> text or text enclosed in <samp>`%{'</samp> and <samp>`%}'</samp>
+is also copied verbatim to the output (with the %{ and %} symbols
+removed).  The %{ and %} symbols must appear unindented on lines by
+themselves.
+</p>
+<a name="IDX16"></a>
+
+<p>A <code>%top</code> block is similar to a <samp>`%{'</samp> ... <samp>`%}'</samp> block, except
+that the code in a <code>%top</code> block is relocated to the <em>top</em> of the
+generated file, before any flex definitions <a name="DOCF1" href="flex_fot.html#FOOT1">(1)</a>. 
+The <code>%top</code> block is useful when you want certain preprocessor macros to be
+defined or certain files to be included before the generated code.
+The single characters, <samp>`{'</samp>  and <samp>`}'</samp> are used to delimit the
+<code>%top</code> block, as show in the example below:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    %top{
+        /* This code goes at the &quot;top&quot; of the generated file. */
+        #include &lt;stdint.h&gt;
+        #include &lt;inttypes.h&gt;
+    }
+</pre></td></tr></table>
+<p>Multiple <code>%top</code> blocks are allowed, and their order is preserved.
+</p>
+<hr size="6">
+<a name="Rules-Section"></a>
+<a name="SEC7"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC6" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC8" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.2 Format of the Rules Section </h2>
+
+<p>The <em>rules</em> section of the <code>flex</code> input contains a series of
+rules of the form:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">    pattern   action
+</pre></td></tr></table>
+<p>where the pattern must be unindented and the action must begin
+on the same line.
+See section <a href="flex_6.html#SEC10">Patterns</a>, for a further description of patterns and actions.
+</p>
+<p>In the rules section, any indented or %{ %} enclosed text appearing
+before the first rule may be used to declare variables which are local
+to the scanning routine and (after the declarations) code which is to be
+executed whenever the scanning routine is entered.  Other indented or
+%{ %} text in the rule section is still copied to the output, but its
+meaning is not well-defined and it may well cause compile-time errors
+(this feature is present for <acronym>POSIX</acronym> compliance. See section <a href="flex_20.html#SEC42">Incompatibilities with Lex and Posix</a>, for other such features).
+</p>
+<p>Any <em>indented</em> text or text enclosed in <samp>`%{'</samp> and <samp>`%}'</samp>
+is copied verbatim to the output (with the %{ and %} symbols removed).
+The %{ and %} symbols must appear unindented on lines by themselves.
+</p>
+<hr size="6">
+<a name="User-Code-Section"></a>
+<a name="SEC8"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC7" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.3 Format of the User Code Section </h2>
+
+<p>The user code section is simply copied to <tt>`lex.yy.c'</tt> verbatim.  It
+is used for companion routines which call or are called by the scanner.
+The presence of this section is optional; if it is missing, the second
+<samp>`%%'</samp> in the input file may be skipped, too.
+</p>
+<hr size="6">
+<a name="Comments-in-the-Input"></a>
+<a name="SEC9"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC8" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.4 Comments in the Input </h2>
+
+<p>Flex supports C-style comments, that is, anything between /* and */ is
+considered a comment. Whenever flex encounters a comment, it copies the
+entire comment verbatim to the generated source code. Comments may
+appear just about anywhere, but with the following exceptions:
+</p>
+<ul class="toc">
+<li><a name="IDX17"></a>
+</li><li>
+Comments may not appear in the Rules Section wherever flex is expecting
+a regular expression. This means comments may not appear at the
+beginning of a line, or immediately following a list of scanner states.
+</li><li>
+Comments may not appear on an <samp>`%option'</samp> line in the Definitions
+Section.
+</li></ul>
+
+<p>If you want to follow a simple rule, then always begin a comment on a
+new line, with one or more whitespace characters before the initial
+<samp>`/*'</samp>).  This rule will work anywhere in the input file.
+</p>
+<p>All the comments in the following example are valid:
+</p>
+<a name="IDX18"></a>
+<a name="IDX19"></a>
+<table><tr><td>&nbsp;</td><td><pre class="verbatim">%{
+/* code block */
+%}
+
+/* Definitions Section */
+%x STATE_X
+
+%%
+    /* Rules Section */
+ruleA   /* after regex */ { /* code block */ } /* after code block */
+        /* Rules Section (indented) */
+&lt;STATE_X&gt;{
+ruleC   ECHO;
+ruleD   ECHO;
+%{
+/* code block */
+%}
+}
+%%
+/* User Code Section */
+
+</pre></td></tr></table>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC5" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="flex_6.html#SEC10" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="flex.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="flex_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="flex_28.html#SEC158" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="flex_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>root</em> on <em>August, 8 2005</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

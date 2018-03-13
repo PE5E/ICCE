@@ -1,0 +1,5 @@
+template<typename LHS, typename RHS, template<typename> class Operation>
+struct BasicType<BinExpr<LHS, RHS, Operation>>
+{
+    typedef typename BinExpr<LHS, RHS, Operation>::ObjType ObjType;
+};

@@ -18,7 +18,6 @@ class Matrix
         Matrix<Type>(Matrix const &other);                // 2
         Matrix<Type>(Matrix &&tmp);                       // 3
         Matrix<Type>(IniList inilist);                    // 4
-
         ~Matrix<Type>();
 
         Matrix<Type> &operator=(Matrix<Type> const &rhs);
@@ -60,19 +59,11 @@ class Matrix
 #include "operatoradd1.j"       // overloaded addition operators
 #include "operatoradd2.j" 
 
-
 #include "insertinto.j"         // insertion operator
 #include "extractfrom.j"        // extraction operator
 
 #include "operatorequal.j"      // equality operator
 #include "operatorinequal.j"    // inequality operator
 
-// index operator niet in source files
-// index operator const niet in source files
-
-
 #endif
-
-
-
 

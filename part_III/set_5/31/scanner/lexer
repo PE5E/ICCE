@@ -1,0 +1,6 @@
+%%
+[ \t\n]+                            // skip white space chars.
+[0-9]+                              // skip numbers
+[[:alpha:]]+                        return WORD; 
+.                                   // skip anything else;
+

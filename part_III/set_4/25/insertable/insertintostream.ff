@@ -1,6 +1,7 @@
 template <template <typename> class Container, typename Data>
-void Insertable<Container, Data>::insertIntoStream(std::ostream& out) const
+std::ostream& Insertable<Container, Data>::insertIntoStream(std::ostream& out) const
 {
     for (Data element : *this)
-        out << element << ", ";
+        out << element << '\n';
+    return out;
 }

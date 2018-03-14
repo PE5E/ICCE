@@ -1,6 +1,0 @@
-template <template <typename> class Container, typename Data>
-Insertable<Container, Data>::Insertable(Insertable<Container, Data> &&other)
-:
-    Container<Data>(other)
-{
-}

@@ -12,7 +12,7 @@ comment*/kijken of het werkt!
 test_underscore         
 en nu strings
 dit is dus "een string"
-dit is dus "een string //met comment!"    
+dit is dus "een string #met comment!"    
 dit is dus "een string /*met ander comment*/!"
-en nu weer gewoon //comment
+en nu weer gewoon #comment
 of de andere /*vorm*/ van comment

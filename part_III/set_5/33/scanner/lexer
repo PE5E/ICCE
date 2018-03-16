@@ -3,27 +3,62 @@
 
 eolComment   "#".*
 
-
 // flexc++ rules section
 %%
-"/*"                        begin(StartCondition__::mlComment);
-<mlComment>"*/"	            begin(StartCondition__::INITIAL);
+// mlComment:
+"/*"                        {
+                                begin(StartCondition__::mlComment);
+                                d_multiLine = false;
+                            }
+<mlComment>"*/"             {
+                                if(d_multiLine)
+                                {
+                                    std::cout << '\n';
+                                    begin(StartCondition__::INITIAL);
+                                }
+                                else
+                                    begin(StartCondition__::INITIAL);
+                            }
 <mlComment>.                // skip everything
+<mlComment>"\n"             d_multiLine = true;
 
-" /*"                       begin(StartCondition__::mlCommentSpace);
-<mlCommentSpace>"*/"/" "    begin(StartCondition__::INITIAL);
-<mlCommentSpace>"*/"        {std::cout << " ";
-                            begin(StartCondition__::INITIAL);}
+// mlCommentSpace:
+" /*"                       {
+                                begin(StartCondition__::mlCommentSpace);
+                                d_multiLine = false;
+                            }
+<mlCommentSpace>"*/"/" "    {
+                                if(d_multiLine)
+                                {
+                                    std::cout << '\n';
+                                    begin(StartCondition__::INITIAL);
+                                }
+                                else
+                                    begin(StartCondition__::INITIAL);
+                            }
+<mlCommentSpace>"*/"        {
+                                if(d_multiLine)
+                                {
+                                    std::cout << '\n';
+                                    begin(StartCondition__::INITIAL);
+                                }
+                                else
+                                {
+                                    std::cout << " ";
+                                    begin(StartCondition__::INITIAL);
+                                }
+                            }
 <mlCommentSpace>.           // skip everything
-<mlCommentSpace>"\n"        // inluding newlines
+<mlCommentSpace>"\n"        d_multiLine = true;
 
+// string:
 "\""                        begin(StartCondition__::string);
 <string>"\""                begin(StartCondition__::INITIAL);
 <string>.                   std::cout << matched()[0];
 
+// INITIAL:
+{eolComment}                // skip everything
+^[ \t\n]+                   // begin of line: skip white spaces
 
-{eolComment}        // skip everything
-^[ \t\n]+           // begin of line: skip white spaces
 
-
-[ \t]+$              // skip end of line whites
+[ \t]+$                     // skip end of line whites

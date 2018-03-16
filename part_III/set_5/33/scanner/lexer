@@ -1,0 +1,29 @@
+// flexc++ defenition section
+%x mlComment mlCommentSpace string
+
+eolComment   "#".*
+
+
+// flexc++ rules section
+%%
+"/*"                        begin(StartCondition__::mlComment);
+<mlComment>"*/"	            begin(StartCondition__::INITIAL);
+<mlComment>.                // skip everything
+
+" /*"                       begin(StartCondition__::mlCommentSpace);
+<mlCommentSpace>"*/"/" "    begin(StartCondition__::INITIAL);
+<mlCommentSpace>"*/"        {std::cout << " ";
+                            begin(StartCondition__::INITIAL);}
+<mlCommentSpace>.           // skip everything
+<mlCommentSpace>"\n"        // inluding newlines
+
+"\""                        begin(StartCondition__::string);
+<string>"\""                begin(StartCondition__::INITIAL);
+<string>.                   std::cout << matched()[0];
+
+
+{eolComment}        // skip everything
+^[ \t\n]+           // begin of line: skip white spaces
+
+
+[ \t]+$              // skip end of line whites

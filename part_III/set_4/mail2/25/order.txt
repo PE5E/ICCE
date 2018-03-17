@@ -1,0 +1,9 @@
+insertable/insertable.h
+main.cc
+main.ih
+insertable/insertable1.ff
+insertable/insertable2.ff
+insertable/insertable3.ff
+insertable/insertable4.ff
+insertable/insertintostream.ff
+

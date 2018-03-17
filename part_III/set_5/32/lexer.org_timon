@@ -1,0 +1,4 @@
+%%
+[^.]house/(boat|hold)[ \n\t]	std::cout << "\n\t" << "house" << '\n';
+.                               //
+	

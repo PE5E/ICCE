@@ -1,4 +1,8 @@
 %%
+<<<<<<< HEAD
 [ \n\t]house/boat[ \n\t]				std::cout << "#houseboat<" << matched() << '>' << '\n';
 [ \t\t]house/hold[ \n\t]				std::cout << "#household<" << matched() << '>' << '\n';
 [^\n\t ]*"house"[^\n\t (boat|hold)]*			std::cout << "#house<" 	  << matched() << '>' << '\n';
+=======
+house                               std::cout << "house \n";
+>>>>>>> 805e15260362656acb5e3033828fa6dbbc33374a

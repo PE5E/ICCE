@@ -1,0 +1,6 @@
+%%
+^[ \t]+                             // begin of line: skip white space chars except newlines
+[0-9]+                              return NUMBER;
+[[:alpha:] ]+                        return IDENTIFIER; 
+.                                   matched()[0];
+

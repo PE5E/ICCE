@@ -1,0 +1,18 @@
+           01 Hallo1 dit is mijn gebruikersnaam: username      
+             
+015 ik ben dus een user
+
+
+02 alle regels hebben hun eigen nummer # some end of line comment
+03 dit is een                       testfile
+04 en die heet: /* comment inline */filename
+05 en dit is een test, /* multi
+line 
+comment*/kijken of het werkt!
+test_underscore         
+en nu strings
+dit is dus "een string"
+dit is dus "een string #met comment!"    
+dit is dus "een string /*met ander comment*/!"
+en nu weer gewoon #comment
+of de andere /*vorm*/ van comment

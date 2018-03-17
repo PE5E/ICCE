@@ -9,13 +9,14 @@
 enum Tokens
 {
     DUMMY = 256,
-    IDENTIFIER,
-    NUMBER
+    IDENTIFIER
 };
 
 // $insert classHead
 class Scanner: public ScannerBase
 {
+    bool d_multiLine = false;
+
     public:
         explicit Scanner(std::istream &in = std::cin,
                                 std::ostream &out = std::cout);

@@ -1,0 +1,44 @@
+Lexical scanners (tokenizer)
+
+flexc++
+    lexer
+        defines the regexp to be recognized
+       
+regexp
+    - start with /
+    - ends with /
+    - case insensive by default
+    - /gi to switch this
+    example
+    /a/g            a anywhere in string
+    
+    /1\.5/g
+    
+    . matches anything (meta-character)
+    - escape metas to use them literally
+    /aaaa/g
+    - this gets boring
+    /a{10}/g
+    aaaaaaaaaaaaaaaaaaaaaa
+    - less strict:
+    /a{10,}/g           at least 10 a
+    /a{4,5}/g           4-5 
+    /a{0,}/g            any number of a (matches empty string)
+    /a*/g               same thing
+    /a+/g               1-inf a
+    /a?/g               only matches empty if no a's
+    /regexp/g           matches regex and regexp
+    /<.+>/g             <p>foo</p> matches the whole thing!
+    - reverse greedyness
+    /<.+?>/g            <p> , </p>
+    - square brackets:
+    /[abcd]+/g
+    matches aaaa or bbbb or ccc or ddddddd
+    -ranges allowed:
+    /[a-z]+/g
+    /\w/g               letters number underscore
+    /\d+/g              integers (digits)
+    /\s+/g              whitespace
+    ^negations
+    
+    house(?!(boat|hold)\b)

@@ -1,3 +1,4 @@
 %%
-[^.]house/(boat|hold)[ \n\t]	std::cout << "\n\t" << "house" << '\n';
-	
+[ \n\t]house/boat[ \n\t]				std::cout << "#houseboat<" << matched() << '>' << '\n';
+[ \t\t]house/hold[ \n\t]				std::cout << "#household<" << matched() << '>' << '\n';
+[^\n\t ]*"house"[^\n\t (boat|hold)]*			std::cout << "#house<" 	  << matched() << '>' << '\n';

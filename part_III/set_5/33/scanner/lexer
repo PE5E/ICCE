@@ -6,11 +6,13 @@ eolComment   "#".*
 // flexc++ rules section
 %%
 // mlComment:
-"/*"                        {
+"/*"                        {  
+// if comment starts without a space:
                                 begin(StartCondition__::mlComment);
                                 d_multiLine = false;
                             }
 <mlComment>"*/"             {
+// if comment also ends without space, continue as usual
                                 if(d_multiLine)
                                 {
                                     std::cout << '\n';
@@ -18,25 +20,32 @@ eolComment   "#".*
                                 }
                                 else
                                     begin(StartCondition__::INITIAL);
+                            }
+<mlComment>"*/ "            {
+// if comment ends with a space, add this space only on the same row
+                                if(d_multiLine)
+                                {  // if starts on next row: no preceeding space
+                                    std::cout << '\n';  
+                                    begin(StartCondition__::INITIAL);
+                                }
+                                else
+                                {
+                                    std::cout << ' ';
+                                    begin(StartCondition__::INITIAL);
+                                }
                             }
 <mlComment>.                // skip everything
 <mlComment>"\n"             d_multiLine = true;
 
 // mlCommentSpace:
-" /*"                       {
+" /*"                       {  
+// if comment starts with a space the space will be eaten
                                 begin(StartCondition__::mlCommentSpace);
                                 d_multiLine = false;
                             }
-<mlCommentSpace>"*/"/" "    {
-                                if(d_multiLine)
-                                {
-                                    std::cout << '\n';
-                                    begin(StartCondition__::INITIAL);
-                                }
-                                else
-                                    begin(StartCondition__::INITIAL);
-                            }
-<mlCommentSpace>"*/"        {
+<mlCommentSpace>"*/ "|"*/"  {
+// if comment ends with or without a space these signs will be eaten
+// and afterwards one space will be added, so always resulting in a single space
                                 if(d_multiLine)
                                 {
                                     std::cout << '\n';
@@ -44,10 +53,11 @@ eolComment   "#".*
                                 }
                                 else
                                 {
-                                    std::cout << " ";
+                                    std::cout << ' ';
                                     begin(StartCondition__::INITIAL);
                                 }
                             }
+
 <mlCommentSpace>.           // skip everything
 <mlCommentSpace>"\n"        d_multiLine = true;
 
@@ -60,5 +70,6 @@ eolComment   "#".*
 {eolComment}                // skip everything
 ^[ \t\n]+                   // begin of line: skip white spaces
 
-
 [ \t]+$                     // skip end of line whites
+
+// bool d_multiLine is defined in Scanner.h

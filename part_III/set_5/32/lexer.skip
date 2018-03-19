@@ -1,3 +1,0 @@
-%%
-house                               std::cout << "house \n";
-.                                   // skip anything else

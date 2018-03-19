@@ -1,0 +1,6 @@
+%%
+// matches houseboat and household
+[^.]house/(boat|hold)[ \n\t]		std::cout <<  matched() << '\n';
+// matches house-containing words everywhere
+// [[:alnum:]]*house[[:alnum:]]*		std::cout <<  matched() <<  '\n';
+.				

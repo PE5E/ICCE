@@ -1,0 +1,14 @@
+%%
+".+"(\s*\n\s*".+")*     {
+                            //prints to the list of strings
+                            printToStringlist();
+                            //prints getter message to the new file
+                            printGetMsg(d_stringLine);
+                            //increments d_stringLine;
+                            ++d_stringLine;
+                            return STRING;
+                        }
+.                       {
+                            printToFile(); //print other characters to new file
+                            return OTHER;
+                        }

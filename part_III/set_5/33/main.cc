@@ -5,9 +5,6 @@ try
 {
     Scanner scanner;                            // define a Scanner object
     scanner.lex();
-//    funcScan(scanner);
-
-//    cout << '\n';
 }
 
 catch (...)

@@ -1,5 +1,7 @@
+//This constructor is commented out in the header. see header for more info.
+
 template <template <typename> class Container, typename Data>
-Insertable<Container, Data>::Insertable(Insertable<Container, Data> const &other)
+Insertable<Container, Data>::Insertable(Data &&data)
 :
-    Container<Data>(other)
+    Container<Data>(1, data)
 {}

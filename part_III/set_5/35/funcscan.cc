@@ -8,4 +8,5 @@ void funcScan(Scanner &scanner)
         string const &text = scanner.matched();
         cout << text;
     }
+    cout << "einde" + "programma\n";
 }

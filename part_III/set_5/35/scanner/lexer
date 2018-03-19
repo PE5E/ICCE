@@ -20,7 +20,7 @@
                                     }
 <string>"\""                        begin(StartCondition__::INITIAL);
 <string>"\n"                        {
-                                    //    std::cout << '\n';
+                                        std::cout << '\n';
                                         return STRING;
                                     } 
 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body text="#000077" bgcolor="#FFFFAA">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven05.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l6"></a>
+<h1>Chapter 6: Exercises set six: Parsers part I: Grammars 
+                             (Deadline Mar 29).</h1>
+<p>
+In the following exercises we're constructing several small
+    grammars. The actual grammar processing is covered in next
+    week's lecture.
+</p><p>
+When submitting your work, please make sure that your grammar can be
+    properly processed by a parser generator (in practice: <strong>bisonc++</strong>). That
+    parser generator produces output to the standard error stream when it
+    detects errors or produces warnings. You should make sure with every
+    grammar that the parser generator did not issue error and/or warning
+    messages.
+</p><p>
+In all cases, submit your parser generator's input <strong>s</strong>, defining the
+    grammar. Also, make sure that your parser doesn't do things a lexical
+    scanner is supposed to handle. Be realistic: complex input should be
+    handled by the parser, the lexical scanner should only do basic lexical
+    scanning. Also, all grammars required for the exercises are fairly
+    small. Pay attention to grammar design, and stick to the standard building
+    blocks.  
+</p><p>
+We won't be able to help you solving problems with grammars that aren't
+    gobbled by the parser generator and that do not use standard building
+    blocks.
+</p><p>
+By default the <strong>bisonc++</strong> generator generates a parser class
+    <code>`Parser'</code>, having by default a member function <code>int parse</code>. If
+    you want to test the parser by interfacing it to a scanner, the
+    following is suggested: 
+        </p><ul> 
+            <li> Start the parser specification file's preamble with the
+            following lines: 
+            <pre> 
+        %class-name Parser 
+        %filenames parser 
+        %parsefun-source parse.cc
+        %scanner ../scanner/scanner.h 
+            
+</pre>
+ 
+            </li><li> Define the scanner class in the indicated subdirectory 
+            </li><li> Include the file <code>../parser/parserbase.h</code> in the lexer 
+            specification file, and let the scanner return
+            <code>Parser::TOKENNAME</code> tokens.   
+        </li></ul> 
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 38.</strong>
+            <br>
+            Purpose: learn to specify a simple grammar
+<p>
+In a language like <strong>C</strong> and <strong>C++</strong> functions may be defined accepting
+multiple arguments using ellipses (<code>...</code>). In languages like <strong>Pascal</strong>
+that is not allowed. <strong>Pascal</strong>, however, allows us to write values of
+multiple variables using its <code>write</code> function, which is a function
+expecting one or more variable names or numbers, separated by commas. Define
+the grammar recognizing series of <code>write</code>
+function calls (maybe none at all).
+</p><p>
+Assume that the lexical scanner knows about <code>WRITE</code>, <code>IDENT</code> and
+<code>NUMBER</code> tokens.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 39.</strong>
+            <br>
+            Purpose: define the grammar of a simple calculator
+<p>
+A simple algebraic calculator operates on <code>double</code> values and performs
+multiplications, divisions, additions, subtractions, negations and also
+allows you to use parentheses. Often such a calculator supports <code>sqrt</code>
+computations for which an <em>operator</em> could be defined (e.g., <code>$</code> could be
+the square-root operator, allowing for expressions like
+        </p><pre>
+    2 * $ 4 + 2 * -6
+        
+</pre>
+
+    resulting in the value -8.
+<p>
+Define the grammar allowing you to enter expressions matching such a
+grammar. Make sure the preamble only specifies tokens that can actually be
+returned by the parser (to be specific: a token <code>UMINUS</code> is not required,
+even though the grammar must offer a unary minus operator). 
+</p><p>
+Hint: this final requirement is very easy to satisfy. Don't look for
+complex solutions.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 40.</strong>
+            <br>
+            Purpose: learn to solve conflicts occurring in a grammar
+<p>
+Explain why the following grammar has conflicts and solve the conflicts so
+that the repaired grammar accepts expressions consisting of numbers, addition
+and subtraction operators where the priorities of the operators are equal.
+</p><p>
+When the conflicts are <em>not</em> explicitly solved, the parser generator
+`solves' the conflicts for you. Submit a (second) grammar explicitly showing
+how the conflicts are solved in the way the parser generator solves them,
+without the parser generator reporting any conflicts (Hint: this may require
+you to remove a rule).
+</p><p>
+</p><pre>
+    %token NUMBER
+    
+    %%
+
+    expr:
+        NUMBER
+    |
+        number
+    |
+        expr '+' expr
+    |
+        expr '-' expr
+    ;
+
+    number:
+        NUMBER
+    ;
+         
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 41.</strong>
+            <br>
+            Purpose: learn to add a new priority level to a grammar
+<p>
+The following grammar supports addition, multiplication and negation:
+        </p><pre>
+    %token NR
+    %left '+'
+    %left '*'
+    %right '-'
+
+    %%
+
+    expr:
+        NR
+    |
+        '-' expr
+    |
+        expr '+' expr
+    |
+        expr '*' expr
+    ;
+        
+</pre>
+
+    The test for inequality (written as <code>!=</code>) has a priority below the
+priority of the addition operator; an operator <code>'^'</code> could be defined as the
+binary exponentiation operator having priority exceeding multiplication but
+lower than negation. 
+<p>
+Expand the grammar in such a way that these two operators are also
+supported by the grammar. Submit the new parser generator input file.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 42.</strong>
+            <br>
+            Purpose: provide a grammar with an index operator
+<p>
+The following grammar supports addition, multiplication and negation:
+        </p><pre>
+    %token VAR
+    %token NR
+    %left '+'
+    %left '*'
+    %right '-'
+
+    %%
+
+    expr:
+        NR
+    |
+        VAR
+    |
+        '-' expr
+    |
+        expr '+' expr
+    |
+        expr '*' expr
+    ;
+        
+</pre>
+
+    Assume that a variable (VAR) can also be an array having an unspecified
+number of dimensions. So, expressions like
+        <pre>
+    a[3][4] + b[c]
+        
+</pre>
+
+    are in principle possible, but expressions like
+        <pre>
+    3[4]
+        
+</pre>
+
+    are probably not allowed, although grammatically correct.
+<p>
+When confronted with the request to add the index operator, but it is as
+yet not possible to state whether <code>3[4], 4[a],</code> etc. are allowed or not, how
+would you modify the above grammar so that index operations are recognized by
+the parser? Realize that the number of dimensions is left unspecified. 
+</p><p>
+Hint: an index operation is itself part of an expression and that expression
+defines an expression by itself. 
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 43.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to repair a defective grammar
+<p>
+In the slides the wordlist grammar having one R/R conflict was discussed. Its
+original form was:
+        </p><pre>
+    list:
+        plain
+    |
+        separated
+    ;
+
+    plain:
+        plain
+        WORD
+    |
+        WORD
+    ;
+
+    separated:
+        separated
+        ','
+        WORD
+    |
+        WORD
+    ;
+        
+</pre>
+
+    The grammar author's intent was to define a grammar allowing input of
+the forms
+        <pre>
+    word word word word 
+        
+</pre>
+
+    (etc, i.e., one or more words not separated by commas), or:
+        <pre>
+    word, word, word, word 
+        
+</pre>
+
+    (etc, i.e. one or more words separated by commas).
+<p>
+The `solution' provided by the slides in fact is not a solution of the
+original problem as it defines an <em>optional</em> separator, allowing lists of
+the form:
+        </p><pre>
+    word word, word, word word
+        
+</pre>
+
+<p>
+Repair the orgininal grammar by defining a grammar that accepts one or more
+words where <em>either</em> all words are separated by a comma or the separator is
+used nowhere at all. Submit the grammar specification file, using the terminal
+token WORD to represent a word. According to the grammar there must be at
+least a single WORD. What modification is required to make that initial word
+optional as well?
+</p><p>
+If the problem described so far is solved by your solution, you'll receive one point.
+However, the solution most often handed in has a problem: it turns ugly. It does
+that as soon as an element of a wordlist or commalist may not only be a WORD,
+but also some other token, perhaps an INT or a FLOAT.
+</p><p>
+So a valid input in that case might be: </p><pre>
+   foo bar 3.14 1 0 baz
+
+</pre>
+
+<p>
+If your solution remains elegant and short in the face of that change, you
+receive two points. It is the structure of the grammar that counts in this
+regard. Whether it actually defines multiple tokens is not relevant.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 44.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: design an interactive program.
+<p>
+(You can receive 3 points for this exercise)
+</p><p>
+In statistics, normal distributions are characterized by their means and
+standard deviations. Given a normal distribution, observations can be
+associated with positions in these normal distributions. The formula to
+compute these positions is <code>z = (x - m) / s</code>, where <code>x</code> is the
+observation, <code>m</code> the mean, and <code>s</code> the standard deviation.
+</p><p>
+In this exercise, we designing an interactive program built around these
+normal distribution (but not actually using them) where commands are
+entered on lines, which command in a full-blown program would be handled by,
+e.g. a <code>NormalDistribution</code> object. 
+</p><p>
+When the program starts, each line begins with a prompt (i.e.: 
+`<code>(? )'</code>. Commands are:
+    </p><ul>
+    <li> An empty line: the program ends;
+    </li><li> <code>m mean</code>, mean being a double value. This sets a new mean for the
+        <code>NormDist</code> object;
+    </li><li> <code>s stddev</code>, stddev being a double value. This sets a new std. deviation
+        for the <code>NormDist</code> object;
+    </li><li> <code>score</code>, score being a double value. This returns the z-score for
+        <code>score</code>, given the current mean and std. dev.;
+    </li><li> <code>score nObs</code>, score being a double value, nObs being a positive
+        integral value. This returns the z-score for
+        <code>score</code>, given the current mean and std. dev. and the number of
+        observations <code>nObs</code>.
+    </li></ul>
+    The format for double values is simplified to
+    <ul>
+    <li> Integral values (decimal digits), optionally starting with a minus
+        character, optionally followed by a dot, which is optionally followed
+        by a fraction (consisting of decimal digits).
+    </li><li> a dot, optionally starting with a minus character, followed by
+        a fraction. 
+    </li></ul>
+<p>
+For now, no actions are performed by the program, except for ending the
+program at an empty line. In that case, add the action block
+        </p><pre>
+    {
+        ACCEPT();
+    }
+        
+</pre>
+
+    to the rule matching the empty line.
+<p>
+Submit <code>main.cc, main.ih</code>, the scanner's lexer specification and the
+parser's grammar specification.
+</p><p>
+Caveat: In your program only once a <code>cout &lt;&lt; "? ";</code> statement may be
+used. Embedding the statement in a function and calling that function multiple
+times also counts as multiple uses of the <code>cout</code> statement. You <em>may</em>
+define a prompt rule, though:
+        </p><pre>
+    prompt:
+        {
+            std::cout &lt;&lt; "? ";      // or 'cout', when using namespace std
+        }
+    ;
+        
+</pre>
+
+<p>
+Another way to use a single <code>cout</code> consists of slightly modifying the
+parser's <code>lex</code> function. You get two points when providing two
+implementations using a single <code>cout</code> statement: one by merely defining
+grammar rules, one by defining grammar rules not containing a <code>cout</code>
+statement, but using a modification of the parser's <code>lex</code> function. 
+</p><p>
+In fact, there is a third way to realize a single <code>cout</code> statement. You earn
+three points if you submit all three implementations.
+</p><p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven05.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

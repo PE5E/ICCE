@@ -1,0 +1,6 @@
+#include <iostream>
+#include "scanner/Scanner.h"
+
+using namespace std;
+
+void funcScan(Scanner &scanner);

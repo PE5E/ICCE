@@ -1,0 +1,29 @@
+// flexc++ defenition section
+%x string
+
+// flexc++ rules section
+%%
+[[:alpha:]]+                        return IDENTIFIER; 
+[[:digit:]]+                        return INTNUMBER;
+[[:digit:]'.'[:digit:]]+            return DOUBLENUMBER;
+'+'|'-'|"+="|"-="|'*'|'/'|"*="|"/="|'%'|"=="|"!="|"<="|">="    return OPERATOR;
+'!'|"&&"|"||"|'?'|','|'&'|'|'|'^'|'~'|"<<"|">>"|'='|'<'|'>'    return OPERATOR;
+// '"'.*'"'                            return STRING;
+[ \t]+                              // skip white space chars
+^[\n]                               // skip empty lines
+
+
+// string
+"\""                                {
+                                        begin(StartCondition__::string);
+                                        return STRING;
+                                    }
+<string>"\""                        begin(StartCondition__::INITIAL);
+<string>"\n"                        {
+                                    //    std::cout << '\n';
+                                        return STRING;
+                                    } 
+
+//<string>.                         // matched()[0];
+
+.                                   return matched()[0];    // all other chars

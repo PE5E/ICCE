@@ -1,5 +1,4 @@
 #include <iostream>
-#include <set>
 #include "scanner/Scanner.h"
 
 using namespace std;

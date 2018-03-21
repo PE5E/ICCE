@@ -1,0 +1,14 @@
+31
+funcscan.cc
+lexer.sh
+lib31.a
+main.cc
+main.ih
+scanner
+scanner/lex.cc
+scanner/lexer
+scanner/lexer (copy)
+scanner/Scannerbase.h
+scanner/Scanner.h
+scanner/Scanner.ih
+testdoc.txt

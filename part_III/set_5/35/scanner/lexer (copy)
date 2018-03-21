@@ -8,6 +8,7 @@
 [[:digit:]'.'[:digit:]]+            return DOUBLENUMBER;
 '+'|'-'|"+="|"-="|'*'|'/'|"*="|"/="|'%'|"=="|"!="|"<="|">="    return OPERATOR;
 '!'|"&&"|"||"|'?'|','|'&'|'|'|'^'|'~'|"<<"|">>"|'='|'<'|'>'    return OPERATOR;
+// '"'.*'"'                            return STRING;
 [ \t]+                              // skip white space chars
 ^[\n]                               // skip empty lines
 
@@ -18,7 +19,6 @@
                                         return STRING;
                                     }
 <string>"\""                        begin(StartCondition__::INITIAL);
-<string>"
 <string>"\n"                        {
                                         std::cout << '\n';
                                         return STRING;

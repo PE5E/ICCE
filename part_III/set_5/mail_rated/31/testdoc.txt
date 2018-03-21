@@ -1,0 +1,7 @@
+01 Hallo1 dit is mijn gebruikersnaam: username
+015 ik ben dus een user
+02 alle regels hebben hun eigen nummer
+03 dit is een testfile
+04 en die heet: filename
+05 en dit is een test, kijken of het werkt!
+test_underscore

@@ -1,14 +1,4 @@
-31
-lexer.sh
-lib31.a
 main.cc
-plan.txt
-scanner
-scanner/lex.cc
 scanner/lexer
-scanner/lexer (another copy)
-scanner/lexer (copy)
-scanner/Scannerbase.h
 scanner/Scanner.h
 scanner/Scanner.ih
-testdoc.txt

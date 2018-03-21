@@ -1,4 +1,5 @@
 lexer
-main.cc
 Scanner.h
 Scanner.ih
+main.cc
+main.ih

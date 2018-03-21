@@ -13,3 +13,4 @@ string" 15
 hoi
 "single line string"
 hallo
+%*$@

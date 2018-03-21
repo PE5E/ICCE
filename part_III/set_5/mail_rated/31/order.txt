@@ -1,12 +1,6 @@
-funcscan.cc
-lexer.sh
 main.cc
 main.ih
-plan.txt
-scanner
-scanner/lex.cc
+funcscan.cc
 scanner/lexer
-scanner/Scannerbase.h
 scanner/Scanner.h
 scanner/Scanner.ih
-testdoc.txt

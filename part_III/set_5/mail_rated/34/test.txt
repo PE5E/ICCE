@@ -1,5 +1,0 @@
-dasfkljljdaslkjf
-    "strings"
-    "more of the same string"
-    sfdjlk
-    "new string"

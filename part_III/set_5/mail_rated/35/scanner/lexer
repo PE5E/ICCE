@@ -6,11 +6,35 @@
 [[:alpha:]]+                        return IDENTIFIER; 
 [[:digit:]]+                        return INTNUMBER;
 [[:digit:]'.'[:digit:]]+            return DOUBLENUMBER;
-'+'|'-'|"+="|"-="|'*'|'/'|"*="|"/="|'%'|"=="|"!="|"<="|">="    return OPERATOR;
-'!'|"&&"|"||"|'?'|','|'&'|'|'|'^'|'~'|"<<"|">>"|'='|'<'|'>'    return OPERATOR;
+'+'|
+'-'|
+'*'|
+'/'|
+'%'|
+'!'|
+'?'|
+','|
+'&'|
+'|'|
+'^'|
+'~'|
+'='|
+'<'|
+'>'|
+"+="|
+"-="|
+"*="|
+"/="|
+"=="|
+"!="|
+"<="|
+">="|
+"&&"|
+"||"|
+"<<"|
+">>"                                return OPERATOR;
 [ \t]+                              // skip white space chars
 ^[\n]                               // skip empty lines
-
 
 // string
 "\""                                {
@@ -18,12 +42,10 @@
                                         return STRING;
                                     }
 <string>"\""                        begin(StartCondition__::INITIAL);
-<string>"
+//<string>"
 <string>"\n"                        {
                                         std::cout << '\n';
                                         return STRING;
                                     } 
-
-//<string>.                         // matched()[0];
 
 .                                   return matched()[0];    // all other chars

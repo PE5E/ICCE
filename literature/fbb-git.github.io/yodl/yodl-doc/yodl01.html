@@ -1,0 +1,214 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> Yodl 4.02.00 </title>
+<style type="text/css">
+    body {color: #27408B; background-color: #FFFAF0;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body >
+<hr>
+<ul>
+    <li> <a href="yodl.html">Table of Contents</a>
+    <li> <a href="yodl02.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="l1"></a>
+<h1 >Chapter 1: Introduction</h1>
+<code >Yodl</code> stands for `Your Own Document Language' (originally: <code >Yet Oneother
+Document Language</code>) and is basically a 
+pre-processor to convert document files in a special macro language (the <code >Yodl</code> 
+language) to any output format. The <code >Yodl</code> language is not a `final' language, 
+in the sense that it can be viewed or printed directly. Rather, a document in 
+the <code >Yodl</code> language is a `pre-document', that is converted with some macro 
+package to an output format, to be further processed.
+<p>
+<code >Yodl</code> was designed in 1996 by Karel Kubat when he needed a good document
+preprocessor to convert output to either LaTeX (for printing) or to
+HTML  for publishing
+via a WWW site. Although SGML does this too, he wanted something that is used
+`intuitively' and with greater ease. This is reflected in the syntax of the
+<code >Yodl</code> language, in the available macros of the <code >Yodl</code> macro package, and very
+probably also in other aspects of <code >Yodl</code>. However, <code >Yodl</code> is designed to convert
+to <em >any</em> output format; so it is possible to write a macro package that
+converts <code >Yodl</code> documents to, say, the <code >man</code> format for manual pages. 
+<p>
+Some highlights of <code >Yodl</code>:
+    <ul>
+    <li> <code >Yodl</code> allows the inclusion of files. This makes it easier to split up
+a document into `logical' parts, each kept in a separate file. Thus, a `main
+document' file can include all the sub-parts. (Imagine that you're the editor
+of a journal. Authors are likely to send in their submissions in separate
+files; inclusion can then be very handy!)
+    <li> Files which are included are searched for either `as-is', or in a
+given `system-wide include' directory, similar to the workings of the <strong >C</strong>
+preprocessor. Therefore, it is possible to create a set of include files
+holding macros, and to place them into one macro directory. (See also chapter
+<a href="yodl04.html#MACROPACKAGE">4</a>, where a macro package that is distributed with <code >Yodl</code> is
+described.)
+    <li> For all the handled files (either stated on the commandline or
+included), <code >Yodl</code> supplies an extension if none is present. The default
+extension is <code >.yo</code>, but can be defined to anything in the compilation of the
+<code >Yodl</code> program.
+    <li> <code >Yodl</code> supports conditional parsing of its input, controlled by defined
+symbols. This resembles the <code >#ifdef</code> / <code >#else</code> / <code >#endif</code> preprocessor
+macros of the <strong >C</strong> language. <code >Yodl</code> also supports other <code >if</code> clauses, e.g.,
+to test for the presence of an argument to a macro.
+    <li> <code >Yodl</code> offers hooks to define counters, to modify them, and to use them
+in a document. Thereby <code >Yodl</code> offers the possibility for automatic numbering of
+e.g., sections. Of course, some document languages (e.g., LaTeX) offer this
+too; but some don't. When converting a <code >Yodl</code> document to, say, HTML, this
+feature is very handy.
+    <li> <code >Yodl</code> is designed to be easy to use: <code >Yodl</code> uses `normal' characters to
+identify commands in the text, instead of insisting weird-looking tags or
+escape characters.  Editing a document in the <code >Yodl</code> macro language is designed
+to be as easy as possible.
+    <li> Similar to other document languages, <code >Yodl</code> supports `character
+conversion tables' which define how a character should appear in the output.
+    </ul>
+    This document first describes <code >Yodl</code> from the point of the user: how can
+macros be defined, how is the program used etc.. Next, my own macro package is
+presented and the macros therein described. Finally, this document holds
+technical information about the installation and the inner workings of <code >Yodl</code>.
+<p>
+<a name="l2"></a>
+<h2 >1.1: What's new since version 4.00.00?</h2>
+    In <code >Yodl</code> Version 4.02.00 several new features were introduced.
+<p>
+<ul>
+    <li> Three new builtin commands were implemented:
+        <dl>
+        <dt ><strong>STRLEN</strong></dt> returns the length of its argument, or the length of a
+            symbol's text if the symbol's name is passed as argument to
+            <code >STRLEN</code>. 
+        <dt ><strong>SUBSTR</strong></dt> returns a substring of a specified length, starting at a
+            specified offset of its first argument (or returns a substring
+            of a symbol's text if the symbol's name is passed as argument to
+            <code >SUBSTR</code>).
+        </dl>
+<p>
+<li> End-of-line comment is now available as the triplet
+        <code >\</code><code >//</code>. Following <code >\</code><code >//</code> all subsequent characters on its
+        line as well as initial blanks on the next line are skipped.
+<p>
+<li> Redesigned <code >yodlverbinsert</code>, which now also concatenates multiple
+        identically marked sections.
+<p>
+<li> Added the &nbsp; macro, writing a non-breaking space character.
+<p>
+<li> Added the macro `<code >tbl'</code> (and support macros `<code >tr, tc, tnc, ta,
+        tnac</code>' and `<code >tline</code>') as alternative to `<code >table</code>' (and support
+        macros). The `<code >tbl</code>' macro extends `<code >table</code>', and simplifies
+        defining tables.
+    </ul>
+<p>
+In <code >Yodl</code> Version 4.00.00 some old features were removed, and several new ones
+were introducted.
+<p>
+<ul>
+    <li> The following builtin commands, considered obsolete since <code >Yodl</code>
+        2.00.00, were removed:
+        <dl>
+        <dt ><strong>DUMMY</strong></dt> no replacement.
+        <dt ><strong>ENDDEF</strong></dt> DECWSLEVEL should be used;
+        <dt ><strong>INCLUDELIT</strong></dt> NOEXPANDINCLUDE should be used;
+        <dt ><strong>NEWCOUNTER</strong></dt> DEFINECOUNTER should be used;
+        <dt ><strong>STARTDEF</strong></dt> INCWSLEVEL should be used;
+        <dt ><strong>UNDEFINEMACRO</strong></dt> DELETEMACRO should be used;
+        <dt ><strong>WRITEOUT</strong></dt> FPUTS should be used;
+        </dl>
+<p>
+<li> Three new builtin commands were implemented:
+        <dl>
+        <dt ><strong>PUSHSUBST</strong></dt> alows temparary suppression (or activation) of
+            <code >SUBST</code> definitions;
+        <dt ><strong>POPSUBS</strong></dt> restores the activation type of <code >SUBST</code> definitions
+        that was active just before the last <code >PUSHSUBST</code> call;
+        <dt ><strong>XXSUBST</strong></dt> internally used builtin command.
+        </dl>    
+<p>
+<li> The <code >verb</code> macro now starts with <code >PUSHSUBST(0)</code> and ends with
+        <code >POPSUBST()</code>.
+<p>
+<li> The following macros, considered obsolete since <code >Yodl</code>
+        2.00.00, were removed:
+        <code >
+        endcenter
+        enddit
+        endeit
+        endit
+        endmenu
+        endtable
+        itemize
+        menu
+        mit
+        node
+        startcenter
+        startdit
+        starteit
+        startit
+        startmenu
+        starttable
+        </code>
+    </ul>
+<p>
+<a name="l3"></a>
+<h2 >1.2: Why use Yodl?</h2>
+    Yodl is not a word processor, not even an editor. At first glance you might
+say, yeah, why should I learn Your Own Document Language? The answer is
+exactly that: because it can be <em >Your</em> own document language!
+<p>
+First of all, Yodl may lower the threshold of new users to start writing
+documents. An example of an excellent, though not very user-friendly document
+language is LaTeX. Typing all the backslash and curly brace characters in
+LaTeX and remembering that an asterisk must be typed as <code >$*$</code> may be hard
+at first. In such situations, a properly configured Yodl macro set removes
+these obstacles and thereby helps novices. Yodl is designed to be easy to
+learn.  As the Yodl package is growing, so is the manual. The ease of
+`learning Yodl' may thus somewhat diminish, but just keep in mind: as long as
+you need just plain texts, Yodl does OK. If you want more functionality, e.g.,
+the composition of manual pages for Unix, dig into the documentation.
+<p>
+Second, Yodl permits to create more than one macro set, defining the same
+commands, but leading to different output actions. Thereby, the same input 
+file can be converted to several output formats, depending on the loaded macro 
+set. In this, Yodl is a `general front' document language, which converts a 
+Yodl document to a specialized language for further processing. This was of 
+course one of my reasons to write Yodl: I needed a good converter for either 
+LaTeX or HTML. 
+<p>
+Third, Yodl always allows an `escape route' to the output format. Most
+situations can be handled with Yodl macros, but sure enough, some users will
+want special actions for a given output format.  A typical example for the
+necessity of such an escape route is the typesetting of mathematical formulas.
+Say you want to use Yodl for a document that is converted either to LaTeX
+(being a very good mathematical typesetter) or to HTML (a very poor
+mathematical typesetter). An approach might be to decide <em >inside the
+document</em> how to typeset a mathematical formula. Yodl provides conditional
+command processing to accomplish this. The decision would be based on the
+output format: for LaTeX, you'd typeset the formula using all the facilities
+that LaTeX offers, and for HTML you'd use poor-mans typesetting. Typically,
+other pre-processors for documents don't allow such escape routes. Well, Yodl
+does.
+<p>
+<a name="l4"></a>
+<h2 >1.3: Copying Yodl</h2>
+    Yodl is free software; it is distributed under the terms of the 
+GNU General Public Licence.  For details, please refer to the file
+COPYING.
+<p>
+<hr>
+<ul>
+    <li> <a href="yodl.html">Table of Contents</a>
+    <li> <a href="yodl02.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

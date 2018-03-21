@@ -1,0 +1,185 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>guncat</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title">guncat</h1>
+<h2 id="author">guncat_1.01.02.tar.gz</h2>
+<h2 id="date">2014-2015</h2>
+
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title"></h1>
+
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>guncat(1)</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title">guncat(1)</h1>
+<h2 id="author">guncat_1.01.02.tar.gz guncat - unencrypting file concatenation</h2>
+<h2 id="date">2014-2015</h2>
+
+
+<p>
+<h2>NAME</h2>guncat - catenates files, unencrypting pgp encrypted sections
+<p>
+<h2>SYNOPSIS</h2>
+       <strong>guncat</strong> [OPTIONS] <code>[file(s)]</code> <br/>
+        [OPTIONS] - cf. section <strong>OPTIONS</strong><br/>
+        [file(s)] - optional files to process (cf. section <strong>INPUT
+            FILE(S)</strong>)<br/>
+<p>
+<h2>DESCRIPTION</h2>
+<p>
+<strong>Guncat</strong> was designed to tackle a problem encountered with (partically) PGP
+encrypted files (which may be encountered in, e.g., mailboxes). Tools to
+process text-files (like <strong>grep</strong>(1), or <strong>less</strong>(1)) may be used to process
+those files, but standard tools like <strong>cat</strong>(1) leave PGP encrypted sections
+within such files as-is. As a consequence, browsing the `real' contents (i.e.,
+clear-text sections and the unencrypted contents of PGP encrypted sections) of
+those files is difficult.
+<p>
+<strong>Guncat</strong> acts like <strong>cat</strong>, but unencrypts encrypted sections encountered in the
+files processed by <strong>guncat</strong>, copying the unencrypted information to <strong>guncat</strong>'s standard
+output stream, which may thereupon be processed by other tools.
+<p>
+PGP/GPG encrypted sections are surrounded by 
+    <pre>
+
+-----BEGIN PGP MESSAGE-----
+
+</pre>
+
+and
+    <pre>
+
+-----END PGP MESSAGE-----
+
+</pre>
+
+markers. Whenever <strong>guncat</strong> encounters such
+sections they will be processed by <strong>gpg</strong>(1). <strong>Gpg</strong> needs a passphrase to
+unencrypt such sections. The required passphrase may be provided to <strong>guncat</strong>, which
+will then forward the passphrase to <strong>gpg</strong>, or <strong>gpg</strong> will itself ask for
+the required passphrase.
+<p>
+When providing an incorrect passphrase to <strong>guncat</strong> two additional attempts to
+provide the correct passphrase are granted. If the third attempt also fails,
+<strong>guncat</strong> terminates. Furthermore, when an incorrect passphrase is provided, the
+currently processed file must be reset to the beginning of the encrypted
+section. This implies that the processed file must be <em>seekable</em>. If the
+file does not support seeking operations then <strong>guncat</strong> also terminates.
+<p>
+<h2>RETURN VALUE</h2>
+<p>
+<strong>Guncat</strong> returns 0 to the operating system unless an error occurs (0 is also
+returned when usage info (option <code>--help</code>), <strong>guncat</strong>'s version number (option
+<code>--version</code>), or the configured <strong>gpg</strong> call (option <code>--show-gpg</code>) is
+requested.
+<p>
+<h2>INPUT FILE(S)</h2>
+<p>
+When no file arguments are provided (or when - is provided) the standard
+input stream is processed. Note that when the standard input stream is
+specified and option <code>--passphrase</code> is specified the standard input stream's
+first line is used as <strong>gpg</strong>'s passphrase.
+<p>
+Any other argument is considered a file (path specifications are allowed) 
+to be processed in sequence by <strong>guncat</strong>. 
+<p>
+If an argument does not refer to a readable file, <strong>guncat</strong> terminates with an
+error message.
+<p>
+<h2>OPTIONS</h2>
+<p>
+Where available, single letter options are listed between parentheses
+following their associated long-option variants. Single letter options require
+arguments if their associated long options require arguments as well.
+    <ul>
+    <li> <strong>--gpg</strong>=<code>path</code><br/>
+        Path to the <strong>gpg</strong> program (default: <code>/usr/bin/gpg</code>)
+<p>
+<li> <strong>--gpg-msg</strong>=<code>path</code> (<strong>-m</strong>)<br/>
+        Path to where <strong>gpg</strong> should write its messages. Specify - to write
+        the messages to the standard error stream. By default messages are
+        suppressed. 
+<p>
+<li> <strong>--gpg-no-batch</strong><br/>
+        Option <code>--batch</code> is omitted when calling <strong>gpg</strong>.
+<p>
+<li> <strong>--gpg-option</strong>=<code>option</code> (<strong>-m</strong>)<br/>
+       Add <code>option</code> to <strong>gpg</strong>'s call. If the option contains blanks, surround
+        <code>option</code> by single or double quotes.
+<p>
+<li> <strong>--help</strong> (<strong>-h</strong>)<br/>
+       Basic usage information is written to the standard output stream.
+<p>
+<li> <strong>--locate-keys</strong> <strong>-l</strong><br/> 
+       Locate missing public keys at the configured key server(s) (by default
+        missing keys are not searched for).
+<p>
+<li> <strong>--passphrase</strong> <strong>-p</strong><br/> 
+       The passphrase is read as the first line from the standard input stream
+        (without being echoed); otherwise the passphrase is handled by <strong>gpg</strong>
+        itself (e.g., using <strong>gpg-agent</strong>(1)).
+<p>
+<li> <strong>--show-gpg</strong><br/> 
+       Show the gpg command that would be used, and quit, returning 0.
+<p>
+<li> <strong>--tty-OK</strong> <strong>-t</strong><br/> 
+       Option <code>--no-tty</code> is omitted when calling <strong>gpg</strong>.
+<p>
+<li> <strong>--verbose</strong>=<code>[0-2]</code><br/>
+       Specifies <strong>gpg</strong>'s verbosity level. When calling <strong>gpg</strong>, by default
+        <code>--quiet</code> is specified; with <code>--verbose 0</code> <strong>gpg</strong>'s option
+        <code>--no-verbose</code> is specified; otherwise <code>--verbose</code> is specified
+        once or twice.
+<p>
+<li> <strong>--version</strong> (<strong>-v</strong>)<br/>
+       <strong>Guncat</strong>'s version number is written to the standard output stream.
+    </ul> 
+<p>
+<h2>SEE ALSO</h2> 
+<p>
+<strong>cat</strong>(1), <strong>gpg</strong>(1), <strong>gpg-agent</strong>(1), <strong>grep</strong>(1), <strong>less</strong>(1).
+<p>
+<h2>BUGS</h2>
+    None reported
+<p>
+<h2>COPYRIGHT</h2>
+    This is free software, distributed under the terms of the `GNU General
+Public License'. Copyright remains with the author. <strong>Guncat</strong> is available at
+<code>https://fbb-git.github.io/guncat/</code>
+<p>
+<h2>ORGANIZATION</h2>
+    Center for Information Technology, University of Groningen.
+<p>
+<h2>AUTHOR</h2>
+    Frank B. Brokken (<strong>f.b.brokken@rug.nl</strong>).

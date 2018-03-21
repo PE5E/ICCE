@@ -1,0 +1,377 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>icmconf(7)</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+<link rev="made" href="mailto:Frank B. Brokken: f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title">icmconf(7)</h1>
+<h2 id="author">configuration file for <strong >icmbuild</strong>(1)<br/>(icmake.9.02.07.tar.gz)</h2>
+<h2 id="date">1992-2018</h2>
+
+
+<p>
+
+<h2 >NAME</h2>icmconf - Configuration file for the <strong >icmbuild</strong>(1) 
+                    program maintenance script
+<p>
+<h2 >DESCRIPTION</h2>
+<p>
+The <em >icmconf</em> configuration file is used to specify and fine-tune the
+program maintenance performed by the <strong >icmbuild</strong>(1) script. It can be used to
+activate and specify various directives that determine how the program or
+library maintenance is performed.
+<p>
+The directives are biased towards the construction of a <strong >C++</strong> program, but
+program maintenance for other languages (e.g., <strong >C</strong>) can also easily be
+configured.
+<p>
+The <strong >icmbuild</strong>(1) script ignores empty lines and lines whose first non-blank
+characters are two consecutive forward slashes (//). Long lines can be split
+over multiple lines by using a final backslash character at lines continuing
+at the next line (refer to the <strong >icmake</strong>(1) man-page for further details).
+<p>
+<h2 >CLASS DEPENDENCIES</h2>
+<p>
+Traditional make-utilities recompile all dependent sources once header files
+are modified. When developing <strong >C++</strong> programs this is hardly ever requird, as
+adding a new member function to a class does not require you to recompile
+already existing source files. Recompilation <em >is</em> required when modifying
+the data member organization of classes. 
+<p>
+To handle class dependencies in a more sensible way, <strong >icmake</strong>(1) checks
+class dependencies using its support program <em >/usr/lib/icmake/icm-dep</em>,
+visiting the classes listed in the <em >CLASSES</em> file if <em >icmconf's USE_ALL</em>
+directive was specified. If a directory mentioned in the <em >CLASSES</em> file
+contains a file having a name that's equal to the name specified at the
+<em >USE_ALL</em> parameter, then all sources of classes that depend on that
+particular class are also recompiled.
+<p>
+Likewise, if the <em >PRECOMP</em> parameter was specified, then a similar action is
+performed for the precompiled headers: if a local header file that's (directly
+or indirectly) included by a class's internal header file has changed, then
+that class's precompiled header as well as all precompiled headers of
+dependent classes are recompiled.
+<p>
+The <strong >icmbuild</strong>(1) script itself does not inspect these dependencies, but
+calls <em >/usr/lib/icmake/icm-dep</em> to perform the requird tests. The program
+<em >icm-dep's</em> short usage summary is written to the standard output stream
+when calling <em >icmake -d</em> (or directly: <em >/usr/lib/icmake/icm-dep</em>).
+<p>
+<h2 >ICMCONF PARAMETERS</h2>
+<p>
+<ul>
+    <li><strong >#define ADD_LIBRARIES       ""</strong><br/>
+       When a program must be linked against additional libraries (other than
+        the name of the program's library itself, if specified at <em >LIBRARY</em>)
+        then those libraries should be specified, blank space separated,
+        here. E.g., when a program is linked against <em >libbobcat</em> then the
+        specification is:
+    <pre>
+
+    #define ADD_LIBRARIES   "bobcat"
+    
+</pre>
+
+        If your program is linked against multiple libraries, then use a
+    blank-separated list of libraries (like <em >"math bobcat"</em>)
+<p>
+<li><strong >#define ADD_LIBRARY_PATHS  ""</strong><br/>
+       When the additional libraries (specified at <em >ADD_LIBRARIES</em>) are
+        located in non-standard library locations (e.g., not in <em >/lib</em> and
+        <em >/usr/lib</em>) then these additional paths are (blank space separated)
+        specified here. Specify only the paths, not the <em >-L</em> flags.
+<p>
+It is stronly advised to specify full pathnames here, or remember that
+        normally the location of the <em >icmconf</em> file is not the location
+        where the compilation actually takes place, which is the location
+        specified at the <em >TMP_DIR</em> parameter (see below).
+<p>
+<li><strong >#define CLS</strong><br/>
+       The <em >clear screen</em> directive. If defined <em >tput clear</em> is called to
+        clear the terminal screen before starting the compilation. By default
+        it is not defined.
+<p>
+<li><strong >#define CXX                 "g++"</strong><br/>
+       The C++ compiler to use. For a <strong >C</strong> compiler use, e.g., <em >#define CC
+        "gcc"</em>. Its setting is overruled by an identically named environment
+        variable.
+<p>
+<li><strong >#define CXXFLAGS            "--std=c++14 -Wall -O2"</strong><br/>
+       The compiler options to use. The default options are shown. When the
+        <strong >C</strong> compiler is used, use <em >#define CFLAGS</em> rather than
+        <em >CXXFLAGS</em>. Its setting is overruled by an identically named
+        environment variable.
+<p>
+<li><strong >#define DEFCOM  "..."</strong><br/>
+       A <em >DEFCOM</em> directive may be added to the <em >icmconf</em> file (the
+        <strong >icmstart</strong>(1) script can do this for you). It may be defined as:
+       <pre>
+
+    #define DEFCOM  "program"
+        
+</pre>
+
+       in which case <em >icmbuild</em> will do program maintenance.  It may also be
+        defined as:
+       <pre>
+
+    #define DEFCOM  "program strip"
+        
+</pre>
+
+       in which case <em >icmbuild</em> does program maintenance, creating a
+        stripped binary program. 
+<p>
+Alternatively it may also be defined as:
+       <pre>
+
+    #define DEFCOM  "library"
+       
+</pre>
+
+        in which case <em >icmbuild</em> does library maintenance. 
+<p>
+<li><strong >//#define ICM_DEP           "-V go"</strong><br/>
+       The existence and implied existence of <em >USE_ALL</em> files (see the
+        description of the <em >USE_ALL</em> directive), as well as the correct ages
+        of precompiled headers can be checked by <em >icmake's</em> support program
+        <em >icm_dep</em>. By default <em >icm_dep</em> is called with the shown
+        default arguments. If <em >icm_dep</em> should not be called define
+        <em >ICM_DEP</em> as an empty string (<em >""</em>). <strong >Icmake</strong>(1)'s man-page
+        contains a separate section about the <em >icm_dep</em> support program.
+<p>
+<li><strong >#define IH                  ".ih"</strong><br/>
+       The extension used for internal header files. See <em >#define PRECOMP</em>
+        below. 
+<p>
+<li><strong >#define LDFLAGS             ""</strong><br/>
+       The linker options to use. By default no options are passed to the
+        linker. Its setting is overruled by an identically named environment
+        variable.
+<p>
+<li><strong >#define LIBRARY           "modules"</strong><br/>
+       By default this directive is not defined. If defined a local library is
+        constructed. When a binary program is built it will be linked against
+        this library rather than to the individual object modules. 
+<p>
+If a library must be constructed (see also the <em >DEFCOM</em> directive),
+        then the <em >LIBRARY</em> directive must specify the library's base name
+        (without the <em >lib</em> prefix and without the <em >.a</em> extension).
+<p>
+After a library has been constructed <em >icmbuild install static dir</em>
+        installs the static library at <em >dir</em>, while <em >icmbuild install
+        shared dir</em> installs the shared library (see below at <em >#define
+        SHARED</em>) at <em >dir</em>.
+<p>
+<li><strong >#define MAIN                "main.cc"</strong><br/>
+       The source file in which the <em >int main</em> function is defined. This
+        specification may be left as-is or may completely be removed if
+        <strong >icmbuild</strong>(1) is used for library maintenance rather than program
+        maintenance.
+<p>
+<li><strong >//#define NO_PRECOMP_WARNING"</strong><br/>
+       When <em >PRECOMP</em> is defined (see below) a warning is issued when a
+        class-directory does not contain a <em >IH</em> file. Such warnings are
+        suppressed when defining <em >NO_PRECOMP_WARNING</em>. This option is
+        ignored unless <em >PRECOMP</em> has been defined.
+<p>
+<li><strong >#define OBJ_EXT             ".o"</strong><br/>
+        The extension of object modules created by the compiler.
+<p>
+<li><strong >//#define PRECOMP           "-x c++-header"</strong><br/>
+       When activated internal header files (see <em >#define IH</em>) are
+        precompiled when they are more recent than their precompiled
+        versions. Also, when a precompiled header file is (re)compiled the
+        precompiled header files of all dependent classes are also
+        recompiled. 
+<p>
+Precompiled headers are removed by <em >icmbuild clean</em>. To specify
+        internal header files for other languages change the <em >-x</em>
+        specification accordingly. By default this <em >#define</em> is not active.
+<p>
+<li><strong >#define REFRESH</strong><br/>
+       Define <em >REFRESH</em> to relink the binary program at every <em >icmbuild
+        program</em> call. By default <em >REFRESH</em> is <em >not</em> defined.
+<p>
+<li><strong >#define SHARED</strong><br/>
+       This directive is only interpreted if <em >LIBRARY</em> was also specified.
+        If defined a static library (extension <em >.a</em>) as well as a shared
+        library (extension <em >.so*</em>) is built. If not specified, but
+        <em >LIBRARY</em> was specified, only the static library is built. By
+        default <em >SHARED</em> is not defined.
+<p>
+The shared library receives as its major version number <em >VERSION</em>'s
+        major version number, and receives <em >VERSION</em> as its full version
+        number. E.g., if <em >VERSION</em> is defined as <em >1.02.03</em> and <em >LIBRARY</em>
+        is defined as <em >demo</em> then the shared library <em >libdemo.so.1.02.03</em>
+        is constructed, with <em >libdemo.so.1</em> soft-linking to it, with
+        <em >libdemo.so</em> in turn soft-linking to <em >libdemo.so.1</em>.
+<p>
+<li><strong >#define SHAREDREQ           ""</strong><br/>
+       When creating a shared library <em >SHAREDREQ</em> specifies the names of
+        libraries and library paths that are required by the shared library.
+        E.g., if a library is found in <em >/usr/lib/special</em>, assuming that the
+        name of the required library is <em >libspecial.so</em>, then use the
+        specification <em >"-L/usr/lib/special -lspecial"</em>.  The <em >/lib</em> and
+        <em >/usr/lib</em> paths are usually predefined and need not be
+        specified. This directive is only interpreted if <em >SHARED</em> and
+        <em >LIBRARY</em> were also defined.
+<p>
+<li><strong >#define SOURCES             "*.cc"</strong><br/>
+       The pattern to locate sources in a directory. The default value is
+        shown. 
+<p>
+<li><strong >#define TMP_DIR             "tmp"</strong><br/>
+       The directory in which intermediate results are stored. Relative to the
+        current working directory unless an absolute path is specified.
+<p>
+<li><strong >#define USE_ALL     "a"</strong><br/>
+       After defining this directive (by default it is <em >not</em> defined) class
+        dependencies are interpreted. In this case, when a directory contains
+        a file having a name that's equal to the name specified at the
+        <em >USE_ALL</em> directive, then all sources of that class as well as all
+        sources of classes that depend on it are (re)compiled. 
+<p>
+Following the successful recompilations the <strong >s</strong> specified at
+        <em >#define USE_ALL</em> are removed.
+<p>
+When the <em >USE_ALL</em> directive was specified the command <em >icmbuild
+        clean</em> also removes any leftover <em >USE_ALL</em> files from the program's
+        subdirectories.
+<p>
+<li><strong >#define USE_ECHO              ON</strong><br/>
+        When specified as <em >ON</em> (rather than <em >OFF</em>) commands executed by
+        <em >icmbuild</em> are echoed.
+<p>
+<li><strong >#define USE_VERSION</strong><br/>
+       If defined (which is the default) the file <em >VERSION</em> is read by
+        <em >icmconf</em> to determine the program/library's version, and the
+        project's release years.
+    </ul>
+<p>
+<h2 >PARSER MAINTENANCE</h2>
+<p>
+The following directives are available in cases where  a program uses a parser
+generator creating a parser class from a grammar specification:
+<p>
+<ul>
+    <li><strong >#define PARSER_DIR          ""</strong><br/>
+       The subdirectory containing the parser's specification file. 
+<p>
+If parser maintenance is not required, then this directive can be
+        omitted. If omitted, then all other directives, that begin with
+        <em >PARS</em>, can also be omitted.
+<p>
+<li><strong >#define PARSFILES           ""</strong><br/>
+       If the parser specification file named at <em >PARSSPEC</em> itself includes
+        additional specification files, then patterns matching these
+        additional grammar specification files should be specified here. The
+        pattern is interpreted in the directory specified at <em >PARSER_DIR</em>
+        and could contain a subdirectory name (e.g. <em >specs/*</em>). When files
+        matching the pattern are modified then a new parser will be
+        created. By default no additional specification files are used.
+<p>
+<li><strong >#define PARSFLAGS           "-V"</strong><br/>
+       The flags to use when calling the program specified at <em >PARSGEN</em>.
+<p>
+<li><strong >#define PARSGEN             "bisonc++"</strong><br/>
+       The name of the program generating the parser.
+<p>
+<li><strong >#define PARSOUT             "parse.cc"</strong><br/> 
+       The name of the file generated by the parser generator (which is used
+        by <em >icmbuild</em> to compare the timestamps of the parser specification
+        <strong >s</strong> against).
+<p>
+<li><strong >#define PARSSPEC            "grammar"</strong><br/>
+       The name of the parser specification file. This file is
+        expected in the directory specified at <em >PARSER_DIR</em>.
+    </ul>
+<p>
+<h2 >SCANNER MAINTENANCE</h2>
+<p>
+The following directives are available in cases where  a program uses a scanner
+generator creating a lexical scanner class from a set of regular expressions:
+<p>
+<ul>
+    <li><strong >#define SCANNER_DIR         ""</strong><br/>
+       The subdirectory containing the scanner's specification file. 
+<p>
+If lexical scanner maintenance is not required, then this directive
+        can be omitted. If omitted, then all other directives, that begin with
+        <em >SCAN</em>, can also be omitted.
+<p>
+<li><strong >#define SCANFILES            ""</strong><br/>
+       If the lexical scanner specification file named at <em >SCANSPEC</em> itself
+        includes additional specification files, then patterns matching these
+        additional lexer specification files should be specified here. The
+        pattern is interpreted in the directory specified at <em >SCANNER_DIR</em>
+        and could contain a subdirectory name (e.g. <em >specs/*</em>). When files
+        matching the pattern are modified then a new lexical scanner will be
+        created. By default no additional specification files are used.
+<p>
+<li><strong >#define SCANFLAGS           ""</strong><br/>
+       The flags to use when calling the program specified at <em >SCANGEN</em>.
+<p>
+<li><strong >#define SCANGEN             "flexc++"</strong><br/>
+       The name of the program generating the lexical scanner.
+<p>
+<li><strong >#define SCANOUT             "lex.cc"</strong><br/>
+       The name of the file generated by the lexical scanner (which is used by
+        <em >icmbuild</em> to compare the timestamps of the scanner specification
+        <strong >s</strong> against).
+<p>
+<li><strong >#define SCANSPEC            "lexer"</strong><br/>
+       The name of the lexical scanner specification file. This file is
+        expected in the directory specified at <em >SCANNER_DIR</em>.
+    </ul>
+<p>
+<h2 >FILES</h2>
+    The mentioned paths are sugestive only and may be installation dependent:
+    <ul>
+    <li><strong >/usr/share/icmake/CLASSES</strong><br/>
+        Example of an <strong >icmconf</strong> <em >CLASSES</em> file.
+    <li><strong >/usr/share/icmake/icmconf</strong><br/>
+        Default skeleton <strong >icmbuild</strong> resource file.
+    <li><strong >/etc/icmake</strong><br/>
+        Directory containing the default system-wide <strong >icmake</strong>(1)
+        configuration files (like <em >VERSION</em> and <em >icmstart.rc</em>)
+    <li><strong >$HOME/.icmake</strong><br/> 
+       Optional directory containing user-defined specifications overruling
+        the system-wide definitions. This directory is the proper location for
+        a file <em >AUTHOR</em> defining the <em >AUTHOR</em> directive with the user's
+        name. E.g., my <em >.icmake/AUTHOR</em> file contains:
+<p>
+<pre >
+#define AUTHOR  "Frank B. Brokken (f.b.brokken@rug.nl)";
+</pre>
+
+<p>
+</ul>
+<p>
+<h2 >SEE ALSO</h2>
+    <strong >icmake</strong>(1), <strong >icmbuild</strong>(1), <strong >icmstart</strong>(1), <strong >icmstart.rc</strong>(7).
+<p>
+<h2 >BUGS</h2>
+    <strong >icmbuild</strong>(1) ends displaying a fatal error message if the current
+working directory does not contain a file <em >icmconf</em>.
+<p>
+<h2 >COPYRIGHT</h2>
+    This is free software, distributed under the terms of the 
+    GNU General Public License (GPL).
+<p>
+<h2 >AUTHOR</h2>
+    Frank B. Brokken (<strong >f.b.brokken@rug.nl</strong>).
+<p>
+</body>
+</html>

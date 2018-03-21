@@ -18,13 +18,8 @@ try
     else
         funcScan(scanner, stringSet);
 
-    for                                         // prints the set of words
-    (
-        auto from = stringSet.begin();
-        from != stringSet.end();
-        ++from
-    )
-        cout << *from << " ";
+    copy(stringSet.begin(), stringSet.end(),
+        ostream_iterator<string>(cout, " "));
     cout << '\n';
 }
 

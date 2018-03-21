@@ -1,0 +1,57 @@
+guncat (1.01.02)
+
+  * Updated the build script to icmake 8.00.04
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 12 Dec 2015 15:12:24 +0100
+
+guncat (1.01.01)
+
+  * Kevin Brodsky observed that the installation scripts used 'chdir' rather
+    than 'cd'. Fixed in this release.
+
+  * Kevin Brodsky also observed that the combined size of all precompiled 
+    headers might exceed some disks capacities. The option -P was added to the
+    ./build script to prevent the use of precompiled headers.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 05 Oct 2015 21:25:25 +0200
+
+guncat (1.01.00)
+
+ * Update to version 1.00.00 after being operational for over one year without
+   issues. 
+
+ * Added 'build uninstall'. 
+
+ * Updated  'INSTALL'
+
+ * Guncat depends on libbobcat >= 4.00.00 (see 'required')
+
+ * Standardized the (de)installation procedures
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 04 Oct 2015 10:32:32 +0200
+
+guncat (0.92.00)
+
+  * The GPG passphrase is now requested only once. It is only requested again
+    if a provided passphrase was incorrect.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 27 May 2014 15:57:34 +0200
+
+guncat (0.91.00)
+
+  * The GPG passphrase is read from /dev/tty, and not from the std. input
+    stream (cin) anymore
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 04 May 2014 10:55:53 +0200
+
+guncat (0.90.00)
+
+  * Initial completion of the program and man-page.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 03 May 2014 11:48:43 +0200
+
+guncat (0.00.00)
+
+  * Preparing the sourceforge archive, and finalizing release 0.00.00
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 30 Apr 2014 15:10:18 +0200

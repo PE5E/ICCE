@@ -1,0 +1,109 @@
+oxref (1.00.06)
+
+  * Updated entries in the 'required' file.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 20 Dec 2015 13:02:43 +0100
+
+oxref (1.00.05)
+
+  * Updated the icmake build scripts to icmake 8.00.04
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 14 Dec 2015 14:18:32 +0100
+
+oxref (1.00.04)
+
+  * Kevin Brodsky observed that the installation scripts used 'chdir' rather
+    than 'cd'. Fixed in this release.
+
+  * Kevin Brodsky also observed that the combined size of all precompiled 
+    headers might exceed some disks capacities. The option -P was added to the
+    ./build script to prevent the use of precompiled headers.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 05 Oct 2015 21:11:58 +0200
+
+oxref (1.00.03)
+
+  * Standardized the (de)installation procedures
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 03 Oct 2015 11:11:25 +0200
+
+oxref (1.00.02)
+
+  * Fixed compilation errors that emerged with g++-5, reported by Matthias
+    Klose. 
+
+  * Added the file 'required' to the source distribution summarizing the
+    required software for building oxref.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 12 Feb 2015 18:13:30 +0100
+
+oxref (1.00.01)
+
+  * Since oxref's been around for over a year without encountering any
+    serious problems, its version was bumped to slightly over 1.00.
+
+  * Oxref no longer depends on bobcat's A2x and X2a classes
+
+  * Oxref's no longer uses (deprecated) FBB::Errno exceptions. Instead,
+    FBB::Exception exceptions are now used.
+
+  * 'build oxref' uses the newly built tmp/bin/binary (= oxref) program to
+    create its cross-reference listing.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 26 Dec 2013 12:33:38 +0100
+  
+oxref (0.91.00)
+
+  * oxref now returns 0 when called with the -h or -v flags 
+
+  * catching FBB::Errno in main.cc is superfluous: removed.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 25 Jan 2013 10:38:42 +0100
+
+oxref (0.90.11)
+
+  * The following #defines in INSTALL.im can be overruled by defining
+    identically named environment variables: 
+        CXX      defines the name of the compiler to use. By default `g++'
+        CXXFLAGS the options passed to the compiler. 
+                 By default `-Wall --std=c++0x -O2 -g'
+        LDFLAGS  the options passed to the linker. By default no options are
+                 passed to the linker.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 18 Jul 2012 15:19:38 +0200
+
+oxref (0.90.10)
+
+  * Depends on Bobcat 3.00.02
+  
+  * Removed superfluous header (undoing the needless 0.90.04 modification).
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 10 May 2012 14:02:07 +0200
+
+oxref (0.90.04)
+
+  * Added missing header
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 09 May 2012 13:45:58 +0200
+
+oxref (0.90.03)
+
+  * Fixed an out-of check placed newline insertion
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 09 Jan 2012 21:35:03 +0100
+
+oxref (0.90.01)
+
+  * Replaced FnWrap* calls by lambda functions
+
+  * `build' script now recognizes CXXFLAGS and LDFLAGS for, resp. g++ and ld
+     flags. Default values are in INSTALL.im, as before.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 24 Jun 2011 21:15:18 +0200
+
+oxref (0.90.00)
+
+  * Initial release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 16 Feb 2011 11:50:25 +0100
+

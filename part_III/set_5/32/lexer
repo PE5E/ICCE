@@ -1,6 +1,8 @@
 %%
 // matches houseboat and household
-[^.]house/(boat|hold)[ \n\t]		std::cout <<  matched() << '\n';
-// matches house-containing words everywhere
-// [[:alnum:]]*house[[:alnum:]]*		std::cout <<  matched() <<  '\n';
+[^.]house/(boat|hold)[ \n\t]		    std::cout <<  matched() << '\n';
+// matches words everywhere
+[:blank:][[[:alnum:]]*[:blank:]			std::cout <<  matched() <<  '\n';
+// in 'houseword' the first match is used since both are same length
+// in other words the second is longer and therefore preferred
 .				

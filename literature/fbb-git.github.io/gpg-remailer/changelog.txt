@@ -1,0 +1,253 @@
+gpg-remailer (3.04.03)
+
+  * Tony Mancill noticed that some of the files appearing in the standard
+    Debian source-files tar shouldn't have been there. Those files were
+    removed from this release. No further changes as compared to 3.04.02
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 07 Nov 2017 19:11:32 +0100
+
+gpg-remailer (3.04.02)
+
+  * Carlo Landmeter noticed that Content-Type and comparable headers were
+    missing from the remailer's log file when handling clear-text e-mail.
+    This omission was fixed in this release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 05 Nov 2017 14:19:58 +0100
+
+gpg-remailer (3.04.01)
+
+  * Removed Content-Type and Content-Disposition headers from the original
+    e-mail in the reencrypted e-mail: accidentally included at version 3.04.00
+
+  * icmake/precompileheaders was removed, and the build script was adapted
+    accordingly. If precompiled headers should not be used comment out the
+    line #define PRECOMP in icmconf.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 05 Oct 2017 16:38:59 +0200
+
+gpg-remailer (3.04.00)
+
+  * Added new option --x-headers (-x). This option inserts X-headers showing
+    the original clear text e-mail's `from:', `From:', and headers containing
+    'envelope'
+
+  * Removed --std=c++14 from INSTALL.im since that's currenntly the default
+    standard.
+
+  * Updated the gpg-remailer/required file
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 24 Sep 2017 14:59:15 +0200
+
+gpg-remailer (3.03.01)
+
+  * New compiler releases required #include <cstring> in cleartextmail.ih.
+    No further implementation changes or changes in Gpg-remailer's behavior.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 31 Aug 2017 16:41:52 +0200
+
+gpg-remailer (3.03.00)
+
+  * Multipart-signed messages may use boundaries consisting of \r\n (and \n,
+    and maybe \n\r?). Remailer/copytoboundary.cc now recognizes all three
+    forms and uses the actually used separator to separate the various lines
+    of the information to copy.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 10 May 2017 09:02:40 +0200
+
+gpg-remailer (3.02.01)
+
+  * Added documentation/README.flow (primarily for internal use only)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 19 Apr 2017 12:26:43 +0200
+
+gpg-remailer (3.02.00)
+
+  * Adapted the icmake scripts to icmake 8.01.00
+
+  * Fixed a bug in handling multipart/signed e-mail handling
+
+  * Correct signatures are not required with gpg-signed e-mail if signature:
+    absent has been specified.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 13 Apr 2016 15:02:07 +0530
+
+gpg-remailer (3.01.03)
+
+  * Added the file extensiveexample.txt covering an extensive example of the
+    steps that are involved when operationally using the gpg-remailer.
+
+  * Gpg-remailer displays meaningful error messages for missing numeric option
+    arguments (added remailer/strToUnsigned.
+
+  * Adapted the icmake scripts to icmake 8.00.04, updated the installation
+    procedure 
+
+  * Fixed a bug in handling log-level specifications
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 20 Dec 2015 12:38:12 +0100
+
+gpg-remailer (3.01.02)
+
+  * Kevin Brodsky observed that the installation scripts used 'chdir' rather
+    than 'cd'. Fixed in this release.
+
+  * Kevin Brodsky also observed that the combined size of all precompiled 
+    headers might exceed some disks capacities. The option -P was added to the
+    ./build script to prevent the use of precompiled headers.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 05 Oct 2015 21:22:36 +0200
+
+gpg-remailer (3.01.01)
+
+ * Standardized the (de)installation procedures
+
+ * Gpg-remailer depends on Bobcat >= 4.01.02
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 04 Oct 2015 11:28:28 +0200
+
+gpg-remailer (3.01.00)
+
+  * After Bobcat 3.19.00 Bobcat's class Process can again be used. This
+    version drops Spawn in favor of Bobcat's class Process 
+
+  * Added 'build uninstall'. This command only works if, when calling one of
+    the 'build install' alternatives and when calling 'build uninstall' the
+    environment variable REMAILER contains the (preferably absolute) filename
+    of a file on which installed files and directories are logged.
+    Note that 'build (dist)clean' does not remove the file pointed at by the
+    REMAILER environment variable, unless that file happpens to be in a
+    directory removed by 'build (dist)clean'. See also the file INSTALL.
+    Defining the REMAILER environment variable as ~/.remailer usually works
+    well. 
+    
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 29 Sep 2015 21:00:01 +0200
+
+gpg-remailer (3.00.01)
+
+  * Repaired error in exception handling. Because of this, version 3.00.00 is
+    not released by itself. Instead, use this 3.00.01 release.
+
+  * Added option --umask
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 15 Dec 2013 14:59:14 +0100
+
+gpg-remailer (3.00.00)
+
+  * The remailer can be configured to accept clear-text messages, in addition
+    to GPG/PGP encrypted messages.
+
+  * Added configuration file options `clear-text' ((dis)allowing clear-text
+    mail) and `envelope' (specifying from which envelope addresses clear-text
+    mail is accepted).
+
+  * The `relax' option and configuration parameter is no longer interpreted. A
+    warning is logged if it is used. Instead of using `relax' the pseudo
+    account used for remailing should set `umask 077' at shell-startup.
+
+  * Long encrypted messages broke the remailer. Repaired by simplifying child
+    process handling in a separate class `Spawn'.
+
+  * Added additional comment to various remailer/ source files, and to
+    remailer/remailer.h 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 14 Dec 2013 13:37:43 +0100
+
+gpg-remailer (2.56.00)
+
+  * Repaired handling of multiple -m or -r options: now all -m and -r options
+    are recognized. Each -m or -r option should contain just one e-mail
+    address. 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 09 Oct 2013 21:27:25 +0200
+
+gpg-remailer (2.55.01)
+
+  * Added missing -pthread flag to icmconf: without it, compiling succeeds,
+    but execution ends in a Fatal exception.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 30 Sep 2013 16:06:56 +0200
+
+gpg-remailer (2.55.00)
+
+  * As per RFC 2822 (pg. 8), multiple subject lines in incoming e-mail are now
+    recognized. 
+
+  * remailer/sendmail.cc and remailer/gpg.cc no longer uses /bin/sh.
+
+  * NTBSs escaping \- or "-chars were converted to Raw String Literals where
+    considered sensible.
+
+  * Added PGP signed file (Copyright-notice) stating that the files of the
+    gpg-remailer package are all free software in accordance with the GPL
+    V. 3.
+
+  * Updated the man-page
+
+  * Gzipped documents were generated using the -n flag to avoid timestamps
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 14 Sep 2013 13:33:20 +0200
+
+gpg-remailer (2.54.01)
+
+  * The distribution is now provided with a (GPL) LICENCE file 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 04 Sep 2013 15:07:26 +0200
+
+gpg-remailer (2.54.00)
+
+  * Sources adapted to Bobcat 3.12.00
+
+  * Program renamed to gpg-remailer, default configuration file now
+    etc/gpg-remailer.rc
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 12 Mar 2013 13:42:48 +0100
+
+remailer (2.53.00)
+
+  * Sources adapted to Bobcat 3.00.00
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 04 May 2012 16:18:41 +0200
+
+remailer (2.52.00)
+
+  * Used lambda functions and modifications required for amd64 architectures
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 07 Sep 2011 17:00:07 +0200
+
+remailer (2.51.00)
+
+  * Adapted sources to bobcat 2.13.0
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 04 Feb 2011 22:23:52 +0100
+
+remailer (2.50.1)
+
+  * Multiple changes see the svn diffs, Using the --std=c++0x compiler option.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 12 Oct 2009 09:52:11 +0200
+
+remailer (2.41.0)
+
+  * Repaired --no-mail handling, recompilation for new Process class
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 27 Oct 2008 17:05:19 +0100
+
+remailer (2.40.0)
+
+  * 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>
+
+remailer (2.32.1)
+
+  * Initial 'Content-Type:' line section is written before the signature. If
+    no such section is found, then the signature is shown first.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 30 Sep 2008 09:42:38 +0200
+
+remailer (2.32.0)
+
+  * Conversion from remailerScript to C++ program
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 28 Sep 2008 19:39:08 +0200
+

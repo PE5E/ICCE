@@ -1,0 +1,293 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>oxref</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:Frank B. Brokken: f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title">oxref</h1>
+<h2 id="author">oxref.1.00.06.tar.gz</h2>
+<h2 id="date">2012-2015</h2>
+
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:Frank B. Brokken: f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title"></h1>
+
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>oxref(1)</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:Frank B. Brokken: f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr/>
+<h1 id="title">oxref(1)</h1>
+<h2 id="author">oxref.1.00.06.tar.gz oxref - cross reference utility</h2>
+<h2 id="date">2012-2015</h2>
+
+
+<p>
+
+<h2>NAME</h2>oxref - cross reference utility for multiple languages
+<p>
+
+<h2>SYNOPSIS</h2>
+       <strong>oxref</strong> [OPTIONS] <em>arguments</em> <br/>
+        [OPTIONS] - see the <strong>OPTIONS</strong> section below <br/>
+        arguments - object files and/or libraries to process <br/>
+<p>
+The cross reference listing is written to the standard output stram.
+<p>
+<h2>DESCRIPTION</h2>
+<p>
+The program <strong>oxref</strong> generates a cross reference listing of symbols
+defined in non-stripped object files and/or libraries. 
+<p>
+A cross reference listing shows the functions using certain symbols
+(functions, data). This is useful information during program development and
+debugging phases. E.g., assuming that the signature; the pre-conditions or the
+post-conditions of a function must be changed it is important to know from what
+function(s) the function-to-modify is called to verify that the changes to the
+modified function do not break its calling functions.
+<p>
+The generated cross reference listing starts with a header showing information
+about the program, a time stamp and the arguments passed to <em>oxref</em>. E.g.,
+<p>
+<pre>
+
+oxref by Frank B. Brokken (f.b.brokken@rug.nl)
+oxref V0.90.00 2011
+
+CREATED Wed, 16 Feb 2011 15:21:03 +0000
+CROSS REFERENCE FOR: --select define liboxref.a 
+----------------------------------------------------------------------
+
+</pre>
+
+<p>
+<h2>RETURN VALUE</h2>
+<p>
+<strong>Oxref</strong> returns 0 to the operating system unless an error occurs or
+<strong>oxref</strong>'s version or usage info is shown or requested. In those cases 1 is
+returned 
+<p>
+<h2>OPTIONS</h2>
+<p>
+If available, single letter options are listed between parentheses
+following their associated long-option variants. Single letter options require
+arguments if their associated long options require arguments as well.
+    <ul>
+    <li> <strong>--arg</strong>=<em>mode</em> (<strong>-a</strong>)<br/>
+        Mode specifies the way the output is abbreviated:<br/>
+<p>
+<strong>count</strong> - function parameters are suppressed; instead the number of
+arguments required by a function is shown in its parameter list. Example:
+        <pre>
+
+usage(1)
+        
+</pre>
+
+    instead of
+        <pre>
+
+usage(std::string const&amp;)
+        
+</pre>
+
+<p>
+<strong>first</strong> - only show the first word of parameters. Example:
+        <pre>
+
+insertDefined(unsigned, std::ostream&amp;, std::vector&amp;)
+        
+</pre>
+
+    instead of
+        <pre>
+
+insertDefined(unsigned int, std::ostream&amp;, std::vector&lt;XrefData, 
+              std::allocator&lt;XrefData&gt; &gt; const&amp;)
+        
+</pre>
+
+<p>
+<strong>&lt;len&gt;</strong> - where <em>&lt;len&gt;</em> is a positive integral number (5 is used
+if <em>&lt;len&gt;</em> is less than 5). <em>&lt;len&gt;</em> specifies the maximum length of
+parameter names. If parameter names need to be truncated, an ellipsis replaces
+the truncated characters. 
+Example using <em>-a 12</em>:
+        <pre>
+
+insertDefined(unsigned int, std::ostream&amp;, std::vect...&amp;)
+        
+</pre>
+
+    instead of
+        <pre>
+
+insertDefined(unsigned int, std::ostream&amp;, std::vector&lt;XrefData, 
+              std::allocator&lt;XrefData&gt; &gt; const&amp;)
+        
+</pre>
+
+<p>
+<li> <strong>--full-symbol</strong> <strong>-f</strong><br/>
+        The full names of the symbols are shown, in addition to the plain
+symbol names. Full names include class names and/or namespace
+identifiers. Example: 
+        <pre>
+
+insertDefined(unsigned int, std::ostream&amp;, std::vector&lt;XrefData,
+              std::allocator&lt;XrefData&gt; &gt; const&amp;) 
+  Full name: Store::insertDefined(unsigned int, std::ostream&amp;,
+          std::vector&lt;XrefData, std::allocator&lt;XrefData&gt; &gt; const&amp;) 
+        
+</pre>
+
+<p>
+<li> <strong>--help</strong> (<strong>-h</strong>)<br/>
+           Basic usage information is written to the standard error stream.
+<p>
+<li> <strong>--object-files</strong> (<strong>-o</strong>)<br/>
+            Include the name of object files containing the symbols in the
+        cross reference listing
+<p>
+<li> <strong>--select</strong>=<em>name</em><br/>
+            Only display the cross-reference of <em>name</em>, where <em>name</em> 
+        is the (case sensitive) initial substring of a symbol
+<p>
+<li> <strong>--select-pattern</strong>=<em>regex</em><br/>
+            Only display the cross-reference of symbols matching the regular
+        expression <em>regex</em>, where <em>regex</em> is a regular expression matching
+        the <strong>regex</strong>(7) specification, including the extensions offered by 
+        the <strong>pattern</strong>(3bobcat) <strong>Pattern</strong> class. Case sensitive matching is
+        used here, too.
+<p>
+<li> <strong>--source-files</strong> (<strong>-s</strong>)<br/>
+            Include the name of source files containing the symbols in the
+        cross reference listing
+<p>
+<li> <strong>--xref-source-files</strong> (<strong>-x</strong>)<br/>
+            Include the name of source files containing the used symbols in
+        the cross reference listing
+<p>
+<li> <strong>--version</strong> (<strong>-v</strong>)<br/>
+           <em>Oxref</em>'s version number is written to the standard error stream.
+    </ul>    
+<p>
+<h2>EXAMPLES</h2>
+<p>
+The examples show how <em>oxref</em> was called, followed by a representative
+example of a cross-reference listing for a symbol. <em>Oxref</em>'s own cross
+reference listing was used:
+    <pre>
+
+called as: oxref liboxref
+
+define(std::string const&amp;, bool)
+  Used By:
+    Store::setFunction(std::string const&amp;)
+    Store::setObject(std::string const&amp;)
+    Store::setSource(std::string const&amp;)
+
+--------------------
+
+called as: oxref -foxs liboxref
+
+define(std::string const&amp;, bool)
+  Full name: Store::define(std::string const&amp;, bool)
+  Source:    define.cc (1define.o)
+  Used By:
+    setfunction.cc: Store::setFunction(std::string const&amp;)
+    setobject.cc: Store::setObject(std::string const&amp;)
+    setsource.cc: Store::setSource(std::string const&amp;)
+    
+</pre>
+
+<p>
+<h2>BUGS</h2>
+<p>
+This is the initial release version of <em>oxref</em>. 
+<p>
+<h2>ABOUT</h2>
+<p>
+In theory, creating cross reference listings is a complex matter as it
+requires a full syntax analysis of the sources defining a program. Especially
+with complex languages like <strong>C++</strong> this is a difficult hurdle to pass. 
+<p>
+Looking for `cross reference programs' using a search engine returns
+remarkably few hits. LXR is a promising cross referencing program (see
+<a href="http://lxr.linux.no/">http://lxr.linux.no/</a>), but it requires the use of data base packages,
+making it somewhat complex to use. Other links refer to cross-reference
+programs for textual documents, not programs.
+<p>
+The complexity of developing a program generating a 
+cross reference listing has baffled me for a long time. Eventually I realized
+that in practice the essential information has already been generated by the
+compiler, when it compiles our source files. So why do it all again?
+<p>
+Once a program has been compiled one or (usually) more object files are
+available. The linker uses tables of defined and external symbols embedded
+in the object files to connect the various functions. If all requirements can
+be satisfied the linker is able to create a running program.
+<p>
+Programs like <strong>nm</strong>(1) and <strong>objdump</strong>(1) can be used to produce human 
+readable output from the information embedded in object files. <em>Oxref</em> reads
+this information and organizes it, creating a cross reference listing.
+<p>
+Since all compilable program languages generate identically organized
+object files (or maybe better: generate object files that can be interpreted
+by <strong>objdump</strong>(1)), <em>oxref</em> can broadly be applied. As long as
+<strong>objdump</strong>(1) produces sensible output <em>oxref</em> should be able to generate a
+cross reference listing.
+<p>
+<em>Oxref</em>'s name consists of two syllables: <em>o</em> and <em>xref</em>. The <em>o</em>
+represents the program <strong>objdump</strong>(1), called from <em>oxref</em> as a child
+program. The important part is of course the cross-referencing of
+symbols. Like the common abbreviation of <em>rail-road crossing</em>, <em>rail-road
+xing</em>, cross referencing is abbreviated to <em>xref</em>. Hence <em>oxref</em>. 
+<p>
+Of course, nearly everybody will read <em>oxref</em> as
+<em>ox-ref</em>. Fortunately, here too we're on familiar ground: Bison, Cow, Gnu,
+Yacc: all are bovine animals. To that important list <em>oxref</em> adds the Ox.
+<p>
+<h2>FILES</h2>
+<p>
+An example of <em>oxref</em>'s own cross reference listing is provided (on
+Debian systems) in the file
+        <pre>
+
+    /usr/share/doc/oxref/oxref.xref.gz
+        
+</pre>
+
+<p>
+<h2>SEE ALSO</h2>
+<p>
+<strong>nm</strong>(1), <strong>objdump</strong>(1), <strong>pattern</strong>(3bobcat), <strong>regex</strong>(7)
+<p>
+<h2>AUTHOR</h2>
+<p>
+Frank B. Brokken (f.b.brokken@rug.nl).

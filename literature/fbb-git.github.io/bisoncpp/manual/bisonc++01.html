@@ -1,0 +1,201 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> <div style="text-align: center"><strong >Bisonc++</strong> (Version 6.01.03) User Guide</div> </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<ul>
+    <li> <a href="bisonc++.html">Table of Contents</a>
+    <li> <a href="bisonc++02.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="l1"></a>
+<h1 >Chapter 1: Introduction</h1>
+<strong >Bisonc++</strong> is a general-purpose parser generator converting grammar descriptions for
+LALR(1) context-free grammars into <strong >C++</strong> classes whose members can parse
+such grammars.  Once you are a proficient <strong >bisonc++</strong> user, you may use it to develop
+a wide range of language parsers, from those used in simple desk calculators
+to complex programming languages.
+<p>
+<strong >Bisonc++</strong> is highly comparable to the program bison++, written by Alain Coetmeur:
+all properly-written bison++ grammars ought to be convertible to <strong >bisonc++</strong> grammars
+requiring very little or no modifications.  Anyone familiar with bison++ or
+its precursor, bison, should quickly be able to use <strong >bisonc++</strong> as well. <strong >Bisonc++</strong>
+generates <strong >C++</strong> code, rather than <strong >C</strong> code, and so a fair knowledge of the
+<strong >C++</strong> programming language is required before <strong >bisonc++</strong> can profitably be used.
+<p>
+This manual closely resembles <strong >bison</strong>(1)'s userguide. In fact, many sections
+of that manual were copied straight into this manual. With <strong >bisonc++</strong> distributions
+(both the full source distribution and the binary <code >.deb</code> distributions)
+<strong >bison</strong>'s orginal manual is included in both <em >PostScript</em> and (converted
+from the <code >texi</code> format) <code >HTML</code> format. Where necessary sections of the
+original manual were adapted to <strong >bisonc++</strong>'s characteristics. Some sections were
+removed, and some new sections were added to the current manual. Expect
+upgrades of the manual to appear without further notice. Upgrades will be
+announced in the manual's title.
+<p>
+The current manual starts with tutorial chapters that explain the basic
+concepts of using <strong >bisonc++</strong> and use three examples illustrating some of the core
+issues of LALR(1) grammars, each example building on the previous example
+(where available).  If you don't know <strong >bisonc++</strong>, bison++ or bison, start by reading
+these chapters.  Reference chapters follow describing specific aspects of <strong >bisonc++</strong>
+in detail.
+<p>
+<strong >Bisonc++</strong> was designed and built by <a href="mailto:f.b.brokken@rug.nl">Frank
+B. Brokken</a>. The program's first version was 
+constructed between November 2004 and May 2005.
+<p>
+<a name="l2"></a>
+<h2 >1.1: What's new in version 6.01.03</h2>
+    If you're new to <strong >bisonc++</strong>, you can safely skip this section. If you used <strong >bisonc++</strong>
+before, please note the following new and modified features:
+    <ul>
+   <li> The generated code was redesigned. Large parts of the protected
+    interface of the parser's base class and names of <code >parse()</code>-related
+    members in the generated parser class were modified. The names of all
+    accessible members in <code >parserbase.h</code> and <code >parser.h</code> now have two
+    trailing underscore characters.  Predefined members in <code >parser.ih</code> no
+    longer have trailing underscores, and can be redefined (but must be
+    available).  The traditional <code >error(char const *)</code> member in fact never
+    uses its argument (and <strong >bisonc++</strong> only passes the default "Syntax error"
+    argument). Its prototype now no longer defines a parameter.  Here's an
+    overview of modified member names/signatures:
+<p>
+<blockquote >
+    <table>
+
+    <tr><td colspan=3><hr/></td></tr>
+
+    
+<tr >
+<td > <strong >Before 6.00.00</strong></td><td >   </td><td > <strong >Starting with 6.00.00</strong></td>
+ 
+</tr>
+
+    <tr><td colspan=3><hr/></td></tr>
+
+    
+<tr >
+<td > <code >void error(char const *)</code></td> <td > </td> <td > <code >void error()</code></td>
+ 
+</tr>
+
+    
+<tr >
+ 
+</tr>
+
+    
+<tr >
+<td > <code >void exceptionHandler__(...)</code></td> <td > </td> 
+                                        <td > <code >void exceptionHandler(...)</code></td>
+ 
+</tr>
+
+    
+<tr >
+ 
+</tr>
+
+    
+<tr >
+<td > <code >void errorRecovery()</code></td> <td > </td> 
+                                        <td > <code >void errorRecovery__()</code></td>
+ 
+</tr>
+
+    
+<tr >
+<td > <code >void executeAction(int)</code></td> <td > </td> 
+                                        <td > <code >void executeAction__(int)</code></td>
+ 
+</tr>
+
+    
+<tr >
+<td > <code >void nextToken()</code></td> <td > </td> <td > <code >void nextToken__()</code></td>
+ 
+</tr>
+
+    <tr><td colspan=3><hr/></td></tr>
+
+    
+<tr >
+<td > </td><td > </td><td > <strong >added:</strong></td>
+ 
+</tr>
+
+    
+<tr >
+<td > </td><td > </td><td > <code >void nextCycle__()</code></td>
+ 
+</tr>
+
+    <tr><td colspan=3><hr/></td></tr>
+
+    
+<tr >
+<td > </td><td > </td><td > <strong >remove:</strong></td>
+ 
+</tr>
+
+    
+<tr >
+<td > </td><td > </td><td > <code >int lookup(bool)</code></td>
+ 
+</tr>
+
+    <tr><td colspan=3><hr/></td></tr>
+
+        
+</table>
+    </blockquote>
+<p>
+When re-generating parsers generated by <strong >bisonc++</strong> before version 6.00.00,
+    the signatures of the above functions in the file parser.h must be
+    hand-modified to reflect the above changes. In addition, the
+    implementations of error and exceptionHandler (default implementations
+    were provided in parser.ih) must be adapted to their new signatures.
+<p>
+<li> Added a warning to <code >skeletons/binsonc++.h</code> that until the <code >#undef</code>
+    instruction the parser class name will be read as the parser's base class
+    name. 
+<p>
+<li> With Polymorphic semantic values a tag mismatch is no considered fatal
+    anymore if errors were already encountered. In that case the semantic
+    value showing a tag mismatch is replaced by the default value of the
+    semantic value of the expected polymorphic type.
+<p>
+<li> Added option and directive <code >--prompt</code> (<code >%prompt</code>): when debug-code
+    is active, the generated parser shows a ?-prompt at each cycle when
+    processing its input (which should not be provided on the standard input
+    stream).
+<p>
+<li> Option <code >--thread-safe</code> can now also be specified as a
+    directive (<code >%thread-safe</code>).
+<p>
+<li> Members that should not be modified by the parser class were moved to
+    the parser's base class's private section. Accessor members are now
+    available in the parser's base class, allowing user code to read, e.g.,
+    the currently active token and parsing state.
+<p>
+</ul>
+<p>
+<hr>
+<ul>
+    <li> <a href="bisonc++.html">Table of Contents</a>
+    <li> <a href="bisonc++02.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

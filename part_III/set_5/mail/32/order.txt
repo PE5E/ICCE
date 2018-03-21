@@ -1,3 +1,9 @@
 lexer
 Scanner.h
 Scanner.ih
+Scannerbase.h
+lex.cc
+main.cc
+main.ih
+run.sh
+testfile.txt

@@ -1,6 +1,9 @@
 %%
-// matches houseboat and household
-[^.]house/(boat|hold)[ \n\t]		std::cout <<  matched() << '\n';
-// matches house-containing words everywhere
-// [[:alnum:]]*house[[:alnum:]]*		std::cout <<  matched() <<  '\n';
+// in 'houseboat' and 'household' the first match is used since both are same length
+
+	// matches houseboat and household
+(houseboat|household)[\n \t]		    	std::cout << "specialword:" <<  matched() << '\n';
+
+	// matches words everywhere
+[^\n \t]+					std::cout << "word:" <<  matched() <<  '\n';
 .				

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body text="#000077" bgcolor="#FFFFAA">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven06.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l7"></a>
+<h1>Chapter 7: Exercises set seven: Parsers part II: 
+                                      Grammars (SHIFTED Deadline Apr. 12)</h1>
+<p>
+<br><br>
+</p><p>
+Although most of the following exercises start from the demo-parser,
+<em>please</em> don't send in one final program showing it all. It's neat if you
+can combine all the exercises into one final program, but it also needlessly
+complicates the rating. So, please submit the requested implementations for
+each exercise separately. The demo parser can be downloaded 
+<a href="https://www.icce.rug.nl/edu/3/parsers2/download/parser.tar.gz">here</a>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 45.</strong>
+            <br>
+                Purpose: learn to expand an existing grammar with new commands
+<p>
+The demo parser has at least one drawback: there is no normal way to
+terminate it. Add commands <code>quit</code> and <code>exit</code> to the parser's grammar, so
+that when these words are entered, the parser stops. Also, implement <code>list</code>
+which shows the alphabetical list of all defined variables, including their
+values. 
+</p><p>
+Submit the modified grammar and lexer specification files.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 46.</strong>
+            <br>
+                Purpose: learn to expand a grammar in a substantial way
+<p>
+Add all standard <strong>C++</strong> arithmetic operators to the parser
+(multiplication, division, shifts, bit-wise operators, arithmetic assignments
+(like <code>+=</code>)) to the program. With the operators expecting <code>int</code> arguments,
+like the <code>%</code> and shift operators, round the double values to the nearest
+integer first. Beyond we'll change that, so don't rush immediately to the
+implementation of these additional functions.
+</p><p>
+The logical operators (comparisons, ternary operators) do not have to be
+implemented. 
+</p><p>
+Submit the modified grammar and lexer specification files.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 47.</strong>
+            <br>
+            Purpose of this exercise: learn to change the behavior of a well-known
+grammar.
+<p>
+We're all familiar with the common rules of arithmetic. But let's confuse our
+friends and family with a calculator actiing stangely.
+</p><p>
+Construct a small interactive calculator that has the following
+characteristics:
+    </p><ul>
+    <li> It supports the familiar +, -, *, and / operators
+    </li><li> It supports the unary - operator
+    </li><li> Parentheses may be used in expressions
+    </li></ul>
+<p>
+So far so good, but:
+    </p><ul>
+    <li> The '+' operator multiplies, the '-' operator adds, the '*' operator
+        divides, the '/' operator subtracts.
+    </li><li> The '*' and '-' operators are right associative;
+    </li><li> The '-' operator has the highest priority, then '/', then
+        '*', then '+';
+    </li><li> The unary minus operator has the lowest priority of all
+    </li><li> Although parentheses may be used, they are <em>completely</em> ignored.
+        So, an expression like <code>(3 + 5) * 4</code> is evaluated as <code>3 + 5 * 4</code>
+        (in our grammar resulting in the value 23)
+    </li><li> Only integral numbers are used on input; but computations use
+        <code>double</code> values.
+    </li><li> Checking for divisions by zero is not required.
+    </li><li> To end the program enter an empty line.
+    </li></ul>
+<p>
+Syntax errors simply result in the message <em>syntax error</em>, followed by
+the next prompt. The prompt is a simple <code>&gt; </code> at the beginning of lines.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 48.</strong>
+            <br>
+                Purpose: learn to implement (standard) functions in a grammar
+<p>
+Implement the standard arithmetic functions (<code>exp(), ln(), sin(),
+asin(), sqrt(), abs()</code>) and friends. Also, implement the commands <code>rad</code>
+(angles are displayed and expected in randians), <code>deg</code> (angles in 360-degree
+values), <code>grad</code> (angles in 400-degree values). Also, predefine the math
+constants <code>e</code> and <code>pi</code>, which are therefore immutable constants, and not
+variables anymore.
+</p><p>
+The relationship between radians and degrees: 
+        </p><pre>
+    2 * pi radians == 360 deg. == 400 grad.
+        
+</pre>
+
+    Do something sensible when an illegal operation is requested, like showing
+an error message. Do not terminate the program in those cases.
+<p>
+Submit the modified grammar and lexer specification files, and show
+how you prevent the use of constants as variables.
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 49.</strong>
+            <br>
+                Purpose: Convert a union-semantic value type to a semantic value defined
+as a polymorphic base class.
+<p>
+Consider the following simple partial grammar specification:
+            </p><pre>
+    %token INT STRING DOUBLE QUIT
+
+    %union 
+    {
+        int     iv;
+        string *sp;
+        double  d;
+    }
+
+    %%
+    
+    lines:
+        lines '\n' line
+    |
+        line
+    ;
+
+    line:
+        INT
+        {
+            showInt($1);
+        }
+    |
+        STRING
+        {
+            showString($1);
+        }
+    |
+        DOUBLE 
+        {
+            showDouble($1);
+        }
+    |
+        QUIT
+        {
+            quit();
+        }
+    ;
+        
+</pre>
+
+<p>
+</p><ul>
+    <li> Complete the above grammar without modifying the production
+rules. Submit the <code>parser.h</code> header file and the completed grammar
+specification, and use a polymorphic value type instead of <code>%union</code>.
+<p>
+</p></li><li> Provide the matching lexical scanner specification and <code>scanner.h</code>
+header file. The scanner ignores blanks. Define an <code>INT</code> as a plain sequence
+of decimal digits; a <code>DOUBLE</code> as a sequence of digits and at most one dot; a
+<code>STRING</code> is any other series of characters, except for the newline and the
+word <code>quit</code>.
+<p>
+</p></li><li> Change the modified grammer so that the lexical scanner can keep its
+usual simplicity. Submit the modified grammar and lexer specification files.
+    </li></ul>
+<p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven06.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body text="#000077" bgcolor="#FFFFAA">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven04.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven06.html">Next Chapter</a>
+</li></ul>
+<hr>
+<a name="l5"></a>
+<h1>Chapter 5: Exercises set five: Lexical Scanners (Deadline: Mar 22).</h1>
+<p>
+In this
+    set of exercises, several scanners/tokenizers should be constructed. Never
+    `roll your own', but always use <code>flexc++</code> to generate your
+    scanner from a lexer-specification.
+</p><p>
+For those who do not have the <strong>flex</strong>(1) documentation available (at
+    points this documentation is still useful), it can
+    be found <a href="https://www.icce.rug.nl/edu/3/flex-doc/">here</a>. Much of this
+    can also be used for <code>flexc++</code>; more information about <code>flexc++</code> can
+    be found at <a href="https://fbb-git.github.io/flexcpp/">https://fbb-git.github.io/flexcpp/</a>.
+</p><p>
+Where applicable, provide at least the flex specification file and the
+    <code>scanner.h</code> header file.
+</p><p>
+Implementations can often be very simple if generic algorithms and/or
+    abstract containers are used. Use these facilities where possible, to
+    prevent <code>TC</code>-marks.
+</p><p>
+If you don't want to or can't install <strong>flexc++</strong>(1), then you have the
+option to send an e-mail to <code>flexc++@icce.rug.nl</code>. The subject of the
+message is irrelevant, the contents must be:
+    </p><pre>
+FLEXC++ INPUT
+the contents of your lexer-specification file 
+FLEXC++ INPUT
+    
+</pre>
+
+    In the return mail you receive a .zip file containing the files generated
+by <strong>flexc++</strong>(1) from your specification file. Realize that this is just an
+escape route, which may no longer be available after this course. If at all
+possible, install your own <strong>flexc++</strong>(1) program.
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 31.</strong>
+            <br>
+            Purpose: learn to recognize embedded patterns
+<p>
+Construct a program that prints a sorted list of all (different) words
+found in a piece of text. This time a word is defined as any consecutive
+series of <em>letters</em>, not just a sequence obtained using <code>ostream</code>'s
+string-extraction.
+</p><p>
+The program must be able to read its information from the standard input,
+unless command line arguments were provided. In the latter case these
+arguments are considered file names and the program should process all these
+files.
+</p><p>
+<br><strong>Answer:</strong><br>
+        </p><pre>%filenames scanner
+
+%%
+
+[a-zA-Z]+                       return IDENT;
+
+.|\n                
+</pre>
+
+<p>
+</p><pre>#ifndef _INCLUDED_LIST_
+#define _INCLUDED_LIST_
+
+#include &lt;iosfwd&gt;
+#include "../scanner/scanner.h"
+
+class List
+{
+    Scanner d_scanner;
+
+    public:
+        void operator()();
+        void operator()(char const *filename);
+
+    private:
+        void process(std::istream &amp;in);
+};
+
+        
+#endif
+</pre>
+
+<p>
+</p><pre>#include "list.ih"
+
+void List::operator()()
+{
+    process(cin);
+}
+</pre>
+
+        <pre>#include "list.ih"
+
+void List::operator()(char const *filename)
+{
+    ifstream f(filename);
+    
+    if (!f)
+        cout &lt;&lt; "Can't read " &lt;&lt; filename &lt;&lt; endl;
+    else
+    {
+        cout &lt;&lt; "Processing " &lt;&lt; filename &lt;&lt; endl;
+        process(f);
+    }
+}
+</pre>
+
+        <pre>#include "list.ih"
+
+void List::process(istream &amp;str)
+{
+    d_scanner.switchStreams(str);
+
+    set&lt;string&gt; words;
+
+    while (d_scanner.lex())
+        words.insert(d_scanner.matched());
+
+    copy(words.begin(), words.end(), 
+                    ostream_iterator&lt;string&gt;(cout, "\n"));    
+    
+}
+</pre>
+
+<p>
+</p><pre>/*
+                              sorted.cc
+*/
+
+#include "main.ih"
+
+int main(int argc, char **argv)
+{
+    List list;
+
+    if (argc == 1)
+        list();
+    else
+    {
+        for(char **end = argv + argc; ++argv != end;)
+            list(*argv);
+    }
+}
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 32.</strong>
+            <br>
+            Purpose: learn to perform a non-greedy match
+<p>
+The flex scanner performs <em>greedy</em> matches. Programs like Perl also
+offer facilities to perform minimal matches. Why is a minimal match feature
+not required for flex? 
+</p><p>
+Hint: don't make life hard on yourself: don't reinvent the wheel, but (this
+time) read the <em>flex</em> manual (there's no specific information about this in
+<code>flexc++'s</code> manual. This week's slides may also provide an answer.
+</p><p>
+Provide a small scanner specification file showing how you could match, e.g.,
+<code>house</code> <em>if</em> it is part of the word <code>houseboat</code> or <em>household</em> but
+matching all other words (either or not starting with the word house, e.g.,
+<code>brick-house, houseboats, housebreaking, houses, house's</code> or any other word)
+as individual, unit words.
+</p><p>
+The `houseboat' and `household' words should be recognized as -first- `house'
+and -then- the trailer, be it `boat' or `hold'.
+</p><p>
+All matched words should be written to the standard output stream.
+</p><p>
+Words are defined as any consecutive series of non-blank characters.
+</p><p>
+Your main function should look like this:
+</p><p>
+</p><pre>#include "main.ih"
+
+int main()
+try
+{
+    Scanner scanner;
+
+    while (scanner.lex())
+        ;
+}
+catch (...)
+{
+    return 1;
+}
+</pre>
+
+<p>
+<br><strong>Answer:</strong><br>
+        </p><pre>%class-name = "Scanner"
+
+%x keyword
+
+%%
+
+house/(boat|hold)               {
+                                    std::cout &lt;&lt; "house, followed by keyword\n";
+                                    begin(StartCondition__::keyword);
+                                }
+
+&lt;keyword&gt;[a-z]+                 {
+                                     std::cout &lt;&lt; "  keyword: " &lt;&lt; matched() &lt;&lt; std::endl;
+                                     begin(StartCondition__::INITIAL);
+                                }
+ 
+[[:alpha:]']+                   {
+                                     // you might refine the `word' RE a bit
+                                     // more precisely, but this one fits all
+                                     // words of letters, optionally containing
+                                     // apostrophes (like house's).
+                                     std::cout &lt;&lt; "word: " &lt;&lt; matched() &lt;&lt; std::endl;
+                                }
+ 
+.|\n
+
+
+
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 33.</strong>
+            <br>
+            Purpose: construct a scanner using mini-scanners
+<p>
+Construct a scanner producing `trimmed lines'. A `trimmed line' is any
+non-blank line, from which al initial <em>and</em> trailing blanks were
+removed. 
+</p><p>
+Comment (end-of-line and standard <strong>C</strong> comment between
+<code>/*</code> and <code>*/</code> as well as any text on lines starting at the hash-mark
+(<code>#</code>) up to the line's end should be considered blank, unless occurring in
+strings (defined as a <strong>C</strong>-string constant, like <code>"hello /* no comment */
+world"</code>). 
+</p><p>
+A standard <strong>C</strong> style comment within a line is simply removed, and if
+preceded <em>and</em> followed by a blank one of these blanks should be
+dropped. E.g., <code>hello /* comment */ world</code> must result in <code>hello world</code>.
+</p><p>
+Multi-line comment extending over multiple lines
+should result in one single line-break. So, text like:
+        </p><pre>
+    This is a line /* containing
+        multi line
+    comment */ and this is more
+        
+</pre>
+
+    should produce the following two lines (using quotes to indicate the
+begining, and end of the lines, they should not be part of the lines your
+program produces):
+        <pre>
+    "This is a line"
+    "and this is more"
+        
+</pre>
+
+    Two lines, because: 
+        <pre>
+    This is a line /* containing
+        multi line
+    comment */
+        
+</pre>
+
+    results in one single line, terminated in a newline. Following this
+the next line continues on a line of its own. All other line delimiters
+(e.g., line delimiters of empty lines) should be kept. 
+<p>
+<br><strong>Answer:</strong><br>
+        </p><pre>%filenames scanner
+
+%x string
+%x comment
+
+%%
+
+^[ \t]+                         // skip initial blanks
+[ \t]+$                         // skip trailing blanks
+[ \t]*"//".*                    // skip eoln comment
+[ \t]*#.*                       // skip hash-eoln comment
+
+
+\"                              {       // begin and echo a string
+                                    special();
+                                    echo();
+                                    begin(StartCondition__::string);
+                                }
+&lt;string&gt;"\\".                   echo();   // echo escaped chars within string
+&lt;string&gt;"\""                    {       // back to normal
+                                    echo();
+                                    begin(StartCondition__::INITIAL);
+                                }
+&lt;string&gt;.                       echo();           // echo other characters
+
+
+[ \t]*"/*"                      {
+                                    d_blanks += length() - 2;
+                                                      // ignore comment
+                                    begin(StartCondition__::comment);
+                                }
+&lt;comment&gt;.                                      // ignore any char in comment
+&lt;comment&gt;"*/"[ \t]*             {
+                                    d_blanks += length() - 2;
+                                                // back to normal
+                                    begin(StartCondition__::INITIAL);  
+                                }
+&lt;comment,INITIAL&gt;\n             {
+                                    d_blanks = 0;
+                                    d_newLine = true;   // remember newlines
+                                }
+
+.                               {               // output other chars
+                                    special();
+                                    echo();
+                                }
+&lt;&lt;EOF&gt;&gt;                         {
+                                    d_blanks = 0;
+                                    special();  // trailing newline if any
+                                    return 0;
+                                }
+
+</pre>
+
+<p>
+</p><pre>// Generated by Flexc++ V0.98.00 on Thu, 28 Feb 2013 08:36:58 +0100
+
+#ifndef Scanner_H_INCLUDED_
+#define Scanner_H_INCLUDED_
+
+// $insert baseclass_h
+#include "scannerbase.h"
+
+
+// $insert classHead
+class Scanner: public ScannerBase
+{
+    bool d_newLine;
+    size_t d_blanks;
+
+    public:
+        explicit Scanner(std::istream &amp;in = std::cin,
+                                std::ostream &amp;out = std::cout);
+
+        Scanner(std::string const &amp;infile, std::string const &amp;outfile);
+        
+        // $insert lexFunctionDecl
+        int lex();
+
+    private:
+        int lex__();
+        int executeAction__(size_t ruleNr);
+
+        void print();
+        void preCode();     // re-implement this function for code that must 
+                            // be exec'ed before the patternmatching starts
+
+        void postCode(PostEnum__ value);
+
+        void special();
+};
+
+// $insert scannerConstructors
+inline Scanner::Scanner(std::istream &amp;in, std::ostream &amp;out)
+:
+    ScannerBase(in, out)
+{}
+
+inline Scanner::Scanner(std::string const &amp;infile, std::string const &amp;outfile)
+:
+    ScannerBase(infile, outfile),
+    d_newLine(false),
+    d_blanks(0)
+{}
+
+// $insert inlineLexFunction
+inline int Scanner::lex()
+{
+    return lex__();
+}
+
+inline void Scanner::preCode() 
+{
+    // optionally replace by your own code
+}
+
+inline void Scanner::postCode(PostEnum__ value) 
+{
+    // optionally replace by your own code
+}
+
+inline void Scanner::print() 
+{
+    print__();
+}
+
+
+#endif // Scanner_H_INCLUDED_
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 34.</strong>
+            <br>
+            Purpose: learn to design a scanner scanning a piece of text
+<p>
+Consider a program (a basic string-grabber) scanning a <strong>C</strong> or <strong>C++</strong> source
+file, replacing all strings by calls to a function <code>grabbed(&lt;number&gt;,
+&lt;filename&gt;)</code> where <code>&lt;number&gt;</code> is the sequence number (1, 2, ...) of the
+grabbed string and <code>&lt;filename&gt;</code> is the name of the file containing the
+strings, each line holding one string (matching the <code>&lt;number&gt;</code>s used with
+<code>grabbed</code>. The filename should be the name of the source file, using
+extension <code>gsl</code> (grabbed string lines).
+</p><p>
+Strings in comment must be ignored, string concatenation should be supported,
+supporting raw string literals is not required: if you also want your
+string-grabber to recognize raw string literals, consider completing ex. 36.
+When submitting ex. 36 the current exercise (34) does not
+have to be submitted: if 36's rating will then also be applied to 34.
+</p><p>
+Develop the scanner for this program, submit the class interface and the
+scanner specification file.
+</p><p>
+Additional explanation: Assume you have a file which is a C/C++ source
+file. The program reads the source, and changes the source so that all strings
+(outside of comment) are replaced by a function call.
+</p><p>
+E.g., assume the filename is '<code>main.cc</code>', containing a stmnt like:
+        </p><pre>
+    cout &lt;&lt; "hello world";
+        
+</pre>
+
+Then, following the command
+        <pre>
+    grab main.cc
+        
+</pre>
+
+the above stmnt has become:
+        <pre>
+    cout &lt;&lt; grabbed(1, "main.gsl");
+        
+</pre>
+
+Likewise, if the next statement is:
+        <pre>
+    cout &lt;&lt; "This is a long text\n"
+            "Displayed over multiple lines\n"
+            "But stored in one (concatenated) string\n";
+        
+</pre>
+
+then this statement becomes:
+        <pre>
+    cout &lt;&lt; grabbed(2, "main.gsl");
+        
+</pre>
+
+Furthermore, the exercise asks you to:
+<p>
+</p><blockquote>
+    Develop the scanner for this program, submit the class interface and the
+    scanner specification file.
+    </blockquote>
+<p>
+So: scanner.h and lexer should be submitted. Consider adding a brief
+    explanation of what the scanner does.
+</p><p>
+Subtlety:
+</p><p>
+It's clear that the program modifies an existing file. Although this exercise
+    doesn't ask you to implement the scanner's members, there are things to
+    consider here:
+</p><p>
+</p><ul>
+    <li> In-file replacement is out of the question. It's too difficult
+       because of different lengths of strings and '<code>grabbed(...)</code>' function
+       calls
+<p>
+</p></li><li> So a temporary file is your best option, renaming the temp. filename
+       to the original file when done.
+<p>
+</p></li><li> Using a temp. file isn't trivial. The easy solution is to add some
+       extension to the original filename (e.g., '<code>main.cc.tmp</code>'), but such
+       a filename might already exist, so you run the risk of inadvertently
+       rewriting the existing file
+<p>
+</p></li><li> However, <strong>mkstemp</strong>(3) creates a file and its tmp name for you. It
+       returns a file descriptor, which can immediately be closed after the
+       call (e.g., <code>close(mkstemp(tmpName))</code>). Now you have your temporary
+       filename in <code>tmpName</code> and it can be opened by ofstream, receiving the
+       modified source text.
+<p>
+</p></li><li> But now you experience a potential problem of changed access rights:
+       <code>mkstemp</code> opens the file rw for only the user, but the original file
+       may be world-readable. Solve this by:
+        <ul>
+        <li> using <strong>stat</strong>(2) to obtain the access rights of the original
+           file 
+        </li><li> using <strong>chmod</strong>(2) to set the access rights of the new file to
+           the original file's access rights.
+        </li></ul>
+    </li></ul>
+<p>
+Do you think this is a complication that goes well beyond the purpose of the
+    exercise? You're probably right, so using the '<code>main.cc.tmp</code>' approach
+   is fine for  now.
+</p><p>
+But a better approach is to encapsulate all this in a small class that
+    simply returns a temporary stream for you, and on request renames it to
+    another name with appropriate access rights.
+</p><p>
+<br><strong>Answer:</strong><br>
+    The scanner must differentiate between strings and non-strings. But
+strings separated by white space are fine, as this defines string
+concatenation.
+</p><p>
+The following table describes what to do when white space, a string or
+another character is encountered when d_stringMode is either true or
+false. Initially d_stringMode is set to false:
+    </p><pre>
+    --------------------------------------------------------------
+                                     Next input
+                 -------------------------------------------------
+     d_stringMode  white space   string          other char       
+    --------------------------------------------------------------
+         T         collect ws    wipe ws         replace          
+                                 concatenate     copy ws
+                                                 copy char
+                                                 d_stringMode: F
+         ---------------------------------------------------------
+         F         copy          copy ws         copy ws          
+                                 d_stringMode: T copy char
+                                 start string
+    --------------------------------------------------------------
+
+</pre>
+
+<p>
+How to specify the correct files to your scanner class? An easy way out is to
+use the scanner's default constructor, and then use <code>switch_streams</code> in
+<code>Scanner</code>'s constructor to switch to the intended streams. 
+</p><p>
+The grabber should keep preprocessor directives as-is (why?). It's OK 
+if you didn't do that in your scanner, but you should have. The scanner shown
+here will do so.
+</p><p>
+Also, it should be obvious that re-grabbing an already grabbed file should be
+prevented. Since the modified source must remain compilable it needs a
+declaration for the function <code>grabbed</code>. Both can be combined by writing the
+declaration as the very first line in the modified file, and testing for that
+line when grabbing starts. Again, if your scanner didn't do this: fine, but
+the one shown below prevents re-scanning.
+</p><p>
+The string-grabbing program itself is found in <a href="https://www.icce.rug.nl/edu/3/scanners/answers/grabber.tgz">this
+archive</a>. 
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 35.</strong>
+            <br>
+            tPurpose of this exercise: design a small tokenizer
+<p>
+Design a scanner which line-wise tokenizes its (textual) input. Its output
+consists of a list of token values followed by the actual text that resulted
+in the matched tokens. When single characters are matched, their token values
+should be equal to the characters' ASCII value.
+</p><p>
+The scanner should detect:
+    </p><ul>
+    <li> words (defined as <strong>C++</strong> identifiers)
+    </li><li> integral numbers (as <strong>C++</strong> <code>int</code> constants)
+    </li><li> real numbers (as <strong>C++</strong> <code>double</code> constants)
+    </li><li> all <strong>C++</strong> operators. Formally there are also words used as
+        operators: <code>and, or, sizeof, new, delete,</code> etc. Named operators may
+        be considered words.
+    </li><li> <strong>C++</strong> strings (string concatenation on one line results in one
+string token, strings separated by white space and at least one line delimiter
+are considered as separate strings).
+    </li><li> <strong>C++</strong> character constants
+    </li></ul>
+<p>
+Blanks should be ignored, and a newline should be returned after all tokens on
+a line have been processed.
+</p><p>
+The scanner does not have to be an interactive scanner.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Line-wise tokenizing can easily be realized: read lines using <code>getline</code>,
+then store the just read line in a <code>std::istringstream</code>, and pass that line
+to the scanner. You can use the <code>switchStream</code> member, but you may as well
+define a <code>Scanner</code> at each new line that was read. E.g.,
+        </p><pre>
+    while (getline(cin, line))
+    {
+        istringstream in(line);
+        Scanner scanner(in);
+        process(scanner);
+    }
+        
+</pre>
+
+<p>
+Here is our lexer specification and <code>scanner.h</code> file:
+</p><p>
+</p><pre>%filenames scanner
+
+digits      [[:digit:]]+
+optdigits   [[:digit:]]*
+
+%x string
+
+%%
+
+[[:alpha:]_][[:alnum:]_]*               return WORD;
+
+{digits}                                return INT;
+
+{digits}\.{optdigits}(e[+-]?{digits})?  |
+\.{digits}(e[+-]?{digits})?             return DOUBLE;
+
+\.              |                  
+"-&gt;"            |
+~               |
+"|"             |
+"|="            |
+~=              |
+!               |
+!=              |
+\*              |
+\*=             |
+&amp;               |
+&amp;&amp;              |
+&amp;=              |
+-               |
+--              |
+-=              |
+\+              |
+"++"            |
+"+="            |
+"/"             |
+"/="            |
+%               |
+%=              |
+"&lt;"             |
+"&lt;="            |
+"&lt;&lt;"            |
+"&lt;&lt;="           |
+"&gt;"             |
+"&gt;="            |
+"&gt;&gt;"            |
+"&gt;&gt;="           |
+==              |
+=               |
+"||"            return OPERATOR;
+
+\'.[^']*\'      return CHAR;
+
+\"              {
+                    // just using d_matched doesn't work. more() breaks
+                    // when string concatenation doesn't store 
+                    // the \"[ \t]*\" regex (see below). So you need to store
+                    // the elements of the string locally, and use 
+                    // setMatched() to assign the stored string to d_matched
+                    // when returning the STRING.
+                    begin(StartCondition__::string);
+                    d_string = '"';
+                }
+
+&lt;string&gt; {
+    \"          {
+                    begin(StartCondition__::INITIAL);
+                    d_string += '"';
+                    setMatched(d_string);
+                    return STRING;
+                }
+
+    \\.|.       d_string += matched();
+
+    \"[ \t]*\"
+}
+
+.            // ignore other chars
+
+
+
+
+
+
+
+
+
+</pre>
+
+    <pre>// Generated by Flexc++ V2.02.00 on Wed, 18 Mar 2015 13:51:58 +0100
+
+#ifndef Scanner_H_INCLUDED_
+#define Scanner_H_INCLUDED_
+
+// $insert baseclass_h
+#include "scannerbase.h"
+
+
+// $insert classHead
+class Scanner: public ScannerBase
+{
+    std::string d_string;
+
+    public:
+        enum Token
+        {
+            WORD = 0x100,
+            INT,
+            DOUBLE,
+            OPERATOR,
+            CHAR,
+            STRING
+        };
+
+        explicit Scanner(std::istream &amp;in = std::cin,
+                                std::ostream &amp;out = std::cout);
+
+        Scanner(std::string const &amp;infile, std::string const &amp;outfile);
+        
+        // $insert lexFunctionDecl
+        int lex();
+
+    private:
+        int lex__();
+        int executeAction__(size_t ruleNr);
+
+        void print();
+        void preCode();     // re-implement this function for code that must 
+                            // be exec'ed before the patternmatching starts
+
+        void postCode(PostEnum__ type);    
+                            // re-implement this function for code that must 
+                            // be exec'ed after the rules's actions.
+};
+
+// $insert scannerConstructors
+inline Scanner::Scanner(std::istream &amp;in, std::ostream &amp;out)
+:
+    ScannerBase(in, out)
+{}
+
+inline Scanner::Scanner(std::string const &amp;infile, std::string const &amp;outfile)
+:
+    ScannerBase(infile, outfile)
+{}
+
+// $insert inlineLexFunction
+inline int Scanner::lex()
+{
+    return lex__();
+}
+
+inline void Scanner::preCode() 
+{
+    // optionally replace by your own code
+}
+
+inline void Scanner::postCode(PostEnum__ type) 
+{
+    // optionally replace by your own code
+}
+
+inline void Scanner::print() 
+{
+    print__();
+}
+
+
+#endif // Scanner_H_INCLUDED_
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 36.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to design a scanner scanning a piece of text
+(part II) 
+<p>
+Same exercise as ex. 34, but this string grabber must also recognize raw
+string literals (if you submit this exercise, then you do not
+have to submit 34. In that case this exercise's rating will also be applied to
+34. 
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 37.</strong>
+            <br>
+            (optional)<br>Purpose of this exercise: learn to handle <code>#include</code> directives.
+<p>
+Write a program (using a <strong>flexc++</strong>(1) based scanner class that copies a file
+to the standard output stream. The file to copy may contain
+    </p><pre>
+    #include "pathname"
+    
+</pre>
+
+directives on separate lines. In addition to the <code>#include</code> directive the
+lines may contain white space and/or comment. 
+<p>
+The file specified at <code>pathname</code> (which may be a relative path) is written
+to the standard output stream at exactly the location of the <code>#include</code>
+statement. So, anything on the line preceding the <code>#include</code>
+directive must precede the contents of <code>pathname</code>, and after <code>pathname</code>
+has been included any additional characters beyond the <code>#include</code> directive
+follow. 
+</p><p>
+The program must stop with an error message if a file to include doesn't
+exist, or if (direct or indirect, irrespective of the nesting depth) recursive
+includes are encountered.
+</p><p>
+<br><br>
+</p><p>
+            
+    </p><p></p><hr><p>
+    
+    
+        
+            </p><hr>
+            <hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven04.html">Previous Chapter</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven06.html">Next Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>

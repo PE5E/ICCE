@@ -1,0 +1,23 @@
+#!/bin/bash
+
+program=`pwd`
+program=`basename $program`
+
+
+case $1 in
+    (clean)
+	rm -f program
+	cd parser
+	rm -f Parser.h Parserbase.h parse.cc grammar.output
+    ;;
+    (program)
+        cd parser
+        bisonc++ -V grammar || exit 1
+
+        cd ..
+        g++ --std=c++14 -Wall -o program *.cc */*.cc
+    ;;
+    (*)
+        echo "$0 [clean|program] to clean or build \`program'"
+    ;;
+esac

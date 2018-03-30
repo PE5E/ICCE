@@ -1,0 +1,9 @@
+Pascal allows us to write values of multiple variables using its write function
+WRITE: a function expecting one or more variable names or numbers, separated by commas
+
+Define the grammar recognizing series of write function calls (maybe none at all).
+
+Assume that the lexical scanner knows about WRITE, IDENT and NUMBER tokens. 
+
+PASCAL:
+write ('a=',a); prints "a=" on the screen and then prints the contents of the a variable. 

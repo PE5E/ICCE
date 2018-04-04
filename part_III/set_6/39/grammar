@@ -1,0 +1,27 @@
+%token NR
+%left '+'
+%left '*' '/'
+%left '('
+%right '-'
+%right '$'
+%right ')'
+
+%%
+
+expr:
+    NR
+|
+    '-' expr
+|
+    '$' expr
+|
+    expr '-' expr
+|
+    expr '+' expr
+|
+    expr '*' expr
+|
+    expr '/' expr
+|
+    '(' expr ')'
+;

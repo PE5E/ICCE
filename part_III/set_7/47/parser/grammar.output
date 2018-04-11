@@ -1,0 +1,204 @@
+[grammar (info)] Line 75: 
+Production Rules:
+   (precedences (shown between parentheses) were set by %prec;
+    are equal to the precedence of the rules' 1st terminal tokens;
+    or (if not shown) are equal to the default (max) precedence)
+1: lines ->  lines line
+2: lines ->  line
+3: line ('\x0a') ->  expr '\x0a'
+4: line (errTok__) ->  errTok__ '\x0a'
+5: line ('\x0a') ->  '\x0a'
+6: expr (VALUE) ->  VALUE
+7: expr ('+') ->  expr '+' expr
+8: expr ('-') ->  expr '-' expr
+9: expr ('/') ->  expr '/' expr
+10: expr ('*') ->  expr '*' expr
+11: expr (uMinus) ->  '-' expr
+12: lines_$ ->  lines
+
+
+Symbolic Terminal tokens:
+       error
+       EOF
+   257: VALUE
+   258: uMinus
+    43: '+'
+    42: '*'
+    47: '/'
+    45: '-'
+    10: '\x0a'
+
+
+Grammar States: 
+
+State 0:
+12: lines_$ ->  . lines 
+  0:   On lines to state 1
+  1:   On line to state 2
+  2:   On expr to state 3
+  3:   On errTok__ to state 4
+  4:   On '\x0a' to state 5
+  5:   On VALUE to state 6
+  6:   On '-' to state 7
+
+
+State 1:
+12: lines_$ -> lines  . 
+1: lines -> lines  . line 
+  0:   On line to state 8
+  1:   On expr to state 3
+  2:   On errTok__ to state 4
+  3:   On '\x0a' to state 5
+  4:   On VALUE to state 6
+  5:   On '-' to state 7
+
+
+State 2:
+2: lines -> line  . 
+  Reduce by 2: lines -> line  . 
+
+
+State 3:
+3: line -> expr  . '\x0a' 
+7: expr -> expr  . '+' expr 
+8: expr -> expr  . '-' expr 
+9: expr -> expr  . '/' expr 
+10: expr -> expr  . '*' expr 
+  0:   On '\x0a' to state 9
+  1:   On '+' to state 10
+  2:   On '-' to state 11
+  3:   On '/' to state 12
+  4:   On '*' to state 13
+
+
+State 4:
+4: line -> errTok__  . '\x0a' 
+  0:   On '\x0a' to state 14
+
+
+State 5:
+5: line -> '\x0a'  . 
+  Reduce by 5: line -> '\x0a'  . 
+
+
+State 6:
+6: expr -> VALUE  . 
+  Reduce by 6: expr -> VALUE  . 
+
+
+State 7:
+11: expr -> '-'  . expr 
+  0:   On expr to state 15
+  1:   On VALUE to state 6
+  2:   On '-' to state 7
+
+
+State 8:
+1: lines -> lines line  . 
+  Reduce by 1: lines -> lines line  . 
+
+
+State 9:
+3: line -> expr '\x0a'  . 
+  Reduce by 3: line -> expr '\x0a'  . 
+
+
+State 10:
+7: expr -> expr '+'  . expr 
+  0:   On expr to state 16
+  1:   On VALUE to state 6
+  2:   On '-' to state 7
+
+
+State 11:
+8: expr -> expr '-'  . expr 
+  0:   On expr to state 17
+  1:   On VALUE to state 6
+  2:   On '-' to state 7
+
+
+State 12:
+9: expr -> expr '/'  . expr 
+  0:   On expr to state 18
+  1:   On VALUE to state 6
+  2:   On '-' to state 7
+
+
+State 13:
+10: expr -> expr '*'  . expr 
+  0:   On expr to state 19
+  1:   On VALUE to state 6
+  2:   On '-' to state 7
+
+
+State 14:
+4: line -> errTok__ '\x0a'  . 
+  Reduce by 4: line -> errTok__ '\x0a'  . 
+
+
+State 15:
+11: expr -> '-' expr  . 
+7: expr -> expr  . '+' expr 
+8: expr -> expr  . '-' expr 
+9: expr -> expr  . '/' expr 
+10: expr -> expr  . '*' expr 
+  0:   On '+' to state 10
+  1:   On '-' to state 11
+  2:   On '/' to state 12
+  3:   On '*' to state 13
+  Reduce by 11: expr -> '-' expr  . 
+
+
+State 16:
+7: expr -> expr '+' expr  . 
+7: expr -> expr  . '+' expr 
+8: expr -> expr  . '-' expr 
+9: expr -> expr  . '/' expr 
+10: expr -> expr  . '*' expr 
+  0 (removed by precedence):   On '+' to state 10
+  1:   On '-' to state 11
+  2:   On '/' to state 12
+  3:   On '*' to state 13
+  Reduce by 7: expr -> expr '+' expr  . 
+
+
+State 17:
+8: expr -> expr '-' expr  . 
+7: expr -> expr  . '+' expr 
+8: expr -> expr  . '-' expr 
+9: expr -> expr  . '/' expr 
+10: expr -> expr  . '*' expr 
+  0 (removed by precedence):   On '+' to state 10
+  1:   On '-' to state 11
+  2 (removed by precedence):   On '/' to state 12
+  3 (removed by precedence):   On '*' to state 13
+  Reduce by 8: expr -> expr '-' expr  . 
+
+
+State 18:
+9: expr -> expr '/' expr  . 
+7: expr -> expr  . '+' expr 
+8: expr -> expr  . '-' expr 
+9: expr -> expr  . '/' expr 
+10: expr -> expr  . '*' expr 
+  0 (removed by precedence):   On '+' to state 10
+  1:   On '-' to state 11
+  2 (removed by precedence):   On '/' to state 12
+  3 (removed by precedence):   On '*' to state 13
+  Reduce by 9: expr -> expr '/' expr  . 
+
+
+State 19:
+10: expr -> expr '*' expr  . 
+7: expr -> expr  . '+' expr 
+8: expr -> expr  . '-' expr 
+9: expr -> expr  . '/' expr 
+10: expr -> expr  . '*' expr 
+  0 (removed by precedence):   On '+' to state 10
+  1:   On '-' to state 11
+  2:   On '/' to state 12
+  3:   On '*' to state 13
+  Reduce by 10: expr -> expr '*' expr  . 
+
+
+

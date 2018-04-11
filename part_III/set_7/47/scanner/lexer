@@ -1,0 +1,11 @@
+%filenames scanner
+%interactive
+
+
+%%
+
+[ "("")"\t]+
+
+[0-9]+                                 return Parser::VALUE;
+
+\n|.                                   return matched()[0];

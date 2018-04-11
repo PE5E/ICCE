@@ -1,0 +1,7 @@
+%%
+
+[ \t\n]+                            // skip white space chars.
+[0-9]+                              return Parser::INT;
+[0-9]+\.[0-9]*                      return Parser::DOUBLE;
+"quit"                              return Parser::QUIT;
+[-[:blank:]]+                       return Parser::STRING;

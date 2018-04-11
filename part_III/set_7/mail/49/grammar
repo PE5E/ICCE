@@ -1,0 +1,39 @@
+%class-name Parser
+%filenames parser
+%parsefun-source parse.cc
+%scanner ../scanner/scanner.h
+%scanner-token-function d_scanner.lex()
+
+%token INT STRING DOUBLE QUIT
+
+%polymorphic INT: int; STRING: std::string; DOUBLE:double
+
+%%
+
+lines:
+    lines '\n' line
+|
+    line
+;
+
+line:
+    INT
+    {
+        showInt($1);
+    }
+|
+    STRING
+    {
+        showString($1);
+    }
+|
+    DOUBLE
+    {
+        showDouble($1);
+    }
+|
+    QUIT
+    {
+        quit();
+    }
+;

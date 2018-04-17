@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title> C/C++ Exercises </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    .XXfc {margin-left:auto;margin-right:auto;}
+    .XXtc {text-align: center;}
+    .XXtl {text-align: left;}
+    .XXtr {text-align: right;}
+    .XXvt {vertical-align: top;}
+    .XXvb {vertical-align: bottom;}
+</style>
+</head>
+<body bgcolor="#FFFFAA" text="#000077">
+<hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven06.html">Previous Chapter</a>
+</li></ul>
+<hr>
+<a name="l7"></a>
+<h1>Chapter 7: Exercises set seven: Parsers part II: 
+                                      Grammars (SHIFTED Deadline Apr. 12)</h1>
+<p>
+<br><br>
+</p><p>
+Although most of the following exercises start from the demo-parser,
+<em>please</em> don't send in one final program showing it all. It's neat if you
+can combine all the exercises into one final program, but it also needlessly
+complicates the rating. So, please submit the requested implementations for
+each exercise separately. The demo parser can be downloaded 
+<a href="https://www.icce.rug.nl/edu/3/parsers2/download/parser.tar.gz">here</a>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 45.</strong>
+            <br>
+                Purpose: learn to expand an existing grammar with new commands
+<p>
+The demo parser has at least one drawback: there is no normal way to
+terminate it. Add commands <code>quit</code> and <code>exit</code> to the parser's grammar, so
+that when these words are entered, the parser stops. Also, implement <code>list</code>
+which shows the alphabetical list of all defined variables, including their
+values. 
+</p><p>
+Submit the modified grammar and lexer specification files.
+</p><p>
+<br><strong>Answer:</strong><br>
+        </p><pre>
+%baseclass-preinclude rulevalue.h
+%parsefun-source parse.cc
+%filenames parser
+%debug
+
+
+%stype RuleValue
+
+
+%token  NUMBER
+        IDENT
+        QUIT
+        LIST
+
+%right  '='
+%left   '+' '-'
+%right  uMinus
+
+%%
+
+lines:
+    lines line
+|
+    line
+;
+
+expr:
+    NUMBER
+    {
+        $$ = value();
+    }
+|
+    IDENT
+    {
+        $$ = variable();
+    }
+|
+    '-' expr            %prec uMinus
+    {
+        $$ = negate($2);
+    }
+|
+    expr '+' expr
+    {
+        $$ = add($1, $3);
+    }    
+|
+    expr '-' expr
+    {
+        $$ = sub($1, $3);
+    }    
+|
+    '(' expr ')'
+    {
+        $$ = $2;
+    }
+|
+    expr '=' expr
+    {
+        $$ = assign($1, $3);
+    }
+;
+
+line:
+    QUIT
+    '\n'
+    {
+        ACCEPT();
+    }
+|
+    LIST
+    '\n'    
+    {
+        list();
+    }
+|
+    expr
+    '\n'
+    {
+        display($1);
+    }
+|
+    error
+    '\n'
+    {
+        prompt();
+    }
+|
+    '\n'
+    {
+        prompt();
+    }
+;
+</pre>
+
+<p>
+</p><pre>%filenames scanner
+%interactive
+
+digits  [0-9]+
+e       [eE]
+sign    [-+]
+
+%%
+
+[ \t]+
+
+{digits}                                |
+{digits}"."                             |
+{digits}"."{digits}                     |
+{digits}{e}{sign}{digits}               |
+{digits}"."{e}{sign}{digits}            |
+{digits}"."{digits}{e}{sign}{digits}    return Parser::NUMBER;
+
+list                                    return Parser::LIST;
+
+quit|exit                               return Parser::QUIT;
+
+[a-zA-Z_][a-zA-Z_0-9]*                  return Parser::IDENT;
+
+\n|.                                    return matched()[0];
+
+
+
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 46.</strong>
+            <br>
+                Purpose: learn to expand a grammar in a substantial way
+<p>
+Add all standard <strong>C++</strong> arithmetic operators to the parser
+(multiplication, division, shifts, bit-wise operators, arithmetic assignments
+(like <code>+=</code>)) to the program. With the operators expecting <code>int</code> arguments,
+like the <code>%</code> and shift operators, round the double values to the nearest
+integer first. Beyond we'll change that, so don't rush immediately to the
+implementation of these additional functions.
+</p><p>
+The logical operators (comparisons, ternary operators) do not have to be
+implemented. 
+</p><p>
+Submit the modified grammar and lexer specification files.
+</p><p>
+<br><strong>Answer:</strong><br>
+        </p><pre>%scanner ../scanner/scanner.h
+
+%baseclass-preinclude rulevalue.h
+%parsefun-source parse.cc
+%filenames parser
+%debug
+
+
+%stype RuleValue
+
+
+%token  NUMBER
+        IDENT
+        QUIT
+        LIST
+
+    // A of 'assignment'. Priorities: see C book, p. 518
+%right  '=' ADDA SUBA MULA DIVA MODA ANDA XORA ORA LSHIFTA RSHIFTA
+%left   '|'
+%left   '^'
+%left   '&amp;'
+%left   LEFTSHIFT RIGHTSHIFT
+%left   '+' '-'
+%left   '*' '/' '%'
+%right  uMinus
+
+
+%%
+
+lines:
+    lines line
+|
+    line
+;
+
+expr:
+    NUMBER
+    {
+        $$ = value();
+    }
+|
+    IDENT
+    {
+        $$ = variable();
+    }
+|
+    '-' expr            %prec uMinus
+    {
+        $$ = unary('-', $2);
+    }
+|
+    '~' expr            %prec uMinus
+    {
+        $$ = unary('~', $2);
+    }
+|
+    expr '+' expr
+    {
+        $$ = binary($1, '+', $3);
+    }    
+|
+    expr '-' expr
+    {
+        $$ = binary($1, '-', $3);
+    }    
+|
+    expr '*' expr
+    {
+        $$ = binary($1, '*', $3);
+    }    
+|
+    expr '/' expr
+    {
+        $$ = binary($1, '/', $3);
+    }    
+|
+    expr '%' expr
+    {
+        $$ = binary($1, '%', $3);
+    }    
+|
+    expr '&amp;' expr
+    {
+        $$ = binary($1, '&amp;', $3);
+    }    
+|
+    expr '^' expr
+    {
+        $$ = binary($1, '^', $3);
+    }    
+|
+    expr '|' expr
+    {
+        $$ = binary($1, '|', $3);
+    }    
+|
+    expr RIGHTSHIFT expr
+    {
+        $$ = binary($1, RIGHTSHIFT, $3);
+    }    
+|
+    expr LEFTSHIFT expr
+    {
+        $$ = binary($1, LEFTSHIFT, $3);
+    }    
+|
+    '(' expr ')'
+    {
+        $$ = $2;
+    }
+|
+    expr '=' expr
+    {
+        $$ = assign($1, '=', $3);
+    }
+|
+    expr ADDA expr
+    {
+        $$ = assign($1, ADDA, $3);
+    }
+|
+    expr SUBA expr
+    {
+        $$ = assign($1, SUBA, $3);
+    }
+|
+    expr MULA expr
+    {
+        $$ = assign($1, MULA, $3);
+    }
+|
+    expr DIVA expr
+    {
+        $$ = assign($1, DIVA, $3);
+    }
+|
+    expr MODA expr
+    {
+        $$ = assign($1, MODA, $3);
+    }
+|
+    expr ANDA expr
+    {
+        $$ = assign($1, ANDA, $3);
+    }
+|
+    expr ORA expr
+    {
+        $$ = assign($1, ORA, $3);
+    }
+|
+    expr XORA expr
+    {
+        $$ = assign($1, XORA, $3);
+    }
+|
+    expr LSHIFTA expr
+    {
+        $$ = assign($1, LSHIFTA, $3);
+    }
+|
+    expr RSHIFTA expr
+    {
+        $$ = assign($1, RSHIFTA, $3);
+    }
+;
+
+line:
+    QUIT
+    '\n'
+    {
+        ACCEPT();
+    }
+|
+    LIST
+    '\n'    
+    {
+        list();
+    }
+|
+    expr
+    '\n'
+    {
+        display($1);
+    }
+|
+    error
+    '\n'
+    {
+        prompt();
+    }
+|
+    '\n'
+    {
+        prompt();
+    }
+;
+</pre>
+
+        <pre>%interactive
+%filenames scanner
+
+digits  [0-9]+
+e       [eE]
+sign    [-+]
+
+%%
+
+[ \t]+
+
+{digits}                                |
+{digits}"."                             |
+{digits}"."{digits}                     |
+{digits}{e}{sign}{digits}               |
+{digits}"."{e}{sign}{digits}            |
+{digits}"."{digits}{e}{sign}{digits}    return Parser::NUMBER;
+
+"+="                                    return Parser::ADDA;
+"-="                                    return Parser::SUBA;
+"*="                                    return Parser::MULA;
+"/="                                    return Parser::DIVA;
+"%="                                    return Parser::MODA;
+"&amp;="                                    return Parser::ANDA;
+"^="                                    return Parser::XORA;
+"|="                                    return Parser::ORA;
+"&lt;&lt;="                                   return Parser::LSHIFTA;
+"&gt;&gt;="                                   return Parser::RSHIFTA;
+
+"&lt;&lt;"                                    return Parser::LEFTSHIFT;
+"&gt;&gt;"                                    return Parser::RIGHTSHIFT;
+
+list                                    return Parser::LIST;
+
+quit|exit                               return Parser::QUIT;
+
+[a-zA-Z_][a-zA-Z_0-9]*                  return Parser::IDENT;
+
+\n|.                                    return matched()[0];
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 47.</strong>
+            <br>
+            Purpose of this exercise: learn to change the behavior of a well-known
+grammar.
+<p>
+We're all familiar with the common rules of arithmetic. But let's confuse our
+friends and family with a calculator actiing stangely.
+</p><p>
+Construct a small interactive calculator that has the following
+characteristics:
+    </p><ul>
+    <li> It supports the familiar +, -, *, and / operators
+    </li><li> It supports the unary - operator
+    </li><li> Parentheses may be used in expressions
+    </li></ul>
+<p>
+So far so good, but:
+    </p><ul>
+    <li> The '+' operator multiplies, the '-' operator adds, the '*' operator
+        divides, the '/' operator subtracts.
+    </li><li> The '*' and '-' operators are right associative;
+    </li><li> The '-' operator has the highest priority, then '/', then
+        '*', then '+';
+    </li><li> The unary minus operator has the lowest priority of all
+    </li><li> Although parentheses may be used, they are <em>completely</em> ignored.
+        So, an expression like <code>(3 + 5) * 4</code> is evaluated as <code>3 + 5 * 4</code>
+        (in our grammar resulting in the value 23)
+    </li><li> Only integral numbers are used on input; but computations use
+        <code>double</code> values.
+    </li><li> Checking for divisions by zero is not required.
+    </li><li> To end the program enter an empty line.
+    </li></ul>
+<p>
+Syntax errors simply result in the message <em>syntax error</em>, followed by
+the next prompt. The prompt is a simple <code>&gt; </code> at the beginning of lines.
+</p><p>
+<br><strong>Answer:</strong><br>
+    Parenthesis can simply be handled by the scanner, by ignoring them. Here
+is the scanner specification file:
+        </p><pre>%filenames scanner
+
+%interactive
+//%debug
+
+%%
+
+[ \t()]+                        // skip white space, but also the ( ) chars
+                                // to get rid of nested expressions
+
+[[:digit:]]+                    return Parser::NUMBER;
+
+.|\n                            return matched()[0];
+
+</pre>
+
+<p>
+The grammar specification does all the tricks:
+        </p><pre>%filenames parser
+%scanner ../scanner/scanner.h
+
+%stype   double
+
+%token NUMBER
+
+//    it() The '*' and '-' operators are right associative;
+//    it() The '-' operator has the highest priority, then '/', then
+//        '*', then '+';
+//    it() The unary minus operator has the lowest priority of all
+
+%right UMIN
+%left  '+'
+%right '*'
+%left  '/'
+%right '-'
+
+
+%%
+//  Define the start-rule below (the name `startrule' may be altered)
+
+startrule:
+    startrule expression
+|
+    expression
+;
+
+expression:
+    expr '\n'
+    {
+        cout &lt;&lt; $1 &lt;&lt; "\n";
+        prompt();
+    }
+|
+    error '\n'
+    {
+        prompt();
+    }
+|
+    '\n'
+    {
+        cout &lt;&lt; "Bye!\n";
+        ACCEPT();
+    }
+;
+
+//  it() The '+' operator multiplies, the '-' operator adds, the '*' operator
+//      divides, the '/' operator subtracts.
+
+expr:
+    NUMBER
+    {
+        $$ = stod(d_scanner.matched());
+    }
+|
+    expr '+' expr
+    {
+        $$ = $1 * $3;
+    }
+|
+    expr '-' expr
+    {
+        $$ = $1 + $3;
+    }
+|
+    expr '*' expr
+    {
+        $$ = $1 / $3;
+    }
+|
+    expr '/' expr
+    {
+        $$ = $1 - $3;
+    }
+|
+    '-' expr    %prec UMIN
+    {
+        $$ = -$2;
+    }
+;
+
+
+
+
+
+
+</pre>
+
+<p>
+The initial prompt is handled by the parser's constructor:
+        </p><pre>// Generated by Bisonc++ V5.00.00 on Thu, 14 Apr 2016 14:50:33 +0530
+
+#ifndef Parser_h_included
+#define Parser_h_included
+
+// $insert baseclass
+#include "parserbase.h"
+// $insert scanner.h
+#include "../scanner/scanner.h"
+
+
+#undef Parser
+class Parser: public ParserBase
+{
+    // $insert scannerobject
+    Scanner d_scanner;
+        
+    public:
+        Parser();
+        int parse();
+
+    private:
+        void prompt() const;
+        void error(char const *msg);    // called on (syntax) errors
+        int lex();                      // returns the next token from the
+                                        // lexical scanner. 
+        void print();                   // use, e.g., d_token, d_loc
+
+    // support functions for parse():
+        void executeAction(int ruleNr);
+        void errorRecovery();
+        int lookup(bool recovery);
+        void nextToken();
+        void print__();
+        void exceptionHandler__(std::exception const &amp;exc);
+};
+
+inline Parser::Parser()
+{
+    prompt();
+}
+
+inline void Parser::prompt() const
+{
+    std::cout &lt;&lt; "&gt; " &lt;&lt; std::flush;
+}
+
+#endif
+</pre>
+
+<p>
+Here's the program's <code>main</code> function:
+        </p><pre>#include "parser/parser.h"
+
+int main()
+{
+    Parser parser;
+    parser.parse();
+}
+</pre>
+
+<p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 48.</strong>
+            <br>
+                Purpose: learn to implement (standard) functions in a grammar
+<p>
+Implement the standard arithmetic functions (<code>exp(), ln(), sin(),
+asin(), sqrt(), abs()</code>) and friends. Also, implement the commands <code>rad</code>
+(angles are displayed and expected in randians), <code>deg</code> (angles in 360-degree
+values), <code>grad</code> (angles in 400-degree values). Also, predefine the math
+constants <code>e</code> and <code>pi</code>, which are therefore immutable constants, and not
+variables anymore.
+</p><p>
+The relationship between radians and degrees: 
+        </p><pre>
+    2 * pi radians == 360 deg. == 400 grad.
+        
+</pre>
+
+    Do something sensible when an illegal operation is requested, like showing
+an error message. Do not terminate the program in those cases.
+<p>
+Submit the modified grammar and lexer specification files, and show
+how you prevent the use of constants as variables.
+</p><p>
+<br><strong>Answer:</strong><br>    
+        The program can be downloaded from here:
+<a href="https://www.icce.rug.nl/edu/3/parsers2/fun.tgz">fun.tgz</a>. 
+</p><p>
+<br><br>
+</p><p>
+              
+       
+        
+            </p><hr>
+            <strong>Exercise 49.</strong>
+            <br>
+                Purpose: Convert a union-semantic value type to a semantic value defined
+as a polymorphic base class.
+<p>
+Consider the following simple partial grammar specification:
+            </p><pre>
+    %token INT STRING DOUBLE QUIT
+
+    %union 
+    {
+        int     iv;
+        string *sp;
+        double  d;
+    }
+
+    %%
+    
+    lines:
+        lines '\n' line
+    |
+        line
+    ;
+
+    line:
+        INT
+        {
+            showInt($1);
+        }
+    |
+        STRING
+        {
+            showString($1);
+        }
+    |
+        DOUBLE 
+        {
+            showDouble($1);
+        }
+    |
+        QUIT
+        {
+            quit();
+        }
+    ;
+        
+</pre>
+
+<p>
+</p><ul>
+    <li> Complete the above grammar without modifying the production
+rules. Submit the <code>parser.h</code> header file and the completed grammar
+specification, and use a polymorphic value type instead of <code>%union</code>.
+<p>
+</p></li><li> Provide the matching lexical scanner specification and <code>scanner.h</code>
+header file. The scanner ignores blanks. Define an <code>INT</code> as a plain sequence
+of decimal digits; a <code>DOUBLE</code> as a sequence of digits and at most one dot; a
+<code>STRING</code> is any other series of characters, except for the newline and the
+word <code>quit</code>.
+<p>
+</p></li><li> Change the modified grammer so that the lexical scanner can keep its
+usual simplicity. Submit the modified grammar and lexer specification files.
+    </li></ul>
+<p>
+<br><strong>Answer:</strong><br>
+    The final chapter of the <strong>C++</strong> annotations contains sections elaborating
+the use of  polymorphic semantic values. Also, <code>bisonc++</code>'s manual page
+offers a lot of information about using polymorphic semantic values. 
+</p><p>
+</p><ul>
+    <li> <em>Complete the above grammar without modifying the production
+rules.</em> 
+<p>
+</p><pre>
+%filenames parser
+%token INT STRING DOUBLE QUIT
+%polymorphic INT: int; STRING: std::string; DOUBLE: double;
+
+%type &lt;INT&gt; INT
+%type &lt;DOUBLE&gt; DOUBLE
+%type &lt;STRING&gt; STRING
+
+%%
+
+lines:
+    lines '\n' line
+|
+    line
+;
+
+line:
+    INT
+    {
+        showInt($1);
+    }
+|
+    STRING
+    {
+        showString($1);
+    }
+|
+    DOUBLE 
+    {
+        showDouble($1);
+    }
+|
+    QUIT
+    {
+        quit();
+    }
+;
+        
+</pre>
+
+    Since the above setup requires the scanner to produce semantic values the
+scanner must have access to the semantic value type. By itself not a problem,
+but it needlessly complicates the communication between the parser and the
+scanner. A better approach is to define additional non-terminals, initializing
+the various semantic values. Here is the modified grammar:
+<p>
+</p><pre>%filenames parser
+%token INT STRING DOUBLE QUIT
+%scanner ../scanner/scanner.h
+
+%polymorphic INT: int; STRING: std::string; DOUBLE: double;
+
+%type &lt;INT&gt;     int
+%type &lt;DOUBLE&gt;  double
+%type &lt;STRING&gt;  string
+
+%%
+
+lines:
+    lines '\n' line
+|
+    line
+;
+
+line:
+    int
+    {
+        showInt($1);
+    }
+|
+    string
+    {
+        showString($1);
+    }
+|
+    double 
+    {
+        showDouble($1);
+    }
+|
+    QUIT
+    {
+        quit();
+    }
+;
+
+int:
+    INT
+    {
+        $$ = stoll(d_scanner.matched());
+    }
+;
+
+double:
+    DOUBLE
+    {
+        $$ = stod(d_scanner.matched());
+    }
+;
+
+string:
+    STRING
+    {
+        $$ = d_scanner.matched();
+    }
+;
+
+</pre>
+
+<p>
+Here is  <code>parser.h</code>:
+</p><p>
+</p><pre>// Generated by Bisonc++ V4.02.01 on Wed, 13 Mar 2013 13:09:13 +0100
+
+#ifndef Parser_h_included
+#define Parser_h_included
+
+// $insert baseclass
+#include "parserbase.h"
+// $insert scanner.h
+#include "../scanner/scanner.h"
+
+#undef Parser
+class Parser: public ParserBase
+{
+    // $insert scannerobject
+    Scanner d_scanner;                 
+
+    public:
+        int parse();
+
+    private:
+        void showInt(int);
+        void showString(std::string const &amp;str);
+        void showDouble(double);
+        void quit();
+        void error(char const *msg);    // called on (syntax) errors
+        int lex();                      // returns the next token from the
+                                        // lexical scanner. 
+        void print();                   // use, e.g., d_token, d_loc
+
+    // support functions for parse():
+        void executeAction(int ruleNr);
+        void errorRecovery();
+        int lookup(bool recovery);
+        void nextToken();
+        void print__();
+        void exceptionHandler__(std::exception const &amp;exc);
+};
+
+
+#endif
+</pre>
+
+<p>
+</p></li><li> <em>Define a polymorphic semantic value base class <code>Base</code> and
+required derived classes so that the grammar's rules can remain unaltered but
+the <code>%union</code> specification can be removed.</em>
+<p>
+The base class is defined in the <code>parserbase.h</code> file (the class
+<code>Base</code>, defined in the namespace <code>Meta__</code>):
+</p><p>
+</p><pre>        // The Base class: 
+        // Individual semantic value classes are derived from this class.
+        // This class offers a member returning the value's Tag__
+        // and two member templates get() offering const/non-const access to
+        // the actual semantic value type.
+    class Base
+    {
+        Tag__ d_tag;
+    
+        protected:
+            Base(Tag__ tag);
+
+        public:
+            Base(Base const &amp;other) = delete;
+            virtual ~Base();
+
+            Tag__ tag() const;
+    
+            template &lt;Tag__ tg_&gt;
+            typename TypeOf&lt;tg_&gt;::ReturnType get() const;
+    
+            template &lt;Tag__ tg_&gt;
+            typename TypeOf&lt;tg_&gt;::DataType &amp;get();
+    };
+
+</pre>
+
+<p>
+</p></li><li> <em>In addition to the grammar and <code>parser.h</code> header file submit the
+full implementation of one of the classes derived from <code>Base</code>.</em>
+<p>
+Also in <code>parserbase.h</code>, the class <code>Semantic</code>:
+</p><p>
+</p><pre>    
+        // The class Semantic is derived from Base. It stores a particular
+        // semantic value type. The stored data are declared 'mutable' to
+        // allow the definitions of a const and non-const conversion operator.
+        // This way, const objects continue to offer non-modifiable data
+    template &lt;Tag__ tg_&gt;
+    class Semantic: public Base
+    {
+        typedef typename TypeOf&lt;tg_&gt;::DataType DataType;
+    
+        mutable DataType d_data;
+    
+        public:
+            typedef typename TypeOf&lt;tg_&gt;::ReturnType ReturnType;
+    
+                // The default constructor and constructors for 
+                // defined data types are available
+            Semantic();
+            Semantic(DataType const &amp;data);
+            Semantic(DataType &amp;&amp;tmp);
+
+                // Conversion operators allow const/non-const access to d_data
+            operator ReturnType() const;
+            operator DataType &amp;();
+    };
+
+
+</pre>
+
+<p>
+and the class <code>Stype</code>, wrapping <code>std::shared_ptr&lt;Base&gt;</code>:
+</p><p>
+</p><pre>        // The class Stype wraps the shared_ptr holding a pointer to Base.
+        // It becomes the polymorphic STYPE__
+        // Constructors expect (l/r-value) references to defined semantic
+        // value types.
+        // It also wraps Base's get members, allowing constructions like
+        // $$.get&lt;INT&gt; to be used, rather than $$-&gt;get&lt;INT&gt;.
+        // Furthermore, its operator= can be used to assign a Semantic *
+        // directly to the SType object. The free functions (in the parser's
+        // namespace (if defined)) semantic__ can be used to obtain a 
+        // Semantic *. 
+    class SType: public std::shared_ptr&lt;Base&gt;
+    {
+        public:
+            SType() = default;
+            SType(SType const &amp;other) = default;
+            SType(SType &amp;&amp;tmp) = default;
+        
+            SType &amp;operator=(SType const &amp;rhs) = default;
+            SType &amp;operator=(SType &amp;&amp;tmp) = default;
+            template &lt;typename Tp_&gt;
+            SType &amp;operator=(Tp_ &amp;&amp;value);
+
+            Tag__ tag() const;
+
+                // this get()-member checks for 0-pointer and correct tag 
+                // in shared_ptr&lt;Base&gt;, and may throw a logic_error
+            template &lt;Tag__ tg_&gt;                    
+            typename TypeOf&lt;tg_&gt;::ReturnType get() const;
+    
+                // this get()-member checks for 0-pointer and correct tag 
+                // in shared_ptr&lt;Base&gt;, and resets the shared_ptr's Base * 
+                // to point to Meta::__Semantic&lt;tg_&gt;() if not
+            template &lt;Tag__ tg_&gt;
+            typename TypeOf&lt;tg_&gt;::DataType &amp;get();
+
+                // the data()-members do not check, and may result in a 
+                // bad_cast exception or segfault if used incorrectly
+
+            template &lt;Tag__ tg_&gt;
+            typename TypeOf&lt;tg_&gt;::ReturnType data() const;
+
+            template &lt;Tag__ tg_&gt;
+            typename TypeOf&lt;tg_&gt;::DataType &amp;data();
+    };
+
+</pre>
+
+<p>
+Polymorphic values are implemented using templates. Here are the
+implementations generated by <code>bisonc++</code>: first the various constructors,
+then the overloaded <code>get</code> and <code>data</code> members, and finally the assignment
+operator, using a support class template <code>Assign</code>:
+</p><p>
+</p><pre>
+// $insert polymorphicInline
+namespace Meta__
+{
+
+inline Base::Base(Tag__ tag)
+:
+    d_tag(tag)
+{}
+
+inline Tag__ Base::tag() const
+{
+    return d_tag;
+}
+
+template &lt;Tag__ tg_&gt;
+inline Semantic&lt;tg_&gt;::Semantic()
+:
+    Base(tg_),
+    d_data(typename TypeOf&lt;tg_&gt;::DataType())
+{}
+
+template &lt;Tag__ tg_&gt;
+inline Semantic&lt;tg_&gt;::Semantic(typename TypeOf&lt;tg_&gt;::DataType const &amp;data)
+:
+    Base(tg_),
+    d_data(data)
+{}
+
+template &lt;Tag__ tg_&gt;
+inline Semantic&lt;tg_&gt;::Semantic(typename TypeOf&lt;tg_&gt;::DataType &amp;&amp;tmp)
+:
+    Base(tg_),
+    d_data(std::move(tmp))
+{}
+
+template &lt;Tag__ tg_&gt;
+inline Semantic&lt;tg_&gt;::operator ReturnType() const
+{
+    return d_data;
+}
+
+template &lt;Tag__ tg_&gt;
+inline Semantic&lt;tg_&gt;::operator typename Semantic&lt;tg_&gt;::DataType &amp;()
+{
+    return d_data;
+}
+
+template &lt;Tag__ tg_&gt;
+inline typename TypeOf&lt;tg_&gt;::ReturnType Base::get() const
+{
+    return dynamic_cast&lt;Semantic&lt;tg_&gt; const &amp;&gt;(*this);
+}
+
+template &lt;Tag__ tg_&gt;
+inline typename TypeOf&lt;tg_&gt;::DataType &amp;Base::get()
+{
+    return dynamic_cast&lt;Semantic&lt;tg_&gt; &amp;&gt;(*this);
+}
+
+inline Tag__ SType::tag() const
+{
+    return std::shared_ptr&lt;Base&gt;::get()-&gt;tag();
+}
+    
+template &lt;Tag__ tg_&gt;
+inline typename TypeOf&lt;tg_&gt;::ReturnType SType::get() const
+{
+    if (std::shared_ptr&lt;Base&gt;::get() == 0  || tag() != tg_)
+        throw std::logic_error("undefined semantic value requested");
+
+    return std::shared_ptr&lt;Base&gt;::get()-&gt;get&lt;tg_&gt;();
+}
+
+template &lt;Tag__ tg_&gt;
+inline typename TypeOf&lt;tg_&gt;::DataType &amp;SType::get()
+{
+                    // if we're not yet holding a (tg_) value, initialize to 
+                    // a Semantic&lt;tg_&gt; holding a default value
+    if (std::shared_ptr&lt;Base&gt;::get() == 0 || tag() != tg_)
+        reset(new Semantic&lt;tg_&gt;());
+
+    return std::shared_ptr&lt;Base&gt;::get()-&gt;get&lt;tg_&gt;();
+}
+
+template &lt;Tag__ tg_&gt;
+inline typename TypeOf&lt;tg_&gt;::ReturnType SType::data() const
+{
+    return std::shared_ptr&lt;Base&gt;::get()-&gt;get&lt;tg_&gt;();
+}
+
+template &lt;Tag__ tg_&gt;
+inline typename TypeOf&lt;tg_&gt;::DataType &amp;SType::data()
+{
+    return std::shared_ptr&lt;Base&gt;::get()-&gt;get&lt;tg_&gt;();
+}
+
+template &lt;bool, typename Tp_&gt;
+struct Assign;
+
+template &lt;typename Tp_&gt;
+struct Assign&lt;true, Tp_&gt;
+{
+    static SType &amp;assign(SType *lhs, Tp_ &amp;&amp;tp);
+};
+
+template &lt;typename Tp_&gt;
+struct Assign&lt;false, Tp_&gt;
+{
+    static SType &amp;assign(SType *lhs, Tp_ const &amp;tp);
+};
+
+template &lt;&gt;
+struct Assign&lt;false, SType&gt;
+{
+    static SType &amp;assign(SType *lhs, SType const &amp;tp);
+};
+
+template &lt;typename Tp_&gt;
+inline SType &amp;Assign&lt;true, Tp_&gt;::assign(SType *lhs, Tp_ &amp;&amp;tp)
+{
+    lhs-&gt;reset(new Semantic&lt;TagOf&lt;Tp_&gt;::tag&gt;(std::move(tp)));
+    return *lhs;
+}
+
+template &lt;typename Tp_&gt;
+inline SType &amp;Assign&lt;false, Tp_&gt;::assign(SType *lhs, Tp_ const &amp;tp)
+{
+    lhs-&gt;reset(new Semantic&lt;TagOf&lt;Tp_&gt;::tag&gt;(tp));
+    return *lhs;
+}
+
+inline SType &amp;Assign&lt;false, SType&gt;::assign(SType *lhs, SType const &amp;tp)
+{
+    return lhs-&gt;operator=(tp);
+}
+
+template &lt;typename Tp_&gt;
+inline SType &amp;SType::operator=(Tp_ &amp;&amp;rhs) 
+{
+    return Assign&lt;
+                std::is_rvalue_reference&lt;Tp_ &amp;&amp;&gt;::value, 
+                typename std::remove_reference&lt;Tp_&gt;::type
+           &gt;::assign(this, std::forward&lt;Tp_&gt;(rhs));
+}
+
+} // namespace Meta__
+
+
+</pre>
+
+<p>
+</p></li></ul>
+<p>
+<br><br>
+</p><p>
+</p><hr>
+<ul>
+    <li> <a href="https://www.icce.rug.nl/edu/3/opgaven.html">Table of Contents</a>
+    </li><li> <a href="https://www.icce.rug.nl/edu/3/opgaven06.html">Previous Chapter</a>
+</li></ul>
+<hr>
+
+
+</body></html>
